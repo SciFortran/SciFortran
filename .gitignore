@@ -11,5 +11,5 @@ scifor_version.inc
 *build*/
 .DS_Store
 
-src/python/edipy2/__pycache__
 doc/utils/sphinxfortran/__pycache__
+doc/utils/f2py/__pycache__

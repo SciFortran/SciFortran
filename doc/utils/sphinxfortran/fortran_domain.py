@@ -230,7 +230,7 @@ class FortranCompleteField(FortranField, GroupedField):
             if fieldtype or fieldattrs:
                 par += nodes.emphasis(']', ']')
             if content:
-                par += nodes.Text(' :: ')
+                par += nodes.Text(' -- ')
                 par += content
             return par
 

@@ -985,6 +985,7 @@ class F90toRst(object):
         from sphinxfortran.fortran_domain import f_sep
         if falias:
             return ':f:%(kind)s:`%(falias)s<%(module)s%(f_sep)s%(falias)s>`' % locals()
+        #print(':f:%(kind)s:`%(module)s%(f_sep)s%(fname)s`' % locals())
         return ':f:%(kind)s:`%(module)s%(f_sep)s%(fname)s`' % locals()
         
 
