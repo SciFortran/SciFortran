@@ -525,7 +525,7 @@ class FortranObject(ObjectDescription):
                              typenames=('fieldtype', 'ftype'),
                              shapenames=('fshape',),
                              attrnames=('fattrs', 'fattr'),
-                             prefix='% ',
+                             prefix='',
                              strong=False,
                              can_collapse=False),
         FortranCompleteField('return', label=_('Return'),
