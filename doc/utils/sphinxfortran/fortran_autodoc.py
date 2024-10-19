@@ -769,7 +769,8 @@ class F90toRst(object):
             indent=0,
             bullet=None,
             nlc='\n',
-            strip=False):
+            strip=False,
+            sublines=None):
         """Convert a list of lines to text"""
         if not lines:
             return ''
@@ -782,6 +783,9 @@ class F90toRst(object):
         # Get current indentation for reduction
         if isinstance(lines, six.string_types):
             lines = [lines]
+        if sublines is not None:
+            if isinstance(sublines, six.string_types):
+                sublines = [sublines]
 
         # Split lines
         tmp = []
@@ -792,9 +796,23 @@ class F90toRst(object):
                 tmp.extend(line.splitlines())
         lines = tmp
         del tmp
+        
+        
+        if sublines is not None:
+            tmp = []
+            for line in sublines:
+                if not line:
+                    tmp.append(line)
+                else:
+                    tmp.extend(line.splitlines())
+            sublines = tmp
+            del tmp
+
 
         # Expand tabs
         lines = [line.expandtabs(4) for line in lines]
+        if sublines is not None:
+            sublines = [subline.expandtabs(4) for subline in sublines]
 
         # Strip
         if strip:
@@ -807,19 +825,41 @@ class F90toRst(object):
             del tmp
         if not lines:
             return ''
+        if sublines is not None:
+            if strip:
+                tmp = []
+                for line in sublines:
+                    if not tmp and not line:
+                        continue
+                    tmp.append(line)
+                sublines = tmp
+                del tmp
+            if not sublines:
+                return ''
 
         # Column of first non space car
         goodlines = [(len(line) - len(line.lstrip()))
                      for line in lines if line.expandtabs().strip()]
         firstchar = goodlines and min(goodlines) or 0
+        if sublines is not None:
+            goodsublines = [(len(line) - len(line.lstrip()))
+                     for line in sublines if line.expandtabs().strip()]
+            firstsubchar = goodsublines and min(goodsublines) or 0
+            del goodsublines
         del goodlines
 
         # Redent
         mylines = [self.indent(indent) + bullet + line[firstchar:]
                    for line in lines]
+        if sublines is not None:
+            mysublines = [self.indent(indent+1) + bullet + line[firstsubchar:]
+               for line in sublines]
 
         # Create text block
         text = nlc.join(mylines) + nlc
+        if sublines is not None:
+            text += nlc.join(mysublines) + nlc
+            del mysublines
         del mylines
         return text
 
@@ -961,16 +1001,21 @@ class F90toRst(object):
             if short:
                 use = ':use: '
             else:
-                use = self.format_subsection('Needed modules', indent=indent)
+                use = self.format_subsection('Used modules', indent=indent)
             lines = []
+            shortlines = []
+            funclines=[]
             for mname, monly in list(block['use'].items()):
 
                 # Reference to the module
                 line = (self.indent(indent) if not short else '') + \
                     ':f:mod:`%s`' % mname
-
+                shortline = (self.indent(indent) if not short else '') + \
+                    ':f:mod:`%s`' % mname
+                
+                funcline = (self.indent(indent) if not short else '')  
                 # Reference to the routines
-                if monly:
+                if monly:              
                     funcs = []
                     for fname, falias in list(monly['map'].items()):
                         func = self.format_funcref(fname, module=mname)
@@ -979,21 +1024,30 @@ class F90toRst(object):
                                 falias, module=mname)
                             func = '%s => %s' % (self.format_funcref(fname), falias)
                         funcs.append(func)
-                    line += ' (%s)' % ', '.join(funcs)
+                    shortline += ' (%s)' % ', '.join(funcs)
+                    funcline += '%s' % '\n '.join(funcs)
+                funclines.append([funcline])
 
                 # Short description
                 if mname in self.modules and not short:
                     sdesc = self.get_synopsis(self.modules[mname])
                     if sdesc:
                         line += ': ' + sdesc
+                        shortline += ': ' + sdesc
 
                 # Append
-                lines.append(line)
+                shortlines.append(shortline)
+                lines.append([line])
             if short:
-                use += ', '.join(lines)
+                use += ', '.join(shortlines)
                 use = self.format_lines(use, indent)
             else:
-                use += self.format_lines(lines, indent, bullet='-') + '\n'
+                for i in range(len(lines)):
+                    if funclines[i] == ['']:
+                        subln = None
+                    else:
+                        subln = funclines[i]
+                    use += self.format_lines(lines[i], indent, bullet='-',sublines=subln) + '\n'
             del lines
         return use
 
