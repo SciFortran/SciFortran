@@ -10,3 +10,6 @@ scifor_version.inc
 */test/*.dat.gz
 *build*/
 .DS_Store
+
+src/python/edipy2/__pycache__
+doc/utils/sphinxfortran/__pycache__

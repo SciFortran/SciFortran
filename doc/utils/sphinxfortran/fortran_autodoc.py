@@ -41,7 +41,7 @@ from builtins import range
 from builtins import object
 import six
 import re
-import os
+import os,sys
 from collections import OrderedDict
 from operator import itemgetter
 
@@ -743,11 +743,20 @@ class F90toRst(object):
 
     def is_member(self,object):
         """Define if an object have to be documented"""
-        name=object.get('name')
+        if self.members:
+            memberlist = self.members.split(",")
+            memberlist = [x.strip(' ') for x in memberlist]
+        if self.undoc_members:
+            undoclist = self.undoc_members.split(",")
+            undoclist = [x.strip(' ') for x in undoclist]
+        try:
+            name=object.get('name').strip()
+        except:
+            name=None
         ok='private' not in object.get('attrspec',[]) or self.exclude_private is None
         if ok:
-            if self.members: ok = name is None or name in self.members
-            if self.undoc_members: ok = name is None or name not in self.undoc_members
+            if self.members: ok = name is None or name in memberlist
+            if self.undoc_members: ok = name is None or name not in undoclist
         return ok
 
     def indent(self, n):
