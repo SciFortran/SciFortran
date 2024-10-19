@@ -1,4 +1,4 @@
-Build and Installation
+Install
 #########################
 
 
@@ -6,7 +6,6 @@ SciFortran is available in the form of a static Fortran library
 `libscifor.a` and the related Fortran module `SCIFOR`.
 Our build system relies on CMake. Experimental support for linking
 Intel's MKL is provided, although it may fail on some systems.
-
 
 
 Building SciFortran
@@ -29,8 +28,9 @@ Optionally [1]_ define the fortran compiler:
 From the repository directory (`cd scifor`) make a standard
 out-of-source CMake compilation:
 
-GNU Make
-------------
+
+**GNU Make**
+
 Using GNU `make` is the default CMake workflow, with widest version
 support (CMake > 3.0). Note that parallel `make` execution is tested
 and working.
@@ -44,8 +44,8 @@ and working.
 
 
 
-Ninja
-------------
+**Ninja**
+
 Using `ninja` if a fortran-capable [2]_ version of `ninja
 <https://ninja-build.org>`_ is available in your system (and CMake can
 [3]_ take advantage of it), you can use it to build the library at lightning, multi-threaded, speed. 
@@ -58,22 +58,24 @@ Using `ninja` if a fortran-capable [2]_ version of `ninja
    ninja
 
 The `CMake` compilation can be customized using the following
-additional variables (default values between `< >`):   
+additional variables (default values between `< >`, optional in `[ ]`):   
 
-* `-DPREFIX = prefix directory <~/opt/scifor/VERSION/PLATFORM/[GIT_BRANCH]>` 
+.. code-block:: bash
 
-* `-DUSE_MPI = <yes>/no`  
+   -DPREFIX = prefix directory   #<~/opt/scifor/VERSION/PLATFORM/[GIT_BRANCH]>
 
-* `-DVERBOSE = yes/<no>`  
+   -DUSE_MPI = <yes>/no        #set use of MPI 
 
-* `-DBUILD_TYPE = <RELEASE>/TESTING/DEBUG/AGGRESSIVE`  
+   -DVERBOSE = yes/<no>
 
-* `-DWITH_BLAS_LAPACK = yes/<no>`, to skip search of preinstalled linear algebra libraries and enforce compilation from source
+   -DBUILD_TYPE = <RELEASE>/TESTING/DEBUG/AGGRESSIVE  #compilation options. TESTING:mild or no optimization, DEBUG:relevant debugging options, AGGRESSIVE: all debug options of (might not compile on  some systems) 
 
-* `-DWITH_SCALAPACK = <yes>/no`, to link with preinstalled ScaLAPACK library, for parallel algebra support.
+   -DWITH_BLAS_LAPACK = yes/<no>   # skip search of preinstalled linear algebra libraries and enforce compilation from local source
+
+   -DWITH_SCALAPACK = <yes>/no       #search and link to available ScaLAPACK library
 
 
-Installation
+Install SciFortran
 ======================
 System-wide installation is completed after the build step using
 either:
@@ -126,7 +128,13 @@ platforms. Support for Windows, through `WSL <https://learn.microsoft.com/en-us/
 
 Some have reported issues concerning the wrong setup for the library `pkg-config` file, contained in  `$PREFIX/<PLAT>/<VERSION>/etc/scifor.pc`. The variable `Libs=-L${libdir} -lscifor <blas/lapack/scalapack>` produced by `cmake` during the configuration and installation process can be not properly defined for the part corresponding to third parties libraries such as Blas/Lapack/Scalapack. This breaks compilation against `scifor` whenever `pkg-config` is used to generate the linking options. 
 
-FIX: edit the `scifor.pc` file manually, overwriting the definition of the variable `Libs`, as appropriate for your system. 
+
+.. tip::
+
+   Corrupted `pkg-config` file can be fixed manually. Edit the
+   `scifor.pc` file  overwriting the definition of the variable
+   `Libs`, as appropriate for your system.
+   
 
 
 
@@ -134,8 +142,8 @@ FIX: edit the `scifor.pc` file manually, overwriting the definition of the varia
 
 
 
-.. rubric:: Footnotes
-
+.. rubric:: footnotes
+      
 .. [1] In some cases CMake fails to find the MPI fortran compiler,
        even if it is effectively installed and loaded into the
        system. An easy fix is to setup and export the `FC=mpif90`

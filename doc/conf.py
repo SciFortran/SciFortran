@@ -30,9 +30,9 @@ copyright = u'2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Be
 author = u'Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza'
 
 # The short X.Y version
-version = u'4.13.0'
+version = u'4.14.1'
 # The full version, including alpha/beta/rc tags
-release = u'beta 4.13.0'
+release = u'beta 4.14.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -84,7 +84,8 @@ fortran_src=[
     # os.path.abspath('../src/SF_SPARSE'),
     os.path.abspath('../src/SF_SPECIAL'),
     os.path.abspath('../src/SF_SP_LINALG'),
-    os.path.abspath('../src/SF_TIMER'),]
+    os.path.abspath('../src/SF_TIMER'),
+    ]
 
 #DEFAULT
 fortran_ext=['f90', 'f95']
@@ -108,7 +109,8 @@ language = "en"
 exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+# https://pygments.org/styles/
+pygments_style = 'github-dark' #'sphinx'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -127,6 +129,7 @@ html_css_files = [
 html_theme_options = {
   'collapse_navigation': True,
   'navigation_depth': 4,
+  'prev_next_buttons_location': 'both'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -182,7 +185,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'edipy2.tex', u'edipy2 documentation',
+    (master_doc, 'scifor.tex', u'SciFortran documentation',
      u'io', 'manual'),
 ]
 
@@ -192,7 +195,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'edipy2', u'edipy2 documentation',
+    (master_doc, 'scifor', u'SciFortran documentation',
      [author], 1)
 ]
 
@@ -203,8 +206,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'edipy2', u'edipy2 documentation',
-     author, 'edipy2', 'One line description of project.',
+    (master_doc, 'scifortran', u'SciFortran documentation',
+     author, 'Adriano Amaricci', 'An open-source Fortran library for mathematics, science and engineering',
      'Miscellaneous'),
 ]
 
