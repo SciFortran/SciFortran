@@ -260,8 +260,8 @@ for n in ['int', 'double', 'float', 'char', 'short', 'long', 'void', 'case', 'wh
           'flen', 'fshape',
           'string', 'complex_double', 'float_double', 'stdin', 'stderr', 'stdout',
           'type', 'default']:
-    badnames[n] = n + '_bn'
-    invbadnames[n + '_bn'] = n
+    badnames[n] = n
+    invbadnames[n] = n
 
 
 def rmbadname1(name):
@@ -1040,8 +1040,7 @@ def analyzeline(m, case, line):
 
         previous_context = (block, name, groupcounter)
         if args:
-            args = rmbadname([x.strip()
-                              for x in markoutercomma(args).split('@,@')])
+            args = [x.strip() for x in markoutercomma(args).split('@,@')]
         else:
             args = []
         if '' in args:
@@ -1111,7 +1110,7 @@ def analyzeline(m, case, line):
         if not name:
             name = 'unknown_' + block.replace(' ', '_')
         groupcache[groupcounter]['prefix'] = m.group('before')
-        groupcache[groupcounter]['name'] = rmbadname1(name)
+        groupcache[groupcounter]['name'] = name
         groupcache[groupcounter]['result'] = result
         if groupcounter == 1:
             groupcache[groupcounter]['from'] = currentfilename
@@ -1191,8 +1190,7 @@ def analyzeline(m, case, line):
         name, args, result, _= _resolvenameargspattern(m.group('after'))
         if name is not None:
             if args:
-                args = rmbadname([x.strip()
-                                  for x in markoutercomma(args).split('@,@')])
+                args = [x.strip() for x in markoutercomma(args).split('@,@')]
             else:
                 args = []
             assert result is None, repr(result)
@@ -1240,7 +1238,7 @@ def analyzeline(m, case, line):
                         case, repr(e)))
                     continue
             else:
-                k = rmbadname1(m1.group('name'))
+                k = m1.group('name')
             if case in ['public', 'private'] and \
                (k == 'operator' or k == 'assignment'):
                 k += m1.group('after')
@@ -1306,7 +1304,6 @@ def analyzeline(m, case, line):
                     'analyzeline: could not extract name,expr in parameter statement "%s" of "%s"\n' % (e, ll))
                 continue
             params = get_parameters(edecl)
-            k = rmbadname1(k)
             if k not in edecl:
                 edecl[k] = {}
             if '=' in edecl[k] and (not edecl[k]['='] == initexpr):
@@ -1435,7 +1432,7 @@ def analyzeline(m, case, line):
             if l[0].startswith('('):
                 outmess('analyzeline: implied-DO list "%s" is not supported. Skipping.\n' % l[0])
                 continue
-            for idx, v in enumerate(rmbadname([x.strip() for x in markoutercomma(l[0]).split('@,@')])):
+            for idx, v in enumerate([x.strip() for x in markoutercomma(l[0]).split('@,@')]):
                 if v.startswith('('):
                     outmess('analyzeline: implied-DO list "%s" is not supported. Skipping.\n' % v)
                     # XXX: subsequent init expressions may get wrong values.
@@ -1719,7 +1716,7 @@ def updatevars(typespec, selector, attrspec, entitydecl):
             outmess(
                 'updatevars: no name pattern found for entity=%s. Skipping.\n' % (repr(e)))
             continue
-        ename = rmbadname1(m.group('name'))
+        ename = m.group('name')
         edecl = {}
         if ename in groupcache[groupcounter]['vars']:
             edecl = groupcache[groupcounter]['vars'][ename].copy()
@@ -1868,7 +1865,7 @@ def cracktypespec(typespec, selector):
                 if not kindselect[k]:
                     del kindselect[k]
             for k, i in list(kindselect.items()):
-                kindselect[k] = rmbadname1(i)
+                kindselect[k] = i
         elif typespec == 'character':
             charselect = charselector.match(selector)
             if not charselect:
@@ -1895,7 +1892,7 @@ def cracktypespec(typespec, selector):
                 if not charselect[k]:
                     del charselect[k]
             for k, i in list(charselect.items()):
-                charselect[k] = rmbadname1(i)
+                charselect[k] = i
         elif typespec == 'type':
             typename = re.match(r'\s*\(\s*(?P<name>\w+)\s*\)', selector, re.I)
             if typename:
@@ -2198,7 +2195,7 @@ def analyzecommon(block):
                 if m.group('dims'):
                     dims = [x.strip()
                             for x in markoutercomma(m.group('dims')).split('@,@')]
-                n = rmbadname1(m.group('name').strip())
+                n = m.group('name').strip()
                 if n in block['vars']:
                     if 'attrspec' in block['vars'][n]:
                         block['vars'][n]['attrspec'].append(
@@ -2714,7 +2711,7 @@ def analyzevars(block):
                 if depend is not None:
                     if 'depend' not in vars[n]:
                         vars[n]['depend'] = []
-                    for c in rmbadname([x.strip() for x in markoutercomma(depend).split('@,@')]):
+                    for c in [x.strip() for x in markoutercomma(depend).split('@,@')]:
                         if c not in vars[n]['depend']:
                             vars[n]['depend'].append(c)
                     depend = None
@@ -2727,9 +2724,7 @@ def analyzevars(block):
                     check = None
             if dim and 'dimension' not in vars[n]:
                 vars[n]['dimension'] = []
-                for d in rmbadname(
-                        [x.strip() for x in markoutercomma(dim).split('@,@')]
-                ):
+                for d in [x.strip() for x in markoutercomma(dim).split('@,@')]:
                     # d is the expression inside the dimension declaration
                     # Evaluate `d` with respect to params
                     try:
