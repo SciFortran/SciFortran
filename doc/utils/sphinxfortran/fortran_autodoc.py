@@ -940,10 +940,13 @@ class F90toRst(object):
         kind = 'func'
         if fname in self.types:
             kind = 'type'
+        elif fname in self.variables:
+            kind = 'var'
         from sphinxfortran.fortran_domain import f_sep
         if falias:
-            return ':f:%(kind)s:`%(falias)s<~%(module)s%(f_sep)s%(fname)s>`' % locals()
-        return ':f:%(kind)s:`~%(module)s%(f_sep)s%(fname)s`' % locals()
+            return ':f:%(kind)s:`%(falias)s<%(module)s%(f_sep)s%(falias)s>`' % locals()
+        return ':f:%(kind)s:`%(module)s%(f_sep)s%(fname)s`' % locals()
+        
 
     def format_use(self, block, indent=0, short=False):
         """Format use statement
@@ -973,8 +976,8 @@ class F90toRst(object):
                         func = self.format_funcref(fname, module=mname)
                         if fname != falias:
                             falias = self.format_funcref(
-                                falias, module=mname, aliasof=fname)
-                            func = '%s => %s' % (falias, func)
+                                falias, module=mname)
+                            func = '%s => %s' % (self.format_funcref(fname), falias)
                         funcs.append(func)
                     line += ' (%s)' % ', '.join(funcs)
 
