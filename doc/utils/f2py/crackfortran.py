@@ -949,7 +949,7 @@ def _is_intent_callback(vdecl):
 def _resolvetypedefpattern(line):
     line = ''.join(line.split())  # removes whitespace
     m1 = typedefpattern.match(line)
-    print(line, m1)
+    #print(line, m1)
     if m1:
         attrs = m1.group('attributes')
         attrs = [a.lower() for a in attrs.split(',')] if attrs else []
@@ -3421,7 +3421,7 @@ def vars2fortran(block, vars, args, tab='', as_interface=False):
             if cont:
                 continue
         if a not in vars:
-            show(vars)
+            #show(vars)
             outmess('vars2fortran: No definition for argument "%s".\n' % a)
             continue
         if a == block['name']:
@@ -3436,7 +3436,7 @@ def vars2fortran(block, vars, args, tab='', as_interface=False):
                 if a in args:
                     ret = '%s%sexternal %s' % (ret, tab, a)
                 continue
-            show(vars[a])
+            #show(vars[a])
             outmess('vars2fortran: No typespec for argument "%s".\n' % a)
             continue
         vardef = vars[a]['typespec']
