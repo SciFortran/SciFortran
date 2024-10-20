@@ -700,7 +700,7 @@ class FortranObject(ObjectDescription):
             self.state.document.note_explicit_target(signode)
             objects = self.env.domaindata['f']['objects']
             if fullname in objects:
-                self.env.warn(
+                print(
                     self.env.docname,
                     'duplicate object description of %s, ' % fullname +
                     'other instance in ' +
@@ -1272,7 +1272,7 @@ class FortranDomain(Domain):
         if not matches:
             return None
         elif len(matches) > 1:
-            env.warn(fromdocname,
+            print(fromdocname,
                      'more than one target found for cross-reference '
                      '%r: %s' % (target,
                                  ', '.join(match[0] for match in matches)),
