@@ -909,7 +909,9 @@ def appenddecl(decl, decl2, force=1):
                 decl[k] = decl2[k]
         elif k == 'note':
             pass
-        elif k in ['intent', 'check', 'dimension', 'optional',
+        elif k == 'dimension':
+            pass
+        elif k in ['intent', 'check', 'optional',
                    'required', 'depend']:
             errmess('appenddecl: "%s" not implemented.\n' % k)
         else:

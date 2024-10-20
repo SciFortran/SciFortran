@@ -1148,8 +1148,8 @@ class F90toRst(object):
         #if vtype=='type': vtype = block['typename']
 
         vdim = self.format_argdim(blockvar)
-        if ':' in vdim:
-            vdim = vdim.replace(':', '*')
+        #if ':' in vdim:
+        #    vdim = vdim.replace(':', '*')
         vattr = self.format_argattr(blockvar)
         vdesc = blockvar['desc'] if 'desc' in blockvar else ''
         optional = 'attrspec' in blockvar and 'optional' in blockvar['attrspec']
