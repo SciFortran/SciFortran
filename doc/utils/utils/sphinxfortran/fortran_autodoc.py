@@ -50,7 +50,7 @@ from docutils.parsers.rst.directives import unchanged
 from docutils.statemachine import string2lines
 from sphinx.util.console import bold
 from glob import glob
-from f2py.crackfortran import crackfortran, fortrantypes
+from .crackfortran_for_sphinx import crackfortran, fortrantypes
 from sphinx.util import logging
 
 from sphinxfortran.fortran_domain import FortranDomain
@@ -129,9 +129,9 @@ class F90toRst(object):
 
         # Crack files
         global verbose, quiet
-        import f2py.crackfortran
-        self._verbose = f2py.crackfortran.verbose = verbose = vl
-        f2py.crackfortran.quiet = quiet = 1 - verbose
+        from . import crackfortran_for_sphinx
+        self._verbose = crackfortran_for_sphinx.verbose = verbose = vl
+        crackfortran_for_sphinx.quiet = quiet = 1 - verbose
         self.crack = []
         for ff in ffiles:
             self.crack.extend(crackfortran(ff))
