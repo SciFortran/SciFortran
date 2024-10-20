@@ -18,8 +18,6 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('./utils'))
 
-import recommonmark
-from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
 
 
@@ -47,13 +45,36 @@ release = u'beta 4.14.1'
 extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
-    'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
-    'recommonmark',
+    'myst_parser',
     'sphinx_rtd_theme',
     'sphinxfortran.fortran_domain',
     'sphinxfortran.fortran_autodoc'
 ]
+
+# MyST configuration
+myst_enable_extensions = [
+    "dollarmath",      # Enable both block and inline math
+    "amsmath",         # Adds AMS-style math features
+    "deflist",         # Enable definition list syntax
+    "colon_fence",     # Enable colon fences (alternative to triple backticks for code blocks)
+    "html_admonition", # Admonitions like `.. note::` or `.. warning::`
+    "html_image",      # Better control over image options
+]
+
+# Enable auto-generation of ToC
+myst_heading_anchors = 3  # To generate heading anchors for up to level 3
+
+# Other options
+myst_number_code_blocks = ['python']  # Example: auto-number Python code blocks
+myst_default_language = 'python'      # Set default language for code blocks if not specified
+myst_enable_html_img = True           # Allow using HTML <img> for better image control
+
+# MyST settings related to the table of contents
+myst_toc_tree = {
+    "maxdepth": 3,
+    "caption": "Contents",  # This replaces `auto_toc_tree_section`
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -228,20 +249,4 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
-
-
-# -- Extension configuration -------------------------------------------------
-
-# app setup hook
-def setup(app):
-    app.add_config_value('recommonmark_config', {
-        #'url_resolver': lambda url: github_doc_root + url,
-        'enable_auto_toc_tree': True,
-        'auto_toc_maxdepth': 3,
-        'auto_toc_tree_section': 'Contents',
-        'enable_math': True,
-        'enable_inline_math': True,
-        'enable_eval_rst': True,
-    }, True)
-    app.add_transform(AutoStructify)
 
