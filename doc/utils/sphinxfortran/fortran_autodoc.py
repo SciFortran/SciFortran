@@ -1114,6 +1114,7 @@ class F90toRst(object):
             vattr.append('/'.join(newattrs))
         if not vattr:
             return ''
+        vattr = list(filter(None, vattr))
         vattr = ','.join(vattr)
         return self._fmt_vattr % locals() if vattr else ''
 
