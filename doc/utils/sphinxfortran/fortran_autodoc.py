@@ -1286,6 +1286,7 @@ class F90toRst(object):
         args = OrderedDict()
         opts = OrderedDict()
         for name in block['implementedby']:
+            name = name.strip()
             #name=name.split()[-1]
             for a in self.routines[name]['args']:
                 if 'optional' in self.routines[name]['vars'][a].get('attrspec', []):
@@ -1357,6 +1358,7 @@ class F90toRst(object):
         elif blocktype == 'interface':
             args = {}
             for name in block['implementedby']:
+                name = name.strip()
                 #name=name.split()[-1]
                 for a in self.routines[name]['args']:
                     if a in args:
