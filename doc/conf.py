@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('./utils'))
 
 import sphinx_rtd_theme
+import sphinxfortran_ng
 
 
 # -- Project information -----------------------------------------------------
@@ -48,8 +49,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'myst_parser',
     'sphinx_rtd_theme',
-    'sphinxfortran.fortran_domain',
-    'sphinxfortran.fortran_autodoc'
+    'sphinxfortran_ng.fortran_domain',
+    'sphinxfortran_ng.fortran_autodoc'
 ]
 
 # MyST configuration
