@@ -84,7 +84,7 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-# source_suffix = ['.rst', '.md']
+# source_suffix = ['.rst', '.md']l
 source_suffix = '.rst'
 
 fortran_src=[
@@ -92,16 +92,16 @@ fortran_src=[
     os.path.abspath('../src/SF_ARRAYS'),
     os.path.abspath('../src/SF_COLORS'),
     os.path.abspath('../src/SF_CONSTANTS'),
-    # os.path.abspath('../src/SF_DERIVATE'),
+    os.path.abspath('../src/SF_DERIVATE'),
     os.path.abspath('../src/SF_FFT'),
     os.path.abspath('../src/SF_FONTS'),
-    # os.path.abspath('../src/SF_INTEGRATE'),
+    os.path.abspath('../src/SF_INTEGRATE'),
     os.path.abspath('../src/SF_INTERPOLATE'),
     os.path.abspath('../src/SF_IOTOOLS'),
     os.path.abspath('../src/SF_LINALG'),
     os.path.abspath('../src/SF_MISC'),
     os.path.abspath('../src/SF_MPI'),
-    # os.path.abspath('../src/SF_OPTIMIZE'),
+    os.path.abspath('../src/SF_OPTIMIZE/SF_OPTIMIZE.f90'),
     os.path.abspath('../src/SF_PARSE_INPUT'),
     os.path.abspath('../src/SF_RANDOM'),
     # os.path.abspath('../src/SF_SPARSE'),

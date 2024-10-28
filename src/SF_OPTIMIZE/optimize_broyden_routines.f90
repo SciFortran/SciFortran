@@ -42,13 +42,13 @@ contains
   !##################################################################
 
 
-  subroutine lnsrch(xold,fold,g,p,x,f,stpmax,check,func)
+  subroutine lnsrch(xold,fold,g,p,x,f,stpmax,icheck,func)
     real(8), dimension(:), intent(in) :: xold,g
     real(8), dimension(:), intent(inout) :: p
     real(8), intent(in) :: fold,stpmax
     real(8), dimension(:), intent(out) :: x
     real(8), intent(out) :: f
-    logical, intent(out) :: check
+    logical, intent(out) :: icheck
     interface
        function func(x)
          real(8)                          :: func
@@ -59,7 +59,7 @@ contains
     integer :: ndum
     real(8) :: a,alam,alam2,alamin,b,disc,f2,pabs,rhs1,rhs2,slope,tmplam
     ndum=assert_eq4(size(g),size(p),size(x),size(xold),'lnsrch')
-    check=.false.
+    icheck=.false.
     pabs=vabs(p(:))
     if (pabs > stpmax) p(:)=p(:)*stpmax/pabs
     slope=dot_product(g,p)
@@ -74,7 +74,7 @@ contains
        f=func(x)
        if (alam < alamin) then
           x(:)=xold(:)
-          check=.true.
+          icheck=.true.
           return
        else if (f <= fold+alf*alam*slope) then
           return

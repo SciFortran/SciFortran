@@ -116,7 +116,7 @@ subroutine bfgs_no_grad(func,x,l,u,nbd,factr,pgtol,iprint,nloop)
           csave, lsave, isave, dsave )
      if (task(1:2) .eq. 'FG') then  
         f=func(x)
-        g=f_jac_1n_func(func,size(x),x)
+        g=func_func_jacobian(func,size(x),x)
      endif
      if(present(nloop))then
         if(isave(30) .ge. nloop)task='STOP: TOTAL NO. of f AND g EVALUATIONS EXCEEDS LIMIT'

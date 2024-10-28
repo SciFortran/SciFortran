@@ -208,5 +208,5 @@ end subroutine fmin_cg_f
 function df(p) 
   real(8),dimension(:)       :: p
   real(8),dimension(size(p)) :: df
-  df=f_jac_1n_func(func,size(p),p)
+  df=func_func_jacobian(func,size(p),p)
 end function df

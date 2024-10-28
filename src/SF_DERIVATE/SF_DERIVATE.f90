@@ -12,27 +12,23 @@ MODULE SF_DERIVATE
   real(8),dimension(-1:1),parameter :: d_ccoeff_n2=[-1d0/2d0, 0d0, 1d0/2d0]
   real(8),dimension(-2:2),parameter :: d_ccoeff_n4=[1d0/12d0, -2d0/3d0, 0d0, 2d0/3d0, -1d0/12d0]
   real(8),dimension(-3:3),parameter :: d_ccoeff_n6=[-1d0/60d0, 3d0/20d0, -3d0/4d0, 0d0, 3d0/4d0, -3d0/20d0, 1d0/60d0] 
-  real(8),dimension(-4:4),parameter :: d_ccoeff_n8=[1d0/280d0, -4d0/105d0, 1d0/5d0, -4d0/5d0, 0d0, 4d0/5d0, -1d0/5d0, 4d0/105d0, &
-       -1d0/280d0]
+  real(8),dimension(-4:4),parameter :: d_ccoeff_n8=[1d0/280d0, -4d0/105d0, 1d0/5d0, -4d0/5d0, 0d0, 4d0/5d0, -1d0/5d0, 4d0/105d0, -1d0/280d0]
 
 
   real(8),dimension(-1:1),parameter :: d2_ccoeff_n2=[1d0, -2d0, 1d0]
   real(8),dimension(-2:2),parameter :: d2_ccoeff_n4=[-1d0/12d0, 4d0/3d0, -5d0/2d0, 4d0/3d0, -1d0/12d0]
   real(8),dimension(-3:3),parameter :: d2_ccoeff_n6=[1d0/90d0, -3d0/20d0, 3d0/2d0, -49d0/18d0, 3d0/2d0, -3d0/20d0, 1d0/90d0]
-  real(8),dimension(-4:4),parameter :: d2_ccoeff_n8=[-1d0/560d0, 8d0/315d0, -1d0/5d0, 8d0/5d0, -205d0/72d0, 8d0/5d0, -1d0/5d0, &
-       8d0/315d0, -1d0/560d0]
+  real(8),dimension(-4:4),parameter :: d2_ccoeff_n8=[-1d0/560d0, 8d0/315d0, -1d0/5d0, 8d0/5d0, -205d0/72d0, 8d0/5d0, -1d0/5d0, 8d0/315d0, -1d0/560d0]
 
 
   real(8),dimension(-2:2),parameter :: d3_ccoeff_n2=[-1d0/2d0, 1d0, 0d0, -1d0, 1d0/2d0]
   real(8),dimension(-3:3),parameter :: d3_ccoeff_n4=[1d0/8d0, -1d0, 13d0/8d0, 0d0, -13d0/8d0, 1d0, -1d0/8d0]
-  real(8),dimension(-4:4),parameter :: d3_ccoeff_n6=[-7d0/240d0, 3d0/10d0, -169d0/120d0, 61d0/30d0, 0d0, -61d0/30d0, 169d0/120d0, &
-       -3d0/10d0, 7d0/240d0]
+  real(8),dimension(-4:4),parameter :: d3_ccoeff_n6=[-7d0/240d0, 3d0/10d0, -169d0/120d0, 61d0/30d0, 0d0, -61d0/30d0, 169d0/120d0, -3d0/10d0, 7d0/240d0]
 
 
   real(8),dimension(-2:2),parameter :: d4_ccoeff_n2=[1d0, -4d0, 6d0, -4d0, 1d0]
   real(8),dimension(-3:3),parameter :: d4_ccoeff_n4=[-1d0/6d0, 2d0, -13d0/2d0, 28d0/3d0, -13d0/2d0, 2d0, -1d0/6d0]
-  real(8),dimension(-4:4),parameter :: d4_ccoeff_n6=[7d0/240d0, -2d0/5d0, 169d0/60d0, -122d0/15d0, 91d0/8d0, -122d0/15d0, &
-       169d0/60d0, -2d0/5d0, 7d0/240d0]
+  real(8),dimension(-4:4),parameter :: d4_ccoeff_n6=[7d0/240d0, -2d0/5d0, 169d0/60d0, -122d0/15d0, 91d0/8d0, -122d0/15d0, 169d0/60d0, -2d0/5d0, 7d0/240d0]
 
 
 
@@ -50,28 +46,22 @@ MODULE SF_DERIVATE
   real(8),dimension(0:3),parameter :: d2_fcoeff_n2=[2d0, -5d0, 4d0, -1d0]
   real(8),dimension(0:4),parameter :: d2_fcoeff_n3=[35d0/12d0, -26d0/3d0, 19d0/2d0, -14d0/3d0, 11d0/12d0]
   real(8),dimension(0:5),parameter :: d2_fcoeff_n4=[15d0/4d0, -77d0/6d0, 107d0/6d0, -13d0, 61d0/12d0, -5d0/6d0]
-  real(8),dimension(0:6),parameter :: d2_fcoeff_n5=[203d0/45d0, -87d0/5d0, 117d0/4d0, -254d0/9d0, 33d0/2d0, -27d0/5d0, &
-       137d0/180d0]
-  real(8),dimension(0:7),parameter :: d2_fcoeff_n6=[469d0/90d0, -223d0/10d0, 879d0/20d0, -949d0/18d0, 41d0, -201d0/10d0, &
-       1019d0/180d0, -7d0/10d0]
+  real(8),dimension(0:6),parameter :: d2_fcoeff_n5=[203d0/45d0, -87d0/5d0, 117d0/4d0, -254d0/9d0, 33d0/2d0, -27d0/5d0, 137d0/180d0]
+  real(8),dimension(0:7),parameter :: d2_fcoeff_n6=[469d0/90d0, -223d0/10d0, 879d0/20d0, -949d0/18d0, 41d0, -201d0/10d0, 1019d0/180d0, -7d0/10d0]
 
   real(8),dimension(0:3),parameter :: d3_fcoeff_n1=[-1d0, 3d0, -3d0, 1d0]
   real(8),dimension(0:4),parameter :: d3_fcoeff_n2=[-5d0/2d0, 9d0, -12d0, 7d0, -3d0/2d0]
   real(8),dimension(0:5),parameter :: d3_fcoeff_n3=[-17d0/4d0, 71d0/4d0, -59d0/2d0, 49d0/2d0, -41d0/4d0, 7d0/4d0]
   real(8),dimension(0:6),parameter :: d3_fcoeff_n4=[-49d0/8d0, 29d0, -461d0/8d0, 62d0, -307d0/8d0, 13d0, -15d0/8d0]
-  real(8),dimension(0:7),parameter :: d3_fcoeff_n5=[-967d0/120d0, 638d0/15d0, -3929d0/40d0, 389d0/3d0, -2545d0/24d0, &
-       268d0/5d0, -1849d0/120d0, 29d0/15d0]
-  real(8),dimension(0:8),parameter :: d3_fcoeff_n6=[-801d0/80d0, 349d0/6d0, -18353d0/120d0, 2391d0/10d0, -1457d0/6d0, &
-       4891d0/30d0, -561d0/8d0, 527d0/30d0, -469d0/240d0]
+  real(8),dimension(0:7),parameter :: d3_fcoeff_n5=[-967d0/120d0, 638d0/15d0, -3929d0/40d0, 389d0/3d0, -2545d0/24d0, 268d0/5d0, -1849d0/120d0, 29d0/15d0]
+  real(8),dimension(0:8),parameter :: d3_fcoeff_n6=[-801d0/80d0, 349d0/6d0, -18353d0/120d0, 2391d0/10d0, -1457d0/6d0, 4891d0/30d0, -561d0/8d0, 527d0/30d0, -469d0/240d0]
 
 
   real(8),dimension(0:4),parameter :: d4_fcoeff_n1=[1d0, -4d0, 6d0, -4d0, 1d0]
   real(8),dimension(0:5),parameter :: d4_fcoeff_n2=[3d0, -14d0, 26d0, -24d0, 11d0, -2d0]
   real(8),dimension(0:6),parameter :: d4_fcoeff_n3=[35d0/6d0, -31d0, 137d0/2d0, -242d0/3d0, 107d0/2d0, -19d0, 17d0/6d0]
-  real(8),dimension(0:7),parameter :: d4_fcoeff_n4=[28d0/3d0, -111d0/2d0, 142d0, -1219d0/6d0, 176d0, -185d0/2d0, &
-       82d0/3d0, -7d0/2d0]
-  real(8),dimension(0:8),parameter :: d4_fcoeff_n5=[1069d0/80d0, -1316d0/15d0, 15289d0/60d0, -2144d0/5d0, 10993d0/24d0, &
-       -4772d0/15d0, 2803d0/20d0, -536d0/15d0, 967d0/240d0]
+  real(8),dimension(0:7),parameter :: d4_fcoeff_n4=[28d0/3d0, -111d0/2d0, 142d0, -1219d0/6d0, 176d0, -185d0/2d0, 82d0/3d0, -7d0/2d0]
+  real(8),dimension(0:8),parameter :: d4_fcoeff_n5=[1069d0/80d0, -1316d0/15d0, 15289d0/60d0, -2144d0/5d0, 10993d0/24d0, -4772d0/15d0, 2803d0/20d0, -536d0/15d0, 967d0/240d0]
 
 
 
@@ -126,6 +116,7 @@ MODULE SF_DERIVATE
   public :: derivative4
   public :: derivativeN
 
+  
 contains
 
   function deriv(f,dh) result(df)

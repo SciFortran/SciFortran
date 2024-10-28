@@ -174,5 +174,5 @@ end subroutine fmin_cgplus_f
 function dfcn(p) 
   real(8),dimension(:)       :: p
   real(8),dimension(size(p)) :: dfcn
-  dfcn=f_jac_1n_func(func,size(p),p)
+  dfcn=func_func_jacobian(func,size(p),p)
 end function dfcn

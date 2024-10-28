@@ -1,11 +1,11 @@
-subroutine broyden1(ff,x,check,maxits,tol,tol1,tolmin,stpmx,noexit)
+subroutine broyden1(ff,x,icheck,maxits,tol,tol1,tolmin,stpmx,noexit)
   procedure(broydn_func)               :: ff
   real(8), dimension(:), intent(inout) :: x
   logical, optional                    :: noexit
-  logical, optional                    :: check
+  logical, optional                    :: icheck
   integer, optional                    :: maxits
   real(8), optional                    :: tol,tol1,tolmin,stpmx
-  logical                              :: check_
+  logical                              :: icheck_
   integer                              :: maxits_=200
   real(8)                              :: tolf_=1d-8,tolmin_=1d-7,stpmx_=100d0,tol1_
   real(8),parameter                    :: eps=epsilon(x),tolx=eps
@@ -36,8 +36,8 @@ subroutine broyden1(ff,x,check,maxits,tol,tol1,tolmin,stpmx,noexit)
   f=fmin_(x)
   ! if (maxval(abs(fvec(:))) < 0.01d0*TOLF_) then
   if (maxval(abs(fvec(:))) < Tol1_ ) then
-     check_=.false.
-     if(present(check))check=check_
+     icheck_=.false.
+     if(present(icheck))icheck=icheck_
      RETURN
   end if
   stpmax=STPMX_*max(vabs(x(:)),real(n,8))
@@ -98,13 +98,13 @@ subroutine broyden1(ff,x,check,maxits,tol,tol1,tolmin,stpmx,noexit)
      fvcold(:)=fvec(:)
      fold=f
      call rsolv(r,d,p)
-     call lnsrch(xold,fold,g,p,x,f,stpmax,check_,fmin_)
+     call lnsrch(xold,fold,g,p,x,f,stpmax,icheck_,fmin_)
      if (maxval(abs(fvec(:))) < TOLF_) then
-        check_=.false.
-        if(present(check))check=check_
+        icheck_=.false.
+        if(present(icheck))icheck=icheck_
         RETURN
      end if
-     if (check_) then
+     if (icheck_) then
         if (restrt .or. maxval(abs(g(:))*max(abs(x(:)), &
              1.0d0)/max(f,0.5d0*n)) < TOLMIN_) RETURN
         restrt=.true.
@@ -117,10 +117,10 @@ subroutine broyden1(ff,x,check,maxits,tol,tol1,tolmin,stpmx,noexit)
   print*,'MAXITS exceeded in broydn'
   if(noexit_)then
      noexit=.false.
-     if(present(check))check=check_
+     if(present(icheck))icheck=icheck_
      return
   else
-     if(present(check))check=check_
+     if(present(icheck))icheck=icheck_
      open(534,file="BROYDEN1_ERROR.err");write(534,*)"";close(534)
      stop
   endif
