@@ -18,8 +18,6 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('./utils'))
 
-import recommonmark
-from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
 import sphinxfortran_ng
 
@@ -48,7 +46,6 @@ release = u'beta 4.14.1'
 extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
-    'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
     'myst_parser',
     'sphinx_rtd_theme',
@@ -134,8 +131,7 @@ language = "en"
 exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-# https://pygments.org/styles/
-pygments_style = 'github-dark' #'sphinx'
+pygments_style = 'sphinx'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -170,7 +166,7 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {}
+html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'] }
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -259,19 +255,6 @@ epub_title = project
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
-
-# -- Extension configuration -------------------------------------------------
-
-# app setup hook
+#workaround: use mathjax on all pages
 def setup(app):
-    app.add_config_value('recommonmark_config', {
-        #'url_resolver': lambda url: github_doc_root + url,
-        'enable_auto_toc_tree': True,
-        'auto_toc_maxdepth': 3,
-        'auto_toc_tree_section': 'Contents',
-        'enable_math': True,
-        'enable_inline_math': True,
-        'enable_eval_rst': True,
-    }, True)
-    app.add_transform(AutoStructify)
-
+    app.set_html_assets_policy('always')
