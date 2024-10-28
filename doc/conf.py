@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.abspath('./utils'))
 import recommonmark
 from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
+import sphinxfortran_ng
 
 
 # -- Project information -----------------------------------------------------
@@ -49,11 +50,35 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
-    'recommonmark',
+    'myst_parser',
     'sphinx_rtd_theme',
-    'sphinxfortran.fortran_domain',
-    'sphinxfortran.fortran_autodoc'
+    'sphinxfortran_ng.fortran_domain',
+    'sphinxfortran_ng.fortran_autodoc'
 ]
+
+# MyST configuration
+myst_enable_extensions = [
+    "dollarmath",      # Enable both block and inline math
+    "amsmath",         # Adds AMS-style math features
+    "deflist",         # Enable definition list syntax
+    "colon_fence",     # Enable colon fences (alternative to triple backticks for code blocks)
+    "html_admonition", # Admonitions like `.. note::` or `.. warning::`
+    "html_image",      # Better control over image options
+]
+
+# Enable auto-generation of ToC
+myst_heading_anchors = 3  # To generate heading anchors for up to level 3
+
+# Other options
+myst_number_code_blocks = ['python']  # Example: auto-number Python code blocks
+myst_default_language = 'python'      # Set default language for code blocks if not specified
+myst_enable_html_img = True           # Allow using HTML <img> for better image control
+
+# MyST settings related to the table of contents
+myst_toc_tree = {
+    "maxdepth": 3,
+    "caption": "Contents",  # This replaces `auto_toc_tree_section`
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -79,7 +104,7 @@ fortran_src=[
     os.path.abspath('../src/SF_MISC'),
     os.path.abspath('../src/SF_MPI'),
     # os.path.abspath('../src/SF_OPTIMIZE'),
-    # os.path.abspath('../src/SF_PARSE_INPUT'),
+    os.path.abspath('../src/SF_PARSE_INPUT'),
     os.path.abspath('../src/SF_RANDOM'),
     # os.path.abspath('../src/SF_SPARSE'),
     os.path.abspath('../src/SF_SPECIAL'),
@@ -127,7 +152,7 @@ html_css_files = [
 # documentation.
 #
 html_theme_options = {
-  'collapse_navigation': True,
+  'collapse_navigation': False,
   'navigation_depth': 4,
   'prev_next_buttons_location': 'both'
 }
@@ -181,6 +206,11 @@ latex_elements = {
     # 'figure_align': 'htbp',
 }
 
+
+latex_elements = {
+    'preamble': [r'\usepackage{amsmath,amssymb,amsfonts}',r'\usepackage{mathtools}']
+}
+    
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
