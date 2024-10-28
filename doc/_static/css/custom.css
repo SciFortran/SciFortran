@@ -25,7 +25,13 @@
     color: #0077aa;  /* Blue for variable names */
 }
 
-.sig-prename {
+/* In types, bold fields */
+.sig-name.descname {
+    font-weight: bold;
+}
+
+/*remove the module name from the fortran functions*/
+.sig.sig-object.f .sig-prename {
     display: none;
 }
 

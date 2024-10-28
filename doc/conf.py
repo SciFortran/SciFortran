@@ -47,6 +47,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
     'myst_parser',
     'sphinx_rtd_theme',
     'sphinxfortran_ng.fortran_domain',
