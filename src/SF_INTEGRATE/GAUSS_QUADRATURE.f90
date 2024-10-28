@@ -468,7 +468,7 @@ contains
     integer,intent(out),optional                    :: ierr
     real(8),intent(out),optional                    :: err
     !
-    real(8),dimension(size(xl))                     :: tol_,ans_(1)
+    real(8),dimension(size(xl))                     :: tol_,ans_
     integer,dimension(size(xl))                     :: method_
     integer                                         :: ierr_
     real(8)                                         :: err_
