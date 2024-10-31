@@ -21,6 +21,7 @@
 ! Otherwise, truncation of the interval, or application of a suitable transformation for reducing the problem to a finite range may be possible. And you may also call QAGI.
 
 module SF_INTEGRATE
+!SciFortran module for function integration
   USE GAUSS_QUADRATURE
   implicit none
   private

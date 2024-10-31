@@ -7,6 +7,7 @@
   include "interpolate_pack.f90"
   include "interpolate_pppack.f90"
   module SF_INTERPOLATE
+ !SciFortran module for data interpolation
     USE INTERPOLATE_NR
     implicit none
     private

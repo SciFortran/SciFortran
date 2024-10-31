@@ -1,4 +1,5 @@
 module SF_CONSTANTS
+!SciFortran module for physical and mathematical constants
   implicit none
 
   !COMMONLY USED PARAMETERS

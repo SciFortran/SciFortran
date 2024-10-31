@@ -1,4 +1,5 @@
 module SF_RANDOM
+!SciFortran module for RNG
   implicit none
   private
 

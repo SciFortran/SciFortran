@@ -1,4 +1,5 @@
 MODULE SF_DERIVATE
+!SciFortran module for function differentiation
   implicit none
   private
 

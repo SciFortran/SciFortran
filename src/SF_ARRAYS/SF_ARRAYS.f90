@@ -1,4 +1,5 @@
 module SF_ARRAYS
+!SciFortran module for array creation and manipulation
   implicit none
 
   !ADD BUILDING MATRICES ROUTINES

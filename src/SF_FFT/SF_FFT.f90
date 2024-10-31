@@ -1,4 +1,5 @@
 MODULE SF_FFT_FFTPACK
+!SciFortran module for Fourier transform
   USE SF_INTEGRATE, only: simps
   USE SF_ARRAYS, only:linspace
   USE SF_CONSTANTS, only: pi2,xi,pi

@@ -1,4 +1,5 @@
 MODULE SF_OPTIMIZE
+!SciFortran module for minimization and root finding
   USE CGFIT_ROUTINES
   USE BROYDEN_ROUTINES
   !

@@ -1,4 +1,5 @@
 MODULE SF_IOTOOLS
+!SciFortran module for reading and writing data
   USE IOFILE
   USE IOPLOT
   USE IOREAD

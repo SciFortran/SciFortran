@@ -1,4 +1,5 @@
 MODULE SF_COLORS
+!SciFortran module for color definitions and manipulation
   implicit none
   !
   !RGB color type:

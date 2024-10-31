@@ -1,4 +1,5 @@
 module SF_PARSE_INPUT
+!SciFortran module for input file parsing
   USE LIST_INPUT, delete_input=>delete_input_list
   implicit none
   private

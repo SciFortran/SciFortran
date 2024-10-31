@@ -1,4 +1,5 @@
 module SF_TIMER
+!SciFortran module for timers
 #ifdef _MPI
   USE SF_MPI
 #endif

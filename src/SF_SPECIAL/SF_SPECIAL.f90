@@ -1,4 +1,5 @@
 module SF_SPECIAL
+!SciFortran module for specific functions and distributions
   USE SF_INTEGRATE, only: quad
   implicit none
   private

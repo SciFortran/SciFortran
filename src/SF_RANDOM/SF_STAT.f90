@@ -1,4 +1,5 @@
 MODULE SF_STAT
+!SciFortran module for statistical estimators and visualization
   USE SF_ARRAYS, only: linspace
   USE SF_INTEGRATE, only: simps
   USE SF_IOTOOLS, only: free_unit,splot3d

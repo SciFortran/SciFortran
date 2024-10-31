@@ -1,4 +1,5 @@
 MODULE SF_SPIN
+!SciFortan module for Pauli matrix algebra
   implicit none
   private
 

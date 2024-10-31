@@ -1,4 +1,5 @@
 MODULE SF_FONTS
+!SciFortran module for font customization
   implicit none
   private
 

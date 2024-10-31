@@ -1,4 +1,5 @@
 MODULE SF_MPI
+!SciFortran MPI interface
   implicit none
 #ifdef _MPI
   ! USE MPI

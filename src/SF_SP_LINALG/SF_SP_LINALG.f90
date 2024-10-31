@@ -1,4 +1,5 @@
 module SF_SP_LINALG
+!SciFortran module for Arpack/Lanczos diagonalization
   USE SF_MISC,   only: assert_shape
   USE SF_RANDOM, only: mt_random
   USE SF_LINALG, only: eye,eigh

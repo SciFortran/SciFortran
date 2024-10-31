@@ -1,4 +1,5 @@
 module SF_LINALG
+!SciFortran module for linear algebra
   USE SF_BLACS
   implicit none
   private
