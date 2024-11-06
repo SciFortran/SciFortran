@@ -86,9 +86,9 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   if(maxncv>Ns)then
      maxncv=Ns
      print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
-     !BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, from Xuanyu Long
-     call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   endif
+  !BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, from Xuanyu Long
+  call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !
   !
   n      = maxn
