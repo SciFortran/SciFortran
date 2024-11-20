@@ -46,6 +46,10 @@ subroutine fmin_cgminimize_func(p,fcn,iter,fret,ftol,itmax,iverbose,mode,new_ver
   endif
   !
   N=size(p)
+  !
+  !itmax is actually the number of calls to fcn
+  itmax_ = 2*N*itmax_
+  !
   allocate(x(N),g(N),h(N*N),w(100*N),xprmt(N))
   dfn=-0.5d0
   hh = 1d-5 ; if(present(hh_par))hh = hh_par
@@ -63,6 +67,14 @@ subroutine fmin_cgminimize_func(p,fcn,iter,fret,ftol,itmax,iverbose,mode,new_ver
      call minimize_krauth_(fcn_,n,x,f,g,h,w,&
           dfn,xprmt,hh,ftol_,mode_,itmax_,iprint_,iexit,itn)
   end select
+  !
+  if( iexit == 0 )then
+     write(*,"(A,I5)")"CG-minimize: IEXIT = 0, hessian matrix is not positive definite"
+  elseif( iexit == 2 )then
+    write(*,"(A,I5)")"CG-minimize: IEXIT = 2, G DX > 0"
+  elseif( iexit == 3 )then
+    write(*,"(A,I5)")"CG-minimize: IEXIT = 3, maximum number of calls to function exceeded"
+  endif
   !set output variables
   iter=itn
   fret=f
@@ -121,7 +133,11 @@ subroutine fmin_cgminimize_sub(p,fcn,iter,fret,ftol,itmax,iverbose,mode,new_vers
      mode_=mode_
      if(iverbose_)write(*,"(A,I5)")"CG-minimize: mode updated to:",mode       
   endif
-  n=size(p)
+  n=size(p)   
+  !
+  !itmax is actually the number of calls to fcn
+  itmax_ = 2*n*itmax_
+  !
   allocate(x(n),g(n),h(n*n),w(100*n),xprmt(n))
   dfn=-0.5d0
   hh = 1d-5 ; if(present(hh_par))hh = hh_par
@@ -139,6 +155,14 @@ subroutine fmin_cgminimize_sub(p,fcn,iter,fret,ftol,itmax,iverbose,mode,new_vers
      call minimize_krauth_(fcn,n,x,f,g,h,w,&
           dfn,xprmt,hh,ftol_,mode_,itmax_,iprint_,iexit,itn)
   end select
+  !
+  if( iexit == 0 )then
+     write(*,"(A,I5)")"CG-minimize: IEXIT = 0, hessian matrix is not positive definite"
+  elseif( iexit == 2 )then
+    write(*,"(A,I5)")"CG-minimize: IEXIT = 2, G DX > 0"
+  elseif( iexit == 3 )then
+    write(*,"(A,I5)")"CG-minimize: IEXIT = 3, maximum number of calls to function exceeded"
+  endif
   !set output variables
   iter=itn
   fret=f
