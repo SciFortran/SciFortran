@@ -76,8 +76,8 @@ contains
   !+-----------------------------------------------------------------+
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
-  function reg_filename(file) result(reg)
-    character(len=*)                                   :: file    
+  pure function reg_filename(file) result(reg)
+    character(len=*),intent(in)                        :: file    
     character(len=len_trim(trim(adjustl(trim(file))))) :: reg
     reg=trim(adjustl(trim(file)))
   end function reg_filename
