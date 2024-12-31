@@ -222,8 +222,8 @@ contains
        size = Get_Size_MPI(comm_)
        if(rank==0)write(*,'(a)')"---------------MPI----------------"
        do i=0,size-1
+          if(rank==i)write(*,"(A,I6,A,I6,A)")"rank:",rank," of ",size," alive"
           call MPI_Barrier(comm_,ierr)
-          if(rank==i)write(*,"(A,I6,A,I6,A)")"rank:",rank," of ",size," alive"          
        enddo
        call MPI_Barrier(comm_,ierr)
        if(rank==0)write(*,'(a)')"----------------------------------"

@@ -1,5 +1,6 @@
 MODULE SF_BLACS
   implicit none
+
   private
 
   integer :: p_rank=0
@@ -8,6 +9,7 @@ MODULE SF_BLACS
   integer :: p_Ny=0
   integer :: p_context=0
   logical :: blacs_status=.false.
+  integer :: ierr
 
   public :: p_rank
   public :: p_size
@@ -24,13 +26,17 @@ MODULE SF_BLACS
   public :: get_size_BLACS
   !
 
-
 contains
 
   subroutine init_BLACS()
-    integer :: i
+    USE MPI
+    integer :: i,j
     !< Initialize BLACS processor grid (like MPI)
-    call blacs_setup(p_rank,p_size)  ![id, size]
+    ! call blacs_setup(p_rank,p_size)  ![id, size]
+    !
+    call MPI_Init(ierr)
+    CALL MPI_COMM_RANK(MPI_COMM_WORLD,p_rank,ierr)
+    CALL MPI_COMM_SIZE(MPI_COMM_WORLD,p_size,ierr)
     !
     do i=1,int( sqrt( dble(p_size) ) + 1 )
        if(mod(p_size,i)==0) p_Nx = i
@@ -41,7 +47,27 @@ contains
     call sl_init(p_context,p_Nx,p_Ny)
     !
     blacs_status=.true.
+    !
+    if(p_rank==0)write(*,'(a)')"--------------BLACS---------------"
+    do i=0,p_size-1
+       if(p_rank==i)write(*,"(A,I6,A,I6,A)")"rank:",p_rank," of ",p_size," alive"
+       call MPI_Barrier(MPI_COMM_WORLD,ierr)
+    enddo
+    call MPI_Barrier(MPI_COMM_WORLD,ierr)
+    if(p_rank==0)write(*,'(a)')"----------------------------------"
+    call MPI_Barrier(MPI_COMM_WORLD,ierr)
+    if(p_rank==0)then
+       do i=1,p_Ny
+          write(*,"(*(A3))")(" * ",j=1,p_Nx)
+       enddo
+    endif
+    call MPI_Barrier(MPI_COMM_WORLD,ierr)
+    if(p_rank==0)write(*,'(a)')"----------------------------------"
+    if(p_rank==0)write(*,'(a)')""
+    !
   end subroutine init_BLACS
+
+
 
 
   subroutine finalize_BLACS(blacs_end)
@@ -52,6 +78,8 @@ contains
     call blacs_exit(blacs_end_)
     blacs_status=.false.
   end subroutine finalize_BLACS
+
+
 
 
   function get_master_BLACS() result(master)
