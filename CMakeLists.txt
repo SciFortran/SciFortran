@@ -1,14 +1,19 @@
 ##################################################
 # SCIFOR PROJECT
 ##################################################
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5.0)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10.0)
 PROJECT(scifor Fortran)
 
+#OS:
 MESSAGE(STATUS "OS: ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}")
+#BUILD_TYPE
 SET(BUILD_TYPE "RELEASE" CACHE STRING "Build type")
 STRING(TOUPPER "${BUILD_TYPE}" BUILD_TYPE)
 MESSAGE(STATUS "BUILD_TYPE=${BUILD_TYPE}")
 SET(CMAKE_BUILD_TYPE ${BUILD_TYPE} CACHE INTERNAL "Build type" FORCE)
+#MKL_MPI
+SET(MKL_MPI "openmpi" CACHE STRING "MKL MPI:intelmpi, mpich, *openmpi, msmpi, mshpc")
+
 
 # Add our local CMAKE modules to the module path
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
@@ -25,6 +30,8 @@ ELSE(VERBOSE)
   SET(CMAKE_VERBOSE_MAKEFILE OFF)
 ENDIF(VERBOSE)
 
+
+MESSAGE(STATUS "MKL_MPI = ${MKL_MPI}")
 
 ############################################################
 # Look for MPI if needed
