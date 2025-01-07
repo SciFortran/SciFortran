@@ -1,9 +1,46 @@
+subroutine data_readA0_R(pname,Y1)
+  integer          :: i,Np
+  character(len=*) :: pname
+  real(8)          :: Y1
+  !
+  call file_bunzip(reg(pname))
+  call ioread_control(pname,control)
+  !
+  open(free_unit(unit),file=reg(pname))
+  !
+  read(unit,*)Y1
+  close(unit)
+  call file_bzip(reg(pname))
+end subroutine data_readA0_R
+
+subroutine data_readA0_C(pname,Y1)
+  integer          :: i,Np
+  character(len=*) :: pname
+  complex(8)       :: Y1
+  !
+  call file_bunzip(reg(pname))
+  call ioread_control(pname,control)
+  !
+  open(free_unit(unit),file=reg(pname))
+  !
+  read(unit,*)Y1
+  close(unit)
+  call file_bzip(reg(pname))
+end subroutine data_readA0_C
+
+
+
+!------------------------------------------------------------------!
+!------------------------------------------------------------------!
+!------------------------------------------------------------------!
+
+
 subroutine data_readA1_R(pname,Y1)
   integer               :: i,Np
   character(len=*)      :: pname
   real(8),dimension(:)  :: Y1
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -14,7 +51,7 @@ subroutine data_readA1_R(pname,Y1)
      read(unit,*)Y1(i)
   enddo
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA1_R
 
 subroutine data_readA1_C(pname,Y1)
@@ -22,7 +59,7 @@ subroutine data_readA1_C(pname,Y1)
   character(len=*)       :: pname
   complex(8),dimension(:):: Y1
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -33,7 +70,7 @@ subroutine data_readA1_C(pname,Y1)
      read(unit,*)Y1(i)
   enddo
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA1_C
 
 
@@ -55,7 +92,7 @@ subroutine data_readA2_R(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -79,7 +116,7 @@ subroutine data_readA2_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA2_R
 
 subroutine data_readA2_C(pname,Y1,order,wspace)
@@ -93,7 +130,7 @@ subroutine data_readA2_C(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -117,7 +154,7 @@ subroutine data_readA2_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA2_C
 
 !------------------------------------------------------------------!
@@ -136,7 +173,7 @@ subroutine data_readA3_R(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -166,7 +203,7 @@ subroutine data_readA3_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA3_R
 
 subroutine data_readA3_C(pname,Y1,order,wspace)
@@ -181,7 +218,7 @@ subroutine data_readA3_C(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -211,7 +248,7 @@ subroutine data_readA3_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA3_C
 
 
@@ -235,7 +272,7 @@ subroutine data_readA4_R(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -270,7 +307,7 @@ subroutine data_readA4_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA4_R
 
 subroutine data_readA4_C(pname,Y1,order,wspace)
@@ -285,7 +322,7 @@ subroutine data_readA4_C(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -321,7 +358,7 @@ subroutine data_readA4_C(pname,Y1,order,wspace)
   end select
   !
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA4_C
 
 
@@ -344,7 +381,7 @@ subroutine data_readA5_R(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -385,7 +422,7 @@ subroutine data_readA5_R(pname,Y1,order,wspace)
   end select
   !
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA5_R
 
 subroutine data_readA5_C(pname,Y1,order,wspace)
@@ -400,7 +437,7 @@ subroutine data_readA5_C(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -441,7 +478,7 @@ subroutine data_readA5_C(pname,Y1,order,wspace)
   end select
   !
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA5_C
 
 
@@ -466,7 +503,7 @@ subroutine data_readA6_R(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -511,7 +548,7 @@ subroutine data_readA6_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA6_R
 
 subroutine data_readA6_C(pname,Y1,order,wspace)
@@ -526,7 +563,7 @@ subroutine data_readA6_C(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -571,7 +608,7 @@ subroutine data_readA6_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA6_C
 
 
@@ -597,7 +634,7 @@ subroutine data_readA7_R(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -647,7 +684,7 @@ subroutine data_readA7_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA7_R
 
 subroutine data_readA7_C(pname,Y1,order,wspace)
@@ -662,7 +699,7 @@ subroutine data_readA7_C(pname,Y1,order,wspace)
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
   wspace_= .true.; if(present(wspace))wspace_=wspace
   !
-  call file_gunzip(reg(pname))
+  call file_bunzip(reg(pname))
   call ioread_control(pname,control)
   !
   open(free_unit(unit),file=reg(pname))
@@ -712,5 +749,5 @@ subroutine data_readA7_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_readA7_C

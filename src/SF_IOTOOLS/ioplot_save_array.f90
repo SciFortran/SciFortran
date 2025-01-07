@@ -1,3 +1,27 @@
+subroutine data_saveA0_R(pname,Y1)
+  integer          :: i
+  character(len=*) :: pname
+  real(8)          :: Y1
+  open(free_unit(unit),file=reg(pname))
+  write(unit,*)Y1
+  close(unit)
+  call file_bzip(reg(pname))
+end subroutine data_saveA0_R
+
+subroutine data_saveA0_C(pname,Y1)
+  integer          :: i
+  character(len=*) :: pname
+  complex(8)       :: Y1
+  open(free_unit(unit),file=reg(pname))
+  write(unit,*)Y1
+  close(unit)
+  call file_bzip(reg(pname))
+end subroutine data_saveA0_C
+
+!------------------------------------------------------------------!
+!------------------------------------------------------------------!
+!------------------------------------------------------------------!
+
 subroutine data_saveA1_R(pname,Y1)
   integer                              :: i,Np
   character(len=*)                     :: pname
@@ -8,7 +32,7 @@ subroutine data_saveA1_R(pname,Y1)
      write(unit,*)Y1(i)
   enddo
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA1_R
 
 subroutine data_saveA1_C(pname,Y1)
@@ -21,7 +45,7 @@ subroutine data_saveA1_C(pname,Y1)
      write(unit,*)Y1(i)
   enddo
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA1_C
 
 !------------------------------------------------------------------!
@@ -59,7 +83,7 @@ subroutine data_saveA2_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA2_R
 
 subroutine data_saveA2_C(pname,Y1,order,wspace)
@@ -93,7 +117,7 @@ subroutine data_saveA2_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA2_C
 
 !----------------------------
@@ -142,7 +166,7 @@ subroutine data_saveA3_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA3_R
 
 subroutine data_saveA3_C(pname,Y1,order,wspace)
@@ -186,7 +210,7 @@ subroutine data_saveA3_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA3_C
 
 
@@ -240,7 +264,7 @@ subroutine data_saveA4_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA4_R
 
 subroutine data_saveA4_C(pname,Y1,order,wspace)
@@ -288,7 +312,7 @@ subroutine data_saveA4_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA4_C
 
 
@@ -347,7 +371,7 @@ subroutine data_saveA5_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA5_R
 
 subroutine data_saveA5_C(pname,Y1,order,wspace)
@@ -398,7 +422,7 @@ subroutine data_saveA5_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA5_C
 
 
@@ -465,7 +489,7 @@ subroutine data_saveA6_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA6_R
 
 subroutine data_saveA6_C(pname,Y1,order,wspace)
@@ -522,7 +546,7 @@ subroutine data_saveA6_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA6_C
 
 
@@ -595,7 +619,7 @@ subroutine data_saveA7_R(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA7_R
 
 subroutine data_saveA7_C(pname,Y1,order,wspace)
@@ -657,5 +681,5 @@ subroutine data_saveA7_C(pname,Y1,order,wspace)
      enddo
   end select
   close(unit)
-  call file_gzip(reg(pname))
+  call file_bzip(reg(pname))
 end subroutine data_saveA7_C

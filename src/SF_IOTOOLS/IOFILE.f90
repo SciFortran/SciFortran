@@ -52,10 +52,18 @@ module IOFILE
   public :: file_size
   public :: file_length
   public :: file_info
+  !
   public :: file_gzip           !data_store
-  public :: file_gunzip         !data_open
+  public :: file_bzip           !data_store
+  public :: file_xz           !data_store
   public :: file_targz
+  public :: file_tarbz2
+  !
+  public :: file_gunzip         !data_open
+  public :: file_bunzip         !data_open
+  public :: file_unxz         !data_open
   public :: file_untargz
+  public :: file_untarbz2
   !
   public :: newunit
   public :: free_unit
@@ -285,7 +293,7 @@ contains
     inquire(file=reg(file),exist=control)
     if(control)then
        len=file_size(reg(file))
-       if(len>fsize)call system("gzip -fv "//reg(file))
+       if(len>fsize)call system("gzip -fv --best --rsyncable"//reg(file))
     endif
     inquire(file=reg(file),opened=control,number=unit)
     if(control)close(unit)
@@ -313,10 +321,117 @@ contains
        stop
     endif
     write(*,"(A)")"deflate "//reg(filename)//type
-    call system("gunzip "//reg(filename)//type)
+    call system("gunzip -l"//reg(filename)//type)
     inquire(file=reg(filename),opened=iopen,number=unit)
     if(iopen)close(unit)
   end subroutine file_gunzip
+
+
+
+
+
+
+
+
+
+  !+-----------------------------------------------------------------+
+  !PURPOSE  : 
+  !+-----------------------------------------------------------------+
+  subroutine file_bzip(file,size)
+    character(len=*)  :: file
+    integer,optional  :: size
+    logical           :: control
+    character(len=9)  :: csize 
+    integer           :: cstatus,fsize,unit,len
+    fsize=store_size;if(present(size))fsize=size
+    write(*,"(A)") "Storing "//file
+    inquire(file=reg(file),exist=control)
+    if(control)then
+       len=file_size(reg(file))
+       if(len>fsize)call system("bzip2 -zfv "//reg(file))
+    endif
+    inquire(file=reg(file),opened=control,number=unit)
+    if(control)close(unit)
+  end subroutine file_bzip
+
+
+  !+-----------------------------------------------------------------+
+  !PURPOSE  : 
+  !+-----------------------------------------------------------------+
+  subroutine file_bunzip(filename)
+    character(len=*)             :: filename
+    character(len=4),parameter   :: type='.bz2'
+    logical                      :: iexist,iopen
+    integer                      :: unit
+    !
+    inquire(file=reg(filename),exist=iexist)
+    if(iexist)return           !nothing to be done:
+    !
+    inquire(file=reg(filename)//type,exist=iexist)
+    if(.not.iexist)then
+       write(*,"(A)")"file "//reg(filename)//" not found, not even with .bz2 extension"
+       stop
+    endif
+    write(*,"(A)")"deflate "//reg(filename)//type
+    call system("bzip2 -dv "//reg(filename)//type)
+    inquire(file=reg(filename),opened=iopen,number=unit)
+    if(iopen)close(unit)
+  end subroutine file_bunzip
+
+
+
+
+
+
+
+
+  !+-----------------------------------------------------------------+
+  !PURPOSE  : 
+  !+-----------------------------------------------------------------+
+  subroutine file_xz(file,size)
+    character(len=*)  :: file
+    integer,optional  :: size
+    logical           :: control
+    character(len=9)  :: csize 
+    integer           :: cstatus,fsize,unit,len
+    fsize=store_size;if(present(size))fsize=size
+    write(*,"(A)") "Storing "//file
+    inquire(file=reg(file),exist=control)
+    if(control)then
+       len=file_size(reg(file))
+       if(len>fsize)call system("xz -zfv "//reg(file))
+    endif
+    inquire(file=reg(file),opened=control,number=unit)
+    if(control)close(unit)
+  end subroutine file_xz
+
+
+  !+-----------------------------------------------------------------+
+  !PURPOSE  : 
+  !+-----------------------------------------------------------------+
+  subroutine file_unxz(filename)
+    character(len=*)             :: filename
+    character(len=3),parameter   :: type='.xz'
+    logical                      :: iexist,iopen
+    integer                      :: unit
+    !
+    inquire(file=reg(filename),exist=iexist)
+    if(iexist)return           !nothing to be done:
+    !
+    inquire(file=reg(filename)//type,exist=iexist)
+    if(.not.iexist)then
+       write(*,"(A)")"file "//reg(filename)//" not found, not even with .gz extension"
+       stop
+    endif
+    write(*,"(A)")"deflate "//reg(filename)//type
+    call system("xz -dv "//reg(filename)//type)
+    inquire(file=reg(filename),opened=iopen,number=unit)
+    if(iopen)close(unit)
+  end subroutine file_unxz
+
+
+
+
 
 
 
@@ -368,9 +483,65 @@ contains
     else
        call execute_command_line("rm -f "//str(tarball)//type)
     endif
-
   end subroutine file_untargz
 
+
+
+
+
+
+
+
+
+
+  !+-----------------------------------------------------------------+
+  !PURPOSE  : 
+  !+-----------------------------------------------------------------+
+  subroutine file_tarbz2(tarball,pattern,size)
+    character(len=*)           :: tarball
+    character(len=*)           :: pattern
+    integer,optional           :: size
+    character(len=8),parameter :: type='.tar.bz2'
+    integer                    :: control,fsize
+    character(len=100)         :: cmsg
+    fsize=store_size;if(present(size))fsize=size
+    write(*,"(A)") "Store "//str(pattern)//" in "//str(tarball)//type
+    call execute_command_line("tar -cjSf "//str(tarball)//type//" "//str(pattern),CMDSTAT=control,CMDMSG=cmsg)
+    if(control>0)then
+       write(*,"(A)")"Command tar -cjSf failed with error: "//str(cmsg)
+    elseif(control<0)then
+       write(*,"(A)")"Command tar -cjSf not supported"
+    else
+       call execute_command_line("rm -f "//str(pattern))
+    endif
+  end subroutine file_tarbz2
+
+
+  !+-----------------------------------------------------------------+
+  !PURPOSE  : 
+  !+-----------------------------------------------------------------+
+  subroutine file_untarbz2(tarball)
+    character(len=*)           :: tarball
+    integer                    :: control
+    logical                    :: iexist,iopen
+    integer                    :: unit
+    character(len=8),parameter :: type='.tar.bz2'
+    character(len=100)         :: cmsg
+    inquire(file=reg(tarball)//type,exist=iexist)
+    if(.not.iexist)then
+       write(*,"(A)")"Tarball "//str(tarball)//type//" not present: skip"
+       return           !nothing to be done:
+    endif
+    write(*,"(A)")"deflate "//reg(tarball)//type
+    call execute_command_line("tar -xjf "//str(tarball)//type//" ",CMDSTAT=control,CMDMSG=cmsg)
+    if(control>0)then
+       write(*,"(A)")"Command tar -xjf failed with error: "//str(cmsg)
+    elseif(control<0)then
+       write(*,"(A)")"Command tar -xjf not supported"
+    else
+       call execute_command_line("rm -f "//str(tarball)//type)
+    endif
+  end subroutine file_untarbz2
 
 
 
