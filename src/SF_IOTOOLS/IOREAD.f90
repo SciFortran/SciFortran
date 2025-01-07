@@ -26,6 +26,8 @@ module IOREAD
 
 
   interface read_array
+     module procedure :: data_readA0_R
+     module procedure :: data_readA0_C
      module procedure :: data_readA1_R
      module procedure :: data_readA1_C
      module procedure :: data_readA2_R
@@ -46,14 +48,14 @@ module IOREAD
   public :: sread
   public :: read_array
 
-  
+
 contains
 
 
   ! SPLOT arrays (1--7)
   include "ioread_sread.f90"
 
-  ! READ_ARRAY arrays (1--7)
+  ! READ_ARRAY arrays (0--7)
   include "ioread_read_array.f90"
 
   ! READ safety utility

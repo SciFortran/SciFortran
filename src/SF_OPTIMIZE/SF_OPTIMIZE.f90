@@ -228,7 +228,6 @@ contains
     eps_= df_eps; if(present(epsfcn))eps_=epsfcn
     epsmch = epsilon(epsmch)
     eps  = sqrt(max(eps_,epsmch))
-    !  Evaluate the function
     fvec = funcv(x)
     do j=1,n
        temp = x(j)

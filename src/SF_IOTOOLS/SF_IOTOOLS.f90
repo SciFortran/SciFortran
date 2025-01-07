@@ -1,5 +1,5 @@
 MODULE SF_IOTOOLS
-!SciFortran module for reading and writing data
+  !SciFortran module for reading and writing data
   USE IOFILE
   USE IOPLOT
   USE IOREAD
@@ -24,9 +24,16 @@ MODULE SF_IOTOOLS
   public :: file_length
   public :: file_info
   public :: file_gzip           !data_store
-  public :: file_gunzip         !data_open
+  public :: file_bzip           !data_store
+  public :: file_xz           !data_store
   public :: file_targz
+  public :: file_tarbz2
+  !
+  public :: file_gunzip         !data_open
+  public :: file_bunzip         !data_open
+  public :: file_unxz         !data_open
   public :: file_untargz
+  public :: file_untarbz2
   !
   public :: newunit
   public :: free_unit

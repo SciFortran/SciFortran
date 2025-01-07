@@ -29,6 +29,8 @@ module IOPLOT
   end interface splot3d
 
   interface save_array
+     module procedure :: data_saveA0_R
+     module procedure :: data_saveA0_C
      module procedure :: data_saveA1_R
      module procedure :: data_saveA1_C
      module procedure :: data_saveA2_R
@@ -66,8 +68,8 @@ contains
   ! SPLOT 3D:
   include "ioplot_splot3d.f90"
 
-  
-  ! SAVE_ARRAY arrays (1--7)
+
+  ! SAVE_ARRAY arrays (0--7)
   include "ioplot_save_array.f90"
 
 
