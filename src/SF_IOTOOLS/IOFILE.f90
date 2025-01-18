@@ -224,20 +224,30 @@ contains
   !+-----------------------------------------------------------------+
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
-  function file_length(file) result(lines)
+  function file_length(file,verbose) result(lines)
     integer           :: lines
+    logical,optional  :: verbose
     character(len=*)  :: file
     integer           :: ifile,ierr,pos
-    logical           :: IOfile,bool,bool1,bool2
+    logical           :: IOfile,bool,bool1,bool2,verbose_
     character(len=256)::buffer
+    verbose_=.true.;if(present(verbose))verbose_=verbose
     inquire(file=reg(file),exist=IOfile)
     if(.not.IOfile)then
        inquire(file=reg(file)//".gz",exist=IOfile)
        if(IOfile)call file_gunzip(reg(file))
     endif
+    if(.not.IOfile)then
+       inquire(file=reg(file)//".bz2",exist=IOfile)
+       if(IOfile)call file_bunzip(reg(file))
+    endif
+    if(.not.IOfile)then
+       inquire(file=reg(file)//".xz",exist=IOfile)
+       if(IOfile)call file_unxz(reg(file))
+    endif
     lines=0
     if(.not.IOfile)then
-       write(*,*) 'Cannot read +'//reg(file)//'. Skip file_size'
+       write(*,*) 'Cannot read +'//reg(file)//'. Skip file_length'
        return
     endif
     open(99,file=reg(file))
@@ -250,7 +260,7 @@ contains
        if(bool1 .OR. bool2)lines=lines-1
     enddo
     lines=lines-1
-    write(*,'(A,I9,A)') 'there are', lines,' lines in +'//reg(file)
+    if(verbose_)write(*,'(A,I9,A)') 'there are', lines,' lines in +'//reg(file)
     rewind(99)
     close(99)
   end function file_length
@@ -420,7 +430,7 @@ contains
     !
     inquire(file=reg(filename)//type,exist=iexist)
     if(.not.iexist)then
-       write(*,"(A)")"file "//reg(filename)//" not found, not even with .gz extension"
+       write(*,"(A)")"file "//reg(filename)//" not found, not even with .xz extension"
        stop
     endif
     write(*,"(A)")"deflate "//reg(filename)//type
