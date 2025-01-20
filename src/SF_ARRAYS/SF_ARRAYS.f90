@@ -19,12 +19,22 @@ contains
   !-----------------------------------------------------------------------------
   ! Purpose:
   !-----------------------------------------------------------------------------
-  function linspace(start,stop,num,istart,iend,mesh) result(array)
-    real(8)          :: start,stop,step,array(num)
-    integer          :: num,i
-    logical,optional :: istart,iend
+  function linspace(start,end,num,istart,iend,mesh) result(array)
+  !
+  !Returns an array of evenly spaced numbers over a specified interval.
+  !Returns :f:var:`num` evenly spaced samples, calculated over the interval [:f:var:`start`, :f:var:`end`].
+  !The start and end points of the interval can optionally be excluded.
+  !
+    real(8)          :: start           !Starting value of the sequence
+    real(8)          :: end             !End value of the sequence
+    integer          :: num             !Number of samples to generated 
+    logical,optional :: istart          !If :code:`.true.`, :f:var:`istart` is included in the resulting array. Default :code:`.true.`
+    logical,optional :: iend            !If :code:`.true.`, :f:var:`iend` is included in the resulting array. Default :code:`.true.`
+    real(8),optional :: mesh            !If present, the step is saved in this variable
+    real(8)          :: array(num)      !Contains num equally spaced samples in the interval [:f:var:`start`, :f:var:`end`], left/right open or closed depending on  :f:var:`istart` and :f:var:`iend`
+    integer          :: i               !
+    real(8)          :: step            
     logical          :: startpoint_,endpoint_
-    real(8),optional :: mesh
     !
     if(num<0)stop "linspace: N<0, abort."
     !
@@ -33,19 +43,20 @@ contains
     !
     if(startpoint_.AND.endpoint_)then
        if(num<2)stop "linspace: N<2 with both start and end points"
-       step = (stop-start)/(dble(num)-1d0)
+       step = (end-start)/(dble(num)-1d0)
        forall(i=1:num)array(i)=start + (dble(i)-1d0)*step
     elseif(startpoint_.AND.(.not.endpoint_))then
-       step = (stop-start)/dble(num)
+       step = (end-start)/dble(num)
        forall(i=1:num)array(i)=start + (dble(i)-1d0)*step
     elseif(.not.startpoint_.AND.endpoint_)then
-       step = (stop-start)/dble(num)
+       step = (end-start)/dble(num)
        forall(i=1:num)array(i)=start + dble(i)*step
     else
-       step = (stop-start)/(dble(num)+1d0)
+       step = (end-start)/(dble(num)+1d0)
        forall(i=1:num)array(i)=start + dble(i)*step
     endif
     if(present(mesh))mesh=step
+    
   end function linspace
 
 
@@ -76,7 +87,8 @@ contains
   ! Purpose:
   !-----------------------------------------------------------------------------
   function arange(start,num,iend) result(array)
-    integer          :: start,array(num)
+    integer          :: start
+    integer          :: array(num)
     integer          :: num,i
     logical,optional :: iend
     logical          :: endpoint_

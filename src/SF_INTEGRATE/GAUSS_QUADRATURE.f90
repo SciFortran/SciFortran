@@ -10,6 +10,7 @@
 ! this required to slightly change *dgauss_generic routine and gX=6,8,10,12,14
 ! to handle multiple functions simultaneously.
 MODULE GAUSS_QUADRATURE
+  USE SF_ARRAYS, only: linspace
   implicit none
   private
   real(8),parameter :: zero      = 0.0d0
@@ -1275,31 +1276,31 @@ contains
 
 
 
-  function linspace(start,stop,num,istart,iend,mesh) result(array)
-    integer          :: num,i
-    real(8)          :: start,stop,step,array(num)
-    logical,optional :: istart,iend
-    logical          :: startpoint_,endpoint_
-    real(8),optional :: mesh
-    if(num<0)stop "linspace: N<0, abort."
-    startpoint_=.true.;if(present(istart))startpoint_=istart
-    endpoint_=.true.;if(present(iend))endpoint_=iend
-    if(startpoint_.AND.endpoint_)then
-       if(num<2)stop "linspace: N<2 with both start and end points"
-       step = (stop-start)/real(num-1,8)
-       forall(i=1:num)array(i)=start + real(i-1,8)*step
-    elseif(startpoint_.AND.(.not.endpoint_))then
-       step = (stop-start)/real(num,8)
-       forall(i=1:num)array(i)=start + real(i-1,8)*step
-    elseif(.not.startpoint_.AND.endpoint_)then
-       step = (stop-start)/real(num,8)
-       forall(i=1:num)array(i)=start + real(i,8)*step
-    else
-       step = (stop-start)/real(num+1,8)
-       forall(i=1:num)array(i)=start + real(i,8)*step
-    endif
-    if(present(mesh))mesh=step
-  end function linspace
+!  function linspace(start,stop,num,istart,iend,mesh) result(array)
+!    integer          :: num,i
+!    real(8)          :: start,stop,step,array(num)
+!    logical,optional :: istart,iend
+!    logical          :: startpoint_,endpoint_
+!    real(8),optional :: mesh
+!    if(num<0)stop "linspace: N<0, abort."
+!    startpoint_=.true.;if(present(istart))startpoint_=istart
+!    endpoint_=.true.;if(present(iend))endpoint_=iend
+!    if(startpoint_.AND.endpoint_)then
+!       if(num<2)stop "linspace: N<2 with both start and end points"
+!       step = (stop-start)/real(num-1,8)
+!       forall(i=1:num)array(i)=start + real(i-1,8)*step
+!    elseif(startpoint_.AND.(.not.endpoint_))then
+!       step = (stop-start)/real(num,8)
+!       forall(i=1:num)array(i)=start + real(i-1,8)*step
+!    elseif(.not.startpoint_.AND.endpoint_)then
+!       step = (stop-start)/real(num,8)
+!       forall(i=1:num)array(i)=start + real(i,8)*step
+!    else
+!       step = (stop-start)/real(num+1,8)
+!       forall(i=1:num)array(i)=start + real(i,8)*step
+!    endif
+!    if(present(mesh))mesh=step
+!  end function linspace
 
 
 END MODULE GAUSS_QUADRATURE
