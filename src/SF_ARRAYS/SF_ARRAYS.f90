@@ -28,8 +28,8 @@ contains
     real(8)          :: start           !Starting value of the sequence
     real(8)          :: end             !End value of the sequence
     integer          :: num             !Number of samples to generated 
-    logical,optional :: istart          !If :code:`.true.`, :f:var:`istart` is included in the resulting array. Default :code:`.true.`
-    logical,optional :: iend            !If :code:`.true.`, :f:var:`iend` is included in the resulting array. Default :code:`.true.`
+    logical,optional :: istart          !If :code:`.true.`, :f:var:`start` is included in the resulting array. Default :code:`.true.`
+    logical,optional :: iend            !If :code:`.true.`, :f:var:`end` is included in the resulting array. Default :code:`.true.`
     real(8),optional :: mesh            !If present, the step is saved in this variable
     real(8)          :: array(num)      !Contains num equally spaced samples in the interval [:f:var:`start`, :f:var:`end`], left/right open or closed depending on  :f:var:`istart` and :f:var:`iend`
     integer          :: i               !
