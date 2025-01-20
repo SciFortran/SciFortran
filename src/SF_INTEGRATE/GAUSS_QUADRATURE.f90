@@ -10,7 +10,6 @@
 ! this required to slightly change *dgauss_generic routine and gX=6,8,10,12,14
 ! to handle multiple functions simultaneously.
 MODULE GAUSS_QUADRATURE
-  USE SF_ARRAYS, only: linspace
   implicit none
   private
   real(8),parameter :: zero      = 0.0d0
@@ -422,7 +421,7 @@ contains
     method_= 10   ; if(present(method))method_=method
     !
     Lsample = size(fsample)
-    Xsample = linspace(xl,xu,Lsample)
+    Xsample = gauss_quad_linspace(xl,xu,Lsample)
     call init_finter_1d(Finterp,Xsample,fsample,method_)
     call integrate_1d_func_main(1,fx,xl,xu,ans_,tol_,method_,ierr_,err_)
     ans = ans_(1)
@@ -485,8 +484,8 @@ contains
     !
     Lsample1 = size(fsample,1)
     Lsample2 = size(fsample,2)
-    Xsample  = linspace(xl(1),xu(1),Lsample1)
-    Ysample  = linspace(xl(2),xu(2),Lsample2)
+    Xsample  = gauss_quad_linspace(xl(1),xu(1),Lsample1)
+    Ysample  = gauss_quad_linspace(xl(2),xu(2),Lsample2)
     call init_finter_2d(Finterp,Xsample,Ysample,Fsample,method_(1))
     call integrate_nd_func_main(1,fxvec,xl,xu,ans_,methods=method_,tols=tol_,ierr=ierr_,err=err_)
     ans = ans_(1)
@@ -1276,31 +1275,31 @@ contains
 
 
 
-!  function linspace(start,stop,num,istart,iend,mesh) result(array)
-!    integer          :: num,i
-!    real(8)          :: start,stop,step,array(num)
-!    logical,optional :: istart,iend
-!    logical          :: startpoint_,endpoint_
-!    real(8),optional :: mesh
-!    if(num<0)stop "linspace: N<0, abort."
-!    startpoint_=.true.;if(present(istart))startpoint_=istart
-!    endpoint_=.true.;if(present(iend))endpoint_=iend
-!    if(startpoint_.AND.endpoint_)then
-!       if(num<2)stop "linspace: N<2 with both start and end points"
-!       step = (stop-start)/real(num-1,8)
-!       forall(i=1:num)array(i)=start + real(i-1,8)*step
-!    elseif(startpoint_.AND.(.not.endpoint_))then
-!       step = (stop-start)/real(num,8)
-!       forall(i=1:num)array(i)=start + real(i-1,8)*step
-!    elseif(.not.startpoint_.AND.endpoint_)then
-!       step = (stop-start)/real(num,8)
-!       forall(i=1:num)array(i)=start + real(i,8)*step
-!    else
-!       step = (stop-start)/real(num+1,8)
-!       forall(i=1:num)array(i)=start + real(i,8)*step
-!    endif
-!    if(present(mesh))mesh=step
-!  end function linspace
+  function gauss_quad_linspace(start,stop,num,istart,iend,mesh) result(array)
+    integer          :: num,i
+    real(8)          :: start,stop,step,array(num)
+    logical,optional :: istart,iend
+    logical          :: startpoint_,endpoint_
+    real(8),optional :: mesh
+    if(num<0)stop "gauss_quad_linspace: N<0, abort."
+    startpoint_=.true.;if(present(istart))startpoint_=istart
+    endpoint_=.true.;if(present(iend))endpoint_=iend
+    if(startpoint_.AND.endpoint_)then
+       if(num<2)stop "gauss_quad_linspace: N<2 with both start and end points"
+       step = (stop-start)/real(num-1,8)
+       forall(i=1:num)array(i)=start + real(i-1,8)*step
+    elseif(startpoint_.AND.(.not.endpoint_))then
+       step = (stop-start)/real(num,8)
+       forall(i=1:num)array(i)=start + real(i-1,8)*step
+    elseif(.not.startpoint_.AND.endpoint_)then
+       step = (stop-start)/real(num,8)
+       forall(i=1:num)array(i)=start + real(i,8)*step
+    else
+       step = (stop-start)/real(num+1,8)
+       forall(i=1:num)array(i)=start + real(i,8)*step
+    endif
+    if(present(mesh))mesh=step
+  end function gauss_quad_linspace
 
 
 END MODULE GAUSS_QUADRATURE
