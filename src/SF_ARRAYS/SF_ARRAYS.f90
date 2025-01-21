@@ -67,7 +67,7 @@ contains
   function logspace(start,stop,num,base) result(array)
   !
   !Return numbers spaced evenly on a log scale.
-  !In linear space, the sequence starts at :math:`base^{start}` and ends with :math:`base^{stop}`.
+  !In linear space, the sequence starts at :math:`{start}` and ends with :math:`{stop}` (differently from numpy).
   !
     real(8)          :: start      ! The starting value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
     real(8)          :: stop       ! The end value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
