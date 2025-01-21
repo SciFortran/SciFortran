@@ -19,19 +19,19 @@ contains
   !-----------------------------------------------------------------------------
   ! Purpose:
   !-----------------------------------------------------------------------------
-  function linspace(start,end,num,istart,iend,mesh) result(array)
+  function linspace(start,stop,num,istart,iend,mesh) result(array)
   !
   !Returns an array of evenly spaced numbers over a specified interval.
-  !Returns :f:var:`num` evenly spaced samples, calculated over the interval [:f:var:`start`, :f:var:`end`].
+  !Returns :f:var:`num` evenly spaced samples, calculated over the interval [:f:var:`start`, :f:var:`stop`].
   !The start and end points of the interval can optionally be excluded.
   !
     real(8)          :: start           !Starting value of the sequence
-    real(8)          :: end             !End value of the sequence
+    real(8)          :: stop            !End value of the sequence
     integer          :: num             !Number of samples to generated 
     logical,optional :: istart          !If :code:`.true.`, :f:var:`start` is included in the resulting array. Default :code:`.true.`
-    logical,optional :: iend            !If :code:`.true.`, :f:var:`end` is included in the resulting array. Default :code:`.true.`
+    logical,optional :: iend            !If :code:`.true.`, :f:var:`stop` is included in the resulting array. Default :code:`.true.`
     real(8),optional :: mesh            !If present, the step is saved in this variable
-    real(8)          :: array(num)      !Contains num equally spaced samples in the interval [:f:var:`start`, :f:var:`end`], left/right open or closed depending on  :f:var:`istart` and :f:var:`iend`
+    real(8)          :: array(num)      !Contains :f:var:`num` equally spaced samples in the interval [:f:var:`start`, :f:var:`stop`], left/right open or closed depending on  :f:var:`istart` and :f:var:`iend`
     integer          :: i               !
     real(8)          :: step            
     logical          :: startpoint_,endpoint_
@@ -43,16 +43,16 @@ contains
     !
     if(startpoint_.AND.endpoint_)then
        if(num<2)stop "linspace: N<2 with both start and end points"
-       step = (end-start)/(dble(num)-1d0)
+       step = (stop-start)/(dble(num)-1d0)
        forall(i=1:num)array(i)=start + (dble(i)-1d0)*step
     elseif(startpoint_.AND.(.not.endpoint_))then
-       step = (end-start)/dble(num)
+       step = (stop-start)/dble(num)
        forall(i=1:num)array(i)=start + (dble(i)-1d0)*step
     elseif(.not.startpoint_.AND.endpoint_)then
-       step = (end-start)/dble(num)
+       step = (stop-start)/dble(num)
        forall(i=1:num)array(i)=start + dble(i)*step
     else
-       step = (end-start)/(dble(num)+1d0)
+       step = (stop-start)/(dble(num)+1d0)
        forall(i=1:num)array(i)=start + dble(i)*step
     endif
     if(present(mesh))mesh=step
@@ -65,11 +65,16 @@ contains
   ! Purpose:
   !-----------------------------------------------------------------------------
   function logspace(start,stop,num,base) result(array)
-    real(8)          :: start,stop,array(num)
-    integer          :: num,i
-    ! logical,optional :: iend
-    ! logical          :: endpoint_
-    real(8),optional :: base
+  !
+  !Return numbers spaced evenly on a log scale.
+  !In linear space, the sequence starts at :math:`base^{start}` and ends with :math:`base^{stop}`.
+  !
+    real(8)          :: start      ! The starting value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
+    real(8)          :: stop       ! The end value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
+    integer          :: num        ! Number of samples to generate
+    real(8),optional :: base       ! The base of the exponential. Default :code:`10`
+    real(8)          :: array(num) ! Contains :f:var:`num` samples, equally spaced on a log scale in the closed interval [start, stop]
+    integer          :: i
     real(8)          :: base_
     real(8)          :: A,B
     base_= 10.d0;if(present(base))base_=base
