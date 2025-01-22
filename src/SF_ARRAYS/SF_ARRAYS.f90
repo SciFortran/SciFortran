@@ -91,19 +91,16 @@ contains
   !-----------------------------------------------------------------------------
   ! Purpose:
   !-----------------------------------------------------------------------------
-  function arange(start,num,iend) result(array)
-    integer          :: start
-    integer          :: array(num)
-    integer          :: num,i
-    logical,optional :: iend
-    logical          :: endpoint_
+  function arange(start,num) result(array)
+  !
+  !Returns an array of :f:var:`num` integers starting with :f:var:`start`
+  !
+    integer          :: start         !First element of the array
+    integer          :: num           !Length of the array
+    integer          :: array(num)    !Contains the integer numbers in [:f:var:`start`, :f:var:`start`:code:`+`:f:var:`num`:code:`-1`]
+    integer          :: i
     if(num<0)stop "arange: N<0, abort."
-    endpoint_=.true.;if(present(iend))endpoint_=iend
-    if(endpoint_)then
-       forall(i=1:num)array(i)=start+i-1
-    else
-       forall(i=1:num-1)array(i)=start+i-1
-    end if
+    forall(i=1:num)array(i)=start+i-1
   end function arange
 
 

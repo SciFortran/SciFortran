@@ -19,8 +19,8 @@ function d_trapz2d_func(func,xrange,yrange,Nx,Ny) result(int)
        func([xrange(1),yrange(2)])+&
        func([xrange(2),yrange(1)])+&
        func([xrange(2),yrange(2)])
-  xx=linspace(xrange(1),xrange(2),Nx)
-  yy=linspace(yrange(1),yrange(2),Ny)
+  xx=sf_integrate_linspace(xrange(1),xrange(2),Nx)
+  yy=sf_integrate_linspace(yrange(1),yrange(2),Ny)
   do i=2,Nx
      do j=2,Ny
         int=int+4d0*func([xx(i),yy(j)])
@@ -56,8 +56,8 @@ function c_trapz2d_func(func,xrange,yrange,Nx,Ny) result(int)
        func([xrange(1),yrange(2)])+&
        func([xrange(2),yrange(1)])+&
        func([xrange(2),yrange(2)])
-  xx=linspace(xrange(1),xrange(2),Nx)
-  yy=linspace(yrange(1),yrange(2),Ny)
+  xx=sf_integrate_linspace(xrange(1),xrange(2),Nx)
+  yy=sf_integrate_linspace(yrange(1),yrange(2),Ny)
   do i=2,Nx
      do j=2,Ny
         int=int+4d0*func([xx(i),yy(j)])
@@ -162,8 +162,8 @@ function d_simps2d_func(func,xrange,yrange,Nx,Ny) result(int)
   hx=hx/Nx/2
   hy=yrange(2)-yrange(1)
   hy=hy/Ny/2
-  xx=linspace(xrange(1),xrange(2),2*Nx)
-  yy=linspace(yrange(1),yrange(2),2*Ny)
+  xx=sf_integrate_linspace(xrange(1),xrange(2),2*Nx)
+  yy=sf_integrate_linspace(yrange(1),yrange(2),2*Ny)
   !
   int=&
        func([xrange(1),yrange(1)])+&
@@ -225,8 +225,8 @@ function c_simps2d_func(func,xrange,yrange,Nx,Ny) result(int)
   hx=hx/Nx/2
   hy=yrange(2)-yrange(1)
   hy=hy/Ny/2
-  xx=linspace(xrange(1),xrange(2),2*Nx)
-  yy=linspace(yrange(1),yrange(2),2*Ny)
+  xx=sf_integrate_linspace(xrange(1),xrange(2),2*Nx)
+  yy=sf_integrate_linspace(yrange(1),yrange(2),2*Ny)
   !
   int=&
        func([xrange(1),yrange(1)])+&

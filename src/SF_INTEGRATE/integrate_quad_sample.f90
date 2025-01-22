@@ -60,7 +60,7 @@ subroutine quad_sample(fsample,a,b,&
   !
   !Build the interpolating function to be integrated:
   Lin = size(fsample)
-  xsample = linspace(a,b,Lin)
+  xsample = sf_integrate_linspace(a,b,Lin)
   call init_finter(Finterp,xsample,fsample,Ninterp_)
   !
   if(present(key).AND.(present(alfa).OR.present(beta)))stop "ERROR in quad: key & alfa,beta"

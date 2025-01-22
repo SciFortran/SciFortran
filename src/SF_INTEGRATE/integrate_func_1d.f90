@@ -19,7 +19,7 @@ function d_trapz_ab_func(f,a,b,N) result(int)
   !
   int=0d0
   allocate(xx(L))
-  xx = linspace(a_,b_,L,mesh=dh)
+  xx = sf_integrate_linspace(a_,b_,L,mesh=dh)
   do i=1,L-1
      int = int+( f(xx(i+1)) + f(xx(i)) )
   enddo
@@ -45,7 +45,7 @@ function c_trapz_ab_func(f,a,b,N) result(int)
   !
   int=0.d0
   allocate(xx(L))
-  xx = linspace(a_,b_,L,mesh=dh)
+  xx = sf_integrate_linspace(a_,b_,L,mesh=dh)
   do i=1,L-1
      int = int+( f(xx(i+1)) + f(xx(i)) )
   enddo
@@ -122,7 +122,7 @@ function d_simps_ab_func(f,a,b,N) result(int)
   !
   int=0.d0
   allocate(xx(L),wt(L))
-  xx = linspace(a_,b_,L,mesh=dh)
+  xx = sf_integrate_linspace(a_,b_,L,mesh=dh)
   call get_quadrature_weights(wt)
   do i=1,L
      int = int + f(xx(i))*wt(i)
@@ -149,7 +149,7 @@ function c_simps_ab_func(f,a,b,N) result(int)
   !
   int=0.d0
   allocate(xx(L),wt(L))
-  xx = linspace(a_,b_,L,mesh=dh)
+  xx = sf_integrate_linspace(a_,b_,L,mesh=dh)
   call get_quadrature_weights(wt)
   do i=1,L
      int = int + f(xx(i))*wt(i)
