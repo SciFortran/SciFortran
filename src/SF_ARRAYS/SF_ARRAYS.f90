@@ -66,8 +66,8 @@ contains
   !-----------------------------------------------------------------------------
   function logspace(start,stop,num,base) result(array)
   !
-  !Return numbers spaced evenly on a log scale.
-  !In linear space, the sequence starts at :math:`{start}` and ends with :math:`{stop}` (differently from numpy).
+  !Returns numbers spaced evenly on a log scale.
+  !In linear space, the sequence starts at :f:var:`{start}` and ends with :f:var:`{stop}` (differently from numpy).
   !
     real(8)          :: start      ! The starting value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
     real(8)          :: stop       ! The end value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
@@ -105,50 +105,32 @@ contains
 
 
 
-
-
-  !-----------------------------------------------------------------------------
-  ! Purpose:
-  !-----------------------------------------------------------------------------
-  function upminterval(start,stop,midpoint,p,q,type,base,mesh) result(array)
-    integer  :: i,p,q,N,Nhalf
-    real(8)  :: start,stop,midpoint,array(2*p*q+1)
-    real(8),optional :: base,mesh(2*P*Q+1)
-    real(8)          :: base_
-    integer,optional :: type
-    integer          :: type_
-    type_= 0          ;if(present(type))type_=type
-    base_= 2.d0       ;if(present(base))base_=base
-    N=2*p*q+1
-    Nhalf=p*q
-    if(type_==0)then
-       array(1:Nhalf+1)   = upmspace(start,midpoint,p,q,Nhalf+1,base=base_)
-       array(N:Nhalf+2:-1)= upmspace(stop,midpoint,p,q,Nhalf,base=base_,iend=.false.)
-    else
-       array(Nhalf+1:1:-1) = upmspace(midpoint,start,p,q,Nhalf+1,base=base_)
-       array(Nhalf+2:N)    = upmspace(midpoint,stop,p,q,Nhalf,base=base_,istart=.false.)
-    endif
-    if(present(mesh))then
-       do i=1,N-1
-          mesh(i)=(array(i+1)-array(i))
-       enddo
-       Mesh(N)=(array(N)-array(N-1))
-    endif
-  end function upminterval
-
-
   !-----------------------------------------------------------------------------
   ! Purpose:
   !-----------------------------------------------------------------------------
   function upmspace(start,stop,p,u,ndim,base,istart,iend,mesh) result(aout)
-    integer          :: p,u,ndim,pindex,uindex,pa,pb
-    real(8)          :: start,stop,step,array(p*u+1),aout(ndim)
-    real(8),optional :: mesh(ndim)
+    !
+    !Returns an array of number spaced linearly between exponentially spaced checkpoints.
+    !The interval [:f:var:`start`, :f:var:`stop`] is first divided into :f:var:`p`
+    !coarse regions, the width of which is exponentially increasing so that the 
+    !i-th checkpoint is :math:`( stop - start ) \cdot base^{-p+i}`. Each of the coarse
+    !intervals is then linearly divided in :f:var:`u` subintervals.
+    !
+    real(8)          :: start  !First element of the array
+    real(8)          :: stop   !Last element of the array
+    integer          :: p      !Number of coarse subdivisions
+    integer          :: u      !Number of fine subdivisions
+    integer          :: ndim   !Length of the out array, must be :math:`p \cdot u` or  :math:`p \cdot u + 1`
+    real(8),optional :: base   !Base of the exponential spacing (default :code:`2`)
+    logical,optional :: istart !If :code:`.true.`, :f:var:`start` is included in the resulting array. Default :code:`.true.`
+    logical,optional :: iend   !If :code:`.true.`, :f:var:`stop` is included in the resulting array. Default :code:`.true.`
+    real(8),optional :: mesh(ndim) !If presents, contains the distances between consecutive points in :f:var:`aout`. The last element is :math:`aout(ndim) - aout(ndim-1)`
+    real(8)          :: aout(ndim) !Contains :f:var:`p` coarse exponentially-spaced checkpoints, each two of which separated by :f:var:`u` linearly spaced points
+    real(8)          :: step,array(p*u+1)
+    integer          :: pindex,uindex,pa,pb
     real(8)          :: ustart,ustop
     integer          :: i,j
-    logical,optional :: iend,istart
     logical          :: endpoint_,startpoint_,check
-    real(8),optional :: base
     real(8)          :: base_
     ! real(8),optional :: mesh(p*u+1)
     if(ndim<0)stop "upmspace: N<0, abort."
@@ -188,6 +170,36 @@ contains
     endif
   end function upmspace
 
+
+
+  !-----------------------------------------------------------------------------
+  ! Purpose:
+  !-----------------------------------------------------------------------------
+  function upminterval(start,stop,midpoint,p,q,type,base,mesh) result(array)
+    integer  :: i,p,q,N,Nhalf
+    real(8)  :: start,stop,midpoint,array(2*p*q+1)
+    real(8),optional :: base,mesh(2*P*Q+1)
+    real(8)          :: base_
+    integer,optional :: type
+    integer          :: type_
+    type_= 0          ;if(present(type))type_=type
+    base_= 2.d0       ;if(present(base))base_=base
+    N=2*p*q+1
+    Nhalf=p*q
+    if(type_==0)then
+       array(1:Nhalf+1)   = upmspace(start,midpoint,p,q,Nhalf+1,base=base_)
+       array(N:Nhalf+2:-1)= upmspace(stop,midpoint,p,q,Nhalf,base=base_,iend=.false.)
+    else
+       array(Nhalf+1:1:-1) = upmspace(midpoint,start,p,q,Nhalf+1,base=base_)
+       array(Nhalf+2:N)    = upmspace(midpoint,stop,p,q,Nhalf,base=base_,istart=.false.)
+    endif
+    if(present(mesh))then
+       do i=1,N-1
+          mesh(i)=(array(i+1)-array(i))
+       enddo
+       Mesh(N)=(array(N)-array(N-1))
+    endif
+  end function upminterval
 
 
   !-----------------------------------------------------------------------------
