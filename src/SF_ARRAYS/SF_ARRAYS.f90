@@ -124,7 +124,7 @@ contains
     real(8),optional :: base   !Base of the exponential spacing (default :code:`2`)
     logical,optional :: istart !If :code:`.true.`, :f:var:`start` is included in the resulting array. Default :code:`.true.`
     logical,optional :: iend   !If :code:`.true.`, :f:var:`stop` is included in the resulting array. Default :code:`.true.`
-    real(8),optional :: mesh(ndim) !If presents, contains the distances between consecutive points in :f:var:`aout`. The last element is :math:`aout(ndim) - aout(ndim-1)`
+    real(8),optional :: mesh(ndim) !If present, contains the distances between consecutive points in :f:var:`aout`. The last element is :math:`aout(ndim) - aout(ndim-1)`
     real(8)          :: aout(ndim) !Contains :f:var:`p` coarse exponentially-spaced checkpoints, each two of which separated by :f:var:`u` linearly spaced points
     real(8)          :: step,array(p*u+1)
     integer          :: pindex,uindex,pa,pb
@@ -176,11 +176,26 @@ contains
   ! Purpose:
   !-----------------------------------------------------------------------------
   function upminterval(start,stop,midpoint,p,q,type,base,mesh) result(array)
-    integer  :: i,p,q,N,Nhalf
-    real(8)  :: start,stop,midpoint,array(2*p*q+1)
-    real(8),optional :: base,mesh(2*P*Q+1)
+    !
+    !Returns an array of number spaced linearly between exponentially spaced checkpoints,
+    !specularly around a middle point between the interval extrema. This is achieved by
+    !calling :f:func:`upmspace` twice in a mirror-like fashion. The exponential
+    !thickening of the mesh can be around the middle ( :f:var:`type` :code:`!=0` ) or the 
+    !boundaries( :f:var:`type` :code:`=0` )
+    !
+    real(8)  :: start                   !First element of the array
+    real(8)  :: stop                    !Last element of the array
+    real(8)  :: midpoint                !Middle point of the array. The distance between the coarse checkpoints behaves specularly on the two sides
+    integer  :: p                       !Number of coarse subdivisions
+    integer  :: q                       !Number of fine subdivisions
+    integer,optional :: type            !If :code:`=0`, mesh is thicker around :f:var:`start` and :f:var:`stop`. If :code:`=1`, mesh is thicker around :f:var:`midpoint`. Default :code:`0`
+    real(8),optional :: base            !Base of the exponential spacing (default :code:`2`)
+    real(8),optional :: mesh(2*P*Q+1)   !If present, contains the distances between consecutive points in :f:var:`array`. The last element is :math:`array(2 \cdot p \cdot q+1) - array(2 \cdotp \cdot q)`
+    real(8)          :: array(2*p*q+1)  !Contains :math:`2 \cdot p \cdot q+1` points
     real(8)          :: base_
-    integer,optional :: type
+    integer          :: i
+    integer          :: N
+    integer          :: Nhalf
     integer          :: type_
     type_= 0          ;if(present(type))type_=type
     base_= 2.d0       ;if(present(base))base_=base
