@@ -113,8 +113,8 @@ contains
     !Returns an array of number spaced linearly between exponentially spaced checkpoints.
     !The interval [:f:var:`start`, :f:var:`stop`] is first divided into :f:var:`p`
     !coarse regions, the width of which is exponentially increasing so that the 
-    !i-th checkpoint is :math:`( stop - start ) \cdot base^{-p+i}`. Each of the coarse
-    !intervals is then linearly divided in :f:var:`u` subintervals.
+    !i-th checkpoint is (:f:var:`stop` - :f:var:`start`) :math:`\cdot` :f:var:`base` ^ ( - :f:var:`p` + :code:`i` ).
+    !Each of the coarse intervals is then linearly divided in :f:var:`u` subintervals.
     !
     real(8)          :: start  !First element of the array
     real(8)          :: stop   !Last element of the array
@@ -221,9 +221,17 @@ contains
   ! Purpose:
   !-----------------------------------------------------------------------------
   function powspace(start,stop,num,base) result(array)
-    real(8)          :: start,stop,step,array(num)
-    integer          :: num,i
-    real(8),optional :: base
+  !
+  !Returns numbers spaced evenly on an exponential  scale.
+  !The :code:`i`-th number is :f:var:`start` +
+  !(:f:var:`stop` - :f:var:`start`) :math:`\cdot` :f:var:`base` ^ ( - :f:var:`num` + :code:`i` )
+  !
+    real(8)          :: start !first element of the array
+    real(8)          :: stop  !last element of the array
+    integer          :: num   !number of elements of the array
+    real(8),optional :: base  !base of the exponential (defaule :code:`2`)
+    real(8)          :: array(num) !contains :f:var:`num` exponentially spaced reals
+    integer          :: i
     real(8)          :: base_
     if(num<0)stop "powspace: N<0, abort."
     base_= 2.d0;if(present(base))base_=base
