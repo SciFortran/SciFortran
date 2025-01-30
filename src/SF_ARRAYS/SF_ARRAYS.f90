@@ -27,7 +27,7 @@ contains
   !
     real(8)          :: start           !Starting value of the sequence
     real(8)          :: stop            !End value of the sequence
-    integer          :: num             !Number of samples to generated 
+    integer          :: num             !Number of samples to generate
     logical,optional :: istart          !If :code:`.true.`, :f:var:`start` is included in the resulting array. Default :code:`.true.`
     logical,optional :: iend            !If :code:`.true.`, :f:var:`stop` is included in the resulting array. Default :code:`.true.`
     real(8),optional :: mesh            !If present, the step is saved in this variable
@@ -67,7 +67,7 @@ contains
   function logspace(start,stop,num,base) result(array)
   !
   !Returns numbers spaced evenly on a log scale.
-  !In linear space, the sequence starts at :f:var:`{start}` and ends with :f:var:`{stop}` (differently from numpy).
+  !In linear space, the sequence starts at :f:var:`start` and ends with :f:var:`stop` (differently from numpy).
   !
     real(8)          :: start      ! The starting value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
     real(8)          :: stop       ! The end value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`

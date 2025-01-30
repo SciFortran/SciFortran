@@ -4,7 +4,13 @@ MODULE SF_COLORS
   !
   !RGB color type:
   type rgb_color
-     integer :: r,g,b
+  !
+  !A custom type for color definitions in rgb form. A large set of predefinite
+  !colors are provided. Artithmetic operators are overloaded to manipulate colors
+  !
+     integer :: r   !Red component in the range :code:`[0:255]`
+     integer :: g   !Green component in the range :code:`[0:255]`
+     integer :: b   !Blue component in the range :code:`[0:255]`
   end type rgb_color
   !
   !DEFAULT RGB COLORS:
@@ -669,6 +675,11 @@ MODULE SF_COLORS
   type(rgb_color),parameter :: lightgreen           =rgb_color(144,238,144) 
 
   interface operator(+)
+  !
+  !Overloaded addition operator for :f:type:`rgb_color` types.
+  !Given two colors :code:`[r1,g1,b1]` and :code:`[r2,g2,b2]`
+  !returns :code:`[r1+r2,g1+g2,b1+b2]`.
+  !
      module procedure add_colors
   end interface operator(+)
 
@@ -705,8 +716,9 @@ contains
   end subroutine equal_colors
 
   elemental function add_colors(c1,c2) result(c)
-    type(rgb_color),intent(in) :: c1,c2
-    type(rgb_color)            :: c
+    type(rgb_color),intent(in) :: c1  !First color to sum
+    type(rgb_color),intent(in) :: c2  !Second color to sum
+    type(rgb_color)            :: c   !Resulting color
     c%r = c1%r + c2%r
     c%g = c1%g + c2%g
     c%b = c1%b + c2%b
