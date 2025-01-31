@@ -20,6 +20,12 @@ sys.path.insert(0, os.path.abspath('./utils'))
 
 import sphinx_rtd_theme
 import sphinxfortran_ng
+from docutils.parsers.rst import roles
+from docutils import nodes
+
+def raw_html_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
+    """Custom interpreted role to insert raw HTML inline."""
+    return [nodes.raw('', text, format='html')], []
 
 
 # -- Project information -----------------------------------------------------
@@ -258,4 +264,5 @@ epub_exclude_files = ['search.html']
 
 #workaround: use mathjax on all pages
 def setup(app):
+    roles.register_canonical_role('raw-html', raw_html_role)
     app.set_html_assets_policy('always')

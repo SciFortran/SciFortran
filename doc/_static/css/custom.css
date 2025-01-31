@@ -43,3 +43,11 @@
     border-radius: 3px;         /* Rounded corners for the signature block */
     border-top: 3px solid #005588;  /* Darker blue top border */
 }
+
+.colored-square {
+    display: inline-block;
+    width: 96px;
+    height: 24px;
+    border: 1px solid #000;
+}
+
