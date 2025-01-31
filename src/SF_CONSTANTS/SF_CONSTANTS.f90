@@ -3,20 +3,22 @@ module SF_CONSTANTS
   implicit none
 
   !COMMONLY USED PARAMETERS
-  complex(8),parameter,public :: zero=(0.d0,0.d0)
-  complex(8),parameter,public :: xi=(0.d0,1.d0)
-  complex(8),parameter,public :: one=(1.d0,0.d0)
-  real(8),parameter,public    :: sqrt2 = 1.41421356237309504880169d0
-  real(8),parameter,public    :: sqrt3 = 1.73205080756887729352745d0
-  real(8),parameter,public    :: sqrt6 = 2.44948974278317809819728d0
-  real(8),parameter,public    :: pi    = 3.14159265358979323846264338327950288419716939937510d0
-  real(8),parameter,public    :: pi2   = 6.28318530717959d0
-  real(8),parameter,public    :: gamma_euler = 0.57721566490153286060d0  !euler s constant
-  real(8),parameter,public    :: euler= 2.7182818284590452353602874713526624977572470936999595749669676277240766303535d0
-  integer,parameter,public    :: max_int  = huge(1) 
-  real(8),parameter,public    :: max_real = huge(1.d0)
-  real(8),parameter,public    :: epsilonr=epsilon(1.d0),epsilonq=1.d-30
-  integer,parameter,public    :: dbl=8,dp=8        ! "double" precision
+  complex(8),parameter,public :: zero=(0.d0,0.d0)   !Complex number :math:`0+i0`
+  complex(8),parameter,public :: xi=(0.d0,1.d0)     !Complex number :math:`0+i1`
+  complex(8),parameter,public :: one=(1.d0,0.d0)    !Complex number :math:`1+i0`
+  real(8),parameter,public    :: sqrt2 = 1.41421356237309504880169d0  !Real number :math:`\sqrt(2)`
+  real(8),parameter,public    :: sqrt3 = 1.73205080756887729352745d0  !Real number :math:`\sqrt(3)`
+  real(8),parameter,public    :: sqrt6 = 2.44948974278317809819728d0  !Real number :math:`\sqrt(6)`
+  real(8),parameter,public    :: pi    = 3.14159265358979323846264338327950288419716939937510d0  !Real number :math:`\pi`
+  real(8),parameter,public    :: pi2   = 6.28318530717959d0 !Real number :math:`2\pi`
+  real(8),parameter,public    :: gamma_euler = 0.57721566490153286060d0  !Real number Euler-Mascheroni constant :math:`\gamma`
+  real(8),parameter,public    :: euler= 2.7182818284590452353602874713526624977572470936999595749669676277240766303535d0 !Real Euler number :math:`e`
+  integer,parameter,public    :: max_int  = huge(1) !Largest integer number
+  real(8),parameter,public    :: max_real = huge(1.d0) !Largest real number
+  real(8),parameter,public    :: epsilonr=epsilon(1.d0) !Smallest double precision real number
+  real(8),parameter,public    :: epsilonq=1.d-30   ! Smallest quad precision real number
+  integer,parameter,public    :: dbl=8             ! "double" precision
+  integer,parameter,public    :: dp=8              ! "double" precision, alternative naming
   integer,parameter,public    :: ddp=16            ! "quad"   precision
   integer,parameter,public    :: sp = kind(1.0)    ! "single" precision
 
@@ -220,14 +222,13 @@ contains
 
 
   subroutine stop_error(msg)
-    ! Aborts the program with nonzero exit code
     !
+    ! Aborts the program with nonzero exit code
     ! The statement "stop msg" will return 0 exit code when compiled using
     ! gfortran.
     ! stop_error() uses the statement "stop 1" which returns an exit code
     ! 1 and a print statement to print the message.
     !
-    ! call stop_error("Invalid argument")
     character(len=*) :: msg ! Message to print on stderr
     write(0,*) msg
     stop 1
