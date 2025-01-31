@@ -674,6 +674,15 @@ MODULE SF_COLORS
   type(rgb_color),parameter :: darkred              =rgb_color(139,0,0) 
   type(rgb_color),parameter :: lightgreen           =rgb_color(144,238,144) 
 
+
+  interface assignment(=)
+  !
+  !Overloaded assignment operator for :f:type:`rgb_color` 
+  !types using :f:func:`equal_colors`
+  !
+     module procedure equal_colors
+  end interface assignment(=)
+
   interface operator(+)
   !
   !Overloaded addition operator for :f:type:`rgb_color` 
@@ -682,33 +691,49 @@ MODULE SF_COLORS
      module procedure add_colors
   end interface operator(+)
 
-  interface assignment(=)
-     module procedure equal_colors
-  end interface assignment(=)
-
   interface operator(-)
+  !
+  !Overloaded subtraction operator for :f:type:`rgb_color` 
+  !types using :f:func:`subtract_colors`
+  !
      module procedure subtract_colors
   end interface operator(-)
 
   interface operator(*)
+  !
+  !Overloaded multiplication operator for :f:type:`rgb_color` 
+  !types using :f:func:`scalar_left_colors`
+  !
      module procedure scalar_left_color
   end interface operator(*)
 
   interface operator(.dot.)
+  !
+  !Overloaded dot operator for :f:type:`rgb_color` 
+  !types using :f:func:`dot_scalar_colors`
+  !
      module procedure dot_scalar_colors
   end interface operator(.dot.)
 
 contains
 
   function rgb(c) result(num)
-    type(rgb_color),intent(in) :: c
-    integer :: num
+  !
+  !Given a :f:type:`rgb_color` :f:var:`c` :code:`=[r,g,b]`, returns 
+  !an univocally determined integer number :code:`65536*r+256*g+b`
+  !
+    type(rgb_color),intent(in) :: c !the input :f:type:`rgb_color`
+    integer :: num                  !the output number
     num = int(c%r)*65536 + int(c%g)*256 + int(c%b)
   end function rgb
 
   elemental subroutine equal_colors(C1,C2)
-    type(rgb_color),intent(in)    :: C2
-    type(rgb_color),intent(inout) :: C1
+  !
+  !Given a :f:type:`rgb_color` :f:var:`c2` :code:`=[r,g,b]`, assigns 
+  !its value to a a :f:type:`rgb_color` :f:var:`c1`
+  !
+    type(rgb_color),intent(in)    :: C2 !:f:type:`rgb_color` on the right-hand side of the equality
+    type(rgb_color),intent(inout) :: C1 !:f:type:`rgb_color` on the left-hand side of the equality
     C1%r = C2%r
     C1%g = C2%g
     C1%b = C2%b
@@ -716,7 +741,7 @@ contains
 
   elemental function add_colors(c1,c2) result(c)
   !
-  !Given two colors :code:`[r1,g1,b1]` and :code:`[r2,g2,b2]`
+  !Given two :f:type:`rgb_color` :code:`[r1,g1,b1]` and :code:`[r2,g2,b2]`
   !returns :code:`[r1+r2,g1+g2,b1+b2]`.
   !
     type(rgb_color),intent(in) :: c1  !First color to sum
@@ -728,35 +753,52 @@ contains
   end function add_colors
 
   elemental function subtract_colors(c1,c2) result(c)
-    type(rgb_color),intent(in) :: c1,c2
-    type(rgb_color)            :: c
+  !
+  !Given two :f:type:`rgb_color` :code:`[r1,g1,b1]` and :code:`[r2,g2,b2]`
+  !returns :code:`[r1-r2,g1-g2,b1-b2]`.
+  !
+    type(rgb_color),intent(in) :: c1  !Minuend
+    type(rgb_color),intent(in) :: c2  !Subtrahent
+    type(rgb_color)            :: c   !Result
     c%r = c1%r - c2%r
     c%g = c1%g - c2%g
     c%b = c1%b - c2%b
   end function subtract_colors
 
   elemental function scalar_left_color(k,cin) result(cout)
-    real(8),intent(in)         :: k
-    type(rgb_color),intent(in) :: cin
-    type(rgb_color)            :: cout
+  !
+  !Given a real :f:var:`k` and a :f:type:`rgb_color` :code:`[r,g,b]`
+  !returns :f:type:`rgb_color` :code:`[k*r,k*g,k*b]`.
+  !
+    real(8),intent(in)         :: k    !scalar term  (multiplier)
+    type(rgb_color),intent(in) :: cin  !rgb color (multiplicand)
+    type(rgb_color)            :: cout !result
     cout%r = k*cin%r
     cout%g = k*cin%g
     cout%b = k*cin%b
   end function scalar_left_color
 
   elemental function scalar_right_color(k,cin) result(cout)
-    real(8),intent(in)         :: k
-    type(rgb_color),intent(in) :: cin
-    type(rgb_color)            :: cout
+  !
+  !Given an :f:type:`rgb_color` :code:`[r,g,b]` and a real :f:var:`k`
+  !returns :f:type:`rgb_color` :code:`[k*r,k*g,k*b]`.
+  !
+    real(8),intent(in)         :: k    !scalar term  (multiplier)
+    type(rgb_color),intent(in) :: cin  !rgb color (multiplicand)
+    type(rgb_color)            :: cout !result
     cout%r = cin%r*k
     cout%g = cin%g*k
     cout%b = cin%b*k
   end function scalar_right_color
 
   function dot_scalar_colors(v,cin) result(cout)
-    real(8),dimension(:),intent(in)               :: v
-    type(rgb_color),dimension(size(v)),intent(in) :: cin
-    type(rgb_color)                               :: cout
+  !
+  !Given an array of real :f:var:`v` and an array of :f:type:`rgb_color` :f:var:`cin`
+  !returns a :f:type:`rgb_color` f:var:`cout` = :math:`\sum_i vin(i)*cin(i)` 
+  !
+    real(8),dimension(:),intent(in)               :: v    !array of reals
+    type(rgb_color),dimension(size(v)),intent(in) :: cin  !array of :f:type:`rgb_color`
+    type(rgb_color)                               :: cout !resulting :f:type:`rgb_color`
     integer :: i
     cout=rgb_color(0,0,0)
     do i=1,size(v)
@@ -767,8 +809,13 @@ contains
   end function dot_scalar_colors
 
   function pick_color(string) result(crgb)
-    character(len=*)                                     :: string
-    type(rgb_color)                                      :: crgb
+  !
+  !Given an string, picks a :f:type:`rgb_color` among the default ones 
+  !:f:var:`black`, :f:var:`blue`, :f:var:`cyan`, :f:var:`green`, :f:var:`magenta`,
+  !:f:var:`orange`, :f:var:`red`, :f:var:`white`, :f:var:`yellow`
+  !
+    character(len=*)                                     :: string  ! name of the color
+    type(rgb_color)                                      :: crgb    ! resulting :f:var:`rgb_color`
     character(len=len_trim(trim(adjustl(trim(string))))) :: color_name
     color_name=trim(adjustl(trim(string)))
     select case(color_name)
@@ -788,6 +835,8 @@ contains
        crgb=cyan
     case("magenta")
        crgb=magenta
+    case("white")
+       crgb=white
     case default
        print*,"pick_color: color name ",color_name," does not exist"
        print*,"set color to black"
