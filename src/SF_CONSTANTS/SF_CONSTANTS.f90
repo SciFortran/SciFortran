@@ -109,6 +109,17 @@ module SF_CONSTANTS
   public :: timestamp
 
   public :: stop_error
+  
+  interface isinfty
+  !
+  !Evaluates an integer, real or complex number and returns
+  !a logical expression. If :code:`.true.` the input is infinite.
+  !
+     module procedure :: i_isinfty
+     module procedure :: d_isinfty
+     module procedure :: z_isinfty
+  end interface isinfty
+  public :: isinfty  
 
   interface isnan
      module procedure :: i_isnan
@@ -116,13 +127,6 @@ module SF_CONSTANTS
      module procedure :: z_isnan
   end interface isnan
   public :: isnan
-
-  interface isinfty
-     module procedure :: i_isinfty
-     module procedure :: d_isinfty
-     module procedure :: z_isinfty
-  end interface isinfty
-  public :: isinfty
 
 
   interface wait
@@ -140,8 +144,8 @@ contains
   !PURPOSE: test if a given number if infinity
   !+-----------------------------------------------------------------------------+!
   elemental function i_isinfty(a) result(bool)
-    integer,intent(in) :: a
-    logical            :: bool
+    integer,intent(in) :: a      !Number to evaluate 
+    logical            :: bool   !Result
     bool = (a-1 == a)
   end function i_isinfty
   elemental function d_isinfty(a) result(bool)
@@ -180,7 +184,11 @@ contains
   !PURPOSE  : prints the current YMDHMS date as a time stamp.
   !+-------------------------------------------------------------------+
   subroutine timestamp(unit)
-    integer,optional        :: unit
+  !
+  !Prints the date and time to :code:`unit`. 
+  !The date is in the format :code:`Timestamp: [day][month name][year][h]:[m]:[s].[ms]`
+  !
+    integer,optional        :: unit  !Output unit. Default :code:`6`
     integer                 :: unit_
     integer(4),dimension(8) :: data
     unit_=6;if(present(unit))unit_=unit
@@ -223,11 +231,10 @@ contains
 
   subroutine stop_error(msg)
     !
-    ! Aborts the program with nonzero exit code
-    ! The statement "stop msg" will return 0 exit code when compiled using
-    ! gfortran.
-    ! stop_error() uses the statement "stop 1" which returns an exit code
-    ! 1 and a print statement to print the message.
+    !Aborts the program with nonzero exit code. 
+    !The statement :code:`STOP "msg"` will return exit code :code:`0` when compiled using
+    !gfortran. :f:func:`stop_error` uses the statement :code:`stop 1` which returns an exit code
+    !:code:`1` and a print statement to print the message.
     !
     character(len=*) :: msg ! Message to print on stderr
     write(0,*) msg
