@@ -122,6 +122,10 @@ module SF_CONSTANTS
   public :: isinfty  
 
   interface isnan
+  !
+  !Evaluates an integer, real or complex quantity and returns
+  !a logical expression. If :code:`.true.` the input is :code:`NaN`.
+  !
      module procedure :: i_isnan
      module procedure :: d_isnan
      module procedure :: z_isnan
@@ -130,6 +134,10 @@ module SF_CONSTANTS
 
 
   interface wait
+  !
+  !Waits for a given time interval (integer, real or double) expressed
+  !in milliseconds before continuing execution.
+  !
      module procedure :: i_wait
      module procedure :: r_wait
      module procedure :: d_wait
