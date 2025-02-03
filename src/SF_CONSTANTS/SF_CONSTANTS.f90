@@ -25,17 +25,17 @@ module SF_CONSTANTS
 
 
   !PHYSICAL CONSTANTS (expressed in the SI unit)
-  real(8),parameter,public ::                                 Avogadro_constant=  0.602214129000D+24
-  real(8),parameter,public ::                                     Bohr_magneton=  0.927400968000D-23
-  real(8),parameter,public ::                             Bohr_magneton_in_eVoT=  0.578838180660D-04
-  real(8),parameter,public ::                             Bohr_magneton_in_HzoT=  0.139962455500D+11
-  real(8),parameter,public ::         Bohr_magneton_in_inverse_meters_per_tesla=     46.6864498D0000
-  real(8),parameter,public ::                              Bohr_magneton_in_KoT=      0.67171388D000
-  real(8),parameter,public ::                                       Bohr_radius=  0.529177210920D-10
-  real(8),parameter,public ::                                Boltzmann_constant=  0.138064880000D-22
-  real(8),parameter,public ::                        Boltzmann_constant_in_eVoK=  0.861733240000D-04
-  real(8),parameter,public ::                        Boltzmann_constant_in_HzoK=  0.208366180000D+11
-  real(8),parameter,public ::   Boltzmann_constant_in_inverse_meters_per_kelvin=     69.503476D00000
+  real(8),parameter,public ::                                 Avogadro_constant=  0.602214129000D+24 !Number of particles per mole :math:`N_{A} [mol^{-1}]`
+  real(8),parameter,public ::                                     Bohr_magneton=  0.927400968000D-23 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [J\cdot T^{-1}]`
+  real(8),parameter,public ::                             Bohr_magneton_in_eVoT=  0.578838180660D-04 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [eV\cdot T^{-1}]`
+  real(8),parameter,public ::                             Bohr_magneton_in_HzoT=  0.139962455500D+11 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [Hz\cdot T^{-1}]`
+  real(8),parameter,public ::         Bohr_magneton_in_inverse_meters_per_tesla=     46.6864498D0000 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [m^{-1}\cdot T^{-1}]`
+  real(8),parameter,public ::                              Bohr_magneton_in_KoT=      0.67171388D000 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [K \cdot T^{-1}]`
+  real(8),parameter,public ::                                       Bohr_radius=  0.529177210920D-10 !Approximate nucleus-electron distance in an Hydrogen atom :math:`a_{0} = \frac{4\pi\epsilon_{0}\hbar^{2}}{e^{2}m_{e}} [m]`
+  real(8),parameter,public ::                                Boltzmann_constant=  0.138064880000D-22 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [J \cdot K^{-1}]`
+  real(8),parameter,public ::                        Boltzmann_constant_in_eVoK=  0.861733240000D-04 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [eV \cdot K^{-1}]`
+  real(8),parameter,public ::                        Boltzmann_constant_in_HzoK=  0.208366180000D+11 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [Hz \cdot K^{-1}]`
+  real(8),parameter,public ::   Boltzmann_constant_in_inverse_meters_per_kelvin=     69.503476D00000 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [m^{-1} \cdot K^{-1}]`
   real(8),parameter,public ::                                Compton_wavelength=  0.242631023890D-11
   real(8),parameter,public ::                      Compton_wavelength_over_2_pi=  0.386159268000D-12
   real(8),parameter,public ::                                 electric_constant=  0.885418781700D-11
