@@ -36,8 +36,8 @@ module SF_CONSTANTS
   real(8),parameter,public ::                        Boltzmann_constant_in_eVoK=  0.861733240000D-04 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [eV \cdot K^{-1}]`
   real(8),parameter,public ::                        Boltzmann_constant_in_HzoK=  0.208366180000D+11 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [Hz \cdot K^{-1}]`
   real(8),parameter,public ::   Boltzmann_constant_in_inverse_meters_per_kelvin=     69.503476D00000 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [m^{-1} \cdot K^{-1}]`
-  real(8),parameter,public ::                                Compton_wavelength=  0.242631023890D-11
-  real(8),parameter,public ::                      Compton_wavelength_over_2_pi=  0.386159268000D-12
+  real(8),parameter,public ::                                Compton_wavelength=  0.242631023890D-11 !Wavelength of a photon having the same rest energy as the electron :math:`\lambda_{c} = \frac{h}{m_{e}c} [m]`
+  real(8),parameter,public ::                      Compton_wavelength_over_2_pi=  0.386159268000D-12 !Normalized Compton wavelength :math:`\lambda_{c} = \frac{\hbar}{m_{e}c} [m]`
   real(8),parameter,public ::                                 electric_constant=  0.885418781700D-11
   real(8),parameter,public ::                  electron_charge_to_mass_quotient= -0.175882008800D+12
   real(8),parameter,public ::                                 electron_g_factor= -0.200231930436D+01
