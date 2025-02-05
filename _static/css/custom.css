@@ -1,0 +1,53 @@
+.wy-nav-content {
+   max-width: none;
+}
+
+
+.sig.sig-object.f {
+    background-color: #e7f2fa;  /* Light blue background */
+    border: 1px solid #e7f2fa;  /* Light blue border */
+    border-top: 3px solid #6ab0de;  /* Darker blue top border */
+    padding: 6px 8px;           /* Padding around the function name */
+    border-radius: 3px;         /* Rounded corners */
+    color: #0077aa;             /* Blue text color for the function name */
+    font-weight: bold;          /* Bold text to stand out */
+}
+
+/* Ensure the function name and keyword (e.g., "function", "subroutine") are in black */
+.sig.sig-object.f .descname,   /* Function name */
+.sig.sig-object.f .pre.keyword {  /* For keywords like "subroutine" */
+    color: #000000;             /* Black color */
+}
+
+
+/* Style the remaining variable names in blue */
+.sig.sig-object.f .pre:not(:first-of-type) {  
+    color: #0077aa;  /* Blue for variable names */
+}
+
+/* In types, bold fields */
+.sig-name.descname {
+    font-weight: bold;
+}
+
+/*remove the module name from the fortran functions*/
+.sig.sig-object.f .sig-prename {
+    display: none;
+}
+
+/* Optional: Style the full signature block */
+.sig.sig-object {
+    display: inline-block;      /* Ensures the signature is styled as a block */
+    padding: 2px 5px;           /* Padding for the signature block */
+    background-color: #eaf5ff;  /* Same light blue background */
+    border-radius: 3px;         /* Rounded corners for the signature block */
+    border-top: 3px solid #005588;  /* Darker blue top border */
+}
+
+.colored-square {
+    display: inline-block;
+    width: 96px;
+    height: 24px;
+    border: 1px solid #000;
+}
+
