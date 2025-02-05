@@ -26,11 +26,11 @@ module SF_CONSTANTS
 
   !PHYSICAL CONSTANTS (expressed in the SI unit)
   real(8),parameter,public ::                                 Avogadro_constant=  0.602214129000D+24 !Number of particles per mole :math:`N_{A} [mol^{-1}]`
-  real(8),parameter,public ::                                     Bohr_magneton=  0.927400968000D-23 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [J\cdot T^{-1}]`
-  real(8),parameter,public ::                             Bohr_magneton_in_eVoT=  0.578838180660D-04 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [eV\cdot T^{-1}]`
-  real(8),parameter,public ::                             Bohr_magneton_in_HzoT=  0.139962455500D+11 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [Hz\cdot T^{-1}]`
-  real(8),parameter,public ::         Bohr_magneton_in_inverse_meters_per_tesla=     46.6864498D0000 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [m^{-1}\cdot T^{-1}]`
-  real(8),parameter,public ::                              Bohr_magneton_in_KoT=      0.67171388D000 !Magnetic moment of the electron :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [K \cdot T^{-1}]`
+  real(8),parameter,public ::                                     Bohr_magneton=  0.927400968000D-23 !Natural unit of the electron magnetic moment :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [J\cdot T^{-1}]`
+  real(8),parameter,public ::                             Bohr_magneton_in_eVoT=  0.578838180660D-04 !Natural unit of the electron magnetic moment  :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [eV\cdot T^{-1}]`
+  real(8),parameter,public ::                             Bohr_magneton_in_HzoT=  0.139962455500D+11 !Natural unit of the electron magnetic moment  :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [Hz\cdot T^{-1}]`
+  real(8),parameter,public ::         Bohr_magneton_in_inverse_meters_per_tesla=     46.6864498D0000 !Natural unit of the electron magnetic moment  :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [m^{-1}\cdot T^{-1}]`
+  real(8),parameter,public ::                              Bohr_magneton_in_KoT=      0.67171388D000 !Natural unit of the electron magnetic moment  :math:`\mu_{B} = \frac{e\hbar}{2m_{e}} [K \cdot T^{-1}]`
   real(8),parameter,public ::                                       Bohr_radius=  0.529177210920D-10 !Approximate nucleus-electron distance in an Hydrogen atom :math:`a_{0} = \frac{4\pi\epsilon_{0}\hbar^{2}}{e^{2}m_{e}} [m]`
   real(8),parameter,public ::                                Boltzmann_constant=  0.138064880000D-22 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [J \cdot K^{-1}]`
   real(8),parameter,public ::                        Boltzmann_constant_in_eVoK=  0.861733240000D-04 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [eV \cdot K^{-1}]`
@@ -38,13 +38,13 @@ module SF_CONSTANTS
   real(8),parameter,public ::   Boltzmann_constant_in_inverse_meters_per_kelvin=     69.503476D00000 !Proportionality constant between energy and temperature of an ideal gas :math:`k_{B} [m^{-1} \cdot K^{-1}]`
   real(8),parameter,public ::                                Compton_wavelength=  0.242631023890D-11 !Wavelength of a photon having the same rest energy as the electron :math:`\lambda_{c} = \frac{h}{m_{e}c} [m]`
   real(8),parameter,public ::                      Compton_wavelength_over_2_pi=  0.386159268000D-12 !Normalized Compton wavelength :math:`\lambda_{c} = \frac{\hbar}{m_{e}c} [m]`
-  real(8),parameter,public ::                                 electric_constant=  0.885418781700D-11
-  real(8),parameter,public ::                  electron_charge_to_mass_quotient= -0.175882008800D+12
-  real(8),parameter,public ::                                 electron_g_factor= -0.200231930436D+01
-  real(8),parameter,public ::                           electron_gyromag__ratio=  0.176085970800D+12
-  real(8),parameter,public ::                 electron_gyromag__ratio_over_2_pi=  0.280249526600D+05
-  real(8),parameter,public ::                                electron_mag__mom_= -0.928476430000D-23
-  real(8),parameter,public ::         electron_mag__mom__to_Bohr_magneton_ratio= -0.100115965218D+01
+  real(8),parameter,public ::                                 electric_constant=  0.885418781700D-11 !Vacuum permittivity :math:`\epsilon_{0} [F\cdot m^{-1}]`
+  real(8),parameter,public ::                  electron_charge_to_mass_quotient= -0.175882008800D+12 !Ratio between electronic charge and mass :math:`\frac{q_{e}}{m_{e}} [C \cdot kg^{-1}]`
+  real(8),parameter,public ::                                 electron_g_factor= -0.200231930436D+01 !Electron g-factor :math:`g`  (Dimensionless)
+  real(8),parameter,public ::                           electron_gyromag__ratio=  0.176085970800D+12 !Electron gyromagnetic ratio :math:`\gamma_{e} = \frac{g_{e}\mu_{B}}{\hbar}[rad\cdot s^{-1}\cdot T^{-1}]`
+  real(8),parameter,public ::                 electron_gyromag__ratio_over_2_pi=  0.280249526600D+05 !Normalized electron gyromagnetic ratio :math:`\gamma_{e} = \frac{g_{e}\mu_{B}}{2\pi\hbar}[rad\cdot s^{-1}\cdot T^{-1}]`
+  real(8),parameter,public ::                                electron_mag__mom_= -0.928476430000D-23 !Electron magnetic moment :math:`\mu_{e} [J\cdot T^{-1}]`
+  real(8),parameter,public ::         electron_mag__mom__to_Bohr_magneton_ratio= -0.100115965218D+01 !Ratio between electron magnetic moment and Borh magneton :math:`\frac{\mu_{e}}{\mu_{e}}=\frac{g}{2}`
   real(8),parameter,public ::                                     electron_mass=  0.910938291000D-30
   real(8),parameter,public ::                   electron_mass_energy_equivalent=  0.818710506000D-13
   real(8),parameter,public ::            electron_mass_energy_equivalent_in_MeV=      0.510998928D00
