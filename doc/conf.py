@@ -94,7 +94,9 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 fortran_src=[
-    os.path.abspath('../src'),
+    #os.path.abspath('../src'),
+    os.path.abspath('../src/SCIFOR.f90'),
+    os.path.abspath('../src/scifor_version.in'),
     os.path.abspath('../src/SF_ARRAYS'),
     os.path.abspath('../src/SF_COLORS'),
     os.path.abspath('../src/SF_CONSTANTS'),
@@ -117,7 +119,7 @@ fortran_src=[
     ]
 
 #DEFAULT
-fortran_ext=['f90', 'f95']
+fortran_ext=['f90', 'f95', 'in']
 
 # fortran_subsection_type = "title"
 # fortran_title_underline = "_"
