@@ -51,3 +51,34 @@
     border: 1px solid #000;
 }
 
+
+/*  SIDEBAR */
+
+/* Change sidebar background color */
+div.wy-side-nav-search, div.wy-nav-side {
+    background-color: #1E905B !important; /* Dark green */
+}
+
+
+/* Change the search box outline color */
+.wy-side-nav-search input[type="text"] {
+    border: 1px solid #1B5E20 !important; /* Dark green outline */
+    box-shadow: none !important; /* Remove blue glow */
+}
+
+/* Change the focus outline color */
+.wy-side-nav-search input[type="text"]:focus {
+    border-color: #26a269 !important; /* Adjusted green */
+    box-shadow: 0 0 5px #26a269 !important;
+}
+
+/* Sidebar section titles in green */
+.wy-menu-vertical header, .wy-menu-vertical p.caption {
+    color: #2AD485 !important; /* Light green */
+}
+
+/* Change clicked/active item to green */
+.wy-menu-vertical a:active {
+    background-color: #26a269 !important; /* Darker green */
+    color: white !important;
+}
