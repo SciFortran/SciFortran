@@ -45,17 +45,17 @@ module SF_CONSTANTS
   real(8),parameter,public ::                 electron_gyromag__ratio_over_2_pi=  0.280249526600D+05 !Normalized electron gyromagnetic ratio :math:`\gamma_{e} = \frac{g_{e}\mu_{B}}{2\pi\hbar}[rad\cdot s^{-1}\cdot T^{-1}]`
   real(8),parameter,public ::                                electron_mag__mom_= -0.928476430000D-23 !Electron magnetic moment :math:`\mu_{e} [J\cdot T^{-1}]`
   real(8),parameter,public ::         electron_mag__mom__to_Bohr_magneton_ratio= -0.100115965218D+01 !Ratio between electron magnetic moment and Bohr magneton :math:`\frac{\mu_{e}}{\mu_{e}}=\frac{g}{2}`
-  real(8),parameter,public ::                                     electron_mass=  0.910938291000D-30 !Mass of the electron :math:`m_{e}` [kg]
-  real(8),parameter,public ::                   electron_mass_energy_equivalent=  0.818710506000D-13 !Electron rest energy [J]
-  real(8),parameter,public ::            electron_mass_energy_equivalent_in_MeV=      0.510998928D00 !Electron rest energy [MeV]
-  real(8),parameter,public ::                                     electron_volt=  0.160217656500D-18 !Joule equivalent of :math:`1 eV`
-  real(8),parameter,public ::       electron_volt_atomic_mass_unit_relationship=  0.107354415000D-08
-  real(8),parameter,public ::                electron_volt_hartree_relationship=     0.03674932379D0
-  real(8),parameter,public ::                  electron_volt_hertz_relationship=  0.241798934800D+15
-  real(8),parameter,public ::          electron_volt_inverse_meter_relationship=  0.806554429000D+06
-  real(8),parameter,public ::                  electron_volt_joule_relationship=  0.160217656500D-18
-  real(8),parameter,public ::                 electron_volt_kelvin_relationship=  0.116045190000D+05
-  real(8),parameter,public ::               electron_volt_kilogram_relationship=  0.178266184500D-35
+  real(8),parameter,public ::                                     electron_mass=  0.910938291000D-30 !Mass of the electron :math:`m_{e}\;[kg]`
+  real(8),parameter,public ::                   electron_mass_energy_equivalent=  0.818710506000D-13 !Electron rest energy :math:`[J]`
+  real(8),parameter,public ::            electron_mass_energy_equivalent_in_MeV=      0.510998928D00 !Electron rest energy :math:`[MeV]`
+  real(8),parameter,public ::                                     electron_volt=  0.160217656500D-18 !Equivalent of :math:`1\;eV\;[J]`
+  real(8),parameter,public ::       electron_volt_atomic_mass_unit_relationship=  0.107354415000D-08 !Atomic mass unit equivalence of :math:`1\;eV`
+  real(8),parameter,public ::                electron_volt_hartree_relationship=     0.03674932379D0 !Equivalent of :math:`1\;eV\;[Ha]`
+  real(8),parameter,public ::                  electron_volt_hertz_relationship=  0.241798934800D+15 !Equivalent of :math:`1\;eV\;[Hz]`
+  real(8),parameter,public ::          electron_volt_inverse_meter_relationship=  0.806554429000D+06 !Equivalent of :math:`1\;eV\;[m^-1]`
+  real(8),parameter,public ::                  electron_volt_joule_relationship=  0.160217656500D-18 !Equivalent of :math:`1\;eV\;[J]`
+  real(8),parameter,public ::                 electron_volt_kelvin_relationship=  0.116045190000D+05 !Equivalent of :math:`1\;eV\;[K]`
+  real(8),parameter,public ::               electron_volt_kilogram_relationship=  0.178266184500D-35 !Equivalent of :math:`1\;eV\;[kg]`
   real(8),parameter,public ::                                 elementary_charge=  0.160217656500D-18
   real(8),parameter,public ::                          elementary_charge_over_h=  0.241798934800D+15
   real(8),parameter,public ::                                  Faraday_constant=  0.964853365000D+05
