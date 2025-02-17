@@ -58,9 +58,9 @@ module SF_CONSTANTS
   real(8),parameter,public ::               electron_volt_kilogram_relationship=  0.178266184500D-35 !Equivalent of :math:`1\;eV\;[kg]`
   real(8),parameter,public ::                                 elementary_charge=  0.160217656500D-18 !Charge unit (charge of the proton) :math:`[C]`
   real(8),parameter,public ::                          elementary_charge_over_h=  0.241798934800D+15 !Charge unit (charge of the proton) divided by :math:`h\;[m^{-2} kg^{-1} s^{2} A]`
-  real(8),parameter,public ::                                  Faraday_constant=  0.964853365000D+05
-  real(8),parameter,public ::Faraday_constant_for_conventional_electric_current=  0.964853321000D+05
-  real(8),parameter,public ::                           fine_structure_constant=  0.729735256980D-02
+  real(8),parameter,public ::                                  Faraday_constant=  0.964853328900D+05 !Quotient between total charge and number of charge carriers (2019 SI units) :math:`\frac{q}{n}=eN_{A}\;[C\;mol^{-1}]`
+  real(8),parameter,public ::Faraday_constant_for_conventional_electric_current=  0.964853251000D+05 !Quotient between total charge and number of charge carriers (1990 "conventional" values) :math:`\frac{q}{n}=eN_{A}\;[C\;mol^{-1}]`
+  real(8),parameter,public ::                           fine_structure_constant=  0.729735256980D-02 !Fundamental constant characterizing the strength of the electromagnetic interaction between elementary charged particles :math:`\alpha=\frac{e^2}{2\epsilon_{0}hc}`
   real(8),parameter,public ::                                Josephson_constant=  0.483597870000D+15
   real(8),parameter,public ::                  joule_electron_volt_relationship=  0.624150934000D+19
   real(8),parameter,public ::                          joule_hertz_relationship=  0.150919031100D+34

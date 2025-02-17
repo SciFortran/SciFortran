@@ -82,7 +82,7 @@ div.wy-side-nav-search, div.wy-nav-side {
 
 /* Sidebar section titles in green */
 .wy-menu-vertical header, .wy-menu-vertical p.caption {
-    color: #2AD45E !important; /* Light green */
+    color: #39b55f !important; /* Light green */
 }
 
 /* Change clicked/active item to green */

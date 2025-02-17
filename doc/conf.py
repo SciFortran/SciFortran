@@ -112,7 +112,7 @@ fortran_src=[
     os.path.abspath('../src/SF_OPTIMIZE'),
     os.path.abspath('../src/SF_PARSE_INPUT'),
     os.path.abspath('../src/SF_RANDOM'),
-    # os.path.abspath('../src/SF_SPARSE'),
+    os.path.abspath('../src/SF_SPARSE'),
     os.path.abspath('../src/SF_SPECIAL'),
     os.path.abspath('../src/SF_SP_LINALG'),
     os.path.abspath('../src/SF_TIMER'),
