@@ -56,8 +56,8 @@ module SF_CONSTANTS
   real(8),parameter,public ::                  electron_volt_joule_relationship=  0.160217656500D-18 !Equivalent of :math:`1\;eV\;[J]`
   real(8),parameter,public ::                 electron_volt_kelvin_relationship=  0.116045190000D+05 !Equivalent of :math:`1\;eV\;[K]`
   real(8),parameter,public ::               electron_volt_kilogram_relationship=  0.178266184500D-35 !Equivalent of :math:`1\;eV\;[kg]`
-  real(8),parameter,public ::                                 elementary_charge=  0.160217656500D-18
-  real(8),parameter,public ::                          elementary_charge_over_h=  0.241798934800D+15
+  real(8),parameter,public ::                                 elementary_charge=  0.160217656500D-18 !Charge unit (charge of the proton) :math:`[C]`
+  real(8),parameter,public ::                          elementary_charge_over_h=  0.241798934800D+15 !Charge unit (charge of the proton) divided by :math:`h\;[m^{-2} kg^{-1} s^{2} A]`
   real(8),parameter,public ::                                  Faraday_constant=  0.964853365000D+05
   real(8),parameter,public ::Faraday_constant_for_conventional_electric_current=  0.964853321000D+05
   real(8),parameter,public ::                           fine_structure_constant=  0.729735256980D-02

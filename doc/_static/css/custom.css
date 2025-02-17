@@ -4,9 +4,9 @@
 
 
 .sig.sig-object.f{
-    background-color: #f0f7f2 !important;  /* Light green background */
-    border: 1px solid #f0f7f2 !important;  /* Light green border */
-    border-top: 3px solid #1e8555 !important;  /* Darker green top border */
+    background-color: #f3f6f4 !important;  /* Light green background */
+    border: 1px solid #f3f6f4 !important;  /* Light green border */
+    border-top: 3px solid #53856e !important;  /* Darker green top border */
     padding: 6px 8px !important;           /* Padding around the function name */
     border-radius: 3px !important;         /* Rounded corners */
     color: #177A4D !important;             /* green text color for the function name */
@@ -64,6 +64,9 @@ div.wy-side-nav-search, div.wy-nav-side {
     background-color: #1E905B !important; /* Dark green */
 }
 
+.wy-nav-top {
+    background-color: #1E905B !important; 
+}
 
 /* Change the search box outline color */
 .wy-side-nav-search input[type="text"] {
