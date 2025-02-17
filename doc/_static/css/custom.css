@@ -4,9 +4,9 @@
 
 
 .sig.sig-object.f{
-    background-color: #E7FAEC !important;  /* Light green background */
-    border: 1px solid #E7FAEC !important;  /* Light green border */
-    border-top: 3px solid #55B96F !important;  /* Darker green top border */
+    background-color: #f0f7f2 !important;  /* Light green background */
+    border: 1px solid #f0f7f2 !important;  /* Light green border */
+    border-top: 3px solid #1e8555 !important;  /* Darker green top border */
     padding: 6px 8px !important;           /* Padding around the function name */
     border-radius: 3px !important;         /* Rounded corners */
     color: #177A4D !important;             /* green text color for the function name */
