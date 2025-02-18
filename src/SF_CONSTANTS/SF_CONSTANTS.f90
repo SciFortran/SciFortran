@@ -61,12 +61,12 @@ module SF_CONSTANTS
   real(8),parameter,public ::                                  Faraday_constant=  0.964853328900D+05 !Quotient between total charge and number of charge carriers (2019 SI units) :math:`\frac{q}{n}=eN_{A}\;[C\;mol^{-1}]`
   real(8),parameter,public ::Faraday_constant_for_conventional_electric_current=  0.964853251000D+05 !Quotient between total charge and number of charge carriers (1990 "conventional" values) :math:`\frac{q}{n}=eN_{A}\;[C\;mol^{-1}]`
   real(8),parameter,public ::                           fine_structure_constant=  0.729735256980D-02 !Fundamental constant characterizing the strength of the electromagnetic interaction between elementary charged particles :math:`\alpha=\frac{e^2}{2\epsilon_{0}hc}`
-  real(8),parameter,public ::                                Josephson_constant=  0.483597870000D+15
-  real(8),parameter,public ::                  joule_electron_volt_relationship=  0.624150934000D+19
-  real(8),parameter,public ::                          joule_hertz_relationship=  0.150919031100D+34
-  real(8),parameter,public ::                  joule_inverse_meter_relationship=  0.503411701000D+25
-  real(8),parameter,public ::                         joule_kelvin_relationship=  0.724297160000D+23
-  real(8),parameter,public ::                       joule_kilogram_relationship=  0.111265005600D-16
+  real(8),parameter,public ::                                Josephson_constant=  0.483597870000D+15 !Inverse of the magnetic flux quantum :math:`K_{J}=\frac{2e}{h}\;[Hz\;V^{-1}]`
+  real(8),parameter,public ::                  joule_electron_volt_relationship=  0.624150934000D+19 !Equivalent of :math:`1J` in :math:`[eV]`
+  real(8),parameter,public ::                          joule_hertz_relationship=  0.150919031100D+34 !Equivalent of :math:`1J` in :math:`[Hz]`, from :math:`f=\frac{E}{h}`
+  real(8),parameter,public ::                  joule_inverse_meter_relationship=  0.503411701000D+25 !Equivalent of :math:`1J` in :math:`[m^{-1}]`, from :math:`\frac{1}{\lambda}=\frac{E}{hc}`
+  real(8),parameter,public ::                         joule_kelvin_relationship=  0.724297160000D+23 !Equivalent of :math:`1J` in :math:`[K]`, from :math:`T=\frac{E}{k_{B}}`
+  real(8),parameter,public ::                       joule_kilogram_relationship=  0.111265005600D-16 !Equivalent of :math:`1J` in :math:`[kg]`, from :math:`m=\frac{E}{c^{2}}`
   real(8),parameter,public ::              kelvin_atomic_mass_unit_relationship=  0.925108680000D-13
   real(8),parameter,public ::                 kelvin_electron_volt_relationship=  0.861733240000D-04
   real(8),parameter,public ::                       kelvin_hartree_relationship=  0.316681140000D-05
