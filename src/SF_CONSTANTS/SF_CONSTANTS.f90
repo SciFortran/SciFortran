@@ -67,13 +67,13 @@ module SF_CONSTANTS
   real(8),parameter,public ::                  joule_inverse_meter_relationship=  0.503411701000D+25 !Equivalent of :math:`1J` in :math:`[m^{-1}]`, from :math:`\frac{1}{\lambda}=\frac{E}{hc}`
   real(8),parameter,public ::                         joule_kelvin_relationship=  0.724297160000D+23 !Equivalent of :math:`1J` in :math:`[K]`, from :math:`T=\frac{E}{k_{B}}`
   real(8),parameter,public ::                       joule_kilogram_relationship=  0.111265005600D-16 !Equivalent of :math:`1J` in :math:`[kg]`, from :math:`m=\frac{E}{c^{2}}`
-  real(8),parameter,public ::              kelvin_atomic_mass_unit_relationship=  0.925108680000D-13
-  real(8),parameter,public ::                 kelvin_electron_volt_relationship=  0.861733240000D-04
-  real(8),parameter,public ::                       kelvin_hartree_relationship=  0.316681140000D-05
-  real(8),parameter,public ::                         kelvin_hertz_relationship=  0.208366180000D+11
-  real(8),parameter,public ::                 kelvin_inverse_meter_relationship=     69.503476D00000
-  real(8),parameter,public ::                         kelvin_joule_relationship=  0.138064880000D-22
-  real(8),parameter,public ::                      kelvin_kilogram_relationship=  0.153617900000D-39
+  real(8),parameter,public ::              kelvin_atomic_mass_unit_relationship=  0.925108680000D-13 !Equivalent of :math:`1K` in :math:`[amu]`
+  real(8),parameter,public ::                 kelvin_electron_volt_relationship=  0.861733240000D-04 !Equivalent of :math:`1K` in :math:`[eV]`
+  real(8),parameter,public ::                       kelvin_hartree_relationship=  0.316681140000D-05 !Equivalent of :math:`1K` in :math:`[Ha]`
+  real(8),parameter,public ::                         kelvin_hertz_relationship=  0.208366180000D+11 !Equivalent of :math:`1K` in :math:`[Hz]`
+  real(8),parameter,public ::                 kelvin_inverse_meter_relationship=     69.503476D00000 !Equivalent of :math:`1K` in :math:`[m^{-1}]`
+  real(8),parameter,public ::                         kelvin_joule_relationship=  0.138064880000D-22 !Equivalent of :math:`1K` in :math:`[J]` (Boltzmann constant)
+  real(8),parameter,public ::                      kelvin_kilogram_relationship=  0.153617900000D-39 !Equivalent of :math:`1K` in :math:`[kg]`
   real(8),parameter,public ::            kilogram_atomic_mass_unit_relationship=  0.602214129000D+27
   real(8),parameter,public ::               kilogram_electron_volt_relationship=  0.560958885000D+36
   real(8),parameter,public ::                     kilogram_hartree_relationship=  0.206148596800D+35
