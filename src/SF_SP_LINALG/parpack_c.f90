@@ -21,7 +21,7 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   !Dimensions:
   integer                   :: Ns
   integer                   :: Neigen
-  integer                   :: maxn,maxnev,maxncv,ldv,nloc
+  integer                   :: maxn,maxnev,maxncv,ldv,nloc,maxncv_
   integer                   :: n,nconv,ncv,nev
   !Arrays:
   complex(8),allocatable    :: evec_tmp(:) ![Nloc] see above
@@ -83,14 +83,20 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   endif
   !
   !
-  if(maxncv>Ns)then
-     maxncv=Ns
+  maxncv_=maxncv                !every rank can have a different maxncv
+  if(maxncv_>Ns)then
+     maxncv_=Ns                 !some rank may have ncv > Ns (Ns=N/#mpi)
      print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
   endif
-  !BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, from Xuanyu Long
-  call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
+  !
+  !BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, revised from Xuanyu Long
+  maxncv=0
+  call MPI_ALLREDUCE(maxncv_,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
+  !call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !
   !
+  !=========================================================================
+  ldv    = size(evec,1)             !ldv is the SMALL dimension
   n      = maxn
   nev    = maxnev
   ncv    = maxncv
@@ -98,7 +104,6 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   !
   !=========================================================================
   ! Setup distribution of data to nodes:
-  ldv = size(evec,1)             !ldv is the SMALL dimension
   ! if(ldv>0.AND.ldv < ncv)stop "LANCZOS_PARPACK_C error: ldv < maxNblock. Unstable! Find a way to increase ldv... (less cpu?)"
   if ( ldv > maxn ) then
      stop ' ERROR with _SDRV1: NLOC is greater than MAXNLOC '

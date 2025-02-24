@@ -21,7 +21,7 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   !Dimensions:
   integer                   :: Ns
   integer                   :: Neigen
-  integer                   :: maxn,maxnev,maxncv,ldv
+  integer                   :: maxn,maxnev,maxncv,ldv,maxncv_
   integer                   :: n,nconv,ncv,nev
   !Arrays:
   real(8),allocatable       :: evec_tmp(:) ![Nloc] see above
@@ -72,7 +72,7 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   verb   = .false.   ; if(present(iverbose))verb=iverbose
   vran   = .true.    ; if(present(vrandom))vran=vrandom
 
-  
+
   if(verb)then
      ndigit=-4
      logfil = 6
@@ -80,13 +80,20 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
      mcaup2=1;mnaup2=1
      mceupd=4;mneupd=4
   endif
-  if(maxncv>Ns)then
-     maxncv=Ns
+  !
+  maxncv_=maxncv                !every rank can have a different maxncv
+  if(maxncv_>Ns)then
+     maxncv_=Ns                 !some rank may have ncv > Ns (Ns=N/#mpi)
      print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
   endif
-  !BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, from Xuanyu Long
-  call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !
+  !BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, revised from Xuanyu Long
+  maxncv=0
+  call MPI_ALLREDUCE(maxncv_,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
+  !call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
+  !
+  !
+  !=========================================================================
   ldv    = maxn
   n      = maxn
   nev    = maxnev
@@ -150,7 +157,8 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
           ncv,v,ldv,iparam,ipntr,workd,workl,lworkl,info )
      !
      if(ido/=-1.AND.ido/=1)exit
-     !  Perform matrix vector multiplication: y <--- OP*x ; workd(ipntr(1))=input, workd(ipntr(2))=output
+     !  Perform matrix vector multiplication:
+     !    y <--- OP*x ; workd(ipntr(1))=input, workd(ipntr(2))=output
      call MatVec(ldv,workd(ipntr(1)),workd(ipntr(2)))
   end do
   !
