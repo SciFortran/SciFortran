@@ -186,7 +186,6 @@ contains
     integer,save              :: older=0,oldiprint=0
     logical                   :: esc,fullprint
     integer(4),dimension(8)   :: dummy
-    character(len=16)         :: string
     character(len=1)          :: method_
     character(len=80)         :: message
     logical,save              :: lentry=.true.
@@ -197,8 +196,7 @@ contains
     if(lentry)then
        mod_print=10;if(present(step))mod_print=step
        if(funit(Tindex)/=6)then
-          write(string,"(I4)")funit(Tindex)
-          write(*,"(2x,A,I3)")"+ETA --> unit:"//trim(adjustl(trim(string)))
+          write(*,"(2x,A,I4)")"+ETA --> unit: ",funit(Tindex)
        endif
        lentry=.false.
     endif
