@@ -84,7 +84,9 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   maxncv_=maxncv                !every rank can have a different maxncv
   if(maxncv_>Ns)then
      maxncv_=Ns                 !some rank may have ncv > Ns (Ns=N/#mpi)
-     print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
+     if(mpi_master.and.verb)then
+       print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
+     endif
   endif
   !
   !BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, revised from Xuanyu Long
