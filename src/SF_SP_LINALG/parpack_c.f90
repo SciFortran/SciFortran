@@ -86,7 +86,7 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   maxncv_=maxncv                !every rank can have a different maxncv
   if(maxncv_>Ns)then
      maxncv_=Ns                 !some rank may have ncv > Ns (Ns=N/#mpi)
-     if(mpi_master.and.verb)then
+     if(verb)then
        print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
      endif
   endif
