@@ -67,6 +67,15 @@ MODULE SF_DERIVATE
 
 
   interface djacobian
+  !This subroutine calculates the :math:`m \times n` Jacobian matrix :math:`[\partial \mathrm{funcv}_{i} / \partial x_{j}]` for a 
+  !:f:type:`real` function :f:func:`funcv`, where :math:`i \in [1,m]` and :math:`j \in [1,n]`. If :math:`m \neq n`,
+  !the dimension :f:var:`m` of the codomain needs to be passed as a parameter. The subroutine takes
+  !the function :f:func:`funcv` to be differentiated as an external procedure, in the form of a subroutine or a function.
+  !In the case of a function, it has to be of the form :f:var:`funcv(x,[m])` returning a real array of dimension :code:`size(x)` 
+  !or :code:`m`. In the case of a subroutine, it has to be of the form :f:var:`funcv(x,[m],y)`, where :f:var:`y` has dimension 
+  !:code:`size(x)` or :code:`m`. The calculated Jacobian is a :f:type:`real(8)` matrix of dimension :math:`[n,n]` or :math:`[m,n]`.
+  !In the case where the Jacobian matrix is expected to be band-diagonal, the calculation can be sped up by specifying the
+  !number of lower and upper subdiagonals to be calculated. This can be done via the optional parameters :f:var:`ml` and :f:var:`mu`.
      module procedure fdjac_nn_func, fdjac_nn_sub, fdjac_mn_func,fdjac_mn_sub
   end interface djacobian
 

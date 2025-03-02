@@ -196,8 +196,8 @@ contains
   !PURPOSE: test if a given number is actually NaN
   !+-----------------------------------------------------------------------------+!
   elemental function i_isnan(a) result(bool)
-    integer,intent(in)    :: a
-    logical               :: bool
+    integer,intent(in)    :: a !Number to evaluate
+    logical               :: bool !Result
     bool = (a /= a) .OR. (a-1 == a)
   end function i_isnan
   elemental function d_isnan(a) result(bool)

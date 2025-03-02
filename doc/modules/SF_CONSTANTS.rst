@@ -3,7 +3,7 @@ SF_CONSTANTS
 
 
 .. f:automodule::   sf_constants
-    :members:  isnan, isinfty, wait, timestamp, print_date, stop_error
+    :members:  isnan, isinfty, wait, timestamp, stop_error
 
 
 List of physical and numerical constants
