@@ -31,7 +31,9 @@ contains
     logical,optional :: istart          !If :code:`.true.`, :f:var:`start` is included in the resulting array. Default :code:`.true.`
     logical,optional :: iend            !If :code:`.true.`, :f:var:`stop` is included in the resulting array. Default :code:`.true.`
     real(8),optional :: mesh            !If present, the step is saved in this variable
-    real(8)          :: array(num)      !Contains :f:var:`num` equally spaced samples in the interval [:f:var:`start`, :f:var:`stop`], left/right open or closed depending on  :f:var:`istart` and :f:var:`iend`
+    real(8)          :: array(num)      !Contains :f:var:`num` equally spaced samples in the interval 
+                                        ![:f:var:`start`, :f:var:`stop`], left/right open or closed depending on 
+                                        !:f:var:`istart` and :f:var:`iend`
     integer          :: i               !
     real(8)          :: step            
     logical          :: startpoint_,endpoint_
@@ -69,11 +71,14 @@ contains
   !Returns numbers spaced evenly on a log scale.
   !In linear space, the sequence starts at :f:var:`start` and ends with :f:var:`stop` (differently from numpy).
   !
-    real(8)          :: start      ! The starting value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
-    real(8)          :: stop       ! The end value of the sequence. Must be positive. If set to :code:`0`, it will be reshifted to :code:`1e-12`
+    real(8)          :: start      ! The starting value of the sequence. Must be positive. If set to :code:`0`, 
+                                   ! it will be reshifted to :code:`1e-12`
+    real(8)          :: stop       ! The end value of the sequence. Must be positive. If set to :code:`0`, 
+                                   ! it will be reshifted to :code:`1e-12`
     integer          :: num        ! Number of samples to generate
     real(8),optional :: base       ! The base of the exponential. Default :code:`10`
-    real(8)          :: array(num) ! Contains :f:var:`num` samples, equally spaced on a log scale in the closed interval [start, stop]
+    real(8)          :: array(num) ! Contains :f:var:`num` samples, equally spaced on a log scale 
+                                   ! in the closed interval [start, stop]
     integer          :: i
     real(8)          :: base_
     real(8)          :: A,B
@@ -97,7 +102,8 @@ contains
   !
     integer          :: start         !First element of the array
     integer          :: num           !Length of the array
-    integer          :: array(num)    !Contains the integer numbers in [:f:var:`start`, :f:var:`start`:code:`+`:f:var:`num`:code:`-1`]
+    integer          :: array(num)    !Contains the integer numbers in [:f:var:`start`, 
+                                      !:f:var:`start`:code:`+`:f:var:`num`:code:`-1`]
     integer          :: i
     if(num<0)stop "arange: N<0, abort."
     forall(i=1:num)array(i)=start+i-1
@@ -124,8 +130,10 @@ contains
     real(8),optional :: base   !Base of the exponential spacing (default :code:`2`)
     logical,optional :: istart !If :code:`.true.`, :f:var:`start` is included in the resulting array. Default :code:`.true.`
     logical,optional :: iend   !If :code:`.true.`, :f:var:`stop` is included in the resulting array. Default :code:`.true.`
-    real(8),optional :: mesh(ndim) !If present, contains the distances between consecutive points in :f:var:`aout`. The last element is :math:`aout(ndim) - aout(ndim-1)`
-    real(8)          :: aout(ndim) !Contains :f:var:`p` coarse exponentially-spaced checkpoints, each two of which separated by :f:var:`u` linearly spaced points
+    real(8),optional :: mesh(ndim) !If present, contains the distances between consecutive points in :f:var:`aout`. 
+                                   !The last element is :code:`aout(ndim) - aout(ndim-1)`
+    real(8)          :: aout(ndim) !Contains :f:var:`p` coarse exponentially-spaced checkpoints, 
+                                   !each two of which separated by :f:var:`u` linearly spaced points
     real(8)          :: step,array(p*u+1)
     integer          :: pindex,uindex,pa,pb
     real(8)          :: ustart,ustop
@@ -185,12 +193,15 @@ contains
     !
     real(8)  :: start                   !First element of the array
     real(8)  :: stop                    !Last element of the array
-    real(8)  :: midpoint                !Middle point of the array. The distance between the coarse checkpoints behaves specularly on the two sides
+    real(8)  :: midpoint                !Middle point of the array. The distance between the coarse checkpoints 
+                                        !behaves specularly on the two sides
     integer  :: p                       !Number of coarse subdivisions
     integer  :: q                       !Number of fine subdivisions
-    integer,optional :: type            !If :code:`=0`, mesh is thicker around :f:var:`start` and :f:var:`stop`. If :code:`=1`, mesh is thicker around :f:var:`midpoint`. Default :code:`0`
+    integer,optional :: type            !If :code:`=0`, mesh is thicker around :f:var:`start` and :f:var:`stop`. 
+                                        !If :code:`=1`, mesh is thicker around :f:var:`midpoint`. Default :code:`0`
     real(8),optional :: base            !Base of the exponential spacing (default :code:`2`)
-    real(8),optional :: mesh(2*P*Q+1)   !If present, contains the distances between consecutive points in :f:var:`array`. The last element is :math:`array(2 \cdot p \cdot q+1) - array(2 \cdotp \cdot q)`
+    real(8),optional :: mesh(2*P*Q+1)   !If present, contains the distances between consecutive points in :f:var:`array`. 
+                                        !The last element is :code:`array(2 · p · q+1) - array(2 · p · q)`
     real(8)          :: array(2*p*q+1)  !Contains :math:`2 \cdot p \cdot q+1` points
     real(8)          :: base_
     integer          :: i
