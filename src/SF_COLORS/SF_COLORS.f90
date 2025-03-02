@@ -23,6 +23,7 @@ MODULE SF_COLORS
   type(rgb_color),parameter ::  yellow              =rgb_color(255,255,0) !:raw-html:`<span class="colored-square" style="background-color: #FFFF00;"></span>`
   type(rgb_color),parameter ::  cyan                =rgb_color(0,255,255) !:raw-html:`<span class="colored-square" style="background-color: #00FFFF;"></span>`
   type(rgb_color),parameter ::  magenta             =rgb_color(159, 0, 159) !:raw-html:`<span class="colored-square" style="background-color: #9F009F;"></span>`
+  
   !X11/rgb.txt color codes:
   type(rgb_color),parameter :: snow                 =rgb_color(255,250,250)  !:raw-html:`<span class="colored-square" style="background-color: #FFFAFA;"></span>`
   type(rgb_color),parameter :: ghostwhite           =rgb_color(248,248,255)  !:raw-html:`<span class="colored-square" style="background-color: #F8F8FF;"></span>`
