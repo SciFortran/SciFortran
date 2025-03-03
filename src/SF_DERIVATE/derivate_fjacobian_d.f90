@@ -5,8 +5,8 @@ subroutine fdjac_nn_func(funcv,x,fjac,ml,mu,epsfcn)
   interface 
      function funcv(x)
        real(8),dimension(:),intent(in) :: x
-       real(8),dimension(size(x))      :: funcv !An external procedure which takes as input an array of :f:type:`real(8)` :f:var:`x` 
-                                                !and returns an array of :f:type:`real(8)` 
+       real(8),dimension(size(x))      :: funcv !An external procedure which takes as input an array of :f:type:`real` :f:var:`x` 
+                                                !and returns an array of :f:type:`real` 
      end function funcv
   end interface
   integer                              ::  n
@@ -17,7 +17,7 @@ subroutine fdjac_nn_func(funcv,x,fjac,ml,mu,epsfcn)
   real(8),dimension(size(x),size(x))   ::  fjac !The Jacobian matrix calculated at :f:var:`x`
   integer,optional                     ::  ml !Lower subdiagonal limit (number of lower subdiagonals to be calculated)
   integer,optional                     ::  mu !Upper subdiagonal limit (number of upper subdiagonals to be calculated)
-  real(8),optional                     ::  epsfcn !Step size for the numerical calculation of the Jacobian (default :code:`epsilon(REAL(8))`)
+  real(8),optional                     ::  epsfcn !Step size for the numerical calculation of the Jacobian (default :code:`epsilon(REAL)`)
   integer                              ::  ml_,mu_,msum
   real(8)                              ::  eps,eps_
   real(8)                              ::  epsmch
@@ -293,21 +293,22 @@ subroutine fdjac_1n_func(funcv,x,fjac,epsfcn)
      function funcv(x)
        implicit none
        real(8),dimension(:),intent(in) :: x
-       real(8)                         :: funcv
+       real(8)                         :: funcv !An external procedure which takes as input an array of :f:type:`real` :f:var:`x` 
+                                                !and returns a real number
      end function funcv
   end interface
-  integer          ::  n
-  real(8),intent(in) ::  x(:)
-  real(8)            ::  x_(size(x))
-  real(8)          ::  fvec
-  real(8)          ::  fjac(size(x))
-  real(8),optional ::  epsfcn
-  real(8)          ::  eps,eps_
-  real(8)          ::  epsmch
-  real(8)          ::  h,temp
-  real(8)          ::  wa1
-  real(8)          ::  wa2
-  integer          :: i,j,k
+  integer                         ::  n
+  real(8),intent(in),dimension(:) ::  x !An array containing the element in the function domain where the gradient is to be calculated
+  real(8)                         ::  x_(size(x))
+  real(8)                         ::  fvec
+  real(8),dimension(size(x))      ::  fjac !The gradient vector calculated at :f:var:`x`
+  real(8),optional   ::  epsfcn !Step size for the numerical calculation of the Jacobian (default :code:`epsilon(REAL)`)
+  real(8)            ::  eps,eps_
+  real(8)            ::  epsmch
+  real(8)            ::  h,temp
+  real(8)            ::  wa1
+  real(8)            ::  wa2
+  integer            :: i,j,k
   n=size(x)
   x_ = x
   eps_= 0.d0; if(present(epsfcn))eps_=epsfcn
