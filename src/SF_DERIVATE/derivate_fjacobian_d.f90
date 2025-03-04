@@ -143,12 +143,12 @@ end subroutine fdjac_nn_sub
 function f_jac_nn_func(funcv,x) result(df)
   interface
      function funcv(x)
-       real(8), dimension(:),intent(in) :: x
-       real(8), dimension(size(x))      :: funcv
+       real(8), dimension(:),intent(in) :: x     !An array containing the element in the function domain where the Jacobian is to be calculated
+       real(8), dimension(size(x))      :: funcv !The function of subroutine to be differentiated
      end function funcv
   end interface
-  real(8),intent(in)                  ::  x(:)
-  real(8), dimension(size(x),size(x)) :: df
+  real(8),intent(in)                    ::  x(:) !An array containing the element in the function domain where the Jacobian is to be calculated
+  real(8),dimension(size(x),size(x))    :: df    !The Jacobian matrix
   call fdjac_nn_func(funcv,x,df)
 end function f_jac_nn_func
 
@@ -159,8 +159,8 @@ function f_jac_nn_sub(funcv,x) result(df)
        real(8), dimension(size(x))      :: y
      end subroutine funcv
   end interface
-  real(8), dimension(:), intent(in)   :: x
-  real(8), dimension(size(x),size(x)) :: df
+  real(8),dimension(:),intent(in)     :: x  !An array containing the element in the function domain where the Jacobian is to be calculated
+  real(8),dimension(size(x),size(x))  :: df !The Jacobian matrix
   call fdjac_nn_sub(funcv,x,df)
 end function f_jac_nn_sub
 
@@ -254,14 +254,15 @@ end subroutine fdjac_mn_sub
 function f_jac_mn_func(funcv,x,m) result(df)
   interface 
      function funcv(x,m)
-       real(8),dimension(:),intent(in) :: x
-       integer                         :: m
+       real(8),dimension(:),intent(in) :: x 
+       integer                         :: m !Dimension of the codomain of :f:func:`funcv` (optional)
        real(8),dimension(m)            :: funcv
      end function funcv
   end interface
-  integer                           :: n,m
-  real(8), dimension(:), intent(in) :: x
-  real(8), dimension(m,size(x))     :: df
+  integer                           :: m  !Dimension of the codomain of :f:func:`funcv` (optional)
+  integer                           :: n
+  real(8),dimension(:),intent(in)   :: x  !An array containing the element in the function domain where the Jacobian is to be calculated
+  real(8),dimension(m,size(x))      :: df !The Jacobian matrix
   call fdjac_mn_func(funcv,x,m,df)
 end function f_jac_mn_func
 
@@ -269,14 +270,14 @@ function f_jac_mn_sub(funcv,x,m) result(df)
   interface
      subroutine funcv(x,m,y)
        implicit none
-       integer                          :: m
+       integer                          :: m !Dimension of the codomain of :f:func:`funcv` (optional)
        real(8), dimension(:),intent(in) :: x
        real(8), dimension(m)            :: y
      end subroutine funcv
   end interface
-  integer                           :: m
-  real(8), dimension(:), intent(in) :: x
-  real(8), dimension(m,size(x))     :: df
+  integer                           :: m  !Dimension of the codomain of :f:func:`funcv` (optional)
+  real(8),dimension(:),intent(in)   :: x  !An array containing the element in the function domain where the Jacobian is to be calculated
+  real(8),dimension(m,size(x))      :: df !The Jacobian matrix
   call fdjac_mn_sub(funcv,x,m,df)
 end function f_jac_mn_sub
 
