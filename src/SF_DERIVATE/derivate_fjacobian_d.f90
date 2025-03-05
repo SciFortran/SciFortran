@@ -371,11 +371,12 @@ function f_jac_1n_func(funcv,x) result(df)
   interface
      function funcv(x)
        real(8),dimension(:),intent(in) :: x
-       real(8)                         :: funcv
+       real(8)                         :: funcv !An external procedure which takes as input an array of :f:type:`real` :f:var:`x`
+                                                ! and returns a real number
      end function funcv
   end interface
-  real(8), dimension(:), intent(in) :: x
-  real(8), dimension(size(x))       :: df
+  real(8), dimension(:), intent(in) :: x   !An array containing the element in the function domain where the gradient is to be calculated
+  real(8), dimension(size(x))       :: df  !The gradient array
   call fdjac_1n_func(funcv,x,df)
 end function f_jac_1n_func
 
@@ -386,7 +387,7 @@ function f_jac_1n_sub(funcv,x) result(df)
        real(8)                          :: y
      end subroutine funcv
   end interface
-  real(8), dimension(:), intent(in) :: x
+  real(8), dimension(:), intent(in) :: x   !An array containing the element in the function domain where the gradient is to be calculated
   real(8), dimension(size(x))       :: df
   call fdjac_1n_sub(funcv,x,df)
 end function f_jac_1n_sub

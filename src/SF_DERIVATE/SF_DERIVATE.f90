@@ -95,6 +95,8 @@ MODULE SF_DERIVATE
   end interface f_djacobian
 
   interface f_dgradient
+  !This functions calls the :f:func:`dgradient` subroutine. The required parameters and returned value follow the same logic. 
+  !The optional parameters are set as default
      module procedure f_jac_1n_func, f_jac_1n_sub
   end interface f_dgradient
 
