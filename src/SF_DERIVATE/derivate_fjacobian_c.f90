@@ -6,22 +6,25 @@ subroutine c_fdjac_nn_func(funcv,x,fjac,ml,mu,epsfcn)
   interface 
      function funcv(x)
        real(8),dimension(:),intent(in) :: x
-       complex(8),dimension(size(x))   :: funcv
+       complex(8),dimension(size(x))   :: funcv !An external procedure which takes as input an array of :f:type:`real` :f:var:`x` 
+                                                !and returns an array of :f:type:`complex`
      end function funcv
   end interface
-  integer          ::  n
-  real(8)          ::  x(:)
-  complex(8)       ::  fvec(size(x))
-  complex(8)       ::  fjac(size(x),size(x))
-  integer,optional ::  ml, mu    
-  real(8),optional ::  epsfcn
-  integer          ::  ml_,mu_,msum
-  real(8)          ::  eps,eps_
-  real(8)          ::  epsmch
-  real(8)          ::  h,temp
-  complex(8)       ::  wa1(size(x))
-  complex(8)       ::  wa2(size(x))
-  integer          ::  i,j,k
+  integer                                  ::  n
+  real(8)                                  ::  x(:) !An array containing the element in the function domain 
+                                                    !where the Jacobian matrix is to be calculated
+  complex(8)                               ::  fvec(size(x))
+  complex(8),dimension(size(x),size(x))    ::  fjac !The Jacobian matrix calculated at :f:var:`x`
+  integer,optional                         ::  ml   !Lower subdiagonal limit (number of lower subdiagonals to be calculated)
+  integer,optional                         ::  mu   !Upper subdiagonal limit (number of upper subdiagonals to be calculated)  
+  real(8),optional                         ::  epsfcn !Step size for the numerical calculation of the Jacobian (default :code:`epsilon(REAL)`)
+  integer                                  ::  ml_,mu_,msum
+  real(8)                                  ::  eps,eps_
+  real(8)                                  ::  epsmch
+  real(8)                                  ::  h,temp
+  complex(8)                               ::  wa1(size(x))
+  complex(8)                               ::  wa2(size(x))
+  integer                                  ::  i,j,k
   n=size(x)
   ml_ = n-1 ; if(present(ml))ml_=ml
   mu_ = n-1 ; if(present(mu))mu_=mu
@@ -175,7 +178,8 @@ subroutine c_fdjac_mn_func(funcv,n,x,m,fjac,epsfcn)
   implicit none
   interface 
      function funcv(n,x,m)
-       integer                         :: n,m
+       integer                         :: m  !Dimension of the codomain of :f:func:`funcv`
+       integer                         :: n  !Dimension of the domain :f:var:`x`
        real(8),dimension(n),intent(in) :: x
        complex(8),dimension(m)         :: funcv
      end function funcv

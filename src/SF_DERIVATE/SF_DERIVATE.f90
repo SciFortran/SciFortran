@@ -68,8 +68,8 @@ MODULE SF_DERIVATE
 
   interface djacobian
   !This subroutine calculates the :math:`m \times n` Jacobian matrix :math:`[\partial \mathrm{funcv}_{i} / \partial x_{j}]` for a 
-  !:f:type:`real` function :f:func:`funcv`, where :math:`i \in [1,m]` and :math:`j \in [1,n]`. If :math:`m \neq n`,
-  !the dimension :f:var:`m` of the codomain needs to be passed as a parameter. The subroutine takes
+  !:math:`\mathrm{funcv} : \mathbb{R}^{n}\rightarrow\mathbb{R}^{m}` , where :math:`i \in [1,m]` and :math:`j \in [1,n]`. 
+  !If :math:`m \neq n` the dimension :f:var:`m` of the codomain needs to be passed as a parameter. The subroutine takes
   !the function :f:func:`funcv` to be differentiated as an external procedure, in the form of a subroutine or a function.
   !In the case of a function, it has to be of the form :f:var:`funcv(x,[m])` returning a real array of dimension :code:`size(x)` 
   !or :code:`m`. In the case of a subroutine, it has to be of the form :f:var:`funcv(x,[m],y)`, where :f:var:`y` has dimension 
@@ -80,28 +80,30 @@ MODULE SF_DERIVATE
   end interface djacobian
 
   interface dgradient
-  !This subroutine calculates the gradient of a :f:type:`real` function :f:func:`funcv` of a vector :f:var:`x`. It takes
-  !the function :f:func:`funcv` to be differentiated as an external procedure, in the form of a subroutine or a function.
-  !In the case of a function, it has to be of the form :f:var:`funcv(x)` returning a real number. 
-  !In the case of a subroutine, it has to be of the form :f:var:`funcv(x,y)`, where :f:var:`y` is real.
+  !This subroutine calculates the gradient of :math:`\mathrm{funcv} : \mathbb{R}^{n}\rightarrow\mathbb{R}`  at a point
+  !:math:`x \in \mathbb{R}^{n}` . It takes the function :f:func:`funcv` to be differentiated as an external procedure, 
+  !n the form of a subroutine or a function. In the case of a function, it has to be of the form :f:var:`funcv(x)` 
+  !returning a real number. In the case of a subroutine, it has to be of the form :f:var:`funcv(x,y)`, where :f:var:`y` is real.
   !The calculated gradient is a :f:type:`real` array of dimension :code:`size(x)`.
      module procedure fdjac_1n_func, fdjac_1n_sub
   end interface dgradient
 
   interface f_djacobian
-  !This functions calls the :f:func:`djacobian` subroutine. The required parameters and returned value follow the same logic. 
+  !This function calls the :f:func:`djacobian` subroutine. The required parameters and returned value follow the same logic. 
   !The optional parameters are set as default
      module procedure f_jac_nn_func, f_jac_nn_sub,  f_jac_mn_func, f_jac_mn_sub
   end interface f_djacobian
 
   interface f_dgradient
-  !This functions calls the :f:func:`dgradient` subroutine. The required parameters and returned value follow the same logic. 
+  !This function calls the :f:func:`dgradient` subroutine. The required parameters and returned value follow the same logic. 
   !The optional parameters are set as default
      module procedure f_jac_1n_func, f_jac_1n_sub
   end interface f_dgradient
 
 
   interface cjacobian
+  !This subroutine is the equivalent :f:func:`djacobian` subroutine for 
+  !:math:`\mathrm{funcv} : \mathbb{R}^{n}\rightarrow\mathbb{C}^{m}`
      module procedure c_fdjac_nn_func, c_fdjac_nn_sub, c_fdjac_mn_func, c_fdjac_mn_sub
   end interface cjacobian
 
