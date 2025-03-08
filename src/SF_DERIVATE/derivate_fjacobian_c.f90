@@ -288,20 +288,21 @@ subroutine c_fdjac_1n_func(funcv,x,fjac,epsfcn)
   interface 
      function funcv(x)
        real(8),dimension(:),intent(in) :: x
-       complex(8)                      :: funcv
+       complex(8)                      :: funcv   !An external procedure which takes as input an array of :f:type:`real` :f:var:`x` 
+                                                  ! and returns a complex number
      end function funcv
   end interface
-  integer          ::  n
-  real(8)          ::  x(:)
-  complex(8)       ::  fvec
-  complex(8)       ::  fjac(size(x))
-  real(8),optional ::  epsfcn
-  real(8)          ::  eps,eps_
-  real(8)          ::  epsmch
-  real(8)          ::  h,temp
-  complex(8)       ::  wa1
-  complex(8)       ::  wa2
-  integer          :: i,j,k
+  integer                         ::  n
+  real(8),dimension(:)            ::  x!An array containing the element in the function domain where the gradient is to be calculated
+  complex(8)                      ::  fvec
+  complex(8),dimension(size(x))   ::  fjac !The gradient vector calculated at :f:var:`x`
+  real(8),optional                ::  epsfcn !Step size for the numerical calculation of the Jacobian (default :code:`epsilon(REAL)`)
+  real(8)                         ::  eps,eps_
+  real(8)                         ::  epsmch
+  real(8)                         ::  h,temp
+  complex(8)                      ::  wa1
+  complex(8)                      ::  wa2
+  integer                         :: i,j,k
   n=size(x)
   eps_= 0.d0; if(present(epsfcn))eps_=epsfcn
   epsmch = epsilon(epsmch)

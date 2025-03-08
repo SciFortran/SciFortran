@@ -108,6 +108,8 @@ MODULE SF_DERIVATE
   end interface cjacobian
 
   interface cgradient
+  !This subroutine is the equivalent :f:func:`dgradient` subroutine for 
+  !:math:`\mathrm{funcv} : \mathbb{R}^{n}\rightarrow\mathbb{C}`
      module procedure c_fdjac_1n_func,c_fdjac_1n_sub
   end interface cgradient
 
