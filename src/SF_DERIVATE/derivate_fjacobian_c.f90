@@ -74,10 +74,9 @@ end subroutine c_fdjac_nn_func
 subroutine c_fdjac_nn_sub(funcv,x,fjac,ml,mu,epsfcn)
   implicit none
   interface 
-     subroutine funcv(n,x,y)
-       integer                         :: n
-       real(8),dimension(n),intent(in) :: x
-       complex(8),dimension(n)         :: y
+     subroutine funcv(x,y)
+       real(8),dimension(:),intent(in) :: x
+       complex(8),dimension(size(x))   :: y
      end subroutine funcv
   end interface
   integer          ::  n
@@ -101,7 +100,7 @@ subroutine c_fdjac_nn_sub(funcv,x,fjac,ml,mu,epsfcn)
   eps  = sqrt(max(eps_,epsmch))
   msum = ml_ + mu_ + 1
   !  Evaluate the function
-  call funcv(n,x,fvec)
+  call funcv(x,fvec)
   !  Computation of dense approximate jacobian.
   if(n <= msum)then
      do j=1,n
@@ -109,7 +108,7 @@ subroutine c_fdjac_nn_sub(funcv,x,fjac,ml,mu,epsfcn)
         h    = eps*abs(temp)
         if(h==0.d0) h = eps
         x(j) = temp + h
-        call funcv(n,x,wa1)
+        call funcv(x,wa1)
         x(j) = temp
         fjac(1:n,j) = ( wa1(1:n) - fvec(1:n) )/h
      enddo
@@ -122,7 +121,7 @@ subroutine c_fdjac_nn_sub(funcv,x,fjac,ml,mu,epsfcn)
            if(h==0.d0)h = eps
            x(j) = wa2(j) + h
         end do
-        call funcv(n,x,wa1)
+        call funcv(x,wa1)
         do j=k,n,msum
            x(j) = wa2(j)
            h = eps*abs(wa2(j))
@@ -139,30 +138,27 @@ subroutine c_fdjac_nn_sub(funcv,x,fjac,ml,mu,epsfcn)
   return
 end subroutine c_fdjac_nn_sub
 
-function c_f_jac_nn_func(funcv,n,x) result(df)
+function c_f_jac_nn_func(funcv,x) result(df)
   interface
      function funcv(x)
-       real(8), dimension(:),intent(in) :: x
-       complex(8), dimension(size(x))   :: funcv
+       real(8), dimension(:),intent(in) :: x     !An array containing the element in the function domain where the Jacobian is to be calculated
+       complex(8), dimension(size(x))   :: funcv !The function of subroutine to be differentiated
      end function funcv
   end interface
-  integer                               :: n
-  real(8), dimension(n), intent(inout)  :: x
-  complex(8), dimension(n,n)            :: df
+  real(8),intent(in)                    ::  x(:) !An array containing the element in the function domain where the Jacobian is to be calculated
+  complex(8),dimension(size(x),size(x)) :: df    !The Jacobian matrix
   call c_fdjac_nn_func(funcv,x,df)
 end function c_f_jac_nn_func
 
-function c_f_jac_nn_sub(funcv,n,x) result(df)
+function c_f_jac_nn_sub(funcv,x) result(df)
   interface
-     subroutine funcv(n,x,y)
-       integer                          :: n
-       real(8), dimension(n),intent(in) :: x
-       complex(8), dimension(n)         :: y
+     subroutine funcv(x,y)
+       real(8), dimension(:),intent(in) :: x
+       complex(8), dimension(size(x))   :: y
      end subroutine funcv
   end interface
-  integer                              :: n
-  real(8), dimension(n), intent(inout) :: x
-  complex(8), dimension(n,n)           :: df
+  real(8),dimension(:),intent(in)        :: x  !An array containing the element in the function domain where the Jacobian is to be calculated
+  complex(8),dimension(size(x),size(x))  :: df !The Jacobian matrix
   call c_fdjac_nn_sub(funcv,x,df)
 end function c_f_jac_nn_sub
 
@@ -174,21 +170,20 @@ end function c_f_jac_nn_sub
 !
 !              M x N Jacobian (df_i/dx_j for i=1,...,M;j=1,...,N)
 !-----------------------------------------------------------------------
-subroutine c_fdjac_mn_func(funcv,n,x,m,fjac,epsfcn)
+subroutine c_fdjac_mn_func(funcv,x,m,fjac,epsfcn)
   implicit none
   interface 
-     function funcv(n,x,m)
+     function funcv(x,m)
        integer                         :: m  !Dimension of the codomain of :f:func:`funcv`
-       integer                         :: n  !Dimension of the domain :f:var:`x`
-       real(8),dimension(n),intent(in) :: x
+       real(8),dimension(:),intent(in) :: x
        complex(8),dimension(m)         :: funcv
      end function funcv
   end interface
   integer          ::  n
   integer          ::  m
-  real(8)          ::  x(n)
+  real(8)          ::  x(:)
   complex(8)       ::  fvec(m)
-  complex(8)       ::  fjac(m,n)
+  complex(8)       ::  fjac(m,size(x))
   real(8),optional ::  epsfcn
   real(8)          ::  eps,eps_
   real(8)          ::  epsmch
@@ -199,32 +194,32 @@ subroutine c_fdjac_mn_func(funcv,n,x,m,fjac,epsfcn)
   eps_= 0.d0; if(present(epsfcn))eps_=epsfcn
   epsmch = epsilon(epsmch)
   eps    = sqrt(max(eps_,epsmch))
-  fvec = funcv(n,x,m)
+  fvec = funcv(x,m)
   do j=1,n
      temp = x(j)
      h    = eps*abs(temp)
      if(h==0.d0) h = eps
      x(j) = temp + h
-     wa1 = funcv(n,x,m)
+     wa1 = funcv(x,m)
      x(j) = temp
      fjac(1:m,j) = (wa1(1:m) - fvec(1:m))/h
   enddo
 end subroutine c_fdjac_mn_func
 
-subroutine c_fdjac_mn_sub(funcv,n,x,m,fjac,epsfcn)
+subroutine c_fdjac_mn_sub(funcv,x,m,fjac,epsfcn)
   implicit none
   interface 
-     subroutine funcv(n,x,m,y)
-       integer                         :: n,m
-       real(8),dimension(n),intent(in) :: x
+     subroutine funcv(x,m,y)
+       integer                         :: m
+       real(8),dimension(:),intent(in) :: x
        complex(8),dimension(m)         :: y
      end subroutine funcv
   end interface
   integer          ::  n
   integer          ::  m
-  real(8)          ::  x(n)
+  real(8)          ::  x(:)
   complex(8)       ::  fvec(m)
-  complex(8)       ::  fjac(m,n)
+  complex(8)       ::  fjac(m,size(x))
   real(8),optional ::  epsfcn
   real(8)          ::  eps,eps_
   real(8)          ::  epsmch
@@ -235,45 +230,46 @@ subroutine c_fdjac_mn_sub(funcv,n,x,m,fjac,epsfcn)
   eps_= 0.d0; if(present(epsfcn))eps_=epsfcn
   epsmch = epsilon(epsmch)
   eps    = sqrt(max(eps_,epsmch))
-  call funcv(n,x,m,fvec)
+  call funcv(x,m,fvec)
   do j=1,n
      temp = x(j)
      h    = eps*abs(temp)
      if(h==0.d0) h = eps
      x(j) = temp + h
-     call funcv(n,x,m,wa1)
+     call funcv(x,m,wa1)
      x(j) = temp
      fjac(1:m,j) = (wa1(1:m) - fvec(1:m))/h
   enddo
 end subroutine c_fdjac_mn_sub
 
-function c_f_jac_mn_func(funcv,n,x,m) result(df)
+function c_f_jac_mn_func(funcv,x,m) result(df)
   interface 
-     function funcv(n,x,m)
-       integer                         :: n,m
-       real(8),dimension(n),intent(in) :: x
+     function funcv(x,m)
+       real(8),dimension(:),intent(in) :: x 
+       integer                         :: m !Dimension of the codomain of :f:func:`funcv` (optional)
        complex(8),dimension(m)         :: funcv
      end function funcv
   end interface
-  integer                               :: n,m
-  real(8), dimension(n), intent(inout)  :: x
-  complex(8), dimension(m,n)            :: df
-  call c_fdjac_mn_func(funcv,n,x,m,df)    
+  integer                           :: m  !Dimension of the codomain of :f:func:`funcv` (optional)
+  integer                           :: n
+  real(8),dimension(:),intent(in)   :: x  !An array containing the element in the function domain where the Jacobian is to be calculated
+  complex(8),dimension(m,size(x))   :: df !The Jacobian matrix
+  call c_fdjac_mn_func(funcv,x,m,df)
 end function c_f_jac_mn_func
 
-function c_f_jac_mn_sub(funcv,n,x,m) result(df)
+function c_f_jac_mn_sub(funcv,x,m) result(df)
   interface
-     subroutine funcv(n,x,m,y)
+     subroutine funcv(x,m,y)
        implicit none
-       integer                          :: n,m
-       real(8), dimension(n),intent(in) :: x
+       integer                          :: m !Dimension of the codomain of :f:func:`funcv` (optional)
+       real(8), dimension(:),intent(in) :: x
        complex(8), dimension(m)         :: y
      end subroutine funcv
   end interface
-  integer                               :: n,m
-  real(8), dimension(n), intent(inout)  :: x
-  complex(8), dimension(m,n)            :: df
-  call c_fdjac_mn_sub(funcv,n,x,m,df)
+  integer                           :: m  !Dimension of the codomain of :f:func:`funcv` (optional)
+  real(8),dimension(:),intent(in)   :: x  !An array containing the element in the function domain where the Jacobian is to be calculated
+  complex(8),dimension(m,size(x))   :: df !The Jacobian matrix
+  call c_fdjac_mn_sub(funcv,x,m,df)
 end function c_f_jac_mn_sub
 
 
@@ -322,9 +318,8 @@ end subroutine c_fdjac_1n_func
 
 subroutine c_fdjac_1n_sub(funcv,x,fjac,epsfcn)
   interface 
-     subroutine funcv(n,x,y)
-       integer                         :: n
-       real(8),dimension(n),intent(in) :: x
+     subroutine funcv(x,y)
+       real(8),dimension(:),intent(in) :: x
        complex(8)                      :: y
      end subroutine funcv
   end interface
@@ -344,44 +339,42 @@ subroutine c_fdjac_1n_sub(funcv,x,fjac,epsfcn)
   epsmch = epsilon(epsmch)
   eps  = sqrt(max(eps_,epsmch))
   !  Evaluate the function
-  call funcv(n,x,fvec)
+  call funcv(x,fvec)
   !  Computation of dense approximate jacobian.
   do j=1,n
      temp = x(j)
      h    = eps*abs(temp)
      if(h==0.d0) h = eps
      x(j) = temp + h
-     call funcv(n,x,wa1)
+     call funcv(x,wa1)
      x(j) = temp
      fjac(j) = (wa1-fvec)/h
   enddo
   return
 end subroutine c_fdjac_1n_sub
 
-function c_f_jac_1n_func(funcv,n,x) result(df)
+function c_f_jac_1n_func(funcv,x) result(df)
   interface
      function funcv(x)
        real(8),dimension(:),intent(in) :: x
-       complex(8)                      :: funcv
+       complex(8)                         :: funcv !An external procedure which takes as input an array of :f:type:`real` :f:var:`x`
+                                                   ! and returns a complex number
      end function funcv
   end interface
-  integer                               :: n
-  real(8), dimension(n), intent(inout)  :: x
-  complex(8), dimension(n)              :: df
+  real(8), dimension(:), intent(in)     :: x   !An array containing the element in the function domain where the gradient is to be calculated
+  complex(8), dimension(size(x))       :: df  !The gradient array
   call c_fdjac_1n_func(funcv,x,df)
 end function c_f_jac_1n_func
 
-function c_f_jac_1n_sub(funcv,n,x) result(df)
+function c_f_jac_1n_sub(funcv,x) result(df)
   interface
-     subroutine funcv(n,x,y)
-       integer                          :: n
-       real(8), dimension(n),intent(in) :: x
+     subroutine funcv(x,y)
+       real(8), dimension(:),intent(in) :: x
        complex(8)                       :: y
      end subroutine funcv
   end interface
-  integer                               :: n
-  real(8), dimension(n), intent(inout)  :: x
-  complex(8), dimension(n)              :: df
+  real(8), dimension(:), intent(in)    :: x   !An array containing the element in the function domain where the gradient is to be calculated
+  complex(8), dimension(size(x))       :: df
   call c_fdjac_1n_sub(funcv,x,df)
 end function c_f_jac_1n_sub
 

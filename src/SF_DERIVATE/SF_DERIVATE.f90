@@ -114,10 +114,14 @@ MODULE SF_DERIVATE
   end interface cgradient
 
   interface f_cjacobian
+  !This function calls the :f:func:`cjacobian` subroutine. The required parameters and returned value follow the same logic. 
+  !The optional parameters are set as default
      module procedure c_f_jac_nn_func , c_f_jac_nn_sub , c_f_jac_mn_func , c_f_jac_mn_sub
   end interface f_cjacobian
 
   interface f_cgradient
+  !This function calls the :f:func:`cgradient` subroutine. The required parameters and returned value follow the same logic. 
+  !The optional parameters are set as default
      module procedure c_f_jac_1n_func , c_f_jac_1n_sub
   end interface f_cgradient
 
