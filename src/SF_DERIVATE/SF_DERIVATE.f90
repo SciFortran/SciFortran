@@ -147,9 +147,10 @@ MODULE SF_DERIVATE
 contains
 
   function deriv(f,dh) result(df)
-    real(8),dimension(:),intent(in) :: f
-    real(8),intent(in)              :: dh
-    real(8),dimension(size(f))      :: df
+!Calculates the derivative of a real discretized function.
+    real(8),dimension(:),intent(in) :: f  !Discretized function to differentiate
+    real(8),intent(in)              :: dh !Increment
+    real(8),dimension(size(f))      :: df !Returned discretized derivative
     integer                         :: i,L
     L=size(f)
     df(1)= (f(2)-f(1))/dh
