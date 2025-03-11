@@ -147,10 +147,13 @@ MODULE SF_DERIVATE
 contains
 
   function deriv(f,dh) result(df)
-!Calculates the derivative of a real discretized function.
+!Calculates the first derivative of a real discretized function. At the first and last points
+!it is calculated at first order of accuracy :math:`O(dh)` with forwards and backwards 
+!finite differences respectively. At the other points it's calculated at second order of 
+!accuracy :math:`O(dh^{2})` with central finite difference. 
     real(8),dimension(:),intent(in) :: f  !Discretized function to differentiate
-    real(8),intent(in)              :: dh !Increment
-    real(8),dimension(size(f))      :: df !Returned discretized derivative
+    real(8),intent(in)              :: dh !Spacing
+    real(8),dimension(size(f))      :: df !Discretized derivative of :f:var:`f`
     integer                         :: i,L
     L=size(f)
     df(1)= (f(2)-f(1))/dh
@@ -195,10 +198,19 @@ contains
 
 
   function derivative(f,dh,order)  result(df)
-    real(8),dimension(:),intent(in) :: f
-    real(8),intent(in)              :: dh
-    integer,intent(in),optional     :: order
-    real(8),dimension(size(f))      :: df
+!Improves over :f:func:`deriv` . Calculates the first derivative of a real discretized 
+!function. The order of accuracy in the differentiation is controlled by the parameter :f:var:`order` 
+!and can be one of the following: 
+!
+!  * :code:`1` : :math:`O(dh)` forwards (backwards) at first (last) point, :math:`O(dh^{2})` centered everywhere else.
+!  * :code:`2` : :math:`O(dh^{2})` forwards (backwards) at first (last) point, centered everywhere else. 
+!  * :code:`4` : :math:`O(dh^{4})` forwards (backwards) at first (last) point, centered everywhere else. Default value. 
+!  * :code:`6` : :math:`O(dh^{6})` forwards (backwards) at first (last) point, centered everywhere else. 
+!
+    real(8),dimension(:),intent(in) :: f      !Discretized function to differentiate
+    real(8),intent(in)              :: dh     !Spacing
+    integer,intent(in),optional     :: order  !Order of accuracy in the differentiation. Default :code:`4`
+    real(8),dimension(size(f))      :: df     !Discretized derivative of :f:var:`f`
     integer                         :: i,L,order_
     L=size(f)
     order_=4;if(present(order))order_=order
