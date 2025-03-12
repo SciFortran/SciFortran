@@ -293,10 +293,19 @@ contains
 
 
   function derivative2(f,dh,order)  result(df)
-    real(8),dimension(:),intent(in) :: f
-    real(8),intent(in)              :: dh
-    integer,intent(in),optional     :: order
-    real(8),dimension(size(f))      :: df
+!Calculates the second derivative of a real discretized function. The order of 
+!accuracy in the differentiation is controlled by the parameter :f:var:`order` 
+!and can be one of the following: 
+!
+!  * :code:`1` : :math:`O(dh)` forwards (backwards) at first (last) point, :math:`O(dh^{2})` centered everywhere else.
+!  * :code:`2` : :math:`O(dh^{2})` forwards (backwards) at first (last) point, centered everywhere else. 
+!  * :code:`4` : :math:`O(dh^{4})` forwards (backwards) at first (last) point, centered everywhere else. Default value. 
+!  * :code:`6` : :math:`O(dh^{6})` forwards (backwards) at first (last) point, centered everywhere else. 
+!
+    real(8),dimension(:),intent(in) :: f      !Discretized function to differentiate
+    real(8),intent(in)              :: dh     !Spacing
+    integer,intent(in),optional     :: order  !Order of accuracy in the differentiation. Default :code:`4`
+    real(8),dimension(size(f))      :: df     !Discretized second derivative of :f:var:`f`
     integer                         :: i,L,order_
     L=size(f)
     order_=4;if(present(order))order_=order
@@ -369,10 +378,19 @@ contains
 
 
   function derivative3(f,dh,order)  result(df)
-    real(8),dimension(:),intent(in) :: f
-    real(8),intent(in)              :: dh
-    integer,intent(in),optional     :: order
-    real(8),dimension(size(f))      :: df
+!Calculates the third derivative of a real discretized function. The order of 
+!accuracy in the differentiation is controlled by the parameter :f:var:`order` 
+!and can be one of the following: 
+!
+!  * :code:`1` : :math:`O(dh)` forwards (backwards) at first (last) point, :math:`O(dh^{2})` centered everywhere else.
+!  * :code:`2` : :math:`O(dh^{2})` forwards (backwards) at first (last) point, centered everywhere else. 
+!  * :code:`4` : :math:`O(dh^{4})` forwards (backwards) at first (last) point, centered everywhere else. Default value. 
+!  * :code:`6` : :math:`O(dh^{6})` forwards (backwards) at first (last) point, centered everywhere else. 
+!
+    real(8),dimension(:),intent(in) :: f      !Discretized function to differentiate
+    real(8),intent(in)              :: dh     !Spacing
+    integer,intent(in),optional     :: order  !Order of accuracy in the differentiation. Default :code:`4`
+    real(8),dimension(size(f))      :: df     !Discretized third derivative of :f:var:`f`
     integer                         :: i,L,order_
     L=size(f)
     order_=4;if(present(order))order_=order
@@ -449,10 +467,19 @@ contains
 
 
   function derivative4(f,dh,order)  result(df)
-    real(8),dimension(:),intent(in) :: f
-    real(8),intent(in)              :: dh
-    integer,intent(in),optional     :: order
-    real(8),dimension(size(f))      :: df
+!Calculates the fourth derivative of a real discretized function. The order of 
+!accuracy in the differentiation is controlled by the parameter :f:var:`order` 
+!and can be one of the following: 
+!
+!  * :code:`1` : :math:`O(dh)` forwards (backwards) at first (last) point, :math:`O(dh^{2})` centered everywhere else.
+!  * :code:`2` : :math:`O(dh^{2})` forwards (backwards) at first (last) point, centered everywhere else. 
+!  * :code:`4` : :math:`O(dh^{4})` forwards (backwards) at first (last) point, centered everywhere else. Default value. 
+!  * :code:`6` : :math:`O(dh^{6})` forwards (backwards) at first (last) point, centered everywhere else. 
+!
+    real(8),dimension(:),intent(in) :: f      !Discretized function to differentiate
+    real(8),intent(in)              :: dh     !Spacing
+    integer,intent(in),optional     :: order  !Order of accuracy in the differentiation. Default :code:`4`
+    real(8),dimension(size(f))      :: df     !Discretized fourth derivative of :f:var:`f`
     integer                         :: i,L,order_
     L=size(f)
     order_=4;if(present(order))order_=order
@@ -525,13 +552,16 @@ contains
 
 
   function derivativeN(f,dh,n)  result(df)
-    real(8),dimension(:),intent(in) :: f
-    real(8),intent(in)              :: dh
-    integer,intent(in)              :: n
-    real(8),dimension(size(f))      :: df,tmp,dtmp
+!Calculates the :f:var:`n` -th derivative of a real discretized function with 
+!accuracy :math:`O(dh^{6})`
+    real(8),dimension(:),intent(in) :: f  !Discretized function to differentiate
+    real(8),intent(in)              :: dh !Spacing
+    integer,intent(in)              :: n  !Order of the derivative
+    real(8),dimension(size(f))      :: df !Discretized :f:var:`n` -th derivative of :f:var:`f`
+    real(8),dimension(size(f))      :: tmp,dtmp
     integer                         :: i,L
     L=size(f)
-    if(L < n + 1) stop "derivative4: L < order+1."
+    if(L < n + 1) stop "derivativeN: L < order+1."
     tmp=f
     do i=1,n
        dtmp = derivF_n666(tmp,dh)
