@@ -10,6 +10,11 @@ MODULE SF_FFT_FFTPACK
   !Fast Fourier Transforms of time/frequency signal
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - -!
   interface FT_direct
+!This function evaluates the direct Fourier transform of a discretized function 
+!from time to frequency domain. Takes as input a discretized function :math:`ft_{i}` on a 
+!set of time points :math:`t_{i}` and a set of frequencies :math:`w_{j}` and returns 
+!a discretized function :math:`fw_{j}` = :f:func_inline:`simps` 
+!:math:`(ft_{i} \cdot e^{-i 2\pi w_{j}t_{i}}, t_{1}, t_{N})`
      module procedure :: d_FT_direct
      module procedure :: c_FT_direct
   end interface FT_direct
@@ -203,10 +208,10 @@ contains
   !PURPOSE  : Evaluate the simple FT of a function from time to frequency. 
   !+-------------------------------------------------------------------+
   function d_FT_direct(ft,t,w) result(fw)
-    real(8),dimension(:),intent(in)        :: ft
-    real(8),dimension(size(ft)),intent(in) :: t
-    real(8),dimension(:),intent(in)        :: w
-    real(8),dimension(size(w))             :: fw
+    real(8),dimension(:),intent(in)        :: ft !Dicretized function to transform (time domain)
+    real(8),dimension(size(ft)),intent(in) :: t  !Discretized time points
+    real(8),dimension(:),intent(in)        :: w  !Discretized frequency points
+    real(8),dimension(size(w))             :: fw !Discretized Fourier-transform function (frequency domain)
     real(8)                                :: a,b
     integer                                :: i
     a = t(1);b = t(size(t))
