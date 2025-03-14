@@ -513,7 +513,7 @@ contains
        write(unit,"(1x,A)")trim(p_buffer)
        close(unit)
     else
-       write(unit,"(1x,A)")trim(p_buffer)
+       write(*,"(1x,A)")trim(p_buffer)
     endif
     p_buffer=""
   end subroutine print_input_node
