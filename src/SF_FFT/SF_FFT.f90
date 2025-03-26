@@ -14,12 +14,17 @@ MODULE SF_FFT_FFTPACK
 !from time to frequency domain. Takes as input a discretized function :math:`ft_{i}` on a 
 !set of time points :math:`t_{i}` and a set of frequencies :math:`w_{j}` and returns 
 !a discretized function :math:`fw_{j}` = :f:func_inline:`simps` 
-!:math:`(ft_{i} \cdot e^{-i 2\pi w_{j}t_{i}}, t_{1}, t_{N})`
+!:math:`(ft_{i} \cdot e^{-i 2\pi w_{j}t_{i}}, t_{1}, t_{N})` , where :code:`N=size(t)`
      module procedure :: d_FT_direct
      module procedure :: c_FT_direct
   end interface FT_direct
 
   interface FT_inverse
+!This function evaluates the inverse Fourier transform of a discretized function 
+!from frequency to time domain. Takes as input a discretized function :math:`fw_{i}` on a 
+!set of time points :math:`w_{i}` and a set of frequencies :math:`t_{j}` and returns 
+!a discretized function :math:`ft_{j}` = :f:func_inline:`simps` 
+!:math:`(fw_{i} \cdot e^{i 2\pi t_{j}w_{i}}, w_{1}, w_{N})` , where :code:`N=size(w)`
      module procedure :: d_FT_inverse
      module procedure :: c_FT_inverse
   end interface FT_inverse
@@ -234,10 +239,10 @@ contains
 
 
   function d_FT_inverse(fw,t,w) result(ft)
-    real(8),dimension(:),intent(in)        :: fw
-    real(8),dimension(:),intent(in)        :: t
-    real(8),dimension(size(fw)),intent(in) :: w
-    real(8),dimension(size(t))             :: ft
+    real(8),dimension(:),intent(in)        :: fw !Dicretized function to transform (frequency domain)
+    real(8),dimension(:),intent(in)        :: t  !Discretized time points
+    real(8),dimension(size(fw)),intent(in) :: w  !Discretized frequency points
+    real(8),dimension(size(t))             :: ft !Discretized Fourier-transform function (time domain)
     real(8)                                :: a,b
     integer                                :: i
     a = w(1) ; b = w(size(w))

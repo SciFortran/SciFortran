@@ -22,10 +22,8 @@ import sphinx_rtd_theme
 import sphinxfortran_ng
 from docutils.parsers.rst import roles
 from docutils import nodes
-
-def raw_html_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
-    """Custom interpreted role to insert raw HTML inline."""
-    return [nodes.raw('', text, format='html')], []
+from sphinx.transforms import SphinxTransform
+from sphinx.application import Sphinx
 
 
 # -- Project information -----------------------------------------------------
@@ -263,6 +261,27 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
+
+# Raw html processing
+def raw_html_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
+    """Custom interpreted role to insert raw HTML inline."""
+    return [nodes.raw('', text, format='html')], []
+
+# Fix quotes
+class FixQuotesTransform(SphinxTransform):
+    """Custom Sphinx transform to replace curly quotes with straight quotes."""
+    default_priority = 750  # Run after smartquotes
+
+    def apply(self):
+        for node in self.document.traverse(nodes.Text):
+            if isinstance(node, nodes.Text):
+                node.parent.replace(node, nodes.Text(
+                    node.astext()
+                    .replace("“", '"')
+                    .replace("”", '"')
+                    .replace("‘", "'")
+                    .replace("’", "'")
+                ))
 
 #workaround: use mathjax on all pages
 def setup(app):
