@@ -23,7 +23,7 @@ MODULE SF_SPARSE_ARRAY_ALGEBRA
   
 contains
 
-  function dmatmul_csr_csr(A,B) return(AxB)
+  function dmatmul_csr_csr(A,B) result(AxB)
     type(sparse_dmatrix_csr), intent(in) :: A,B
     type(sparse_dmatrix_csr)             :: AxB
     integer                              :: Na(2),Nb(2)
@@ -48,7 +48,7 @@ contains
   end function dmatmul_csr_csr
 
   
-  function zmatmul_csr_csr(A,B) return(AxB)
+  function zmatmul_csr_csr(A,B) result(AxB)
     type(sparse_zmatrix_csr), intent(in) :: A,B
     type(sparse_zmatrix_csr)             :: AxB
     integer                              :: Na(2),Nb(2)
@@ -73,7 +73,7 @@ contains
   end function zmatmul_csr_csr
 
   
-  function dmatmul_csc_csc(A,B) return(AxB)
+  function dmatmul_csc_csc(A,B) result(AxB)
     type(sparse_dmatrix_csc), intent(in) :: A,B
     type(sparse_dmatrix_csc)             :: AxB
     integer                              :: Na(2),Nb(2)
@@ -97,7 +97,7 @@ contains
     end do
   end function dmatmul_csc_csc
 
-  function zmatmul_csc_csc(A,B) return(AxB)
+  function zmatmul_csc_csc(A,B) result(AxB)
     type(sparse_zmatrix_csc), intent(in) :: A,B
     type(sparse_zmatrix_csc)             :: AxB
     integer                              :: Na(2),Nb(2)
@@ -123,7 +123,7 @@ contains
 
   
   
-  function dmatmul_csc_csr_2csc(A,B) return(AxB)
+  function dmatmul_csc_csr_2csc(A,B) result(AxB)
     type(sparse_dmatrix_csc), intent(in) :: A,AxB
     type(sparse_dmatrix_csr)             :: B
     integer                              :: Na(2),Nb(2)
@@ -148,7 +148,7 @@ contains
   end function zmatmul_csc_csr_2csc
 
   
-  function zmatmul_csc_csr_2csc(A,B) return(AxB)
+  function zmatmul_csc_csr_2csc(A,B) result(AxB)
     type(sparse_zmatrix_csc), intent(in) :: A,AxB
     type(sparse_zmatrix_csr)             :: B
     integer                              :: Na(2),Nb(2)
@@ -172,7 +172,7 @@ contains
     end do
   end function zmatmul_csc_csr_2csc
   
-  function dmatmul_csc_csr_2csr(A,B) return(AxB)
+  function dmatmul_csc_csr_2csr(A,B) result(AxB)
     type(sparse_dmatrix_csc), intent(in) :: A
     type(sparse_dmatrix_csr)             :: B,AxB
     integer                              :: Na(2),Nb(2)
@@ -197,7 +197,7 @@ contains
   end function dmatmul_csc_csr_2csr
 
   
-  function zmatmul_csc_csr_2csr(A,B) return(AxB)
+  function zmatmul_csc_csr_2csr(A,B) result(AxB)
     type(sparse_zmatrix_csc), intent(in) :: A
     type(sparse_zmatrix_csr)             :: B,AxB
     integer                              :: Na(2),Nb(2)

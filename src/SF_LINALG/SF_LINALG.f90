@@ -342,19 +342,19 @@ module SF_LINALG
      module procedure :: d_matmul
      module procedure :: z_matmul
   end interface mat_product
-  interface operator (.x.)
+  interface operator(.x.)
      module procedure :: d_matmul_
      module procedure :: z_matmul_
-  end interface operator (.x.)
+  end interface operator(.x.)
 #ifdef _SCALAPACK
   interface p_mat_product
      module procedure :: p_d_matmul
      module procedure :: p_z_matmul
   end interface p_mat_product
-  interface operator (.Px.)
+  interface operator(.Px.)
      module procedure :: p_d_matmul_f
      module procedure :: p_z_matmul_f
-  end interface operator (.Px.)
+  end interface operator(.Px.)
 #endif  
 
 

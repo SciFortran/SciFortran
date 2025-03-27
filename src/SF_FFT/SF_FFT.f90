@@ -30,6 +30,10 @@ MODULE SF_FFT_FFTPACK
   end interface FT_inverse
 
   interface FFT_signal
+!This function evaluates the fast Fourier transform of a discretized function :f:var:`ft` ,
+!sampled with spacing :f:var:`dt` . It returns :f:var:`fw` = :f:var:`dt` · 
+!:f:func_inline:`tfft` ( :f:var:`ft` )
+!
      module procedure :: d_FFT_signal
      module procedure :: c_FFT_signal
   end interface FFT_signal
@@ -269,9 +273,9 @@ contains
   !PURPOSE  : Evaluate the FFT of a function from time to frequency. 
   !+-------------------------------------------------------------------+
   function d_FFT_signal(ft,dt) result(fw)
-    real(8),dimension(:)        :: ft
-    real(8)                     :: dt
-    real(8),dimension(size(ft)) :: fw
+    real(8),dimension(:)        :: ft !Time-domain function
+    real(8)                     :: dt !Time step
+    real(8),dimension(size(ft)) :: fw !Frequency-domain function
     call tfft(ft)
     fw = ft*dt
   end function d_FFT_signal

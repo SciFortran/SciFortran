@@ -77,16 +77,16 @@ MODULE SF_SPARSE_ARRAY_CSC
   end interface assignment(=)
 
   !ADDITION
-  interface operator (+)
+  interface operator(+)
      module procedure :: plus_dmatrix_csc
      module procedure :: plus_zmatrix_csc
-  end interface operator (+)
+  end interface operator(+)
 
   !SUBTRACTION
-  interface operator (-)
+  interface operator(-)
      module procedure :: minus_dmatrix_csc
      module procedure :: minus_zmatrix_csc
-  end interface operator (-)
+  end interface operator(-)
   
   !SCALAR PRODUCT
   interface operator(*)
@@ -673,8 +673,9 @@ contains
   !PURPOSE:  Sparse matrix addition spA + spB = spC
   !+------------------------------------------------------------------+
   function plus_dmatrix_csc(a,b) result(c)
-    type(sparse_dmatrix_csc), intent(in) :: a,b
-    type(sparse_dmatrix_csc)             :: c
+    type(sparse_dmatrix_csc), intent(in) :: a !First addend
+    type(sparse_dmatrix_csc), intent(in) :: b !Second addend
+    type(sparse_dmatrix_csc)             :: c !Result
     integer                         :: row
     real(8)                         :: val
     integer                         :: i,j
@@ -696,8 +697,9 @@ contains
   !PURPOSE:  Sparse matrix difference spA - spB = spC
   !+------------------------------------------------------------------+
   function minus_dmatrix_csc(a,b) result(c)
-    type(sparse_dmatrix_csc), intent(in) :: a,b
-    type(sparse_dmatrix_csc)             :: c
+    type(sparse_dmatrix_csc), intent(in) :: a !Minuend
+    type(sparse_dmatrix_csc), intent(in) :: b !Subtrahend
+    type(sparse_dmatrix_csc)             :: c !Result
     integer                         :: row
     real(8)                         :: val
     integer                         :: i,j    
