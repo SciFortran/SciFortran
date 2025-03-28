@@ -30,8 +30,8 @@ MODULE SF_FFT_FFTPACK
   end interface FT_inverse
 
   interface FFT_signal
-!This function evaluates the fast Fourier transform of a discretized function :f:var:`ft` ,
-!sampled with spacing :f:var:`dt` . It returns :f:var:`fw` = :f:var:`dt` · 
+!This function evaluates the fast Fourier transform of a discretized function :f:var:`ft` .
+!It returns :f:var:`fw` = :f:var:`dt` · 
 !:f:func_inline:`tfft` ( :f:var:`ft` )
 !
      module procedure :: d_FFT_signal
@@ -39,6 +39,9 @@ MODULE SF_FFT_FFTPACK
   end interface FFT_signal
 
   interface iFFT_signal
+!This function evaluates the inverse fast Fourier transform of a discretized function 
+!:f:var:`fw` . It returns :f:var:`ft` = :f:func_inline:`itfft` ( :f:var:`fw` ) / :f:var:`ft`
+!
      module procedure :: d_iFFT_signal
      module procedure :: c_iFFT_signal
   end interface iFFT_signal
@@ -289,9 +292,9 @@ contains
 
 
   function d_iFFT_signal(fw,dt) result(ft)
-    real(8),dimension(:)        :: fw
-    real(8)                     :: dt
-    real(8),dimension(size(fw)) :: ft
+    real(8),dimension(:)        :: fw !Frequency-domain function
+    real(8)                     :: dt !Time step
+    real(8),dimension(size(fw)) :: ft !Time-domain function
     call itfft(fw)
     ft=fw/dt
   end function d_iFFT_signal
