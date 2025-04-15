@@ -247,7 +247,7 @@ contains
     endif
     lines=0
     if(.not.IOfile)then
-       write(*,*) 'Cannot read +'//reg(file)//'. Skip file_length'
+       write(*,*) 'Cannot read '//reg(file)//'. Skip file_length'
        return
     endif
     open(99,file=reg(file))
@@ -260,7 +260,7 @@ contains
        if(bool1 .OR. bool2)lines=lines-1
     enddo
     lines=lines-1
-    if(verbose_)write(*,'(A,I9,A)') 'there are', lines,' lines in +'//reg(file)
+    if(verbose_)write(*,'(A,I9,A)') 'there are', lines,' lines in '//reg(file)
     rewind(99)
     close(99)
   end function file_length
