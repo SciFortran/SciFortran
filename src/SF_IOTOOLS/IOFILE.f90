@@ -224,14 +224,15 @@ contains
   !+-----------------------------------------------------------------+
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
-  function file_length(file,verbose) result(lines)
+  function file_length(file,verbose,incl_comments) result(lines)
     integer           :: lines
-    logical,optional  :: verbose
+    logical,optional  :: verbose,incl_comments
     character(len=*)  :: file
     integer           :: ifile,ierr,pos
-    logical           :: IOfile,bool,bool1,bool2,verbose_
+    logical           :: IOfile,bool,bool1,bool2,verbose_,incl_comments_
     character(len=256)::buffer
     verbose_=.true.;if(present(verbose))verbose_=verbose
+    incl_comments_=.false.;if(present(incl_comments))incl_comments_=incl_comments
     inquire(file=reg(file),exist=IOfile)
     if(.not.IOfile)then
        inquire(file=reg(file)//".gz",exist=IOfile)
@@ -255,7 +256,7 @@ contains
     do while(ierr==0)
        lines=lines+1
        read(99,*,iostat=ierr)buffer
-       bool1=scan(buffer,"#").ne.0
+       bool1=(scan(buffer,"#").ne.0) .and. .not. incl_comments_
        bool2=len_trim(buffer).eq.0       
        if(bool1 .OR. bool2)lines=lines-1
     enddo
