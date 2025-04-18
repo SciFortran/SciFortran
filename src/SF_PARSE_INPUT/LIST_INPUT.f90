@@ -66,13 +66,15 @@ contains
   !PURPOSE: init the input list
   !+------------------------------------------------------------------+
   subroutine init_input_list(list)
-    type(input_list),optional :: list
+    type(input_list),optional :: list    
     if(present(list))then
+       if(list%status)call delete_input_list(list)
        allocate(list%root)    
        list%size=0
        list%status=.true.
        list%root%next=>null()
     else
+       if(default_list%status)call delete_input_list(default_list)
        allocate(default_list%root)    
        default_list%size=0
        default_list%status=.true.
@@ -91,7 +93,9 @@ contains
     type(input_list),optional :: list
     type(input_node),pointer  :: p,c
     integer :: i
+    
     if(present(list))then
+       if(.not.list%status)return
        do
           p => list%root
           c => p%next
@@ -110,6 +114,7 @@ contains
        list%status=.false.
        deallocate(list%root)
     else
+       if(.not.default_list%status)return
        do
           p => default_list%root
           c => p%next
@@ -427,9 +432,12 @@ contains
     type(input_list),optional :: list
     integer                   :: i,counter,size
     type(input_node),pointer  :: c
+    !
     if(present(list))then
+       if(.not.list%status)return
        c => list%root%next
     else
+       if(.not.default_list%status)return
        c => default_list%root%next
     endif
     counter = 0 
