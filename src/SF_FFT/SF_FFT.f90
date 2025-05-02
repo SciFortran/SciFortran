@@ -66,6 +66,27 @@ MODULE SF_FFT_FFTPACK
   !Fast Fourier Transforms
   !- - - - - - - - - - - - - - - - - - - - - - - - - - - - -!
   interface fft
+  !This subroutine evaluates the forward 1-dimensional FFT of an array of lenght :code:`N` 
+  !using the FFTPACK 5.1 routines :f:func_inline:`rfft1i` + :f:func_inline:`rfft1f`
+  !for the real case and :f:func_inline:`cfft1i` + :f:func_inline:`cfft1f` for the 
+  !complex case. These are called with the parameters
+  !
+  !* :code:`lensav` = :code:`N + int( log(dble(N))/log(2.d0) ) + 4`
+  !* :code:`lenwrk` = :code:`N`
+  !* :code:`lenr`  = :code:`N`
+  !* :code:`inc` = :code:`1`
+  ! 
+  !The subroutine modifies the input array to contain
+  !
+  !* :code:`[y(0), y(1), ..., y(N/2),     y(-N/2+1), ...,   y(-1)]`   if `N` is even
+  !* :code:`[y(0), y(1), ..., y((N-1)/2), y(-(N-1)/2), ..., y(-1)]`   if `N` is odd
+  !
+  !where
+  !
+  !:math:`y(j) = \sum_{k=0}^{N-1} x(k) \cdot e^{-i 2\pi/N \cdot j \cdot k}`  
+  !
+  !for :math:`j \in [0,N-1]`
+  !
      module procedure rfft_1d_forward,cfft_1d_forward
   end interface fft
   public :: fft
@@ -73,6 +94,27 @@ MODULE SF_FFT_FFTPACK
   public :: cfft_1d_forward
 
   interface ifft
+  !This subroutine evaluates the backward 1-dimensional FFT of an array of lenght :code:`N` 
+  !using the FFTPACK 5.1 routines :f:func_inline:`rfft1i` + :f:func_inline:`rfft1b`
+  !for the real case and :f:func_inline:`cfft1i` + :f:func_inline:`cfft1b` for the 
+  !complex case. These are called with the parameters
+  !
+  !* :code:`lensav` = :code:`N + int( log(dble(N))/log(2.d0) ) + 4`
+  !* :code:`lenwrk` = :code:`N`
+  !* :code:`lenr`  = :code:`N`
+  !* :code:`inc` = :code:`1`
+  ! 
+  !The subroutine modifies the input array to contain
+  !
+  !* :code:`[y(0), y(1), ..., y(N/2),     y(-N/2+1), ...,   y(-1)]`   if `N` is even
+  !* :code:`[y(0), y(1), ..., y((N-1)/2), y(-(N-1)/2), ..., y(-1)]`   if `N` is odd
+  !
+  !where
+  !
+  !:math:`y(j) = \sum_{k=-N/2}^{N/2-1} x(k) \cdot a^{i 2\pi/N \cdot j \cdot k}`
+  !
+  !for :math:`j \in [0,N-1]`
+  !
      module procedure rfft_1d_backward,cfft_1d_backward
   end interface ifft
   public :: ifft
@@ -394,7 +436,7 @@ contains
   !               K=0
   !+-------------------------------------------------------------------+
   subroutine rfft_1d_forward(func)
-    real(8),dimension(:),intent(inout) :: func
+    real(8),dimension(:),intent(inout) :: func      !Input/output array of size :code:`N`
     real(8),dimension(:),allocatable   :: wsave,work
     integer                            :: N,lenwrk,lensav,lenr,inc,ier
     N      = size(func)
