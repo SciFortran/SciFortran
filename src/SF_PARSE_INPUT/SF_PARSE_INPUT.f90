@@ -683,14 +683,11 @@ contains
     integer            :: ndim,ncount,j,nargs
     type(input_variable) :: var
     logical            :: iscalar
-    if(ndim==1)then
+    
+    iscalar=(scan(var%value,",")==0)
+    if(ndim==1 .and. iscalar)then
        nargs=ndim
        return
-    endif
-    iscalar=(scan(var%value,",")==0)
-    if(iscalar)then
-       print*,"warning scalar in parse_cmd array:   ",trim(var%name)
-       print*,"expecting a comma separated list of: ",ndim
     endif
     ncount=0
     do j=1,len(var%value)
@@ -699,7 +696,9 @@ contains
     nargs=ncount+1
     if(nargs/=ndim)then
        print*,"wrong dimensions parsing variable:   ",trim(var%name)
-       print*,"expecting a comma separated list of: ",ndim
+       print*,"expecting a comma separated list of: ",ndim," with no tail commas"
+       print*,"gotten ",nargs, "argument fields (including after any tail commas)."
+       STOP
     endif
   end function check_cmd_vector_size
 
