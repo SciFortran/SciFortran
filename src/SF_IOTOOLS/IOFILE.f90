@@ -974,7 +974,7 @@ contains
     if(present(file))open(free_unit(unit),file=reg(file))
     w_=5;if(present(w))w_=w
     d_=2;if(present(d))d_=d
-    write(fmt,"(A1,I0,A5,I0,A1,I0,A5,I0,A1,I0,A7)")"(",size(M,2),"(A1,F",w_,".",d_,",A1,F",w_,".",d_,"A1,1x))"
+    write(fmt,"(A1,I0,A5,I0,A1,I0,A5,I0,A1,I0,A8)")"(",size(M,2),"(A1,F",w_,".",d_,",A1,F",w_,".",d_,",A1,1x))"
     do i=1,size(M,1)
        write(unit,fmt)("(",dreal(M(i,j)),",",dimag(M(i,j)),")",j=1,size(M,2))
     enddo
