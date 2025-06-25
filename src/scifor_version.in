@@ -43,11 +43,13 @@ contains
   end subroutine scifor_version
 
 
-  subroutine code_version(revision,name)
+  subroutine code_version(revision,name,git)
     character(len=*)                         :: revision
     character(len=*),optional                :: name
     character(len=100)                       :: name_
     integer(4),dimension(8)                  :: dummy
+    logical,optional                         :: git
+    logical                                  :: git_
     integer(4)                               :: year
     integer(4)                               :: mese
     integer(4)                               :: day
@@ -60,7 +62,15 @@ contains
          'May      ', 'June     ', 'July     ', 'August   ', &
          'September', 'October  ', 'November ', 'December ' /)
     name_="code";if(present(name))name_=(trim(adjustl(trim(name))))
-    write(*,"(A)")(trim(name_)//" VERSION: "//trim(adjustl(trim(revision))))
+    
+    git_ = .true.
+    if(present(git))git_ = git
+    
+    if (git_)then
+      write(*,"(A)")(trim(name_)//" VERSION (GIT): "//trim(adjustl(trim(revision))))
+    else
+      write(*,"(A)")(trim(name_)//" VERSION: "//trim(adjustl(trim(revision))))
+    endif
     call date_and_time(values=dummy)
     year = dummy(1)
     mese = dummy(2)
