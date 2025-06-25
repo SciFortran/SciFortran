@@ -83,7 +83,11 @@ contains
          "Timestamp: +",day,trim(month(mese)),year, h,':',m,':',s,'.',ms
     write(*,*)""
     open(10,file=trim(name_)//"_version.inc")
-    write(10,"(A)")trim(name_)//" VERSION: "//trim(adjustl(trim(revision)))
+    if (git_)then
+      write(10,"(A)")trim(name_)//" VERSION (GIT): "//trim(adjustl(trim(revision)))
+    else
+      write(10,"(A)")trim(name_)//" VERSION: "//trim(adjustl(trim(revision)))
+    endif
     write(10,"(A,i2,1x,a,1x,i4,2x,i2,a1,i2.2,a1,i2.2,a1,i3.3)")&
          "Timestamp: +",day,trim(month(mese)),year, h,':',m,':',s,'.',ms
     write(10,*)""
