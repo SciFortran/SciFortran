@@ -75,9 +75,26 @@ module IOFILE
   public :: get_filepath
   !
   public :: print_matrix
-
+  !
+  public :: reverse
+  
 contains
 
+
+
+
+  pure function reverse(string,n) result(reverse_string)
+    character(len=*), intent(in) :: string
+    integer,optional,intent(in)  :: n
+    character(len=:),allocatable :: reverse_string
+    integer                      :: i,m,mm
+    m = len(string);if(present(n))m=n
+    mm= len(string)
+    reverse_string=string(1:m)
+    do i=1,m
+       reverse_string(i:i) = string(mm-i+1:mm-i+1)
+    end do
+  end function reverse
 
 
 

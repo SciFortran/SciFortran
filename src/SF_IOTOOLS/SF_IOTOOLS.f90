@@ -16,6 +16,7 @@ MODULE SF_IOTOOLS
   !
   public :: str
   public :: txtfy !obsolete
+  public :: reverse
   public :: reg
   public :: to_lower
   public :: to_upper
