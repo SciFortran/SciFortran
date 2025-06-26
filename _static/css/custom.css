@@ -1,0 +1,92 @@
+.wy-nav-content {
+   max-width: 1080px;
+}
+
+
+.sig.sig-object.f{
+    background-color: #f3f6f4 !important;  /* Light green background */
+    border: 1px solid #f3f6f4 !important;  /* Light green border */
+    border-top: 3px solid #53856e !important;  /* Darker green top border */
+    padding: 6px 8px !important;           /* Padding around the function name */
+    border-radius: 3px !important;         /* Rounded corners */
+    color: #177A4D !important;             /* green text color for the function name */
+    font-weight: bold !important;          /* Bold text to stand out */
+}
+
+a.headerlink {
+    color: #404040;  /* Change text color */
+}
+
+
+/* Ensure the function name and keyword (e.g., "function", "subroutine") are in black */
+.sig.sig-object.f .descname,   /* Function name */
+.sig.sig-object.f .pre.keyword {  /* For keywords like "subroutine" */
+    color: #000000;             /* Black color */
+}
+
+
+/* Style the remaining variable names in green */
+.sig.sig-object.f .pre:not(:first-of-type) {  
+    color: #177A4D;  /* green for variable names */
+}
+
+/* In types, bold fields */
+.sig-name.descname {
+    font-weight: bold;
+}
+
+/*remove the module name from the fortran functions*/
+.sig.sig-object.f .sig-prename {
+    display: none;
+}
+
+/* Optional: Style the full signature block */
+.sig.sig-object {
+    display: inline-block;      /* Ensures the signature is styled as a block */
+    padding: 2px 5px;           /* Padding for the signature block */
+    background-color: #EAFFF1;  /* Same light green background */
+    border-radius: 3px;         /* Rounded corners for the signature block */
+    border-top: 3px solid #005588;  /* Darker green top border */
+}
+
+.colored-square {
+    display: inline-block;
+    width: 96px;
+    height: 24px;
+    border: 1px solid #000;
+}
+
+
+/*  SIDEBAR */
+
+/* Change sidebar background color */
+div.wy-side-nav-search, div.wy-nav-side {
+    background-color: #1E905B !important; /* Dark green */
+}
+
+.wy-nav-top {
+    background-color: #1E905B !important; 
+}
+
+/* Change the search box outline color */
+.wy-side-nav-search input[type="text"] {
+    border: 1px solid #1B5E20 !important; /* Dark green outline */
+    box-shadow: none !important; /* Remove green glow */
+}
+
+/* Change the focus outline color */
+.wy-side-nav-search input[type="text"]:focus {
+    border-color: #26a269 !important; /* Adjusted green */
+    box-shadow: 0 0 5px #26a269 !important;
+}
+
+/* Sidebar section titles in green */
+.wy-menu-vertical header, .wy-menu-vertical p.caption {
+    color: #39b55f !important; /* Light green */
+}
+
+/* Change clicked/active item to green */
+.wy-menu-vertical a:active {
+    background-color: #26a269 !important; /* Darker green */
+    color: white !important;
+}

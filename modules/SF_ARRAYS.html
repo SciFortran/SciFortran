@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SF_ARRAYS &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SF_COLORS" href="SF_COLORS.html" />
+    <link rel="prev" title="Structure" href="../structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../structure.html">Structure</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../structure.html">Structure</a></li>
+      <li class="breadcrumb-item active">SF_ARRAYS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/SF_ARRAYS.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="../structure.html" class="btn btn-neutral float-left" title="Structure" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_COLORS.html" class="btn btn-neutral float-right" title="SF_COLORS" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sf-arrays">
+<h1>SF_ARRAYS<a class="headerlink" href="#sf-arrays" title="Link to this heading"></a></h1>
+<p class="rubric" id="f/sf_arrays">Description</p>
+<p>SciFortran module for array creation and manipulation</p>
+<p class="rubric">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/sf_arrays/arange" title="f/sf_arrays/arange"><code class="xref f f-func docutils literal notranslate"><span class="pre">arange()</span></code></a>, <a class="reference internal" href="#f/sf_arrays/linspace" title="f/sf_arrays/linspace"><code class="xref f f-func docutils literal notranslate"><span class="pre">linspace()</span></code></a>, <a class="reference internal" href="#f/sf_arrays/logspace" title="f/sf_arrays/logspace"><code class="xref f f-func docutils literal notranslate"><span class="pre">logspace()</span></code></a>, <a class="reference internal" href="#f/sf_arrays/powspace" title="f/sf_arrays/powspace"><code class="xref f f-func docutils literal notranslate"><span class="pre">powspace()</span></code></a>, <a class="reference internal" href="#f/sf_arrays/upminterval" title="f/sf_arrays/upminterval"><code class="xref f f-func docutils literal notranslate"><span class="pre">upminterval()</span></code></a>, <a class="reference internal" href="#f/sf_arrays/upmspace" title="f/sf_arrays/upmspace"><code class="xref f f-func docutils literal notranslate"><span class="pre">upmspace()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/sf_arrays/linspace">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_arrays/</span></span><span class="sig-name descname"><span class="pre">linspace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">start</span></em>, <em class="sig-param"><span class="pre">stop</span></em>, <em class="sig-param"><span class="pre">num</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">istart</span></em>, <em class="sig-param"><span class="pre">iend</span></em>, <em class="sig-param"><span class="pre">mesh</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_arrays/linspace" title="Link to this definition"></a></dt>
+<dd><p>Returns an array of evenly spaced numbers over a specified interval.
+Returns <code class="xref f f-var docutils literal notranslate"><span class="pre">num</span></code> evenly spaced samples, calculated over the interval [<code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code>, <code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code>].
+The start and end points of the interval can optionally be excluded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong><em> [</em><em>real</em><em>]</em> – Starting value of the sequence</p></li>
+<li><p><strong>stop</strong><em> [</em><em>real</em><em>]</em> – End value of the sequence</p></li>
+<li><p><strong>num</strong><em> [</em><em>integer</em><em>]</em> – Number of samples to generate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>istart</strong><em> [</em><em>logical</em><em>]</em> – If <code class="code docutils literal notranslate"><span class="pre">.true.</span></code>, <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code> is included in the resulting array. Default <code class="code docutils literal notranslate"><span class="pre">.true.</span></code></p></li>
+<li><p><strong>iend</strong><em> [</em><em>logical</em><em>]</em> – If <code class="code docutils literal notranslate"><span class="pre">.true.</span></code>, <code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code> is included in the resulting array. Default <code class="code docutils literal notranslate"><span class="pre">.true.</span></code></p></li>
+<li><p><strong>mesh</strong><em> [</em><em>real</em><em>]</em> – If present, the step is saved in this variable</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong> (num)<em> [</em><em>real</em><em>]</em> – Contains <code class="xref f f-var docutils literal notranslate"><span class="pre">num</span></code> equally spaced samples in the interval [<code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code>, <code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code>], left/right open or closed depending on <code class="xref f f-var docutils literal notranslate"><span class="pre">istart</span></code> and <code class="xref f f-var docutils literal notranslate"><span class="pre">iend</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_arrays/logspace">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_arrays/</span></span><span class="sig-name descname"><span class="pre">logspace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">start</span></em>, <em class="sig-param"><span class="pre">stop</span></em>, <em class="sig-param"><span class="pre">num</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">base</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_arrays/logspace" title="Link to this definition"></a></dt>
+<dd><p>Returns numbers spaced evenly on a log scale.
+In linear space, the sequence starts at <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code> and ends with <code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code> (differently from numpy).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong><em> [</em><em>real</em><em>]</em> – The starting value of the sequence. Must be positive. If set to <code class="code docutils literal notranslate"><span class="pre">0</span></code>,  it will be reshifted to <code class="code docutils literal notranslate"><span class="pre">1e-12</span></code></p></li>
+<li><p><strong>stop</strong><em> [</em><em>real</em><em>]</em> – The end value of the sequence. Must be positive. If set to <code class="code docutils literal notranslate"><span class="pre">0</span></code>,  it will be reshifted to <code class="code docutils literal notranslate"><span class="pre">1e-12</span></code></p></li>
+<li><p><strong>num</strong><em> [</em><em>integer</em><em>]</em> – Number of samples to generate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>base</strong><em> [</em><em>real</em><em>]</em> – The base of the exponential. Default <code class="code docutils literal notranslate"><span class="pre">10</span></code></p>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong> (num)<em> [</em><em>real</em><em>]</em> – Contains <code class="xref f f-var docutils literal notranslate"><span class="pre">num</span></code> samples, equally spaced on a log scale  in the closed interval [start, stop]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_arrays/arange">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_arrays/</span></span><span class="sig-name descname"><span class="pre">arange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">start</span></em>, <em class="sig-param"><span class="pre">num</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_arrays/arange" title="Link to this definition"></a></dt>
+<dd><p>Returns an array of <code class="xref f f-var docutils literal notranslate"><span class="pre">num</span></code> integers starting with <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong><em> [</em><em>integer</em><em>]</em> – First element of the array</p></li>
+<li><p><strong>num</strong><em> [</em><em>integer</em><em>]</em> – Length of the array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>array</strong> (num)<em> [</em><em>integer</em><em>]</em> – Contains the integer numbers in [<code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code>, <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code><code class="code docutils literal notranslate"><span class="pre">+</span></code><code class="xref f f-var docutils literal notranslate"><span class="pre">num</span></code><code class="code docutils literal notranslate"><span class="pre">-1</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_arrays/upmspace">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_arrays/</span></span><span class="sig-name descname"><span class="pre">upmspace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">start</span></em>, <em class="sig-param"><span class="pre">stop</span></em>, <em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">u</span></em>, <em class="sig-param"><span class="pre">ndim</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">base</span></em>, <em class="sig-param"><span class="pre">istart</span></em>, <em class="sig-param"><span class="pre">iend</span></em>, <em class="sig-param"><span class="pre">mesh</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_arrays/upmspace" title="Link to this definition"></a></dt>
+<dd><p>Returns an array of number spaced linearly between exponentially spaced checkpoints.
+The interval [<code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code>, <code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code>] is first divided into <code class="xref f f-var docutils literal notranslate"><span class="pre">p</span></code>
+coarse regions, the width of which is exponentially increasing so that the
+i-th checkpoint is (<code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code> - <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code>) <span class="math notranslate nohighlight">\(\cdot\)</span> <code class="xref f f-var docutils literal notranslate"><span class="pre">base</span></code> ^ ( - <code class="xref f f-var docutils literal notranslate"><span class="pre">p</span></code> + <code class="code docutils literal notranslate"><span class="pre">i</span></code> ).
+Each of the coarse intervals is then linearly divided in <code class="xref f f-var docutils literal notranslate"><span class="pre">u</span></code> subintervals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong><em> [</em><em>real</em><em>]</em> – First element of the array</p></li>
+<li><p><strong>stop</strong><em> [</em><em>real</em><em>]</em> – Last element of the array</p></li>
+<li><p><strong>p</strong><em> [</em><em>integer</em><em>]</em> – Number of coarse subdivisions</p></li>
+<li><p><strong>u</strong><em> [</em><em>integer</em><em>]</em> – Number of fine subdivisions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ndim</strong><em> [</em><em>integer</em><em>]</em> – Length of the out array, must be <span class="math notranslate nohighlight">\(p \cdot u\)</span> or  <span class="math notranslate nohighlight">\(p \cdot u + 1\)</span></p></li>
+<li><p><strong>base</strong><em> [</em><em>real</em><em>]</em> – Base of the exponential spacing (default <code class="code docutils literal notranslate"><span class="pre">2</span></code>)</p></li>
+<li><p><strong>istart</strong><em> [</em><em>logical</em><em>]</em> – If <code class="code docutils literal notranslate"><span class="pre">.true.</span></code>, <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code> is included in the resulting array. Default <code class="code docutils literal notranslate"><span class="pre">.true.</span></code></p></li>
+<li><p><strong>iend</strong><em> [</em><em>logical</em><em>]</em> – If <code class="code docutils literal notranslate"><span class="pre">.true.</span></code>, <code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code> is included in the resulting array. Default <code class="code docutils literal notranslate"><span class="pre">.true.</span></code></p></li>
+<li><p><strong>mesh</strong> (ndim)<em> [</em><em>real</em><em>]</em> – If present, contains the distances between consecutive points in <code class="xref f f-var docutils literal notranslate"><span class="pre">aout</span></code>. The last element is <code class="code docutils literal notranslate"><span class="pre">aout(ndim)</span> <span class="pre">-</span> <span class="pre">aout(ndim-1)</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>aout</strong> (ndim)<em> [</em><em>real</em><em>]</em> – Contains <code class="xref f f-var docutils literal notranslate"><span class="pre">p</span></code> coarse exponentially-spaced checkpoints, each two of which separated by <code class="xref f f-var docutils literal notranslate"><span class="pre">u</span></code> linearly spaced points</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_arrays/upminterval">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_arrays/</span></span><span class="sig-name descname"><span class="pre">upminterval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">start</span></em>, <em class="sig-param"><span class="pre">stop</span></em>, <em class="sig-param"><span class="pre">midpoint</span></em>, <em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">q</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">type</span></em>, <em class="sig-param"><span class="pre">base</span></em>, <em class="sig-param"><span class="pre">mesh</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_arrays/upminterval" title="Link to this definition"></a></dt>
+<dd><p>Returns an array of number spaced linearly between exponentially spaced checkpoints,
+specularly around a middle point between the interval extrema. This is achieved by
+calling <a class="reference internal" href="#f/sf_arrays/upmspace" title="f/sf_arrays/upmspace"><code class="xref f f-func docutils literal notranslate"><span class="pre">upmspace()</span></code></a> twice in a mirror-like fashion. The exponential
+thickening of the mesh can be around the middle ( <code class="xref f f-var docutils literal notranslate"><span class="pre">type</span></code> <code class="code docutils literal notranslate"><span class="pre">!=0</span></code> ) or the
+boundaries( <code class="xref f f-var docutils literal notranslate"><span class="pre">type</span></code> <code class="code docutils literal notranslate"><span class="pre">=0</span></code> )</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong><em> [</em><em>real</em><em>]</em> – First element of the array</p></li>
+<li><p><strong>stop</strong><em> [</em><em>real</em><em>]</em> – Last element of the array</p></li>
+<li><p><strong>midpoint</strong><em> [</em><em>real</em><em>]</em> – Middle point of the array. The distance between the coarse checkpoints behaves specularly on the two sides</p></li>
+<li><p><strong>p</strong><em> [</em><em>integer</em><em>, </em><em>in,required</em><em>]</em> – Number of coarse subdivisions</p></li>
+<li><p><strong>q</strong><em> [</em><em>integer</em><em>, </em><em>in,required</em><em>]</em> – If present, contains the distances between consecutive points in <code class="xref f f-var docutils literal notranslate"><span class="pre">array</span></code>. The last element is <code class="code docutils literal notranslate"><span class="pre">array(2</span> <span class="pre">·</span> <span class="pre">p</span> <span class="pre">·</span> <span class="pre">q+1)</span> <span class="pre">-</span> <span class="pre">array(2</span> <span class="pre">·</span> <span class="pre">p</span> <span class="pre">·</span> <span class="pre">q)</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>type</strong><em> [</em><em>integer</em><em>]</em> – If <code class="code docutils literal notranslate"><span class="pre">=0</span></code>, mesh is thicker around <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code> and <code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code>. If <code class="code docutils literal notranslate"><span class="pre">=1</span></code>, mesh is thicker around <code class="xref f f-var docutils literal notranslate"><span class="pre">midpoint</span></code>. Default <code class="code docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><strong>base</strong><em> [</em><em>real</em><em>]</em> – Base of the exponential spacing (default <code class="code docutils literal notranslate"><span class="pre">2</span></code>)</p></li>
+<li><p><strong>mesh</strong> (1 + 2 · p · q)<em> [</em><em>real</em><em>]</em> – If present, contains the distances between consecutive points in <code class="xref f f-var docutils literal notranslate"><span class="pre">array</span></code>. The last element is <code class="code docutils literal notranslate"><span class="pre">array(2</span> <span class="pre">·</span> <span class="pre">p</span> <span class="pre">·</span> <span class="pre">q+1)</span> <span class="pre">-</span> <span class="pre">array(2</span> <span class="pre">·</span> <span class="pre">p</span> <span class="pre">·</span> <span class="pre">q)</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong> (1 + 2 · p · q)<em> [</em><em>real</em><em>]</em> – Contains <span class="math notranslate nohighlight">\(2 \cdot p \cdot q+1\)</span> points</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_arrays/powspace">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_arrays/</span></span><span class="sig-name descname"><span class="pre">powspace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">start</span></em>, <em class="sig-param"><span class="pre">stop</span></em>, <em class="sig-param"><span class="pre">num</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">base</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_arrays/powspace" title="Link to this definition"></a></dt>
+<dd><p>Returns numbers spaced evenly on an exponential  scale.
+The <code class="code docutils literal notranslate"><span class="pre">i</span></code>-th number is <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code> +
+(<code class="xref f f-var docutils literal notranslate"><span class="pre">stop</span></code> - <code class="xref f f-var docutils literal notranslate"><span class="pre">start</span></code>) <span class="math notranslate nohighlight">\(\cdot\)</span> <code class="xref f f-var docutils literal notranslate"><span class="pre">base</span></code> ^ ( - <code class="xref f f-var docutils literal notranslate"><span class="pre">num</span></code> + <code class="code docutils literal notranslate"><span class="pre">i</span></code> )</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong><em> [</em><em>real</em><em>]</em> – first element of the array</p></li>
+<li><p><strong>stop</strong><em> [</em><em>real</em><em>]</em> – last element of the array</p></li>
+<li><p><strong>num</strong><em> [</em><em>integer</em><em>]</em> – number of elements of the array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>base</strong><em> [</em><em>real</em><em>]</em> – base of the exponential (defaule <code class="code docutils literal notranslate"><span class="pre">2</span></code>)</p>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong> (num)<em> [</em><em>real</em><em>]</em> – contains <code class="xref f f-var docutils literal notranslate"><span class="pre">num</span></code> exponentially spaced reals</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../structure.html" class="btn btn-neutral float-left" title="Structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_COLORS.html" class="btn btn-neutral float-right" title="SF_COLORS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SF_MISC &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SF_MPI" href="SF_MPI.html" />
+    <link rel="prev" title="SF_LINALG" href="SF_LINALG.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../structure.html">Structure</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../structure.html">Structure</a></li>
+      <li class="breadcrumb-item active">SF_MISC</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/SF_MISC.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="SF_LINALG.html" class="btn btn-neutral float-left" title="SF_LINALG" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_MPI.html" class="btn btn-neutral float-right" title="SF_MPI" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sf-misc">
+<h1>SF_MISC<a class="headerlink" href="#sf-misc" title="Link to this heading"></a></h1>
+<p class="rubric" id="f/sf_misc">Description</p>
+<p>SciFortran module for sundry functions</p>
+<p class="rubric">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/sf_misc/assert_shape" title="f/sf_misc/assert_shape"><code class="xref f f-func docutils literal notranslate"><span class="pre">assert_shape()</span></code></a>, <a class="reference internal" href="#f/sf_misc/reorder" title="f/sf_misc/reorder"><code class="xref f f-func docutils literal notranslate"><span class="pre">reorder()</span></code></a>, <a class="reference internal" href="#f/sf_misc/reorder_array" title="f/sf_misc/reorder_array"><code class="xref f f-func docutils literal notranslate"><span class="pre">reorder_array()</span></code></a>, <a class="reference internal" href="#f/sf_misc/sort" title="f/sf_misc/sort"><code class="xref f f-func docutils literal notranslate"><span class="pre">sort()</span></code></a>, <a class="reference internal" href="#f/sf_misc/sort_array" title="f/sf_misc/sort_array"><code class="xref f f-func docutils literal notranslate"><span class="pre">sort_array()</span></code></a>, <a class="reference internal" href="#f/sf_misc/sort_insertion" title="f/sf_misc/sort_insertion"><code class="xref f f-func docutils literal notranslate"><span class="pre">sort_insertion()</span></code></a>, <a class="reference internal" href="#f/sf_misc/sort_qsort" title="f/sf_misc/sort_qsort"><code class="xref f f-func docutils literal notranslate"><span class="pre">sort_qsort()</span></code></a>, <a class="reference internal" href="#f/sf_misc/sort_quicksort" title="f/sf_misc/sort_quicksort"><code class="xref f f-func docutils literal notranslate"><span class="pre">sort_quicksort()</span></code></a>, <a class="reference internal" href="#f/sf_misc/uniinv" title="f/sf_misc/uniinv"><code class="xref f f-func docutils literal notranslate"><span class="pre">uniinv()</span></code></a>, <a class="reference internal" href="#f/sf_misc/uniq" title="f/sf_misc/uniq"><code class="xref f f-func docutils literal notranslate"><span class="pre">uniq()</span></code></a>, <a class="reference internal" href="#f/sf_misc/uniq_array" title="f/sf_misc/uniq_array"><code class="xref f f-func docutils literal notranslate"><span class="pre">uniq_array()</span></code></a>, <a class="reference internal" href="#f/sf_misc/unista" title="f/sf_misc/unista"><code class="xref f f-func docutils literal notranslate"><span class="pre">unista()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/uniinv">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">uniinv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">xdont</span></em>, <em class="sig-param"><span class="pre">igoest</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/uniinv" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xdont</strong> (•)<em> [</em><em>real/integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>igoest</strong> (•)<em> [</em><em>integer</em><em>, </em><em>out</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/unista">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">unista</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">xdont</span></em>, <em class="sig-param"><span class="pre">nuni</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/unista" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xdont</strong> (•)<em> [</em><em>real/integer</em><em>, </em><em>inout/in,required</em><em>]</em></p></li>
+<li><p><strong>nuni</strong><em> [</em><em>integer</em><em>, </em><em>out</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>mask</strong> (size(xdont))<em> [</em><em>logical</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/uniq_array">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">uniq_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ain</span></em>, <em class="sig-param"><span class="pre">aout</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/uniq_array" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ain</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>aout</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>out,allocatable</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>mask</strong> (•)<em> [</em><em>logical</em><em>, </em><em>out,allocatable</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/uniq">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">uniq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ain</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/uniq" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ain</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>mask</strong> (•)<em> [</em><em>logical</em><em>, </em><em>out,allocatable</em><em>]</em></p>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>aout</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>allocatable</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/assert_shape">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">assert_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">ndim</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">routine</span></em>, <em class="sig-param"><span class="pre">matname</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/assert_shape" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (various shapes)<em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>ndim</strong> (•)<em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>routine</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>matname</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/reorder_array">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">reorder_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ain</span></em>, <em class="sig-param"><span class="pre">index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/reorder_array" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ain</strong> (•)<em> [</em><em>integer/real/complex/logical</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>index</strong> (size(ain))<em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/reorder">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">reorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ain</span></em>, <em class="sig-param"><span class="pre">index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/reorder" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ain</strong> (•)<em> [</em><em>integer/real/complex/logical</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>index</strong> (size(ain))<em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>aout</strong> (size(ain))<em> [</em><em>integer/real/complex/logical</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/sort_insertion">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">sort_insertion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">indx_a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/sort_insertion" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>inout/in,required</em><em>]</em></p></li>
+<li><p><strong>indx_a</strong> (size(a))<em> [</em><em>integer</em><em>, </em><em>inout</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/sort_quicksort">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">sort_quicksort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">indx</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/sort_quicksort" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>inout/in,required</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>indx</strong> (size(a))<em> [</em><em>integer</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/sort">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">indx</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/sort" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>inout/in,required</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>indx</strong> (size(a))<em> [</em><em>integer</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/sort_array">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">sort_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">indx</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/sort_array" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>inout/in,required</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>indx</strong> (size(a))<em> [</em><em>integer</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_misc/sort_qsort">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_misc/</span></span><span class="sig-name descname"><span class="pre">sort_qsort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">indx_a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_misc/sort_qsort" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•)<em> [</em><em>integer/real</em><em>, </em><em>inout/in,required</em><em>]</em></p></li>
+<li><p><strong>indx_a</strong> (size(a))<em> [</em><em>integer</em><em>, </em><em>inout</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SF_LINALG.html" class="btn btn-neutral float-left" title="SF_LINALG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_MPI.html" class="btn btn-neutral float-right" title="SF_MPI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
