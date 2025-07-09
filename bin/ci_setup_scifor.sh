@@ -1,10 +1,14 @@
 #Building scifor
 #Errors
 set -e
+set -v
 
 cd scifor
-mkdir build
+pwd
+
+mkdir -p build
 cd build
+pwd
 
 echo "cmake .."
 cmake ..
@@ -15,6 +19,6 @@ make -j
 echo "make install"
 make install
 
-echo "source ~/opt/scifor/gnu/*/bin/scifor_config_user.sh" >> ~/.scifor_config_user
-echo -e "\e[32m scifor installed and sourced \e[0m"
-
+CONF_PATH=$(grep CONFIG_FILE_PATH CMakeCache.txt |cut -d "=" -f2)
+echo "source $CONF_PATH/scifor_config_user.sh" >> ~/.scifor_config_user
+echo -e "\e[32m scifor compiled and sourced \e[0m"

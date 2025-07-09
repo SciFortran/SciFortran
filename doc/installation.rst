@@ -42,28 +42,15 @@ and working.
    cmake .. 
    make -j
 
-
-
-**Ninja**
-
-Using `ninja` if a fortran-capable [2]_ version of `ninja
-<https://ninja-build.org>`_ is available in your system (and CMake can
-[3]_ take advantage of it), you can use it to build the library at lightning, multi-threaded, speed. 
-
-.. code-block:: bash
-		
-   mkdir build    
-   cd build  
-   cmake -GNinja ..  
-   ninja
-
 The `CMake` compilation can be customized using the following
 additional variables (default values between `< >`, optional in `[ ]`):   
 
 .. code-block:: bash
 
-   -DPREFIX = prefix directory   #<~/opt/scifor/VERSION/PLATFORM/[GIT_BRANCH]>
-
+   -DLONG_PREFIX = <yes>/no  #set a long or short prefix for the default installation directory  
+       
+   -DCMAKE_INSTALL_PREFIX    #specify custom installation prefix  
+   
    -DUSE_MPI = <yes>/no        #set use of MPI 
 
    -DVERBOSE = yes/<no>
@@ -84,11 +71,6 @@ either:
 
    make install
 
-or
-
-.. code-block:: bash
-		
-   ninja install
 
 To actually link the library to any of your project we provide
 different solutions:
@@ -104,21 +86,14 @@ which you can choose among by following the instructions printed on screen.
 Uninstall
 ===================
 
-Although CMake does not officially provide uninstall procedures in the
-generated Make/Ninja files. Hence SciFortran supplies a homebrew
+CMake does not officially provide uninstall procedures in the
+generated Make files. Hence SciFortran supplies a homebrew
 method to remove the generated files by calling (from the relevant
 build folder):
 
 .. code-block:: bash
 		
    make uninstall
-
-or
-
-.. code-block:: bash
-		
-   ninja uninstall
-
 
 
 Known issues
@@ -149,28 +124,4 @@ Some have reported issues concerning the wrong setup for the library `pkg-config
        system. An easy fix is to setup and export the `FC=mpif90`
        environment variable before invoking the `cmake <options> ..`
        command.
-       
-
-.. [2] Ninja did not support fortran before version 1.10, although
-       Kitware has long mantained a fortran-capable fork, which might
-       be obtained easily as a `Spack package
-       <https://packages.spack.io/package.html?name=ninja-fortran>`_. Nevertheless
-       we note that as of fall 2022 `pip install ninja --user` ships
-       `Ninja v1.10.2 <https://pypi.org/project/ninja/>`_, hence
-       obtaining a suitable official Ninja release should be trivial.
-       
-
-.. [3] This depends on your CMake version. Comparing `this
-       <https://cmake.org/cmake/help/v3.16/generator/Ninja.html#fortran-support>`_
-       to this `one
-       <https://cmake.org/cmake/help/v3.17/generator/Ninja.html#fortran-support>`_
-       would suggest that CMake started supporting Ninja's fortran
-       features only after v3.17 but we have verified that at least
-       v3.16.3 (current version shipped by `apt` on Ubuntu 20.04 LTS)
-       does indeed work. For more information you can take a look to
-       the `related issue
-       <https://github.com/QcmPlab/SciFortran/issues/16>`_.
-       
-
-  
 

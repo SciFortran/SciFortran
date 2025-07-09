@@ -26,6 +26,14 @@ ELSE(VERBOSE)
 ENDIF(VERBOSE)
 
 
+
+OPTION(LONG_PREFIX "Set long (ON) or short (OFF) installation prefix DEFAULT_PREFIX(/<fc_id>/[<git_branch>{/<debug>}]/<version>):  " ON)
+if(LONG_PREFIX)
+  message(STATUS "LONG_PREFIX is ON")
+else()
+  message(STATUS "LONG_PREFIX is OFF")
+endif()
+
 ############################################################
 # Look for MPI if needed
 ############################################################
@@ -108,12 +116,12 @@ SET(LIB_SRC ${CMAKE_SOURCE_DIR}/src)
 SET(LIB_ETC ${CMAKE_SOURCE_DIR}/etc)
 SET(LIB_ENV ${CMAKE_SOURCE_DIR}/etc/environment_modules)
 SET(LIB_BIN ${CMAKE_SOURCE_DIR}/bin)
-SET(LIB_TMP_INC ${CMAKE_BINARY_DIR}/include)
+SET(LIB_TMP_INC ${CMAKE_BINARY_DIR}/include/${PROJECT_NAME})
 SET(LIB_TMP_ETC ${CMAKE_BINARY_DIR}/etc)
 SET(LIB_TMP_BIN ${CMAKE_BINARY_DIR}/bin)
 SET(LIB_TMP_VER ${CMAKE_BINARY_DIR}/version)
 SET(LIB_TARGET_LIB ${CMAKE_INSTALL_PREFIX}/lib)
-SET(LIB_TARGET_INC ${CMAKE_INSTALL_PREFIX}/include)
+SET(LIB_TARGET_INC ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME})
 SET(LIB_TARGET_ETC ${CMAKE_INSTALL_PREFIX}/etc)
 SET(LIB_TARGET_BIN ${CMAKE_INSTALL_PREFIX}/bin)
 SET(LIB_TARGET_DIR ${CMAKE_INSTALL_PREFIX})
@@ -343,11 +351,6 @@ ELSE()
     )
 ENDIF()
 
-
-SET(PERMISSION_777
-  OWNER_WRITE OWNER_READ OWNER_EXECUTE
-  GROUP_WRITE GROUP_READ GROUP_EXECUTE
-  WORLD_WRITE WORLD_READ WORLD_EXECUTE)
 
 
 #Build the PKG-CONFIG file
