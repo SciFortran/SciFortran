@@ -1,7 +1,7 @@
-prefix=@CMAKE_INSTALL_PREFIX@
-exec_prefix=${prefix}/bin
-includedir=${prefix}/include/scifor
-libdir=${prefix}/lib
+scifor_dir=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${scifor_dir}/bin
+includedir=${scifor_dir}/include/scifor
+libdir=${scifor_dir}/lib
 
 Name: scifor
 Description: The SciFortran library
