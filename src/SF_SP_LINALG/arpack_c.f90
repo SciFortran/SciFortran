@@ -81,10 +81,13 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
      mceupd=4;mneupd=4
   endif
   !
-  ldv    = Ns        ; if(maxncv>Ns)maxncv=Ns
+  ldv    = Ns
+  maxncv = max(maxncv, maxnev+2)
+  if(maxncv>Ns)maxncv=Ns
   n      = maxn
   nev    = maxnev
   ncv    = maxncv
+  !
   ! 
   allocate(ax(n))
   allocate(d(ncv))
@@ -131,10 +134,11 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   end do
   !
   !POST PROCESSING:
-  if(info/=0)then
-     write(*,'(a,i6)')'Warning/Error in ZNAUPD, info = ', info
-     include "error_msg_arpack.h90"
-  else
+  if(info>=0)then
+     if (info > 0)then
+        write(*,'(a,i6)')'Soft failure in ZNAUPD, info = ',info
+        include "error_msg_arpack.h90"
+     endif
      rvec = .true.
      call zneupd  (rvec,'A',select,d,v,ldv,sigma,workev,bmat_,n,which_,&
           nev,tol_,resid,ncv,v,ldv,iparam,ipntr,workd,workl,lworkl,rwork,ierr)
@@ -166,6 +170,10 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
      !
      !if(nconv == 0) stop "ARPACK:: no converged eigenvalues have been found."
      !
+  else
+    write(*,'(a,i6)')'Hard failure in ZNAUPD, info = ',info
+    include "error_msg_arpack.h90"
+    STOP
   endif
   deallocate(ax,d,resid,v,workd,workev,workl,rwork,rd,select)
   !

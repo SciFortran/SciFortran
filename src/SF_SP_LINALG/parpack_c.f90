@@ -83,7 +83,7 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   endif
   !
   !
-  maxncv_=maxncv                !every rank can have a different maxncv
+  maxncv_ = max(maxncv,maxnev+2)   !every rank can have a different maxncv. Ncv should be at least Nev+2
   if(maxncv_>Ns)then
      maxncv_=Ns                 !some rank may have ncv > Ns (Ns=N/#mpi)
      if(verb)then
@@ -174,12 +174,11 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   end do
   !
   !POST PROCESSING:
-  if(info/=0)then
-     if(mpi_master)then
-        write(*,'(a,i6)')'Warning/Error in PZNAUPD, info = ', info
+  if(info>=0)then
+     if (info > 0 .and. mpi_master)then
+        write(*,'(a,i6)')'Soft failure in PZNAUPD, info = ',info
         include "error_msg_arpack.h90"
      endif
-  else
      !
      call pzneupd (MpiComm,.true.,'All',select,d,v,ldv,sigma,workev,bmat,&
           ldv,which_,nev,tol_,resid,ncv,v,ldv,iparam,ipntr,workd,workl,lworkl,rwork,ierr)
@@ -212,6 +211,10 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
      !
      !
      ! if(mpi_master.and.nconv==0.and.verb)stop "None of the required values was found."
+  else
+    write(*,'(a,i6)')'Hard failure in PZNAUPD, info = ',info
+    include "error_msg_arpack.h90"
+    STOP
   endif
   deallocate(ax,d,resid,v,workd,workev,workl,rwork,rd,select)
   !
