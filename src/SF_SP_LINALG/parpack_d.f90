@@ -1,4 +1,4 @@
-subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,iverbose,vrandom)
+subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,iverbose,vrandom,iexit)
   !Arguments
   integer                   :: MpiComm
   !Interface to Matrix-Vector routine:
@@ -18,6 +18,7 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   real(8),optional          :: tol
   logical,optional          :: iverbose
   logical,optional          :: vrandom
+  integer,optional          :: iexit  
   !Dimensions:
   integer                   :: Ns
   integer                   :: Neigen
@@ -85,7 +86,7 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   if(maxncv_>Ns)then
      maxncv_=Ns                 !some rank may have ncv > Ns (Ns=N/#mpi)
      if(verb)then
-       print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
+        print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
      endif
   endif
   !
@@ -164,6 +165,8 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
      call MatVec(ldv,workd(ipntr(1)),workd(ipntr(2)))
   end do
   !
+  if(present(iexit))iexit=info
+  !
   !POST PROCESSING:
   if(info>=0)then
      if (info > 0 .and. mpi_master)then
@@ -200,9 +203,9 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
      !
      ! if(mpi_master.and.nconv==0.and.verb)stop "None of the required values was found."
   else
-    write(*,'(a,i6)')'Hard failure in PDSAUPD, info = ',info
-    include "error_msg_arpack.h90"
-    STOP
+     write(*,'(a,i6)')'Hard failure in PDSAUPD, info = ',info
+     include "error_msg_arpack.h90"
+     STOP
   endif
   deallocate(ax,resid,workd,v,d,workl,select)
 end subroutine lanczos_parpack_d

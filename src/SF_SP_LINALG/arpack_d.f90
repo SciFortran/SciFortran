@@ -1,4 +1,4 @@
-subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbose)
+subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbose,iexit)
   !Interface to Matrix-Vector routine:
   interface
      subroutine MatVec(Nloc,vin,vout)
@@ -17,6 +17,7 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   real(8),optional          :: v0(size(evec,1))!(ns)
   real(8),optional          :: tol
   logical,optional          :: iverbose
+  integer,optional          :: iexit
   !Dimensions:
   integer                   :: Ns
   integer                   :: Neigen
@@ -127,13 +128,14 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
      call MatVec(N,workd(ipntr(1)),workd(ipntr(2)) )
   end do
   !
+  if(present(iexit))iexit=info
   !
   !POST PROCESSING:
   if(info>=0)then
      if (info > 0)then
         write(*,'(a,i6)')'Soft failure in DSAUPD, info = ',info
         include "error_msg_arpack.h90"
-     endif     
+     endif
      rvec = .true.
      call dseupd(rvec,'All',select,d,v,ldv,sigma,bmat_,n,which_,&
           nev,tol_,resid,ncv,v,ldv,iparam,ipntr,workd,workl,lworkl,ierr)
@@ -159,8 +161,9 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
      !if(nconv == 0) stop "ARPACK:: no converged eigenvalues have been found."
      !
   else
-    write(*,'(a,i6)')'Hard failure in DSAUPD, info = ',info
-    include "error_msg_arpack.h90"
+     write(*,'(a,i6)')'Hard failure in DSAUPD, info = ',info
+     include "error_msg_arpack.h90"
   endif
+
   deallocate(ax,d,resid,workl,workd,v,select)
 end subroutine lanczos_arpack_d
