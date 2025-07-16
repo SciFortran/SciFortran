@@ -80,10 +80,12 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
      mceupd=4;mneupd=4
   endif
   !
-  ldv    = Ns        ; if(maxncv>Ns)maxncv=Ns
+  ldv    = Ns  
+  maxncv = max(maxncv,maxnev+2)
+  if(maxncv>Ns)maxncv=Ns
   n      = maxn
   nev    = maxnev
-  ncv    = max(maxncv,nev+2)
+  ncv    = maxncv
   ! 
   allocate(ax(n))
   allocate(d(ncv,2))

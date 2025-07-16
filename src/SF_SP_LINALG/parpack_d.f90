@@ -81,7 +81,7 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
      mceupd=4;mneupd=4
   endif
   !
-  maxncv_=maxncv                !every rank can have a different maxncv
+  maxncv_ = max(maxncv,maxnev+2)   !every rank can have a different maxncv. Ncv should be at least Nev+2
   if(maxncv_>Ns)then
      maxncv_=Ns                 !some rank may have ncv > Ns (Ns=N/#mpi)
      if(verb)then
@@ -94,7 +94,6 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   call MPI_ALLREDUCE(maxncv_,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !
-  maxncv = max(maxncv,nev+2)
   !
   !=========================================================================
   ldv    = maxn
