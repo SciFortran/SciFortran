@@ -99,7 +99,7 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   ldv    = maxn
   n      = maxn
   nev    = maxnev
-  ncv    = maxncv
+  ncv    = max(maxncv,nev+2)
   bmat   = 'I'
   !
   !=========================================================================

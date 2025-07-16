@@ -101,7 +101,7 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   ldv    = size(evec,1)             !ldv is the SMALL dimension
   n      = maxn
   nev    = maxnev
-  ncv    = maxncv
+  ncv    = max(maxncv,nev+2)
   bmat   = 'I'
   !
   !=========================================================================
