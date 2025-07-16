@@ -96,12 +96,13 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   call MPI_ALLREDUCE(maxncv_,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !
+  maxncv = max(maxncv,nev+2)
   !
   !=========================================================================
   ldv    = size(evec,1)             !ldv is the SMALL dimension
   n      = maxn
   nev    = maxnev
-  ncv    = max(maxncv,nev+2)
+  ncv    = maxncv
   bmat   = 'I'
   !
   !=========================================================================
