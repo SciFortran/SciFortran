@@ -127,10 +127,11 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   !
   !
   !POST PROCESSING:
-  if(info/=0)then
-     write(*,'(a,i6)')'Warning/Error in DSAUPD, info = ', info
-     include "error_msg_arpack.h90"
-  else
+  if(info>=0)then
+     if (info > 0)then
+        write(*,'(a,i6)')'Soft failure in DSAUPD, info = ',info
+        include "error_msg_arpack.h90"
+     endif     
      rvec = .true.
      call dseupd(rvec,'All',select,d,v,ldv,sigma,bmat_,n,which_,&
           nev,tol_,resid,ncv,v,ldv,iparam,ipntr,workd,workl,lworkl,ierr)
@@ -155,6 +156,9 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
      !
      !if(nconv == 0) stop "ARPACK:: no converged eigenvalues have been found."
      !
+  else
+    write(*,'(a,i6)')'Hard failure in DSAUPD, info = ',info
+    include "error_msg_arpack.h90"
   endif
   deallocate(ax,d,resid,workl,workd,v,select)
 end subroutine lanczos_arpack_d
