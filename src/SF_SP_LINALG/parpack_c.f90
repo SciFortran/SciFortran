@@ -20,9 +20,9 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   logical,optional          :: vrandom
   integer,optional          :: iexit
   !Dimensions:
-  integer                   :: Ns
+  integer                   :: Ns,Dim
   integer                   :: Neigen
-  integer                   :: maxn,maxnev,maxncv,ldv,nloc,maxncv_
+  integer                   :: maxn,maxnev,maxncv,ldv,nloc,tmpncv
   integer                   :: n,nconv,ncv,nev
   !Arrays:
   complex(8),allocatable    :: evec_tmp(:) ![Nloc] see above
@@ -84,18 +84,22 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   endif
   !
   !
-  maxncv_ = max(maxncv,maxnev+2)   !every rank can have a different maxncv. Ncv should be at least Nev+2
-  if(maxncv_>Ns)then
-     maxncv_=Ns                 !some rank may have ncv > Ns (Ns=N/#mpi)
-     if(verb)then
-        print*,"PARPACK WARNING Ncv > Ns: reset block size to ",Ns
-     endif
+  !Step 1: gather all Ns and reconstruct full dimension N of the problem:
+  Dim = 0
+  call MPI_ALLREDUCE(Ns,Dim,1,MPI_INTEGER,MPI_SUM,MpiComm,ierr)
+  !Step 2: check on NCV
+  !Ncv should be at least Nev+2
+  tmpncv = max(maxncv,maxnev+2)
+  !If NCV > Dim reset to Dim. can not have a number NCV of independent vectors
+  !larger than the dimension Dim of the problem itself
+  if(tmpncv> Dim)then
+     if(verb)print*,"PARPACK WARNING Ncv > Ns: reset NCV:",tmpncv," to:",Dim
+     tmpncv=Dim
   endif
-  !
-  !BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, revised from Xuanyu Long
+  !Step 3: BUG FIX FOR THE BLOCK RESIZE STUCK BEHAVIOR, revised from Xuanyu Long
+  !Every rank can have different maxNCV, so we use the minimum value
   maxncv=0
-  call MPI_ALLREDUCE(maxncv_,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
-  !call MPI_ALLREDUCE(MPI_IN_PLACE,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
+  call MPI_ALLREDUCE(tmpncv,maxncv,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !
   !
   !=========================================================================
