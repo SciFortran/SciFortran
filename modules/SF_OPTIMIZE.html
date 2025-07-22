@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SF_OPTIMIZE &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SF_PARSE_INPUT" href="SF_PARSE_INPUT.html" />
+    <link rel="prev" title="SF_MPI" href="SF_MPI.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../structure.html">Structure</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../structure.html">Structure</a></li>
+      <li class="breadcrumb-item active">SF_OPTIMIZE</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/SF_OPTIMIZE.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="SF_MPI.html" class="btn btn-neutral float-left" title="SF_MPI" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_PARSE_INPUT.html" class="btn btn-neutral float-right" title="SF_PARSE_INPUT" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sf-optimize">
+<h1>SF_OPTIMIZE<a class="headerlink" href="#sf-optimize" title="Link to this heading"></a></h1>
+<p class="rubric" id="f/sf_optimize">Description</p>
+<p>SciFortran module for minimization and root finding</p>
+<p class="rubric">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/sf_optimize/adaptive_mix" title="f/sf_optimize/adaptive_mix"><code class="xref f f-func docutils literal notranslate"><span class="pre">adaptive_mix()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/bisect" title="f/sf_optimize/bisect"><code class="xref f f-func docutils literal notranslate"><span class="pre">bisect()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/bracket" title="f/sf_optimize/bracket"><code class="xref f f-func docutils literal notranslate"><span class="pre">bracket()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/brent" title="f/sf_optimize/brent"><code class="xref f f-func docutils literal notranslate"><span class="pre">brent()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/brentq" title="f/sf_optimize/brentq"><code class="xref f f-func docutils literal notranslate"><span class="pre">brentq()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/broyden1" title="f/sf_optimize/broyden1"><code class="xref f f-func docutils literal notranslate"><span class="pre">broyden1()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/broyden_mix" title="f/sf_optimize/broyden_mix"><code class="xref f f-func docutils literal notranslate"><span class="pre">broyden_mix()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/curvefit" title="f/sf_optimize/curvefit"><code class="xref f f-func docutils literal notranslate"><span class="pre">curvefit()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/dbrent" title="f/sf_optimize/dbrent"><code class="xref f f-func docutils literal notranslate"><span class="pre">dbrent()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/fmin" title="f/sf_optimize/fmin"><code class="xref f f-func docutils literal notranslate"><span class="pre">fmin()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/fmin_bfgs" title="f/sf_optimize/fmin_bfgs"><code class="xref f f-func docutils literal notranslate"><span class="pre">fmin_bfgs()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/fmin_cg" title="f/sf_optimize/fmin_cg"><code class="xref f f-func docutils literal notranslate"><span class="pre">fmin_cg()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/fmin_cgminimize" title="f/sf_optimize/fmin_cgminimize"><code class="xref f f-func docutils literal notranslate"><span class="pre">fmin_cgminimize()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/fmin_cgplus" title="f/sf_optimize/fmin_cgplus"><code class="xref f f-func docutils literal notranslate"><span class="pre">fmin_cgplus()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/fsolve" title="f/sf_optimize/fsolve"><code class="xref f f-func docutils literal notranslate"><span class="pre">fsolve()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/fzero" title="f/sf_optimize/fzero"><code class="xref f f-func docutils literal notranslate"><span class="pre">fzero()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/leastsq" title="f/sf_optimize/leastsq"><code class="xref f f-func docutils literal notranslate"><span class="pre">leastsq()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/linear_mix" title="f/sf_optimize/linear_mix"><code class="xref f f-func docutils literal notranslate"><span class="pre">linear_mix()</span></code></a>, <a class="reference internal" href="#f/sf_optimize/newton" title="f/sf_optimize/newton"><code class="xref f f-func docutils literal notranslate"><span class="pre">newton()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Used modules</p>
+<ul>
+<li><p><code class="xref f f-mod docutils literal notranslate"><span class="pre">cgfit_routines</span></code></p></li>
+<li><p><code class="xref f f-mod docutils literal notranslate"><span class="pre">broyden_routines</span></code></p></li>
+<li><p><a class="reference internal" href="SF_CONSTANTS.html#f/sf_constants" title="f/sf_constants: SciFortran module for physical and mathematical constants"><code class="xref f f-mod docutils literal notranslate"><span class="pre">sf_constants</span></code></a>: SciFortran module for physical and mathematical constants</p></li>
+<li><p><a class="reference internal" href="SF_LINALG.html#f/sf_linalg" title="f/sf_linalg: SciFortran module for linear algebra"><code class="xref f f-mod docutils literal notranslate"><span class="pre">sf_linalg</span></code></a>: SciFortran module for linear algebra</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="SF_LINALG.html#f/sf_linalg/inv_sym" title="f/sf_linalg/inv_sym"><code class="xref f f-func docutils literal notranslate"><span class="pre">inv_sym()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/fmin_cg">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">fmin_cg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">f</span></em>, <em class="sig-param"><span class="pre">df</span></em>, <em class="sig-param"><span class="pre">iter</span></em>, <em class="sig-param"><span class="pre">fret</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">ftol</span></em>, <em class="sig-param"><span class="pre">itmax</span></em>, <em class="sig-param"><span class="pre">istop</span></em>, <em class="sig-param"><span class="pre">iverbose</span></em>, <em class="sig-param"><span class="pre">err</span></em>, <em class="sig-param"><span class="pre">deps</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/fmin_cg" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>f</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>df</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>iter</strong><em> [</em><em>integer</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>fret</strong><em> [</em><em>real</em><em>, </em><em>out</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ftol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>itmax</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>istop</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>iverbose</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>err</strong> (2)<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>deps</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/fmin_cgplus">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">fmin_cgplus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">fjac</span></em>, <em class="sig-param"><span class="pre">iter</span></em>, <em class="sig-param"><span class="pre">fret</span></em>, <em class="sig-param"><span class="pre">fcn</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">ftol</span></em>, <em class="sig-param"><span class="pre">itmax</span></em>, <em class="sig-param"><span class="pre">imethod</span></em>, <em class="sig-param"><span class="pre">iverb1</span></em>, <em class="sig-param"><span class="pre">iverb2</span></em>, <em class="sig-param"><span class="pre">deps</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/fmin_cgplus" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>func</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>fjac</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>iter</strong><em> [</em><em>integer</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>fret</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>fcn</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ftol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>itmax</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>imethod</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>iverb1</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>iverb2</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>deps</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/fmin_cgminimize">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">fmin_cgminimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">fcn</span></em>, <em class="sig-param"><span class="pre">iter</span></em>, <em class="sig-param"><span class="pre">fret</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">ftol</span></em>, <em class="sig-param"><span class="pre">itmax</span></em>, <em class="sig-param"><span class="pre">iverbose</span></em>, <em class="sig-param"><span class="pre">mode</span></em>, <em class="sig-param"><span class="pre">new_version</span></em>, <em class="sig-param"><span class="pre">hh_par</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/fmin_cgminimize" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>fcn</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>iter</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>fret</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ftol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>itmax</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>iverbose</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>mode</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>new_version</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>hh_par</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/leastsq">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">leastsq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">m</span></em>, <em class="sig-param"><span class="pre">dfunc</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">tol</span></em>, <em class="sig-param"><span class="pre">info</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/leastsq" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>a</strong> (•)<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>m</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>dfunc</strong><em> [</em><em>external</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>info</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/curvefit">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">curvefit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">model_func</span></em>, <em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">xdata</span></em>, <em class="sig-param"><span class="pre">ydata</span></em>, <em class="sig-param"><span class="pre">model_dfunc</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">tol</span></em>, <em class="sig-param"><span class="pre">info</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/curvefit" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_func</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>a</strong> (•)<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>xdata</strong> (•)<em> [</em><em>real</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>ydata</strong> (size(xdata))<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>model_dfunc</strong><em> [</em><em>external</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>info</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/dbrent">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">dbrent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">dfunc</span></em>, <em class="sig-param"><span class="pre">xmin</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">brack</span></em>, <em class="sig-param"><span class="pre">tol</span></em>, <em class="sig-param"><span class="pre">niter</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/dbrent" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>dfunc</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>xmin</strong><em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>brack</strong> (•)<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>niter</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/fmin_bfgs">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">fmin_bfgs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">grad</span></em>, <em class="sig-param"><span class="pre">x</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">l</span></em>, <em class="sig-param"><span class="pre">u</span></em>, <em class="sig-param"><span class="pre">nbd</span></em>, <em class="sig-param"><span class="pre">factr</span></em>, <em class="sig-param"><span class="pre">pgtol</span></em>, <em class="sig-param"><span class="pre">iprint</span></em>, <em class="sig-param"><span class="pre">nloop</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/fmin_bfgs" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>grad</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>x</strong> (•)<em> [</em><em>real</em><em>, </em><em>allocatable</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>l</strong> (•)<em> [</em><em>real</em><em>, </em><em>allocatable</em><em>]</em></p></li>
+<li><p><strong>u</strong> (•)<em> [</em><em>real</em><em>, </em><em>allocatable</em><em>]</em></p></li>
+<li><p><strong>nbd</strong> (•)<em> [</em><em>integer</em><em>, </em><em>allocatable</em><em>]</em></p></li>
+<li><p><strong>factr</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>pgtol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>iprint</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>nloop</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/linear_mix">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">linear_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">fx</span></em>, <em class="sig-param"><span class="pre">alpha</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/linear_mix" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (various shapes)<em> [</em><em>real/complex</em><em>, </em><em>inout/in,required</em><em>]</em></p></li>
+<li><p><strong>fx</strong> (various shapes)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>alpha</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/adaptive_mix">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">adaptive_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">fx</span></em>, <em class="sig-param"><span class="pre">alpha</span></em>, <em class="sig-param"><span class="pre">iter</span></em>, <em class="sig-param"><span class="pre">z</span></em>, <em class="sig-param"><span class="pre">fz</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/adaptive_mix" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout/in,required</em><em>]</em> – x_in</p></li>
+<li><p><strong>fx</strong> (size(x))<em> [</em><em>real</em><em>, </em><em>in</em><em>]</em> – x_out-x_in</p></li>
+<li><p><strong>alpha</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em> – mixing α</p></li>
+<li><p><strong>iter</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em> – reset persistent variables</p></li>
+<li><p><strong>z</strong> (•)<em> [</em><em>complex</em><em>, </em><em>inout/in,required</em><em>]</em> – z_in</p></li>
+<li><p><strong>fz</strong> (size(z))<em> [</em><em>complex</em><em>, </em><em>in</em><em>]</em> – z_out-z_in</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/broyden_mix">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">broyden_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">fx</span></em>, <em class="sig-param"><span class="pre">alpha</span></em>, <em class="sig-param"><span class="pre">m</span></em>, <em class="sig-param"><span class="pre">iter</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">w0</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/broyden_mix" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>inout/in,required</em><em>]</em></p></li>
+<li><p><strong>fx</strong> (size(x))<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – (Fx-X)</p></li>
+<li><p><strong>alpha</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>m</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>iter</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>w0</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/fsolve">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">fsolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">dfunc</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">tol</span></em>, <em class="sig-param"><span class="pre">info</span></em>, <em class="sig-param"><span class="pre">icheck</span></em>, <em class="sig-param"><span class="pre">maxfev</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/fsolve" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>x</strong> (•)<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>dfunc</strong><em> [</em><em>external</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>info</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>icheck</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>maxfev</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/brent">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">brent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">xmin</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">brack</span></em>, <em class="sig-param"><span class="pre">tol</span></em>, <em class="sig-param"><span class="pre">niter</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/brent" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>xmin</strong><em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>brack</strong> (•)<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>niter</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/bracket">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">bracket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ax</span></em>, <em class="sig-param"><span class="pre">bx</span></em>, <em class="sig-param"><span class="pre">cx</span></em>, <em class="sig-param"><span class="pre">fa</span></em>, <em class="sig-param"><span class="pre">fb</span></em>, <em class="sig-param"><span class="pre">fc</span></em>, <em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/bracket" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong><em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>bx</strong><em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>cx</strong><em> [</em><em>real</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>fa</strong><em> [</em><em>real</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>fb</strong><em> [</em><em>real</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>fc</strong><em> [</em><em>real</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>func</strong><em> [</em><em>external</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/fmin">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">fmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fn</span></em>, <em class="sig-param"><span class="pre">start</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">lambda</span></em>, <em class="sig-param"><span class="pre">tol</span></em>, <em class="sig-param"><span class="pre">conv_check</span></em>, <em class="sig-param"><span class="pre">max_fun_calls</span></em>, <em class="sig-param"><span class="pre">fun_calls</span></em>, <em class="sig-param"><span class="pre">num_restart</span></em>, <em class="sig-param"><span class="pre">ierr</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/fmin" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>start</strong> (•)<em> [</em><em>real</em><em>, </em><em>in,required</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>lambda</strong> (size(start))<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>conv_check</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>max_fun_calls</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>fun_calls</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>num_restart</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>ierr</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/broyden1">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">broyden1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ff</span></em>, <em class="sig-param"><span class="pre">x</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">icheck</span></em>, <em class="sig-param"><span class="pre">maxits</span></em>, <em class="sig-param"><span class="pre">tol</span></em>, <em class="sig-param"><span class="pre">tol1</span></em>, <em class="sig-param"><span class="pre">tolmin</span></em>, <em class="sig-param"><span class="pre">stpmx</span></em>, <em class="sig-param"><span class="pre">noexit</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/broyden1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ff</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>x</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>icheck</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>maxits</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>tol1</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>tolmin</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>stpmx</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>noexit</strong><em> [</em><em>logical</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/brentq">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">brentq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">tol</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/brentq" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>a</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>b</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fzero</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/bisect">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">bisect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">f</span></em>, <em class="sig-param"><span class="pre">x1</span></em>, <em class="sig-param"><span class="pre">x2</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">eps</span></em>, <em class="sig-param"><span class="pre">niter</span></em>, <em class="sig-param"><span class="pre">flag</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/bisect" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>x1</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>x2</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>eps</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>niter</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>flag</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/fzero">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">fzero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">f</span></em>, <em class="sig-param"><span class="pre">b</span></em>, <em class="sig-param"><span class="pre">c</span></em>, <em class="sig-param"><span class="pre">iflag</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">rguess</span></em>, <em class="sig-param"><span class="pre">tol_rel</span></em>, <em class="sig-param"><span class="pre">tol_abs</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/fzero" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Input, real ( kind = 8 ) R, a (better) guess of a zero of F which could
+help in speeding up convergence.  If F(B) and F(R) have opposite signs,
+a root will be found in the interval (B,R); if not, but F(R) and F(C)
+have opposite signs, a root will be found in the interval (R,C);
+otherwise, the interval (B,C) will be searched for a possible root.
+When no better guess is known, it is recommended that R be set to B or C;
+because if R is not interior to the interval (B,C), it will be ignored.</p>
+<p>Input, real ( kind = 8 ) RE, the relative error used for RW in the
+stopping criterion.  If the input RE is less than machine precision,
+then RW is set to approximately machine precision.</p>
+<p>Input, real ( kind = 8 ) AE, the absolute error used in the stopping
+criterion.  If the given interval (B,C) contains the origin, then a
+nonzero value should be chosen for AE.</p>
+<p>Output, integer IFLAG, a status code.  The user must check IFLAG
+after each call.  Control returns to the user in all cases.</p>
+<dl class="simple">
+<dt>1, B is within the requested tolerance of a zero.</dt><dd><p>the interval (b,c) collapsed to the requested
+tolerance, the function changes sign in (b,c), and
+f(x) decreased in magnitude as (b,c) collapsed.</p>
+</dd>
+<dt>2, F(B) = 0.  however, the interval (b,c) may not have</dt><dd><p>collapsed to the requested tolerance.</p>
+</dd>
+<dt>3, B may be near a singular point of f(x).</dt><dd><p>the interval (b,c) collapsed to the requested tolerance and
+the function changes sign in (b,c), but
+f(x) increased in magnitude as (b,c) collapsed,i.e.
+max ( ABS ( f(b in) ), ABS ( f(c in) ) ) &lt; ABS ( f(b out) ).</p>
+</dd>
+<dt>4, no change in sign of f(x) was found although the</dt><dd><p>interval (b,c) collapsed to the requested tolerance.
+the user must examine this case and decide whether
+b is near a local minimum of f(x), or B is near a
+zero of even multiplicity, or neither of these.</p>
+</dd>
+</dl>
+<p>5, too many (more than 500) function evaluations used.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>b</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>c</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>iflag</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>rguess</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>tol_rel</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>tol_abs</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_optimize/newton">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_optimize/</span></span><span class="sig-name descname"><span class="pre">newton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">f</span></em>, <em class="sig-param"><span class="pre">xinit</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">eps</span></em>, <em class="sig-param"><span class="pre">niter</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_optimize/newton" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong><em> [</em><em>external</em><em>]</em></p></li>
+<li><p><strong>xinit</strong><em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>eps</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>niter</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SF_MPI.html" class="btn btn-neutral float-left" title="SF_MPI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_PARSE_INPUT.html" class="btn btn-neutral float-right" title="SF_PARSE_INPUT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

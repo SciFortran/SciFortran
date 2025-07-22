@@ -1,0 +1,685 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SF_IOTOOLS &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SF_LINALG" href="SF_LINALG.html" />
+    <link rel="prev" title="SF_INTERPOLATE" href="SF_INTERPOLATE.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../structure.html">Structure</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../structure.html">Structure</a></li>
+      <li class="breadcrumb-item active">SF_IOTOOLS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/SF_IOTOOLS.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="SF_INTERPOLATE.html" class="btn btn-neutral float-left" title="SF_INTERPOLATE" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_LINALG.html" class="btn btn-neutral float-right" title="SF_LINALG" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sf-iotools">
+<h1>SF_IOTOOLS<a class="headerlink" href="#sf-iotools" title="Link to this heading"></a></h1>
+<p class="rubric" id="f/iofile">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/iofile/create_dir" title="f/iofile/create_dir"><code class="xref f f-func docutils literal notranslate"><span class="pre">create_dir()</span></code></a>, <a class="reference internal" href="#f/iofile/file_bunzip" title="f/iofile/file_bunzip"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_bunzip()</span></code></a>, <a class="reference internal" href="#f/iofile/file_bzip" title="f/iofile/file_bzip"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_bzip()</span></code></a>, <a class="reference internal" href="#f/iofile/file_gunzip" title="f/iofile/file_gunzip"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_gunzip()</span></code></a>, <a class="reference internal" href="#f/iofile/file_gzip" title="f/iofile/file_gzip"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_gzip()</span></code></a>, <a class="reference internal" href="#f/iofile/file_info" title="f/iofile/file_info"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_info()</span></code></a>, <a class="reference internal" href="#f/iofile/file_length" title="f/iofile/file_length"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_length()</span></code></a>, <a class="reference internal" href="#f/iofile/file_size" title="f/iofile/file_size"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_size()</span></code></a>, <a class="reference internal" href="#f/iofile/file_tarbz2" title="f/iofile/file_tarbz2"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_tarbz2()</span></code></a>, <a class="reference internal" href="#f/iofile/file_targz" title="f/iofile/file_targz"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_targz()</span></code></a>, <a class="reference internal" href="#f/iofile/file_untarbz2" title="f/iofile/file_untarbz2"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_untarbz2()</span></code></a>, <a class="reference internal" href="#f/iofile/file_untargz" title="f/iofile/file_untargz"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_untargz()</span></code></a>, <a class="reference internal" href="#f/iofile/file_unxz" title="f/iofile/file_unxz"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_unxz()</span></code></a>, <a class="reference internal" href="#f/iofile/file_xz" title="f/iofile/file_xz"><code class="xref f f-func docutils literal notranslate"><span class="pre">file_xz()</span></code></a>, <a class="reference internal" href="#f/iofile/free_unit" title="f/iofile/free_unit"><code class="xref f f-func docutils literal notranslate"><span class="pre">free_unit()</span></code></a>, <a class="reference internal" href="#f/iofile/free_units" title="f/iofile/free_units"><code class="xref f f-func docutils literal notranslate"><span class="pre">free_units()</span></code></a>, <a class="reference internal" href="#f/iofile/get_filename" title="f/iofile/get_filename"><code class="xref f f-func docutils literal notranslate"><span class="pre">get_filename()</span></code></a>, <a class="reference internal" href="#f/iofile/get_filepath" title="f/iofile/get_filepath"><code class="xref f f-func docutils literal notranslate"><span class="pre">get_filepath()</span></code></a>, <a class="reference internal" href="#f/iofile/newunit" title="f/iofile/newunit"><code class="xref f f-func docutils literal notranslate"><span class="pre">newunit()</span></code></a>, <a class="reference internal" href="#f/iofile/print_matrix" title="f/iofile/print_matrix"><code class="xref f f-func docutils literal notranslate"><span class="pre">print_matrix()</span></code></a>, <a class="reference internal" href="#f/iofile/reg" title="f/iofile/reg"><code class="xref f f-func docutils literal notranslate"><span class="pre">reg()</span></code></a>, <a class="reference internal" href="#f/iofile/reverse" title="f/iofile/reverse"><code class="xref f f-func docutils literal notranslate"><span class="pre">reverse()</span></code></a>, <a class="reference internal" href="#f/iofile/set_store_size" title="f/iofile/set_store_size"><code class="xref f f-func docutils literal notranslate"><span class="pre">set_store_size()</span></code></a>, <a class="reference internal" href="#f/iofile/str" title="f/iofile/str"><code class="xref f f-func docutils literal notranslate"><span class="pre">str()</span></code></a>, <a class="reference internal" href="#f/iofile/to_lower" title="f/iofile/to_lower"><code class="xref f f-func docutils literal notranslate"><span class="pre">to_lower()</span></code></a>, <a class="reference internal" href="#f/iofile/to_upper" title="f/iofile/to_upper"><code class="xref f f-func docutils literal notranslate"><span class="pre">to_upper()</span></code></a>, <a class="reference internal" href="#f/iofile/txtfy" title="f/iofile/txtfy"><code class="xref f f-func docutils literal notranslate"><span class="pre">txtfy()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/iofile/str">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">i4</span></em>, <em class="sig-param"><span class="pre">npad</span></em>, <em class="sig-param"><span class="pre">r8</span></em>, <em class="sig-param"><span class="pre">c</span></em>, <em class="sig-param"><span class="pre">bool</span></em>, <em class="sig-param"><span class="pre">txt</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">d</span></em>, <em class="sig-param"><span class="pre">lead</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/str" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i4</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>npad</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>r8</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>c</strong><em> [</em><em>complex</em><em>]</em></p></li>
+<li><p><strong>bool</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>txt</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>string</strong><em> [</em><em>character(len=:)</em><em>, </em><em>allocatable</em><em>]</em></p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>lead</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/txtfy">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">txtfy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">i4</span></em>, <em class="sig-param"><span class="pre">npad</span></em>, <em class="sig-param"><span class="pre">r8</span></em>, <em class="sig-param"><span class="pre">c</span></em>, <em class="sig-param"><span class="pre">bool</span></em>, <em class="sig-param"><span class="pre">txt</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">d</span></em>, <em class="sig-param"><span class="pre">lead</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/txtfy" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i4</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>npad</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>r8</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>c</strong><em> [</em><em>complex</em><em>]</em></p></li>
+<li><p><strong>bool</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>txt</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>string</strong><em> [</em><em>character(len=:)</em><em>, </em><em>allocatable</em><em>]</em></p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>lead</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/reg">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">reg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/reg" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong><em> [</em><em>character(len=*)</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>reg</strong><em> [</em><em>character(len=len_trim(trim(adjustl(trim(file)))))</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/create_dir">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">create_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dir_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/create_dir" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dir_name</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/newunit">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">newunit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/newunit" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>unit</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/print_matrix">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">print_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">m</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">file</span></em>, <em class="sig-param"><span class="pre">w</span></em>, <em class="sig-param"><span class="pre">d</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/print_matrix" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (•, •)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>file</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>w</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>d</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/reverse">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">n</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/reverse" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong><em> [</em><em>character(len=*)</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reverse_string</strong><em> [</em><em>character(len=:)</em><em>, </em><em>allocatable</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/get_filename">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">get_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/get_filename" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fname</strong><em> [</em><em>character(len=:)</em><em>, </em><em>allocatable</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/get_filepath">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">get_filepath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/get_filepath" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>pname</strong><em> [</em><em>character(len=:)</em><em>, </em><em>allocatable</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/free_unit">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">free_unit</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">n</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/free_unit" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>n</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>unit</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/free_units">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">free_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/free_units" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>n</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>unit</strong> (n)<em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_size">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">file</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">printf</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_size" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>printf</strong><em> [</em><em>logical</em><em>]</em></p>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>size</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_info">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_info" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>file_info</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_length">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">file</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">verbose</span></em>, <em class="sig-param"><span class="pre">incl_comments</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_length" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>verbose</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>incl_comments</strong><em> [</em><em>logical</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lines</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/set_store_size">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">set_store_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/set_store_size" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>size</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_gzip">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_gzip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">file</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">size</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_gzip" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>size</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_gunzip">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_gunzip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_gunzip" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_bzip">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_bzip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">file</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">size</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_bzip" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>size</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_bunzip">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_bunzip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_bunzip" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_xz">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_xz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">file</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">size</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_xz" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>size</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_unxz">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_unxz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_unxz" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_targz">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_targz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tarball</span></em>, <em class="sig-param"><span class="pre">pattern</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">size</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_targz" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tarball</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>pattern</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>size</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_untargz">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_untargz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tarball</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_untargz" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tarball</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_tarbz2">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_tarbz2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tarball</span></em>, <em class="sig-param"><span class="pre">pattern</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">size</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_tarbz2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tarball</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>pattern</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>size</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/file_untarbz2">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">file_untarbz2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tarball</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/file_untarbz2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tarball</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/to_upper">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">to_upper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">strin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/to_upper" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>strin</strong><em> [</em><em>character(len=*)</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>strout</strong><em> [</em><em>character(len=len(strin))</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/iofile/to_lower">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">iofile/</span></span><span class="sig-name descname"><span class="pre">to_lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">strin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/iofile/to_lower" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>strin</strong><em> [</em><em>character(len=*)</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>strout</strong><em> [</em><em>character(len=len(strin))</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric" id="f/ioread">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/ioread/read_array" title="f/ioread/read_array"><code class="xref f f-func docutils literal notranslate"><span class="pre">read_array()</span></code></a>, <a class="reference internal" href="#f/ioread/sread" title="f/ioread/sread"><code class="xref f f-func docutils literal notranslate"><span class="pre">sread()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Used modules</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#f/iofile" title="f/iofile"><code class="xref f f-mod docutils literal notranslate"><span class="pre">iofile</span></code></a></p></li>
+</ul>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/ioread/sread">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">ioread/</span></span><span class="sig-name descname"><span class="pre">sread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pname</span></em>, <em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">y1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/ioread/sread" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pname</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>x</strong> (various shapes)<em> [</em><em>real</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>y1</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/ioread/read_array">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">ioread/</span></span><span class="sig-name descname"><span class="pre">read_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pname</span></em>, <em class="sig-param"><span class="pre">y1</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">order</span></em>, <em class="sig-param"><span class="pre">wspace</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/ioread/read_array" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pname</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>y1</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>order</strong><em> [</em><em>character(len=*)</em><em>]</em> – = Row-major, Col-major”</p></li>
+<li><p><strong>wspace</strong><em> [</em><em>logical</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric" id="f/ioplot">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/ioplot/save_array" title="f/ioplot/save_array"><code class="xref f f-func docutils literal notranslate"><span class="pre">save_array()</span></code></a>, <a class="reference internal" href="#f/ioplot/splot" title="f/ioplot/splot"><code class="xref f f-func docutils literal notranslate"><span class="pre">splot()</span></code></a>, <a class="reference internal" href="#f/ioplot/splot3d" title="f/ioplot/splot3d"><code class="xref f f-func docutils literal notranslate"><span class="pre">splot3d()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Used modules</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#f/iofile" title="f/iofile"><code class="xref f f-mod docutils literal notranslate"><span class="pre">iofile</span></code></a></p></li>
+</ul>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/ioplot/splot">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">ioplot/</span></span><span class="sig-name descname"><span class="pre">splot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pname</span></em>, <em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">y1</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">append</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/ioplot/splot" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pname</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>x</strong> (various shapes)<em> [</em><em>real</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>y1</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>append</strong><em> [</em><em>logical</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/ioplot/splot3d">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">ioplot/</span></span><span class="sig-name descname"><span class="pre">splot3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pname</span></em>, <em class="sig-param"><span class="pre">x1</span></em>, <em class="sig-param"><span class="pre">x2</span></em>, <em class="sig-param"><span class="pre">y</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">xmin</span></em>, <em class="sig-param"><span class="pre">xmax</span></em>, <em class="sig-param"><span class="pre">ymin</span></em>, <em class="sig-param"><span class="pre">ymax</span></em>, <em class="sig-param"><span class="pre">nosurface</span></em>, <em class="sig-param"><span class="pre">wlines</span></em>, <em class="sig-param"><span class="pre">nlines</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/ioplot/splot3d" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pname</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>x1</strong> (•)<em> [</em><em>real</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>x2</strong> (•)<em> [</em><em>real</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>y</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>xmin</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>xmax</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>ymin</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>ymax</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>nosurface</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>wlines</strong><em> [</em><em>logical</em><em>]</em></p></li>
+<li><p><strong>nlines</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/ioplot/save_array">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">ioplot/</span></span><span class="sig-name descname"><span class="pre">save_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">pname</span></em>, <em class="sig-param"><span class="pre">y1</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">order</span></em>, <em class="sig-param"><span class="pre">wspace</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/ioplot/save_array" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pname</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>y1</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>order</strong><em> [</em><em>character(len=*)</em><em>]</em> – = Row-major, Col-major”</p></li>
+<li><p><strong>wspace</strong><em> [</em><em>logical</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric" id="f/sf_iotools">Description</p>
+<p>SciFortran module for reading and writing data</p>
+<p class="rubric">Used modules</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#f/iofile" title="f/iofile"><code class="xref f f-mod docutils literal notranslate"><span class="pre">iofile</span></code></a></p></li>
+<li><p><a class="reference internal" href="#f/ioplot" title="f/ioplot"><code class="xref f f-mod docutils literal notranslate"><span class="pre">ioplot</span></code></a></p></li>
+<li><p><a class="reference internal" href="#f/ioread" title="f/ioread"><code class="xref f f-mod docutils literal notranslate"><span class="pre">ioread</span></code></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SF_INTERPOLATE.html" class="btn btn-neutral float-left" title="SF_INTERPOLATE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_LINALG.html" class="btn btn-neutral float-right" title="SF_LINALG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
