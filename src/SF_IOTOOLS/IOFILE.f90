@@ -321,7 +321,7 @@ contains
     inquire(file=reg(file),exist=control)
     if(control)then
        len=file_size(reg(file))
-       if(len>fsize)call system("gzip -fv --best --rsyncable"//reg(file))
+       if(len>fsize)call system("gzip -fv --best --rsyncable "//reg(file))
     endif
     inquire(file=reg(file),opened=control,number=unit)
     if(control)close(unit)
@@ -349,7 +349,7 @@ contains
        stop
     endif
     write(*,"(A)")"deflate "//reg(filename)//type
-    call system("gunzip -l"//reg(filename)//type)
+    call system("gunzip -fv "//reg(filename)//type)
     inquire(file=reg(filename),opened=iopen,number=unit)
     if(iopen)close(unit)
   end subroutine file_gunzip
