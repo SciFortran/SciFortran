@@ -29,7 +29,8 @@ MODULE SF_BLACS
 contains
 
   subroutine init_BLACS()
-    USE MPI
+    ! USE MPI
+    include "mpif.h"
     integer :: i,j
     !< Initialize BLACS processor grid (like MPI)
     ! call blacs_setup(p_rank,p_size)  ![id, size]

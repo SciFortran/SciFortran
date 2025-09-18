@@ -1,5 +1,5 @@
 module SF_TIMER
-!SciFortran module for timers
+  !SciFortran module for timers
 #ifdef _MPI
   USE SF_MPI
 #endif
@@ -38,7 +38,7 @@ module SF_TIMER
   integer(4),save                          :: ms
   !Counter of the started timers:
   integer,save                             :: Tindex=0
-  integer,parameter                        :: Tmax=100!
+  integer,parameter                        :: Tmax=1000!
   !
   real,save                                :: time
   real,save                                :: old_time
@@ -49,12 +49,21 @@ module SF_TIMER
   integer(8)                               :: st_rate=1
   !
   !Using Date and Time:
-  integer,dimension(Tmax,8),save           :: dt_T_start, dt_T_stop, dt_T0, dt_T1
+  integer,dimension(Tmax,8),save           :: dt_T_start=0
+  integer,dimension(Tmax,8),save           :: dt_T_stop=0
+  integer,dimension(Tmax,8),save           :: dt_T0=00
+  integer,dimension(Tmax,8),save           :: dt_T1=0
   !Using Cpu_time
-  real,dimension(Tmax),save                :: ct_T_start, ct_T_stop, ct_T0, ct_T1
+  real,dimension(Tmax),save                :: ct_T_start=0d0
+  real,dimension(Tmax),save                :: ct_T_stop=0d0
+  real,dimension(Tmax),save                :: ct_T0=0d0
+  real,dimension(Tmax),save                :: ct_T1=0d0
   !Using System_clock
-  integer(8),dimension(Tmax),save          :: st_T_start, st_T_stop, st_T0, st_T1
-
+  integer(8),dimension(Tmax),save          :: st_T_start=0
+  integer(8),dimension(Tmax),save          :: st_T_stop=0
+  integer(8),dimension(Tmax),save          :: st_T0=0
+  integer(8),dimension(Tmax),save          :: st_T1=0
+  !MPI
   integer                                  :: mpi_id
   integer                                  :: mpi_size
   logical                                  :: mpi_master
@@ -67,6 +76,7 @@ module SF_TIMER
      module procedure :: stop_timer
   end interface stop_progress
 
+  public :: t_start,t_stop
   public :: start_timer,start_progress
   public :: stop_timer ,stop_progress
   public :: eta
@@ -75,6 +85,63 @@ module SF_TIMER
 
 
 contains
+
+
+  !+-------------------------------------------------------------------+
+  !PURPOSE  : start a timer to measure elapsed time between two call
+  !+-------------------------------------------------------------------+
+  function t_start() result(st_T)
+    real(8) :: st_T
+    Tindex=Tindex+1
+    if(Tindex>Tmax)stop "start_timer error: too many timers started"
+    !
+    call system_clock(count_rate=st_rate)
+    !
+#ifdef _MPI    
+    if(check_MPI())then
+       st_T_start(Tindex) = MPI_Wtime()
+    else
+       call system_clock(count=st_T_start(Tindex))
+    endif
+#else
+    call system_clock(count=st_T_start(Tindex))
+#endif
+    st_T=0d0
+  end function t_start
+
+
+  !+-------------------------------------------------------------------+
+  !PURPOSE  : stop the timer and get the partial time
+  !+-------------------------------------------------------------------+
+  function t_stop() result(st_T)
+    real(8) :: st_T
+    !
+#ifdef _MPI    
+    if(check_MPI())then
+       st_T_stop(Tindex) = MPI_Wtime()
+    else
+       call system_clock(count=st_T_stop(Tindex))
+    endif
+#else
+    call system_clock(count=st_T_stop(Tindex))
+#endif
+    st_T = dble(st_T_stop(Tindex)-st_T_start(Tindex))/st_rate
+    !
+    st_T_start(Tindex)   = 0
+    st_T_stop(Tindex)    = 0
+    !
+    if(Tindex>1)then
+       Tindex=Tindex-1
+    else
+       Tindex=0
+    endif
+  end function t_stop
+
+
+
+
+
+
 
   !+-------------------------------------------------------------------+
   !PURPOSE  : start a timer to measure elapsed time between two call

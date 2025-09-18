@@ -32,7 +32,7 @@ ENDMACRO()
 FILE(GLOB_RECURSE CMAKECACHE "${TOPDIR}/*CMakeCache.txt")
 FILE(GLOB_RECURSE CMAKEINSTALL "${TOPDIR}/*cmake_install.cmake"
                                "${TOPDIR}/*install_manifest.txt")
-FILE(GLOB_RECURSE MAKEFILE "${TOPDIR}/*Makefile")
+# FILE(GLOB_RECURSE MAKEFILE "${TOPDIR}/*Makefile")
 FILE(GLOB_RECURSE CMAKETESTFILES "${TOPDIR}/*CTestTestfile.cmake")
 SET(TOPDIRECTORIES "${TOPDIR}/lib")
 
