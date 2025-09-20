@@ -1,7 +1,7 @@
 !---------------------------------------------------------------------
 !Purpose: use plain lanczos to get the groundstate energy
 !---------------------------------------------------------------------
-subroutine mpi_lanczos_eigh_c(MpiComm,MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vrandom)
+subroutine mpi_lanczos_eigh_c(MpiComm,MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vrandom,NumOp)
   integer                              :: MpiComm
   interface 
      subroutine MatVec(Nloc,vin,vout)
@@ -16,12 +16,12 @@ subroutine mpi_lanczos_eigh_c(MpiComm,MatVec,Egs,Vect,Nitermax,iverbose,threshol
   !
   integer                              :: Nloc
   real(8),optional                     :: threshold
-  integer,optional                     :: ncheck
+  integer,optional                     :: ncheck,NumOp
   logical,optional                     :: iverbose
   logical,optional                     :: vrandom
   !
   complex(8),dimension(size(vect))     :: vin,vout
-  integer                              :: iter,nlanc
+  integer                              :: iter,nlanc,nhxv
   real(8),dimension(Nitermax+1)        :: alanc,blanc
   real(8),dimension(Nitermax,Nitermax) :: Z
   real(8),dimension(Nitermax)          :: diag,subdiag,esave
@@ -75,9 +75,11 @@ subroutine mpi_lanczos_eigh_c(MpiComm,MatVec,Egs,Vect,Nitermax,iverbose,threshol
   alanc=0d0
   blanc=0d0
   nlanc=0
+  nhxv =0
   !
   lanc_loop: do iter=1,Nitermax
      call mpi_lanczos_iteration_c(MpiComm,MatVec,iter,vin,vout,a_,b_)
+     nhxv=nhxv+1
      if(abs(b_)<threshold_)exit lanc_loop
      !
      nlanc=nlanc+1
@@ -114,6 +116,7 @@ subroutine mpi_lanczos_eigh_c(MpiComm,MatVec,Egs,Vect,Nitermax,iverbose,threshol
   vect= zero
   do iter=1,nlanc
      call mpi_lanczos_iteration_c(MpiComm,MatVec,iter,vin,vout,alanc(iter),blanc(iter))
+     nhxv=nhxv+1
      vect = vect + vin*Z(iter,1)
   end do
   norm_tmp=dot_product(vect,vect); norm=0d0
@@ -124,7 +127,7 @@ subroutine mpi_lanczos_eigh_c(MpiComm,MatVec,Egs,Vect,Nitermax,iverbose,threshol
      if(mpi_master)write(*,*)"|H*v-E*v|=",sum(abs(vout-egs*vect))/Nloc
   endif
   Nitermax=Nlanc
-  !
+  if(present(NumOp))NumOp=nhxv
 end subroutine mpi_lanczos_eigh_c
 
 

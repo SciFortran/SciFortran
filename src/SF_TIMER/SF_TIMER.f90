@@ -37,7 +37,7 @@ module SF_TIMER
   integer(4),save                          :: s
   integer(4),save                          :: ms
   !Counter of the started timers:
-  integer,save                             :: Tindex=0
+  integer,save                             :: Tindex=0,Tprof=0
   integer,parameter                        :: Tmax=1000!
   !
   real,save                                :: time
@@ -46,7 +46,7 @@ module SF_TIMER
   real,save                                :: elapsed_time
   real,save                                :: eta_time
   integer(8),dimension(Tmax)               :: Funit
-  integer(8)                               :: st_rate=1
+  integer(8)                               :: st_rate=1,pr_rate=1
   !
   !Using Date and Time:
   integer,dimension(Tmax,8),save           :: dt_T_start=0
@@ -63,6 +63,12 @@ module SF_TIMER
   integer(8),dimension(Tmax),save          :: st_T_stop=0
   integer(8),dimension(Tmax),save          :: st_T0=0
   integer(8),dimension(Tmax),save          :: st_T1=0
+  !
+  !Using System_clock
+  integer(8),dimension(Tmax),save          :: pr_T_start=0
+  integer(8),dimension(Tmax),save          :: pr_T_stop=0
+  integer(8),dimension(Tmax),save          :: pr_T0=0
+  integer(8),dimension(Tmax),save          :: pr_T1=0
   !MPI
   integer                                  :: mpi_id
   integer                                  :: mpi_size
@@ -90,50 +96,51 @@ contains
   !+-------------------------------------------------------------------+
   !PURPOSE  : start a timer to measure elapsed time between two call
   !+-------------------------------------------------------------------+
-  function t_start() result(st_T)
-    real(8) :: st_T
-    Tindex=Tindex+1
-    if(Tindex>Tmax)stop "start_timer error: too many timers started"
+  function t_start() result(pr_T)
+    real(8) :: pr_T
     !
-    call system_clock(count_rate=st_rate)
+    Tprof=Tprof+1
+    if(Tprof>Tmax)stop "start_timer error: too many timers started"
+    !
+    call system_clock(count_rate=pr_rate)
     !
 #ifdef _MPI    
     if(check_MPI())then
-       st_T_start(Tindex) = MPI_Wtime()
+       pr_T_start(Tindex) = MPI_Wtime()
     else
-       call system_clock(count=st_T_start(Tindex))
+       call system_clock(count=pr_T_start(Tprof))
     endif
 #else
-    call system_clock(count=st_T_start(Tindex))
+    call system_clock(count=pr_T_start(Tprof))
 #endif
-    st_T=0d0
+    pr_T=0d0
   end function t_start
 
 
   !+-------------------------------------------------------------------+
   !PURPOSE  : stop the timer and get the partial time
   !+-------------------------------------------------------------------+
-  function t_stop() result(st_T)
-    real(8) :: st_T
+  function t_stop() result(pr_T)
+    real(8) :: pr_T
     !
 #ifdef _MPI    
     if(check_MPI())then
-       st_T_stop(Tindex) = MPI_Wtime()
+       pr_T_stop(Tprof) = MPI_Wtime()
     else
-       call system_clock(count=st_T_stop(Tindex))
+       call system_clock(count=pr_T_stop(Tprof))
     endif
 #else
-    call system_clock(count=st_T_stop(Tindex))
+    call system_clock(count=pr_T_stop(Tprof))
 #endif
-    st_T = dble(st_T_stop(Tindex)-st_T_start(Tindex))/st_rate
+    pr_T = dble(pr_T_stop(Tprof)-pr_T_start(Tprof))/st_rate
     !
-    st_T_start(Tindex)   = 0
-    st_T_stop(Tindex)    = 0
+    pr_T_start(Tprof)   = 0
+    pr_T_stop(Tprof)    = 0
     !
-    if(Tindex>1)then
-       Tindex=Tindex-1
+    if(Tprof>1)then
+       Tprof=Tprof-1
     else
-       Tindex=0
+       Tprof=0
     endif
   end function t_stop
 

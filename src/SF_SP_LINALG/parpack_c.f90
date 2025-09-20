@@ -1,4 +1,4 @@
-subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,iverbose,vrandom,iexit)
+subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,iverbose,vrandom,iexit,NumOp,Niter)
   !Arguments
   integer                    :: MpiComm
   !Interface to Matrix-Vector routine:
@@ -18,7 +18,7 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   real(8),optional          :: tol
   logical,optional          :: iverbose
   logical,optional          :: vrandom
-  integer,optional          :: iexit
+  integer,optional          :: iexit,NumOp,Niter
   !Dimensions:
   integer                   :: Ns,Dim
   integer                   :: Neigen
@@ -179,6 +179,8 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   end do
   !
   if(present(iexit))iexit=info
+  if(present(NumOp))NumOp=iparam(9)
+  if(present(Niter))Niter=iparam(3)
   !
   !POST PROCESSING:
   if(info>=0)then

@@ -1,7 +1,7 @@
 !---------------------------------------------------------------------
 !Purpose: use plain lanczos to get the groundstate energy
 !---------------------------------------------------------------------
-subroutine lanczos_eigh_c(MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vrandom)
+subroutine lanczos_eigh_c(MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vrandom,NumOp)
   interface
      subroutine MatVec(Nloc,vin,vout)
        integer                    :: Nloc
@@ -14,12 +14,12 @@ subroutine lanczos_eigh_c(MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vra
   integer                              :: Nitermax
   !
   real(8),optional                     :: threshold
-  integer,optional                     :: ncheck
+  integer,optional                     :: ncheck,NumOp
   logical,optional                     :: iverbose
   logical,optional                     :: vrandom
   !
   complex(8),dimension(size(vect))     :: vin,vout
-  integer                              :: iter,nlanc
+  integer                              :: iter,nlanc,nhxv
   real(8),dimension(Nitermax+1)        :: alanc,blanc
   real(8),dimension(Nitermax,Nitermax) :: Z
   real(8),dimension(Nitermax)          :: diag,subdiag,esave
@@ -62,9 +62,11 @@ subroutine lanczos_eigh_c(MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vra
   alanc=0.d0
   blanc=0.d0
   nlanc=0
+  nhxv =0
   !
   lanc_loop: do iter=1,Nitermax
      call lanczos_iteration_c(MatVec,iter,vin,vout,a_,b_)
+     nhxv=nhxv+1
      if(abs(b_)<threshold_)exit lanc_loop
      !
      nlanc=nlanc+1
@@ -101,6 +103,7 @@ subroutine lanczos_eigh_c(MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vra
   vect=zero
   do iter=1,Nlanc
      call lanczos_iteration_c(MatVec,iter,vin,vout,alanc(iter),blanc(iter))
+     nhxv=nhxv+1
      vect = vect + vin*Z(iter,1)
   end do
   norm=sqrt(dot_product(vect,vect))
@@ -111,7 +114,7 @@ subroutine lanczos_eigh_c(MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vra
      write(*,*)"|H*v-E*v|=",sum(abs(vout-egs*vect))/size(vect)
   endif
   Nitermax=Nlanc
-  !
+  if(present(NumOp))NumOp=nhxv
 end subroutine lanczos_eigh_c
 
 

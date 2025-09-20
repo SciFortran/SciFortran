@@ -1,4 +1,4 @@
-subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbose,iexit)
+subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbose,iexit,NumOp,Niter)
   !Interface to Matrix-Vector routine:
   interface
      subroutine MatVec(Nloc,vin,vout)
@@ -17,7 +17,7 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   complex(8),optional          :: v0(size(evec,1))
   real(8),optional             :: tol
   logical,optional             :: iverbose
-  integer,optional          :: iexit
+  integer,optional             :: iexit,NumOp,Niter
   !Dimensions:
   integer                      :: Ns
   integer                      :: Neigen
@@ -135,6 +135,8 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   end do
   !
   if(present(iexit))iexit=info
+  if(present(NumOp))NumOp=iparam(9)
+  if(present(Niter))Niter=iparam(3)
   !
   !POST PROCESSING:
   if(info>=0)then
