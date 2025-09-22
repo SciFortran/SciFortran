@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SF_RANDOM &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SF_SPECIAL" href="SF_SPECIAL.html" />
+    <link rel="prev" title="SF_PARSE_INPUT" href="SF_PARSE_INPUT.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../structure.html">Structure</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../structure.html">Structure</a></li>
+      <li class="breadcrumb-item active">SF_RANDOM</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/SF_RANDOM.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="SF_PARSE_INPUT.html" class="btn btn-neutral float-left" title="SF_PARSE_INPUT" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_SPECIAL.html" class="btn btn-neutral float-right" title="SF_SPECIAL" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sf-random">
+<h1>SF_RANDOM<a class="headerlink" href="#sf-random" title="Link to this heading"></a></h1>
+<p class="rubric" id="f/sf_random">Description</p>
+<p>SciFortran module for RNG</p>
+<p class="rubric">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/sf_random/bin_prob" title="f/sf_random/bin_prob"><code class="xref f f-func docutils literal notranslate"><span class="pre">bin_prob()</span></code></a>, <a class="reference internal" href="#f/sf_random/lngamma" title="f/sf_random/lngamma"><code class="xref f f-func docutils literal notranslate"><span class="pre">lngamma()</span></code></a>, <a class="reference internal" href="#f/sf_random/mersenne" title="f/sf_random/mersenne"><code class="xref f f-func docutils literal notranslate"><span class="pre">mersenne()</span></code></a>, <a class="reference internal" href="#f/sf_random/mersenne_init" title="f/sf_random/mersenne_init"><code class="xref f f-func docutils literal notranslate"><span class="pre">mersenne_init()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_beta" title="f/sf_random/mt_beta"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_beta()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_cauchy" title="f/sf_random/mt_cauchy"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_cauchy()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_chi_square" title="f/sf_random/mt_chi_square"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_chi_square()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_exponential" title="f/sf_random/mt_exponential"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_exponential()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_gamma" title="f/sf_random/mt_gamma"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_gamma()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_get" title="f/sf_random/mt_get"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_get()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_init" title="f/sf_random/mt_init"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_init()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_inverse_gamma" title="f/sf_random/mt_inverse_gamma"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_inverse_gamma()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_laplace" title="f/sf_random/mt_laplace"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_laplace()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_log_normal" title="f/sf_random/mt_log_normal"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_log_normal()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_normal" title="f/sf_random/mt_normal"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_normal()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_random" title="f/sf_random/mt_random"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_random()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_save" title="f/sf_random/mt_save"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_save()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_student_t" title="f/sf_random/mt_student_t"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_student_t()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_uniform" title="f/sf_random/mt_uniform"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_uniform()</span></code></a>, <a class="reference internal" href="#f/sf_random/mt_weibull" title="f/sf_random/mt_weibull"><code class="xref f f-func docutils literal notranslate"><span class="pre">mt_weibull()</span></code></a>, <a class="reference internal" href="#f/sf_random/nrand" title="f/sf_random/nrand"><code class="xref f f-func docutils literal notranslate"><span class="pre">nrand()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_beta" title="f/sf_random/random_beta"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_beta()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_binomial1" title="f/sf_random/random_binomial1"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_binomial1()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_binomial2" title="f/sf_random/random_binomial2"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_binomial2()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_cauchy" title="f/sf_random/random_cauchy"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_cauchy()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_chisq" title="f/sf_random/random_chisq"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_chisq()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_exponential" title="f/sf_random/random_exponential"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_exponential()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_gamma" title="f/sf_random/random_gamma"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_gamma()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_gamma1" title="f/sf_random/random_gamma1"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_gamma1()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_gamma2" title="f/sf_random/random_gamma2"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_gamma2()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_inv_gauss" title="f/sf_random/random_inv_gauss"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_inv_gauss()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_neg_binomial" title="f/sf_random/random_neg_binomial"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_neg_binomial()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_normal" title="f/sf_random/random_normal"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_normal()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_number_init" title="f/sf_random/random_number_init"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_number_init()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_number_seed" title="f/sf_random/random_number_seed"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_number_seed()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_order" title="f/sf_random/random_order"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_order()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_poisson" title="f/sf_random/random_poisson"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_poisson()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_von_mises" title="f/sf_random/random_von_mises"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_von_mises()</span></code></a>, <a class="reference internal" href="#f/sf_random/random_weibull" title="f/sf_random/random_weibull"><code class="xref f f-func docutils literal notranslate"><span class="pre">random_weibull()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mersenne_init">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mersenne_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">seed</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mersenne_init" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_init">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">seed</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_init" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mersenne">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mersenne</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mersenne" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_random">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_random</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_random" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_uniform">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_uniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">l</span></em>, <em class="sig-param"><span class="pre">h</span></em>, <em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_uniform" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>l</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>h</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>a</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>b</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>c</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_normal">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">mean</span></em>, <em class="sig-param"><span class="pre">stdev</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_normal" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>stdev</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>c</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_exponential">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_exponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">mean</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_exponential" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mean</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>c</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_gamma">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape</span></em>, <em class="sig-param"><span class="pre">scale</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_gamma" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>scale</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_chi_square">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_chi_square</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dof</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_chi_square" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dof</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_inverse_gamma">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_inverse_gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape</span></em>, <em class="sig-param"><span class="pre">scale</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_inverse_gamma" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>scale</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_weibull">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_weibull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape</span></em>, <em class="sig-param"><span class="pre">scale</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_weibull" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>scale</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_cauchy">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_cauchy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">median</span></em>, <em class="sig-param"><span class="pre">scale</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_cauchy" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>median</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>scale</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_student_t">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_student_t</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dof</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_student_t" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dof</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_laplace">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_laplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">mean</span></em>, <em class="sig-param"><span class="pre">scale</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_laplace" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>scale</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_log_normal">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_log_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">mu</span></em>, <em class="sig-param"><span class="pre">sigma</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_log_normal" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>sigma</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_beta">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_beta" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>b</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ans</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_save">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fname</span></em>, <em class="sig-param"><span class="pre">forma</span></em>, <em class="sig-param"><span class="pre">unum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_save" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong><em> [</em><em>character(len=*)</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>forma</strong><em> [</em><em>character</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>unum</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/mt_get">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">mt_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fname</span></em>, <em class="sig-param"><span class="pre">forma</span></em>, <em class="sig-param"><span class="pre">unum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/mt_get" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong><em> [</em><em>character(len=*)</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>forma</strong><em> [</em><em>character</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>unum</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_number_init">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_number_init</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">shift</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_number_init" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shift</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_number_seed">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_number_seed</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">info</span></em>, <em class="sig-param"><span class="pre">file</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_number_seed" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>file</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>random_number_seed</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_normal">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_normal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_normal" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_gamma">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">s</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_gamma" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_gamma1">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_gamma1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">s</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_gamma1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_gamma2">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_gamma2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">s</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_gamma2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_chisq">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_chisq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ndf</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_chisq" title="Link to this definition"></a></dt>
+<dd><p>Generates a random variate from the chi-squared distribution with
+ndf degrees of freedom</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndf</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_exponential">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_exponential</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_exponential" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_weibull">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_weibull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_weibull" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_beta">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">aa</span></em>, <em class="sig-param"><span class="pre">bb</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_beta" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aa</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>bb</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_inv_gauss">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_inv_gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">h</span></em>, <em class="sig-param"><span class="pre">b</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_inv_gauss" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>b</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_poisson">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_poisson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">mu</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_poisson" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ival</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_binomial1">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_binomial1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_binomial1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>p</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ival</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/bin_prob">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">bin_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">p</span></em>, <em class="sig-param"><span class="pre">r</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/bin_prob" title="Link to this definition"></a></dt>
+<dd><p>Calculate a binomial probability</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>p</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>r</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/lngamma">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">lngamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/lngamma" title="Link to this definition"></a></dt>
+<dd><p>Logarithm to base e of the gamma function.</p>
+<p>Accurate to about 1.e-14.
+Programmer: Alan Miller
+Latest revision of Fortran 77 version - 28 February 1988</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_binomial2">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_binomial2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">pp</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_binomial2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>pp</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ival</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_neg_binomial">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_neg_binomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">sk</span></em>, <em class="sig-param"><span class="pre">p</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_neg_binomial" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sk</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>p</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ival</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_von_mises">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_von_mises</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">k</span></em>, <em class="sig-param"><span class="pre">first</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_von_mises" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong><em> [</em><em>real</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>first</strong><em> [</em><em>logical</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_cauchy">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_cauchy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_cauchy" title="Link to this definition"></a></dt>
+<dd><p>Generate a random deviate from the standard Cauchy distribution</p>
+<dl class="field-list simple">
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fn_val</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/nrand">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">nrand</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">dseed_</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/nrand" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dseed</strong><em> [</em><em>integer</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>nrand</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_random/random_order">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_random/</span></span><span class="sig-name descname"><span class="pre">random_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">order</span></em>, <em class="sig-param"><span class="pre">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_random/random_order" title="Link to this definition"></a></dt>
+<dd><p>generate a random ordering of the integers 1 … n.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>order</strong> (n)<em> [</em><em>integer</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SF_PARSE_INPUT.html" class="btn btn-neutral float-left" title="SF_PARSE_INPUT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_SPECIAL.html" class="btn btn-neutral float-right" title="SF_SPECIAL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

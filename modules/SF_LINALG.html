@@ -1,0 +1,880 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SF_LINALG &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SF_MISC" href="SF_MISC.html" />
+    <link rel="prev" title="SF_IOTOOLS" href="SF_IOTOOLS.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../structure.html">Structure</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../structure.html">Structure</a></li>
+      <li class="breadcrumb-item active">SF_LINALG</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/SF_LINALG.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="SF_IOTOOLS.html" class="btn btn-neutral float-left" title="SF_IOTOOLS" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_MISC.html" class="btn btn-neutral float-right" title="SF_MISC" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sf-linalg">
+<h1>SF_LINALG<a class="headerlink" href="#sf-linalg" title="Link to this heading"></a></h1>
+<p class="rubric" id="f/sf_linalg">Description</p>
+<p>SciFortran module for linear algebra</p>
+<p class="rubric">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/sf_linalg/build_tridiag" title="f/sf_linalg/build_tridiag"><code class="xref f f-func docutils literal notranslate"><span class="pre">build_tridiag()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/check_tridiag" title="f/sf_linalg/check_tridiag"><code class="xref f f-func docutils literal notranslate"><span class="pre">check_tridiag()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/cross_product" title="f/sf_linalg/cross_product"><code class="xref f f-func docutils literal notranslate"><span class="pre">cross_product()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/det" title="f/sf_linalg/det"><code class="xref f f-func docutils literal notranslate"><span class="pre">det()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/deye" title="f/sf_linalg/deye"><code class="xref f f-func docutils literal notranslate"><span class="pre">deye()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/deye_tridiag" title="f/sf_linalg/deye_tridiag"><code class="xref f f-func docutils literal notranslate"><span class="pre">deye_tridiag()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/diag" title="f/sf_linalg/diag"><code class="xref f f-func docutils literal notranslate"><span class="pre">diag()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/diagonal" title="f/sf_linalg/diagonal"><code class="xref f f-func docutils literal notranslate"><span class="pre">diagonal()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/eig" title="f/sf_linalg/eig"><code class="xref f f-func docutils literal notranslate"><span class="pre">eig()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/eigh" title="f/sf_linalg/eigh"><code class="xref f f-func docutils literal notranslate"><span class="pre">eigh()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/eigh_jacobi" title="f/sf_linalg/eigh_jacobi"><code class="xref f f-func docutils literal notranslate"><span class="pre">eigh_jacobi()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/eigvals" title="f/sf_linalg/eigvals"><code class="xref f f-func docutils literal notranslate"><span class="pre">eigvals()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/eigvalsh" title="f/sf_linalg/eigvalsh"><code class="xref f f-func docutils literal notranslate"><span class="pre">eigvalsh()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/eye" title="f/sf_linalg/eye"><code class="xref f f-func docutils literal notranslate"><span class="pre">eye()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/get_tridiag" title="f/sf_linalg/get_tridiag"><code class="xref f f-func docutils literal notranslate"><span class="pre">get_tridiag()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/inv" title="f/sf_linalg/inv"><code class="xref f f-func docutils literal notranslate"><span class="pre">inv()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/inv_gj" title="f/sf_linalg/inv_gj"><code class="xref f f-func docutils literal notranslate"><span class="pre">inv_gj()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/inv_her" title="f/sf_linalg/inv_her"><code class="xref f f-func docutils literal notranslate"><span class="pre">inv_her()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/inv_sym" title="f/sf_linalg/inv_sym"><code class="xref f f-func docutils literal notranslate"><span class="pre">inv_sym()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/inv_triang" title="f/sf_linalg/inv_triang"><code class="xref f f-func docutils literal notranslate"><span class="pre">inv_triang()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/inv_tridiag" title="f/sf_linalg/inv_tridiag"><code class="xref f f-func docutils literal notranslate"><span class="pre">inv_tridiag()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/kron" title="f/sf_linalg/kron"><code class="xref f f-func docutils literal notranslate"><span class="pre">kron()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/kronecker_product" title="f/sf_linalg/kronecker_product"><code class="xref f f-func docutils literal notranslate"><span class="pre">kronecker_product()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/lstsq" title="f/sf_linalg/lstsq"><code class="xref f f-func docutils literal notranslate"><span class="pre">lstsq()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/mat_product" title="f/sf_linalg/mat_product"><code class="xref f f-func docutils literal notranslate"><span class="pre">mat_product()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/ones" title="f/sf_linalg/ones"><code class="xref f f-func docutils literal notranslate"><span class="pre">ones()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/operator(.kx.)" title="f/sf_linalg/operator(.kx.)"><code class="xref f f-func docutils literal notranslate"><span class="pre">operator(.kx.)()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/operator(.px.)" title="f/sf_linalg/operator(.px.)"><code class="xref f f-func docutils literal notranslate"><span class="pre">operator(.px.)()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/operator(.x.)" title="f/sf_linalg/operator(.x.)"><code class="xref f f-func docutils literal notranslate"><span class="pre">operator(.x.)()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/outerprod" title="f/sf_linalg/outerprod"><code class="xref f f-func docutils literal notranslate"><span class="pre">outerprod()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/p_eigh" title="f/sf_linalg/p_eigh"><code class="xref f f-func docutils literal notranslate"><span class="pre">p_eigh()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/p_inv" title="f/sf_linalg/p_inv"><code class="xref f f-func docutils literal notranslate"><span class="pre">p_inv()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/p_mat_product" title="f/sf_linalg/p_mat_product"><code class="xref f f-func docutils literal notranslate"><span class="pre">p_mat_product()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/s3_product" title="f/sf_linalg/s3_product"><code class="xref f f-func docutils literal notranslate"><span class="pre">s3_product()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/solve" title="f/sf_linalg/solve"><code class="xref f f-func docutils literal notranslate"><span class="pre">solve()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/svd" title="f/sf_linalg/svd"><code class="xref f f-func docutils literal notranslate"><span class="pre">svd()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/svdvals" title="f/sf_linalg/svdvals"><code class="xref f f-func docutils literal notranslate"><span class="pre">svdvals()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/trace" title="f/sf_linalg/trace"><code class="xref f f-func docutils literal notranslate"><span class="pre">trace()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/zeros" title="f/sf_linalg/zeros"><code class="xref f f-func docutils literal notranslate"><span class="pre">zeros()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/zeye" title="f/sf_linalg/zeye"><code class="xref f f-func docutils literal notranslate"><span class="pre">zeye()</span></code></a>, <a class="reference internal" href="#f/sf_linalg/zeye_tridiag" title="f/sf_linalg/zeye_tridiag"><code class="xref f f-func docutils literal notranslate"><span class="pre">zeye_tridiag()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Used modules</p>
+<ul class="simple">
+<li><p><code class="xref f f-mod docutils literal notranslate"><span class="pre">sf_blacs</span></code></p></li>
+</ul>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/eig">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">eig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">eval</span></em>, <em class="sig-param"><span class="pre">evec</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">jobvl</span></em>, <em class="sig-param"><span class="pre">jobvr</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/eig" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>eval</strong> (•)<em> [</em><em>complex</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>evec</strong> (•, •)<em> [</em><em>complex</em><em>, </em><em>out</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>jobvl</strong><em> [</em><em>character(len=1)</em><em>]</em></p></li>
+<li><p><strong>jobvr</strong><em> [</em><em>character(len=1)</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/eigh">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">eigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">am</span></em>, <em class="sig-param"><span class="pre">bm</span></em>, <em class="sig-param"><span class="pre">lam</span></em>, <em class="sig-param"><span class="pre">c</span></em>, <em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">e</span></em>, <em class="sig-param"><span class="pre">d</span></em>, <em class="sig-param"><span class="pre">u</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">method</span></em>, <em class="sig-param"><span class="pre">jobz</span></em>, <em class="sig-param"><span class="pre">uplo</span></em>, <em class="sig-param"><span class="pre">vl</span></em>, <em class="sig-param"><span class="pre">vu</span></em>, <em class="sig-param"><span class="pre">il</span></em>, <em class="sig-param"><span class="pre">iu</span></em>, <em class="sig-param"><span class="pre">tol</span></em>, <em class="sig-param"><span class="pre">ev</span></em>, <em class="sig-param"><span class="pre">irange</span></em>, <em class="sig-param"><span class="pre">vrange</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/eigh" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>am</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – LHS matrix: Am c = lam Bm c</p></li>
+<li><p><strong>bm</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – Bmt temporaries overwritten by dsygvd</p></li>
+<li><p><strong>lam</strong> (•)<em> [</em><em>real</em><em>, </em><em>out</em><em>]</em> – eigenvalues: Am c = lam Bm c</p></li>
+<li><p><strong>c</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>out</em><em>]</em> – eigenvectors: Am c = lam Bm c; c(i,j) = ith component of jth vec.</p></li>
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout/in,required</em><em>]</em> – M v = E v/v(i,j) = ith component of jth vec.</p></li>
+<li><p><strong>e</strong> (size(a, 2))<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em> – eigenvalues</p></li>
+<li><p><strong>d</strong> (•)<em> [</em><em>real</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>u</strong> (max(1, -1 + size(d)))<em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>method</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>jobz</strong><em> [</em><em>character(len=1)</em><em>]</em></p></li>
+<li><p><strong>uplo</strong><em> [</em><em>character(len=1)</em><em>]</em></p></li>
+<li><p><strong>vl</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>vu</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>il</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>iu</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>ev</strong> (•, •)<em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>irange</strong> (2)<em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>vrange</strong> (2)<em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/p_eigh">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">p_eigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">w</span></em>, <em class="sig-param"><span class="pre">nblock</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">method</span></em>, <em class="sig-param"><span class="pre">jobz</span></em>, <em class="sig-param"><span class="pre">uplo</span></em>, <em class="sig-param"><span class="pre">vl</span></em>, <em class="sig-param"><span class="pre">vu</span></em>, <em class="sig-param"><span class="pre">il</span></em>, <em class="sig-param"><span class="pre">iu</span></em>, <em class="sig-param"><span class="pre">tol</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/p_eigh" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout/in,required</em><em>]</em> – M v = E v/v(i,j) = ith component of jth vec.</p></li>
+<li><p><strong>w</strong> (size(a, 2))<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em> – eigenvalues</p></li>
+<li><p><strong>nblock</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>method</strong><em> [</em><em>character(len=*)</em><em>]</em></p></li>
+<li><p><strong>jobz</strong><em> [</em><em>character(len=1)</em><em>]</em></p></li>
+<li><p><strong>uplo</strong><em> [</em><em>character(len=1)</em><em>]</em></p></li>
+<li><p><strong>vl</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>vu</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>il</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>iu</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>tol</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/eigh_jacobi">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">eigh_jacobi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">d</span></em>, <em class="sig-param"><span class="pre">v</span></em>, <em class="sig-param"><span class="pre">nrot</span></em>, <em class="sig-param"><span class="pre">u</span></em>, <em class="sig-param"><span class="pre">sweep</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/eigh_jacobi" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – =n**2 - a not a square matrix”</p></li>
+<li><p><strong>d</strong> (size(a, 1))<em> [</em><em>real</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>v</strong> (size(a, 1), size(a, 2))<em> [</em><em>real</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>nrot</strong><em> [</em><em>integer</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>u</strong> (size(a, 1), size(a, 2))<em> [</em><em>complex</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>sweep</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/eigvals">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">eigvals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/eigvals" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – eigenvalues: A c = lam c</p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>lam</strong> (size(a, 1))<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/eigvalsh">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">eigvalsh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/eigvalsh" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – eigenvalues: A c = lam c</p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>lam</strong> (size(a, 1))<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/svdvals">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">svdvals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/svdvals" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – A is overwritten in dgesvd query optimal lwork and allocate workspace:</p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>s</strong> (•)<em> [</em><em>real</em><em>, </em><em>allocatable</em><em>]</em> – = lda</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/svd">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">svd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">s</span></em>, <em class="sig-param"><span class="pre">u</span></em>, <em class="sig-param"><span class="pre">vtransp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/svd" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – use a temporary as dgesvd destroys its input</p></li>
+<li><p><strong>s</strong> (•)<em> [</em><em>real</em><em>, </em><em>out</em><em>]</em> – = lda</p></li>
+<li><p><strong>u</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>out</em><em>]</em></p></li>
+<li><p><strong>vtransp</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>out</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/inv">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">inv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">am</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/inv" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>am</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – matrix to be inverted</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/p_inv">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">p_inv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">nblock</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/p_inv" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>nblock</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/inv_sym">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">inv_sym</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">uplo</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/inv_sym" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uplo</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/inv_her">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">inv_her</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">uplo</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/inv_her" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uplo</strong><em> [</em><em>character(len=*)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/inv_triang">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">inv_triang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">uplo</span></em>, <em class="sig-param"><span class="pre">diag</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/inv_triang" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>uplo</strong><em> [</em><em>character(len=1)</em><em>]</em></p></li>
+<li><p><strong>diag</strong><em> [</em><em>character(len=1)</em><em>]</em> – not a unit triangular matrix</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/inv_gj">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">inv_gj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/inv_gj" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – cmplx(one,zero)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/solve">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">trans</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/solve" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>b</strong> (various shapes)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>trans</strong><em> [</em><em>character(len=1)</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/lstsq">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">lstsq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/lstsq" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – allocate with ideal size</p></li>
+<li><p><strong>b</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – only one right-hand side</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>x</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>allocatable</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/inv_tridiag">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">inv_tridiag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">sub_</span></em>, <em class="sig-param"><span class="pre">diag_</span></em>, <em class="sig-param"><span class="pre">over_</span></em>, <em class="sig-param"><span class="pre">inv</span></em>, <em class="sig-param"><span class="pre">ainv</span></em>, <em class="sig-param"><span class="pre">amat</span></em>, <em class="sig-param"><span class="pre">nb</span></em>, <em class="sig-param"><span class="pre">n</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">nb</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/inv_tridiag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>optional,default=1 + shape(sub, 0)</em><em>]</em></p></li>
+<li><p><strong>nb</strong><em> [</em><em>integer</em><em>, </em><em>optional,default=1 + shape(sub, 0)</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>sub_</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>diag_</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>over_</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>inv</strong> (n)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>ainv</strong> (nb, n, n)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>amat</strong> (various shapes)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/check_tridiag">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">check_tridiag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">amat</span></em>, <em class="sig-param"><span class="pre">nblock</span></em>, <em class="sig-param"><span class="pre">nsize</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/check_tridiag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amat</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>nblock</strong><em> [</em><em>integer</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>nsize</strong><em> [</em><em>integer</em><em>, </em><em>in,required</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>mcheck</strong><em> [</em><em>logical</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/get_tridiag">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">get_tridiag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">amat</span></em>, <em class="sig-param"><span class="pre">sub</span></em>, <em class="sig-param"><span class="pre">diag</span></em>, <em class="sig-param"><span class="pre">nblock</span></em>, <em class="sig-param"><span class="pre">nsize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">over</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/get_tridiag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amat</strong> (various shapes)<em> [</em><em>real/complex</em><em>, </em><em>in,required</em><em>]</em></p></li>
+<li><p><strong>sub</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>diag</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>nblock</strong><em> [</em><em>integer</em><em>, </em><em>in,required,default=1 + shape(sub, 0)</em><em>]</em></p></li>
+<li><p><strong>nsize</strong><em> [</em><em>integer</em><em>, </em><em>in,required</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>over</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/build_tridiag">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">build_tridiag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">sub</span></em>, <em class="sig-param"><span class="pre">diag</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">over</span></em>, <em class="sig-param"><span class="pre">nblock</span></em>, <em class="sig-param"><span class="pre">nsize</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/build_tridiag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sub</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>diag</strong> (various shapes)<em> [</em><em>real/complex</em><em>, </em><em>in,required</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>over</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>nblock</strong><em> [</em><em>integer</em><em>, </em><em>optional,default=1 + shape(sub, 0)</em><em>]</em></p></li>
+<li><p><strong>nsize</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>amat</strong> (various shapes)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/det">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">det</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/det" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>x</strong><em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/deye">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">deye</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">i</span></em>, <em class="sig-param"><span class="pre">j</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/deye" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>i</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>j</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>a</strong> (various shapes)<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/zeye">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">zeye</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">i</span></em>, <em class="sig-param"><span class="pre">j</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/zeye" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>i</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>j</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>a</strong> (various shapes)<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/eye">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">eye</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">i</span></em>, <em class="sig-param"><span class="pre">j</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/eye" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>i</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>j</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>a</strong> (various shapes)<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/diag">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">diag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/diag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>allocatable</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/diagonal">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">diagonal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/diagonal" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dd</strong> (size(a, 1))<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/trace">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/trace" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>t</strong><em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/zeros">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">n1</span></em>, <em class="sig-param"><span class="pre">n2</span></em>, <em class="sig-param"><span class="pre">n3</span></em>, <em class="sig-param"><span class="pre">n4</span></em>, <em class="sig-param"><span class="pre">n5</span></em>, <em class="sig-param"><span class="pre">n6</span></em>, <em class="sig-param"><span class="pre">n7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/zeros" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n1</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n2</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n3</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n4</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n5</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n6</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n7</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>a</strong> (various shapes)<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/ones">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">ones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">n1</span></em>, <em class="sig-param"><span class="pre">n2</span></em>, <em class="sig-param"><span class="pre">n3</span></em>, <em class="sig-param"><span class="pre">n4</span></em>, <em class="sig-param"><span class="pre">n5</span></em>, <em class="sig-param"><span class="pre">n6</span></em>, <em class="sig-param"><span class="pre">n7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/ones" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n1</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n2</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n3</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n4</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n5</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n6</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>n7</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>a</strong> (various shapes)<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/kron">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">kron</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/kron" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>b</strong> (•, •)<em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>axb</strong> (size(a, 1) · size(b, 1), size(a, 2) · size(b, 2))<em> [</em><em>integer/real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/kronecker_product">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">kronecker_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/kronecker_product" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>b</strong> (•, •)<em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>axb</strong> (size(a, 1) · size(b, 1), size(a, 2) · size(b, 2))<em> [</em><em>integer/real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/operator(.kx.)">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">operator(.kx.)</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/operator(.kx.)" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>b</strong> (•, •)<em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>axb</strong> (size(a, 1) · size(b, 1), size(a, 2) · size(b, 2))<em> [</em><em>integer/real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/outerprod">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">outerprod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/outerprod" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>b</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>outerprod</strong> (size(a), size(b))<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/cross_product">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">cross_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/cross_product" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (3)<em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>b</strong> (3)<em> [</em><em>real/complex</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>c</strong> (3)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/s3_product">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">s3_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em>, <em class="sig-param"><span class="pre">c</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/s3_product" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (3)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>b</strong> (3)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>c</strong> (3)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>s3</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/mat_product">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">mat_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em>, <em class="sig-param"><span class="pre">c</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">alfa</span></em>, <em class="sig-param"><span class="pre">beta</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/mat_product" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – [N,K]</p></li>
+<li><p><strong>b</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – [K,M]</p></li>
+<li><p><strong>c</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – [N,M]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>alfa</strong><em> [</em><em>real/complex</em><em>]</em></p></li>
+<li><p><strong>beta</strong><em> [</em><em>real/complex</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/operator(.x.)">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">operator(.x.)</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/operator(.x.)" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – [N,K]</p></li>
+<li><p><strong>b</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – [K,M]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>c</strong> (size(a, 1), size(b, 2))<em> [</em><em>real/complex</em><em>]</em> – [N,M]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/p_mat_product">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">p_mat_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em>, <em class="sig-param"><span class="pre">c</span></em>, <em class="sig-param"><span class="pre">nblock</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">alfa</span></em>, <em class="sig-param"><span class="pre">beta</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/p_mat_product" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – [N,K]</p></li>
+<li><p><strong>b</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – [K,M]</p></li>
+<li><p><strong>c</strong> (various shapes)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – [N,M]</p></li>
+<li><p><strong>nblock</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>alfa</strong><em> [</em><em>real</em><em>]</em></p></li>
+<li><p><strong>beta</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/operator(.px.)">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">operator(.px.)</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em>, <em class="sig-param"><span class="pre">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/operator(.px.)" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – [N,K]</p></li>
+<li><p><strong>b</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>in</em><em>]</em> – [K,M]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>c</strong> (size(a, 1), size(b, 2))<em> [</em><em>real/complex</em><em>]</em> – [N,M]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/deye_tridiag">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">deye_tridiag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">nblock</span></em>, <em class="sig-param"><span class="pre">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/deye_tridiag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nblock</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>eye_block</strong> (nblock, n, n)<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_linalg/zeye_tridiag">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_linalg/</span></span><span class="sig-name descname"><span class="pre">zeye_tridiag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">nblock</span></em>, <em class="sig-param"><span class="pre">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_linalg/zeye_tridiag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nblock</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>eye_block</strong> (nblock, n, n)<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SF_IOTOOLS.html" class="btn btn-neutral float-left" title="SF_IOTOOLS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_MISC.html" class="btn btn-neutral float-right" title="SF_MISC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

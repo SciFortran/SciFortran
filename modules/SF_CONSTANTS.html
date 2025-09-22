@@ -1,0 +1,1900 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SF_CONSTANTS &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SF_DERIVATE" href="SF_DERIVATE.html" />
+    <link rel="prev" title="SF_COLORS" href="SF_COLORS.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../structure.html">Structure</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../structure.html">Structure</a></li>
+      <li class="breadcrumb-item active">SF_CONSTANTS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/SF_CONSTANTS.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="SF_COLORS.html" class="btn btn-neutral float-left" title="SF_COLORS" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_DERIVATE.html" class="btn btn-neutral float-right" title="SF_DERIVATE" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sf-constants">
+<h1>SF_CONSTANTS<a class="headerlink" href="#sf-constants" title="Link to this heading"></a></h1>
+<p class="rubric" id="f/sf_constants">Description</p>
+<p>SciFortran module for physical and mathematical constants</p>
+<p class="rubric">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/sf_constants/isinfty" title="f/sf_constants/isinfty"><code class="xref f f-func docutils literal notranslate"><span class="pre">isinfty()</span></code></a>, <a class="reference internal" href="#f/sf_constants/isnan" title="f/sf_constants/isnan"><code class="xref f f-func docutils literal notranslate"><span class="pre">isnan()</span></code></a>, <a class="reference internal" href="#f/sf_constants/stop_error" title="f/sf_constants/stop_error"><code class="xref f f-func docutils literal notranslate"><span class="pre">stop_error()</span></code></a>, <a class="reference internal" href="#f/sf_constants/timestamp" title="f/sf_constants/timestamp"><code class="xref f f-func docutils literal notranslate"><span class="pre">timestamp()</span></code></a>, <a class="reference internal" href="#f/sf_constants/wait" title="f/sf_constants/wait"><code class="xref f f-func docutils literal notranslate"><span class="pre">wait()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/sf_constants/isinfty">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">isinfty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_constants/isinfty" title="Link to this definition"></a></dt>
+<dd><p>Evaluates an integer, real or complex number and returns
+a logical expression. If <code class="code docutils literal notranslate"><span class="pre">.true.</span></code> the input is infinite.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong><em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em> – Number to evaluate</p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>bool</strong><em> [</em><em>logical</em><em>]</em> – Result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_constants/isnan">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">isnan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_constants/isnan" title="Link to this definition"></a></dt>
+<dd><p>Evaluates an integer, real or complex quantity and returns
+a logical expression. If <code class="code docutils literal notranslate"><span class="pre">.true.</span></code> the input is <code class="code docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong><em> [</em><em>integer/real/complex</em><em>, </em><em>in</em><em>]</em> – Number to evaluate</p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>bool</strong><em> [</em><em>logical</em><em>]</em> – Result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_constants/wait">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">time</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_constants/wait" title="Link to this definition"></a></dt>
+<dd><p>Waits for a given time interval (integer, real or double) expressed
+in milliseconds before continuing execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>time</strong><em> [</em><em>integer/real</em><em>]</em> – desired sleep interval [ms]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_constants/timestamp">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">timestamp</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">unit</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_constants/timestamp" title="Link to this definition"></a></dt>
+<dd><p>Prints the date and time to <code class="code docutils literal notranslate"><span class="pre">unit</span></code>.
+The date is in the format <code class="code docutils literal notranslate"><span class="pre">Timestamp:</span> <span class="pre">[day][month</span> <span class="pre">name][year][h]:[m]:[s].[ms]</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>unit</strong><em> [</em><em>integer</em><em>]</em> – Output unit. Default <code class="code docutils literal notranslate"><span class="pre">6</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_constants/stop_error">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">stop_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_constants/stop_error" title="Link to this definition"></a></dt>
+<dd><p>Aborts the program with nonzero exit code.
+The statement <code class="code docutils literal notranslate"><span class="pre">STOP</span> <span class="pre">&quot;msg&quot;</span></code> will return exit code <code class="code docutils literal notranslate"><span class="pre">0</span></code> when compiled using
+gfortran. <a class="reference internal" href="#f/sf_constants/stop_error" title="f/sf_constants/stop_error"><code class="xref f f-func docutils literal notranslate"><span class="pre">stop_error()</span></code></a> uses the statement <code class="code docutils literal notranslate"><span class="pre">stop</span> <span class="pre">1</span></code> which returns an exit code
+<code class="code docutils literal notranslate"><span class="pre">1</span></code> and a print statement to print the message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong><em> [</em><em>character(len=*)</em><em>]</em> – Message to print on stderr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="list-of-physical-and-numerical-constants">
+<h2>List of physical and numerical constants<a class="headerlink" href="#list-of-physical-and-numerical-constants" title="Link to this heading"></a></h2>
+<p>This is a list of all the physical and numerical constants in <a class="reference internal" href="#f/sf_constants" title="f/sf_constants: SciFortran module for physical and mathematical constants"><code class="xref f f-mod docutils literal notranslate"><span class="pre">sf_constants</span></code></a>, which are listed as parameters:</p>
+<section id="commonly-used-parameters">
+<h3>Commonly used parameters<a class="headerlink" href="#commonly-used-parameters" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="#f/sf_constants/dbl" title="f/sf_constants/dbl"><code class="xref f f-var docutils literal notranslate"><span class="pre">dbl</span></code></a>, <a class="reference internal" href="#f/sf_constants/ddp" title="f/sf_constants/ddp"><code class="xref f f-var docutils literal notranslate"><span class="pre">ddp</span></code></a>, <a class="reference internal" href="#f/sf_constants/dp" title="f/sf_constants/dp"><code class="xref f f-var docutils literal notranslate"><span class="pre">dp</span></code></a>, <a class="reference internal" href="#f/sf_constants/epsilonq" title="f/sf_constants/epsilonq"><code class="xref f f-var docutils literal notranslate"><span class="pre">epsilonq</span></code></a>, <a class="reference internal" href="#f/sf_constants/epsilonr" title="f/sf_constants/epsilonr"><code class="xref f f-var docutils literal notranslate"><span class="pre">epsilonr</span></code></a>, <a class="reference internal" href="#f/sf_constants/euler" title="f/sf_constants/euler"><code class="xref f f-var docutils literal notranslate"><span class="pre">euler</span></code></a>, <a class="reference internal" href="#f/sf_constants/gamma_euler" title="f/sf_constants/gamma_euler"><code class="xref f f-var docutils literal notranslate"><span class="pre">gamma_euler</span></code></a>, <a class="reference internal" href="#f/sf_constants/max_int" title="f/sf_constants/max_int"><code class="xref f f-var docutils literal notranslate"><span class="pre">max_int</span></code></a>, <a class="reference internal" href="#f/sf_constants/max_real" title="f/sf_constants/max_real"><code class="xref f f-var docutils literal notranslate"><span class="pre">max_real</span></code></a>, <a class="reference internal" href="#f/sf_constants/one" title="f/sf_constants/one"><code class="xref f f-var docutils literal notranslate"><span class="pre">one</span></code></a>, <a class="reference internal" href="#f/sf_constants/pi" title="f/sf_constants/pi"><code class="xref f f-var docutils literal notranslate"><span class="pre">pi</span></code></a>, <a class="reference internal" href="#f/sf_constants/pi2" title="f/sf_constants/pi2"><code class="xref f f-var docutils literal notranslate"><span class="pre">pi2</span></code></a>, <a class="reference internal" href="#f/sf_constants/sp" title="f/sf_constants/sp"><code class="xref f f-var docutils literal notranslate"><span class="pre">sp</span></code></a>, <a class="reference internal" href="#f/sf_constants/sqrt2" title="f/sf_constants/sqrt2"><code class="xref f f-var docutils literal notranslate"><span class="pre">sqrt2</span></code></a>, <a class="reference internal" href="#f/sf_constants/sqrt3" title="f/sf_constants/sqrt3"><code class="xref f f-var docutils literal notranslate"><span class="pre">sqrt3</span></code></a>, <a class="reference internal" href="#f/sf_constants/sqrt6" title="f/sf_constants/sqrt6"><code class="xref f f-var docutils literal notranslate"><span class="pre">sqrt6</span></code></a>, <a class="reference internal" href="#f/sf_constants/xi" title="f/sf_constants/xi"><code class="xref f f-var docutils literal notranslate"><span class="pre">xi</span></code></a>, <a class="reference internal" href="#f/sf_constants/zero" title="f/sf_constants/zero"><code class="xref f f-var docutils literal notranslate"><span class="pre">zero</span></code></a></p>
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/dbl">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">dbl</span></span><a class="headerlink" href="#f/sf_constants/dbl" title="Link to this definition"></a></dt>
+<dd><p>“double” precision</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>8</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/ddp">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">ddp</span></span><a class="headerlink" href="#f/sf_constants/ddp" title="Link to this definition"></a></dt>
+<dd><p>“quad”   precision</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>16</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/dp">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">dp</span></span><a class="headerlink" href="#f/sf_constants/dp" title="Link to this definition"></a></dt>
+<dd><p>“double” precision, alternative naming</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>8</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/epsilonq">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">epsilonq</span></span><a class="headerlink" href="#f/sf_constants/epsilonq" title="Link to this definition"></a></dt>
+<dd><p>Smallest quad precision real number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1.d-30</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/epsilonr">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">epsilonr</span></span><a class="headerlink" href="#f/sf_constants/epsilonr" title="Link to this definition"></a></dt>
+<dd><p>Smallest double precision real number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>epsilon(1.d0)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/euler">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">euler</span></span><a class="headerlink" href="#f/sf_constants/euler" title="Link to this definition"></a></dt>
+<dd><p>Real Euler number <span class="math notranslate nohighlight">\(e\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2.7182818284590452353602874713526624977572470936999595749669676277240766303535d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/gamma_euler">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">gamma_euler</span></span><a class="headerlink" href="#f/sf_constants/gamma_euler" title="Link to this definition"></a></dt>
+<dd><p>Real number Euler-Mascheroni constant <span class="math notranslate nohighlight">\(\gamma\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.57721566490153286060d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/max_int">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">max_int</span></span><a class="headerlink" href="#f/sf_constants/max_int" title="Link to this definition"></a></dt>
+<dd><p>Largest integer number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>huge(1)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/max_real">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">max_real</span></span><a class="headerlink" href="#f/sf_constants/max_real" title="Link to this definition"></a></dt>
+<dd><p>Largest real number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>huge(1.d0)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/one">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">one</span></span><a class="headerlink" href="#f/sf_constants/one" title="Link to this definition"></a></dt>
+<dd><p>Complex number <span class="math notranslate nohighlight">\(1+i0\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(1.d0,0.d0)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/pi">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#f/sf_constants/pi" title="Link to this definition"></a></dt>
+<dd><p>Real number <span class="math notranslate nohighlight">\(\pi\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>3.14159265358979323846264338327950288419716939937510d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/pi2">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">pi2</span></span><a class="headerlink" href="#f/sf_constants/pi2" title="Link to this definition"></a></dt>
+<dd><p>Real number <span class="math notranslate nohighlight">\(2\pi\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>6.28318530717959d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/sp">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">sp</span></span><a class="headerlink" href="#f/sf_constants/sp" title="Link to this definition"></a></dt>
+<dd><p>“single” precision</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>kind(1.0)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/sqrt2">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">sqrt2</span></span><a class="headerlink" href="#f/sf_constants/sqrt2" title="Link to this definition"></a></dt>
+<dd><p>Real number <span class="math notranslate nohighlight">\(\sqrt(2)\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1.41421356237309504880169d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/sqrt3">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">sqrt3</span></span><a class="headerlink" href="#f/sf_constants/sqrt3" title="Link to this definition"></a></dt>
+<dd><p>Real number <span class="math notranslate nohighlight">\(\sqrt(3)\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1.73205080756887729352745d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/sqrt6">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">sqrt6</span></span><a class="headerlink" href="#f/sf_constants/sqrt6" title="Link to this definition"></a></dt>
+<dd><p>Real number <span class="math notranslate nohighlight">\(\sqrt(6)\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2.44948974278317809819728d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/xi">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">xi</span></span><a class="headerlink" href="#f/sf_constants/xi" title="Link to this definition"></a></dt>
+<dd><p>Complex number <span class="math notranslate nohighlight">\(0+i1\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(0.d0,1.d0)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/zero">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">zero</span></span><a class="headerlink" href="#f/sf_constants/zero" title="Link to this definition"></a></dt>
+<dd><p>Complex number <span class="math notranslate nohighlight">\(0+i0\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(0.d0,0.d0)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="physical-constants">
+<h3>Physical constants<a class="headerlink" href="#physical-constants" title="Link to this heading"></a></h3>
+<p>Expressed in the SI units</p>
+<p><a class="reference internal" href="#f/sf_constants/avogadro_constant" title="f/sf_constants/avogadro_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">avogadro_constant</span></code></a>, <a class="reference internal" href="#f/sf_constants/bohr_magneton" title="f/sf_constants/bohr_magneton"><code class="xref f f-var docutils literal notranslate"><span class="pre">bohr_magneton</span></code></a>, <a class="reference internal" href="#f/sf_constants/bohr_magneton_in_evot" title="f/sf_constants/bohr_magneton_in_evot"><code class="xref f f-var docutils literal notranslate"><span class="pre">bohr_magneton_in_evot</span></code></a>, <a class="reference internal" href="#f/sf_constants/bohr_magneton_in_hzot" title="f/sf_constants/bohr_magneton_in_hzot"><code class="xref f f-var docutils literal notranslate"><span class="pre">bohr_magneton_in_hzot</span></code></a>, <a class="reference internal" href="#f/sf_constants/bohr_magneton_in_inverse_meters_per_tesla" title="f/sf_constants/bohr_magneton_in_inverse_meters_per_tesla"><code class="xref f f-var docutils literal notranslate"><span class="pre">bohr_magneton_in_inverse_meters_per_tesla</span></code></a>, <a class="reference internal" href="#f/sf_constants/bohr_magneton_in_kot" title="f/sf_constants/bohr_magneton_in_kot"><code class="xref f f-var docutils literal notranslate"><span class="pre">bohr_magneton_in_kot</span></code></a>, <a class="reference internal" href="#f/sf_constants/bohr_radius" title="f/sf_constants/bohr_radius"><code class="xref f f-var docutils literal notranslate"><span class="pre">bohr_radius</span></code></a>, <a class="reference internal" href="#f/sf_constants/boltzmann_constant" title="f/sf_constants/boltzmann_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">boltzmann_constant</span></code></a>, <a class="reference internal" href="#f/sf_constants/boltzmann_constant_in_evok" title="f/sf_constants/boltzmann_constant_in_evok"><code class="xref f f-var docutils literal notranslate"><span class="pre">boltzmann_constant_in_evok</span></code></a>, <a class="reference internal" href="#f/sf_constants/boltzmann_constant_in_hzok" title="f/sf_constants/boltzmann_constant_in_hzok"><code class="xref f f-var docutils literal notranslate"><span class="pre">boltzmann_constant_in_hzok</span></code></a>, <a class="reference internal" href="#f/sf_constants/boltzmann_constant_in_inverse_meters_per_kelvin" title="f/sf_constants/boltzmann_constant_in_inverse_meters_per_kelvin"><code class="xref f f-var docutils literal notranslate"><span class="pre">boltzmann_constant_in_inverse_meters_per_kelvin</span></code></a>, <a class="reference internal" href="#f/sf_constants/compton_wavelength" title="f/sf_constants/compton_wavelength"><code class="xref f f-var docutils literal notranslate"><span class="pre">compton_wavelength</span></code></a>, <a class="reference internal" href="#f/sf_constants/compton_wavelength_over_2_pi" title="f/sf_constants/compton_wavelength_over_2_pi"><code class="xref f f-var docutils literal notranslate"><span class="pre">compton_wavelength_over_2_pi</span></code></a>, <a class="reference internal" href="#f/sf_constants/electric_constant" title="f/sf_constants/electric_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">electric_constant</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_charge_to_mass_quotient" title="f/sf_constants/electron_charge_to_mass_quotient"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_charge_to_mass_quotient</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_g_factor" title="f/sf_constants/electron_g_factor"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_g_factor</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_gyromag__ratio" title="f/sf_constants/electron_gyromag__ratio"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_gyromag__ratio</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_gyromag__ratio_over_2_pi" title="f/sf_constants/electron_gyromag__ratio_over_2_pi"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_gyromag__ratio_over_2_pi</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_mag__mom_" title="f/sf_constants/electron_mag__mom_"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_mag__mom_</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_mag__mom__to_bohr_magneton_ratio" title="f/sf_constants/electron_mag__mom__to_bohr_magneton_ratio"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_mag__mom__to_bohr_magneton_ratio</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_mass" title="f/sf_constants/electron_mass"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_mass</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_mass_energy_equivalent" title="f/sf_constants/electron_mass_energy_equivalent"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_mass_energy_equivalent</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_mass_energy_equivalent_in_mev" title="f/sf_constants/electron_mass_energy_equivalent_in_mev"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_mass_energy_equivalent_in_mev</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_volt" title="f/sf_constants/electron_volt"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_volt</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_volt_atomic_mass_unit_relationship" title="f/sf_constants/electron_volt_atomic_mass_unit_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_volt_atomic_mass_unit_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_volt_hartree_relationship" title="f/sf_constants/electron_volt_hartree_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_volt_hartree_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_volt_hertz_relationship" title="f/sf_constants/electron_volt_hertz_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_volt_hertz_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_volt_inverse_meter_relationship" title="f/sf_constants/electron_volt_inverse_meter_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_volt_inverse_meter_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_volt_joule_relationship" title="f/sf_constants/electron_volt_joule_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_volt_joule_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_volt_kelvin_relationship" title="f/sf_constants/electron_volt_kelvin_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_volt_kelvin_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/electron_volt_kilogram_relationship" title="f/sf_constants/electron_volt_kilogram_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">electron_volt_kilogram_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/elementary_charge" title="f/sf_constants/elementary_charge"><code class="xref f f-var docutils literal notranslate"><span class="pre">elementary_charge</span></code></a>, <a class="reference internal" href="#f/sf_constants/elementary_charge_over_h" title="f/sf_constants/elementary_charge_over_h"><code class="xref f f-var docutils literal notranslate"><span class="pre">elementary_charge_over_h</span></code></a>, <a class="reference internal" href="#f/sf_constants/faraday_constant" title="f/sf_constants/faraday_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">faraday_constant</span></code></a>, <a class="reference internal" href="#f/sf_constants/faraday_constant_for_conventional_electric_current" title="f/sf_constants/faraday_constant_for_conventional_electric_current"><code class="xref f f-var docutils literal notranslate"><span class="pre">faraday_constant_for_conventional_electric_current</span></code></a>, <a class="reference internal" href="#f/sf_constants/fine_structure_constant" title="f/sf_constants/fine_structure_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">fine_structure_constant</span></code></a>, <a class="reference internal" href="#f/sf_constants/josephson_constant" title="f/sf_constants/josephson_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">josephson_constant</span></code></a>, <a class="reference internal" href="#f/sf_constants/joule_electron_volt_relationship" title="f/sf_constants/joule_electron_volt_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">joule_electron_volt_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/joule_hertz_relationship" title="f/sf_constants/joule_hertz_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">joule_hertz_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/joule_inverse_meter_relationship" title="f/sf_constants/joule_inverse_meter_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">joule_inverse_meter_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/joule_kelvin_relationship" title="f/sf_constants/joule_kelvin_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">joule_kelvin_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/joule_kilogram_relationship" title="f/sf_constants/joule_kilogram_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">joule_kilogram_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kelvin_atomic_mass_unit_relationship" title="f/sf_constants/kelvin_atomic_mass_unit_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kelvin_atomic_mass_unit_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kelvin_electron_volt_relationship" title="f/sf_constants/kelvin_electron_volt_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kelvin_electron_volt_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kelvin_hartree_relationship" title="f/sf_constants/kelvin_hartree_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kelvin_hartree_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kelvin_hertz_relationship" title="f/sf_constants/kelvin_hertz_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kelvin_hertz_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kelvin_inverse_meter_relationship" title="f/sf_constants/kelvin_inverse_meter_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kelvin_inverse_meter_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kelvin_joule_relationship" title="f/sf_constants/kelvin_joule_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kelvin_joule_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kelvin_kilogram_relationship" title="f/sf_constants/kelvin_kilogram_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kelvin_kilogram_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kilogram_atomic_mass_unit_relationship" title="f/sf_constants/kilogram_atomic_mass_unit_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kilogram_atomic_mass_unit_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kilogram_electron_volt_relationship" title="f/sf_constants/kilogram_electron_volt_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kilogram_electron_volt_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kilogram_hartree_relationship" title="f/sf_constants/kilogram_hartree_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kilogram_hartree_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kilogram_hertz_relationship" title="f/sf_constants/kilogram_hertz_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kilogram_hertz_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kilogram_inverse_meter_relationship" title="f/sf_constants/kilogram_inverse_meter_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kilogram_inverse_meter_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kilogram_joule_relationship" title="f/sf_constants/kilogram_joule_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kilogram_joule_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/kilogram_kelvin_relationship" title="f/sf_constants/kilogram_kelvin_relationship"><code class="xref f f-var docutils literal notranslate"><span class="pre">kilogram_kelvin_relationship</span></code></a>, <a class="reference internal" href="#f/sf_constants/lattice_parameter_of_silicon" title="f/sf_constants/lattice_parameter_of_silicon"><code class="xref f f-var docutils literal notranslate"><span class="pre">lattice_parameter_of_silicon</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_action" title="f/sf_constants/natural_unit_of_action"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_action</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_action_in_ev_s" title="f/sf_constants/natural_unit_of_action_in_ev_s"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_action_in_ev_s</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_energy" title="f/sf_constants/natural_unit_of_energy"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_energy</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_energy_in_mev" title="f/sf_constants/natural_unit_of_energy_in_mev"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_energy_in_mev</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_length" title="f/sf_constants/natural_unit_of_length"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_length</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_mass" title="f/sf_constants/natural_unit_of_mass"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_mass</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_mom_um" title="f/sf_constants/natural_unit_of_mom_um"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_mom_um</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_mom_um_in_mevoc" title="f/sf_constants/natural_unit_of_mom_um_in_mevoc"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_mom_um_in_mevoc</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_time" title="f/sf_constants/natural_unit_of_time"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_time</span></code></a>, <a class="reference internal" href="#f/sf_constants/natural_unit_of_velocity" title="f/sf_constants/natural_unit_of_velocity"><code class="xref f f-var docutils literal notranslate"><span class="pre">natural_unit_of_velocity</span></code></a>, <a class="reference internal" href="#f/sf_constants/newtonian_constant_of_gravitation" title="f/sf_constants/newtonian_constant_of_gravitation"><code class="xref f f-var docutils literal notranslate"><span class="pre">newtonian_constant_of_gravitation</span></code></a>, <a class="reference internal" href="#f/sf_constants/planck_constant" title="f/sf_constants/planck_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">planck_constant</span></code></a>, <a class="reference internal" href="#f/sf_constants/planck_constant_in_ev_s" title="f/sf_constants/planck_constant_in_ev_s"><code class="xref f f-var docutils literal notranslate"><span class="pre">planck_constant_in_ev_s</span></code></a>, <a class="reference internal" href="#f/sf_constants/planck_constant_over_2_pi" title="f/sf_constants/planck_constant_over_2_pi"><code class="xref f f-var docutils literal notranslate"><span class="pre">planck_constant_over_2_pi</span></code></a>, <a class="reference internal" href="#f/sf_constants/rydberg_constant" title="f/sf_constants/rydberg_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">rydberg_constant</span></code></a>, <a class="reference internal" href="#f/sf_constants/rydberg_constant_times_c_in_hz" title="f/sf_constants/rydberg_constant_times_c_in_hz"><code class="xref f f-var docutils literal notranslate"><span class="pre">rydberg_constant_times_c_in_hz</span></code></a>, <a class="reference internal" href="#f/sf_constants/rydberg_constant_times_hc_in_ev" title="f/sf_constants/rydberg_constant_times_hc_in_ev"><code class="xref f f-var docutils literal notranslate"><span class="pre">rydberg_constant_times_hc_in_ev</span></code></a>, <a class="reference internal" href="#f/sf_constants/rydberg_constant_times_hc_in_j" title="f/sf_constants/rydberg_constant_times_hc_in_j"><code class="xref f f-var docutils literal notranslate"><span class="pre">rydberg_constant_times_hc_in_j</span></code></a>, <a class="reference internal" href="#f/sf_constants/speed_of_light_in_vacuum" title="f/sf_constants/speed_of_light_in_vacuum"><code class="xref f f-var docutils literal notranslate"><span class="pre">speed_of_light_in_vacuum</span></code></a>, <a class="reference internal" href="#f/sf_constants/standard_acceleration_of_gravity" title="f/sf_constants/standard_acceleration_of_gravity"><code class="xref f f-var docutils literal notranslate"><span class="pre">standard_acceleration_of_gravity</span></code></a>, <a class="reference internal" href="#f/sf_constants/stefan_boltzmann_constant" title="f/sf_constants/stefan_boltzmann_constant"><code class="xref f f-var docutils literal notranslate"><span class="pre">stefan_boltzmann_constant</span></code></a></p>
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/avogadro_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">avogadro_constant</span></span><a class="headerlink" href="#f/sf_constants/avogadro_constant" title="Link to this definition"></a></dt>
+<dd><p>Number of particles per mole <span class="math notranslate nohighlight">\(N_{A} [mol^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.602214129000d+24</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/bohr_magneton">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">bohr_magneton</span></span><a class="headerlink" href="#f/sf_constants/bohr_magneton" title="Link to this definition"></a></dt>
+<dd><p>Natural unit of the electron magnetic moment <span class="math notranslate nohighlight">\(\mu_{B} = \frac{e\hbar}{2m_{e}} [J\cdot T^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.927400968000d-23</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/bohr_magneton_in_evot">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">bohr_magneton_in_evot</span></span><a class="headerlink" href="#f/sf_constants/bohr_magneton_in_evot" title="Link to this definition"></a></dt>
+<dd><p>Natural unit of the electron magnetic moment  <span class="math notranslate nohighlight">\(\mu_{B} = \frac{e\hbar}{2m_{e}} [eV\cdot T^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.578838180660d-04</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/bohr_magneton_in_hzot">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">bohr_magneton_in_hzot</span></span><a class="headerlink" href="#f/sf_constants/bohr_magneton_in_hzot" title="Link to this definition"></a></dt>
+<dd><p>Natural unit of the electron magnetic moment <span class="math notranslate nohighlight">\(\mu_{B} = \frac{e\hbar}{2m_{e}} [Hz\cdot T^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.139962455500d+11</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/bohr_magneton_in_inverse_meters_per_tesla">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">bohr_magneton_in_inverse_meters_per_tesla</span></span><a class="headerlink" href="#f/sf_constants/bohr_magneton_in_inverse_meters_per_tesla" title="Link to this definition"></a></dt>
+<dd><p>Natural unit of the electron magnetic moment  <span class="math notranslate nohighlight">\(\mu_{B} = \frac{e\hbar}{2m_{e}} [m^{-1}\cdot T^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>46.6864498d0000</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/bohr_magneton_in_kot">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">bohr_magneton_in_kot</span></span><a class="headerlink" href="#f/sf_constants/bohr_magneton_in_kot" title="Link to this definition"></a></dt>
+<dd><p>Natural unit of the electron magnetic moment  <span class="math notranslate nohighlight">\(\mu_{B} = \frac{e\hbar}{2m_{e}} [K \cdot T^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.67171388d000</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/bohr_radius">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">bohr_radius</span></span><a class="headerlink" href="#f/sf_constants/bohr_radius" title="Link to this definition"></a></dt>
+<dd><p>Approximate nucleus-electron distance in an Hydrogen atom <span class="math notranslate nohighlight">\(a_{0} = \frac{4\pi\epsilon_{0}\hbar^{2}}{e^{2}m_{e}} [m]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.529177210920d-10</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/boltzmann_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">boltzmann_constant</span></span><a class="headerlink" href="#f/sf_constants/boltzmann_constant" title="Link to this definition"></a></dt>
+<dd><p>Proportionality constant between energy and temperature of an ideal gas <span class="math notranslate nohighlight">\(k_{B} [J \cdot K^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.138064880000d-22</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/boltzmann_constant_in_evok">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">boltzmann_constant_in_evok</span></span><a class="headerlink" href="#f/sf_constants/boltzmann_constant_in_evok" title="Link to this definition"></a></dt>
+<dd><p>Proportionality constant between energy and temperature of an ideal gas <span class="math notranslate nohighlight">\(k_{B} [eV \cdot K^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.861733240000d-04</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/boltzmann_constant_in_hzok">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">boltzmann_constant_in_hzok</span></span><a class="headerlink" href="#f/sf_constants/boltzmann_constant_in_hzok" title="Link to this definition"></a></dt>
+<dd><p>Proportionality constant between energy and temperature of an ideal gas <span class="math notranslate nohighlight">\(k_{B} [Hz \cdot K^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.208366180000d+11</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/boltzmann_constant_in_inverse_meters_per_kelvin">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">boltzmann_constant_in_inverse_meters_per_kelvin</span></span><a class="headerlink" href="#f/sf_constants/boltzmann_constant_in_inverse_meters_per_kelvin" title="Link to this definition"></a></dt>
+<dd><p>Proportionality constant between energy and temperature of an ideal gas <span class="math notranslate nohighlight">\(k_{B} [m^{-1} \cdot K^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>69.503476d00000</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/compton_wavelength">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">compton_wavelength</span></span><a class="headerlink" href="#f/sf_constants/compton_wavelength" title="Link to this definition"></a></dt>
+<dd><p>Wavelength of a photon having the same rest energy as the electron <span class="math notranslate nohighlight">\(\lambda_{c} = \frac{h}{m_{e}c} [m]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.242631023890d-11</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/compton_wavelength_over_2_pi">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">compton_wavelength_over_2_pi</span></span><a class="headerlink" href="#f/sf_constants/compton_wavelength_over_2_pi" title="Link to this definition"></a></dt>
+<dd><p>Normalized Compton wavelength <span class="math notranslate nohighlight">\(\lambda_{c} = \frac{\hbar}{m_{e}c} [m]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.386159268000d-12</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electric_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electric_constant</span></span><a class="headerlink" href="#f/sf_constants/electric_constant" title="Link to this definition"></a></dt>
+<dd><p>Vacuum permittivity <span class="math notranslate nohighlight">\(\epsilon_{0} [F\cdot m^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.885418781700d-11</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_charge_to_mass_quotient">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_charge_to_mass_quotient</span></span><a class="headerlink" href="#f/sf_constants/electron_charge_to_mass_quotient" title="Link to this definition"></a></dt>
+<dd><p>Ratio between electronic charge and mass <span class="math notranslate nohighlight">\(\frac{q_{e}}{m_{e}} [C \cdot kg^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>-0.175882008800d+12</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_g_factor">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_g_factor</span></span><a class="headerlink" href="#f/sf_constants/electron_g_factor" title="Link to this definition"></a></dt>
+<dd><p>Electron g-factor <span class="math notranslate nohighlight">\(g\)</span>  (Dimensionless)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>-0.200231930436d+01</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_gyromag__ratio">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_gyromag__ratio</span></span><a class="headerlink" href="#f/sf_constants/electron_gyromag__ratio" title="Link to this definition"></a></dt>
+<dd><p>Electron gyromagnetic ratio <span class="math notranslate nohighlight">\(\gamma_{e} = \frac{g_{e}\mu_{B}}{\hbar}[rad\cdot s^{-1}\cdot T^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.176085970800d+12</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_gyromag__ratio_over_2_pi">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_gyromag__ratio_over_2_pi</span></span><a class="headerlink" href="#f/sf_constants/electron_gyromag__ratio_over_2_pi" title="Link to this definition"></a></dt>
+<dd><p>Normalized electron gyromagnetic ratio <span class="math notranslate nohighlight">\(\gamma_{e} = \frac{g_{e}\mu_{B}}{2\pi\hbar}[rad\cdot s^{-1}\cdot T^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.280249526600d+05</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_mag__mom_">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_mag__mom_</span></span><a class="headerlink" href="#f/sf_constants/electron_mag__mom_" title="Link to this definition"></a></dt>
+<dd><p>Electron magnetic moment <span class="math notranslate nohighlight">\(\mu_{e} [J\cdot T^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>-0.928476430000d-23</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_mag__mom__to_bohr_magneton_ratio">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_mag__mom__to_bohr_magneton_ratio</span></span><a class="headerlink" href="#f/sf_constants/electron_mag__mom__to_bohr_magneton_ratio" title="Link to this definition"></a></dt>
+<dd><p>Ratio between electron magnetic moment and Bohr magneton <span class="math notranslate nohighlight">\(\frac{\mu_{e}}{\mu_{e}}=\frac{g}{2}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>-0.100115965218d+01</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_mass">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_mass</span></span><a class="headerlink" href="#f/sf_constants/electron_mass" title="Link to this definition"></a></dt>
+<dd><p>Mass of the electron <span class="math notranslate nohighlight">\(m_{e}\;[kg]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.910938291000d-30</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_mass_energy_equivalent">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_mass_energy_equivalent</span></span><a class="headerlink" href="#f/sf_constants/electron_mass_energy_equivalent" title="Link to this definition"></a></dt>
+<dd><p>Electron rest energy <span class="math notranslate nohighlight">\([J]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.818710506000d-13</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_mass_energy_equivalent_in_mev">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_mass_energy_equivalent_in_mev</span></span><a class="headerlink" href="#f/sf_constants/electron_mass_energy_equivalent_in_mev" title="Link to this definition"></a></dt>
+<dd><p>Electron rest energy <span class="math notranslate nohighlight">\([MeV]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.510998928d00</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_volt">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_volt</span></span><a class="headerlink" href="#f/sf_constants/electron_volt" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1\;eV\;[J]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.160217656500d-18</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_volt_atomic_mass_unit_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_volt_atomic_mass_unit_relationship</span></span><a class="headerlink" href="#f/sf_constants/electron_volt_atomic_mass_unit_relationship" title="Link to this definition"></a></dt>
+<dd><p>Atomic mass unit equivalence of <span class="math notranslate nohighlight">\(1\;eV\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.107354415000d-08</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_volt_hartree_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_volt_hartree_relationship</span></span><a class="headerlink" href="#f/sf_constants/electron_volt_hartree_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1\;eV\;[Ha]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.03674932379d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_volt_hertz_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_volt_hertz_relationship</span></span><a class="headerlink" href="#f/sf_constants/electron_volt_hertz_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1\;eV\;[Hz]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.241798934800d+15</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_volt_inverse_meter_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_volt_inverse_meter_relationship</span></span><a class="headerlink" href="#f/sf_constants/electron_volt_inverse_meter_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1\;eV\;[m^-1]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.806554429000d+06</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_volt_joule_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_volt_joule_relationship</span></span><a class="headerlink" href="#f/sf_constants/electron_volt_joule_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1\;eV\;[J]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.160217656500d-18</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_volt_kelvin_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_volt_kelvin_relationship</span></span><a class="headerlink" href="#f/sf_constants/electron_volt_kelvin_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1\;eV\;[K]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.116045190000d+05</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/electron_volt_kilogram_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">electron_volt_kilogram_relationship</span></span><a class="headerlink" href="#f/sf_constants/electron_volt_kilogram_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1\;eV\;[kg]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.178266184500d-35</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/elementary_charge">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">elementary_charge</span></span><a class="headerlink" href="#f/sf_constants/elementary_charge" title="Link to this definition"></a></dt>
+<dd><p>Charge unit (charge of the proton) <span class="math notranslate nohighlight">\([C]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.160217656500d-18</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/elementary_charge_over_h">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">elementary_charge_over_h</span></span><a class="headerlink" href="#f/sf_constants/elementary_charge_over_h" title="Link to this definition"></a></dt>
+<dd><p>Charge unit (charge of the proton) divided by <span class="math notranslate nohighlight">\(h\;[m^{-2} kg^{-1} s^{2} A]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.241798934800d+15</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/faraday_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">faraday_constant</span></span><a class="headerlink" href="#f/sf_constants/faraday_constant" title="Link to this definition"></a></dt>
+<dd><p>Quotient between total charge and number of charge carriers (2019 SI units) <span class="math notranslate nohighlight">\(\frac{q}{n}=eN_{A}\;[C\;mol^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.964853328900d+05</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/faraday_constant_for_conventional_electric_current">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">faraday_constant_for_conventional_electric_current</span></span><a class="headerlink" href="#f/sf_constants/faraday_constant_for_conventional_electric_current" title="Link to this definition"></a></dt>
+<dd><p>Quotient between total charge and number of charge carriers (1990 “conventional” values) <span class="math notranslate nohighlight">\(\frac{q}{n}=eN_{A}\;[C\;mol^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.964853251000d+05</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/fine_structure_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">fine_structure_constant</span></span><a class="headerlink" href="#f/sf_constants/fine_structure_constant" title="Link to this definition"></a></dt>
+<dd><p>Fundamental constant characterizing the strength of the electromagnetic interaction between elementary charged particles <span class="math notranslate nohighlight">\(\alpha=\frac{e^2}{2\epsilon_{0}hc}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.729735256980d-02</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/josephson_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">josephson_constant</span></span><a class="headerlink" href="#f/sf_constants/josephson_constant" title="Link to this definition"></a></dt>
+<dd><p>Inverse of the magnetic flux quantum <span class="math notranslate nohighlight">\(K_{J}=\frac{2e}{h}\;[Hz\;V^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.483597870000d+15</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/joule_electron_volt_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">joule_electron_volt_relationship</span></span><a class="headerlink" href="#f/sf_constants/joule_electron_volt_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1J\)</span> in <span class="math notranslate nohighlight">\([eV]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.624150934000d+19</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/joule_hertz_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">joule_hertz_relationship</span></span><a class="headerlink" href="#f/sf_constants/joule_hertz_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1J\)</span> in <span class="math notranslate nohighlight">\([Hz]\)</span>, from <span class="math notranslate nohighlight">\(f=\frac{E}{h}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.150919031100d+34</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/joule_inverse_meter_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">joule_inverse_meter_relationship</span></span><a class="headerlink" href="#f/sf_constants/joule_inverse_meter_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1J\)</span> in <span class="math notranslate nohighlight">\([m^{-1}]\)</span>, from <span class="math notranslate nohighlight">\(\frac{1}{\lambda}=\frac{E}{hc}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.503411701000d+25</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/joule_kelvin_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">joule_kelvin_relationship</span></span><a class="headerlink" href="#f/sf_constants/joule_kelvin_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1J\)</span> in <span class="math notranslate nohighlight">\([K]\)</span>, from <span class="math notranslate nohighlight">\(T=\frac{E}{k_{B}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.724297160000d+23</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/joule_kilogram_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">joule_kilogram_relationship</span></span><a class="headerlink" href="#f/sf_constants/joule_kilogram_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1J\)</span> in <span class="math notranslate nohighlight">\([kg]\)</span>, from <span class="math notranslate nohighlight">\(m=\frac{E}{c^{2}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.111265005600d-16</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kelvin_atomic_mass_unit_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kelvin_atomic_mass_unit_relationship</span></span><a class="headerlink" href="#f/sf_constants/kelvin_atomic_mass_unit_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1K\)</span> in <span class="math notranslate nohighlight">\([amu]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.925108680000d-13</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kelvin_electron_volt_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kelvin_electron_volt_relationship</span></span><a class="headerlink" href="#f/sf_constants/kelvin_electron_volt_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1K\)</span> in <span class="math notranslate nohighlight">\([eV]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.861733240000d-04</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kelvin_hartree_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kelvin_hartree_relationship</span></span><a class="headerlink" href="#f/sf_constants/kelvin_hartree_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1K\)</span> in <span class="math notranslate nohighlight">\([Ha]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.316681140000d-05</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kelvin_hertz_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kelvin_hertz_relationship</span></span><a class="headerlink" href="#f/sf_constants/kelvin_hertz_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1K\)</span> in <span class="math notranslate nohighlight">\([Hz]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.208366180000d+11</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kelvin_inverse_meter_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kelvin_inverse_meter_relationship</span></span><a class="headerlink" href="#f/sf_constants/kelvin_inverse_meter_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1K\)</span> in <span class="math notranslate nohighlight">\([m^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>69.503476d00000</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kelvin_joule_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kelvin_joule_relationship</span></span><a class="headerlink" href="#f/sf_constants/kelvin_joule_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1K\)</span> in <span class="math notranslate nohighlight">\([J]\)</span> (Boltzmann constant)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.138064880000d-22</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kelvin_kilogram_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kelvin_kilogram_relationship</span></span><a class="headerlink" href="#f/sf_constants/kelvin_kilogram_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1K\)</span> in <span class="math notranslate nohighlight">\([kg]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.153617900000d-39</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kilogram_atomic_mass_unit_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kilogram_atomic_mass_unit_relationship</span></span><a class="headerlink" href="#f/sf_constants/kilogram_atomic_mass_unit_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1kg\)</span> in <span class="math notranslate nohighlight">\([amu]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.602214129000d+27</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kilogram_electron_volt_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kilogram_electron_volt_relationship</span></span><a class="headerlink" href="#f/sf_constants/kilogram_electron_volt_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1kg\)</span> in <span class="math notranslate nohighlight">\([eV]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.560958885000d+36</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kilogram_hartree_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kilogram_hartree_relationship</span></span><a class="headerlink" href="#f/sf_constants/kilogram_hartree_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1kg\)</span> in <span class="math notranslate nohighlight">\([Ha]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.206148596800d+35</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kilogram_hertz_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kilogram_hertz_relationship</span></span><a class="headerlink" href="#f/sf_constants/kilogram_hertz_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1kg\)</span> in <span class="math notranslate nohighlight">\([Hz]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.135639260800d+50</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kilogram_inverse_meter_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kilogram_inverse_meter_relationship</span></span><a class="headerlink" href="#f/sf_constants/kilogram_inverse_meter_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1kg\)</span> in <span class="math notranslate nohighlight">\([m^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.452443873000d+42</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kilogram_joule_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kilogram_joule_relationship</span></span><a class="headerlink" href="#f/sf_constants/kilogram_joule_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1kg\)</span> in <span class="math notranslate nohighlight">\([J]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.898755178700d+17</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/kilogram_kelvin_relationship">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">kilogram_kelvin_relationship</span></span><a class="headerlink" href="#f/sf_constants/kilogram_kelvin_relationship" title="Link to this definition"></a></dt>
+<dd><p>Equivalent of <span class="math notranslate nohighlight">\(1kg\)</span> in <span class="math notranslate nohighlight">\([K]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.650965820000d+40</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/lattice_parameter_of_silicon">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">lattice_parameter_of_silicon</span></span><a class="headerlink" href="#f/sf_constants/lattice_parameter_of_silicon" title="Link to this definition"></a></dt>
+<dd><p>Lattice parameter of diamond cubic silicon lattice <span class="math notranslate nohighlight">\([m]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.543102050400d-09</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_action">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_action</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_action" title="Link to this definition"></a></dt>
+<dd><p>Value of <span class="math notranslate nohighlight">\(\hbar = \frac{h}{2\pi}\)</span> <span class="math notranslate nohighlight">\([J \cdot s]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.105457172600d-33</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_action_in_ev_s">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_action_in_ev_s</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_action_in_ev_s" title="Link to this definition"></a></dt>
+<dd><p>Value of <span class="math notranslate nohighlight">\(\hbar = \frac{h}{2\pi}\)</span> <span class="math notranslate nohighlight">\([eV \cdot s]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.658211928000d-15</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_energy">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_energy</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_energy" title="Link to this definition"></a></dt>
+<dd><p>Rest energy of the electron <span class="math notranslate nohighlight">\([J]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.818710506000d-13</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_energy_in_mev">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_energy_in_mev</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_energy_in_mev" title="Link to this definition"></a></dt>
+<dd><p>Rest energy of the electron <span class="math notranslate nohighlight">\([MeV]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.510998928d00</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_length">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_length</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_length" title="Link to this definition"></a></dt>
+<dd><p>Reduce Compton wavelength of the electron <span class="math notranslate nohighlight">\(\lambda_{C}=\frac{\hbar}{m_{e}c}\;[m]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.386159268000d-12</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_mass">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_mass</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_mass" title="Link to this definition"></a></dt>
+<dd><p>Mass of the electron <span class="math notranslate nohighlight">\(m_{e}\;[kg]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.910938291000d-30</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_mom_um">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_mom_um</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_mom_um" title="Link to this definition"></a></dt>
+<dd><p>Natural momentum unit <span class="math notranslate nohighlight">\(m_{e}c\;[kg \cdot m \cdot s^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.273092429000d-21</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_mom_um_in_mevoc">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_mom_um_in_mevoc</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_mom_um_in_mevoc" title="Link to this definition"></a></dt>
+<dd><p>Natural momentum unit in MeV over c <span class="math notranslate nohighlight">\(m_{e}c\;[MeV\cdot c^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.510998928d0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_time">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_time</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_time" title="Link to this definition"></a></dt>
+<dd><p>Reduced Compton time of the electron <span class="math notranslate nohighlight">\(\t_{C}=\frac{\hbar}{m_{e}c^{2}}\;[s]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.128808866833d-20</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/natural_unit_of_velocity">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">natural_unit_of_velocity</span></span><a class="headerlink" href="#f/sf_constants/natural_unit_of_velocity" title="Link to this definition"></a></dt>
+<dd><p>Speed of light <span class="math notranslate nohighlight">\(c\;[m\cdot s^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.299792458000d+09</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/newtonian_constant_of_gravitation">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">newtonian_constant_of_gravitation</span></span><a class="headerlink" href="#f/sf_constants/newtonian_constant_of_gravitation" title="Link to this definition"></a></dt>
+<dd><p>Gravitational constant <span class="math notranslate nohighlight">\(G\;[m^{3}\cdot kg^{-1} \cdot s^{-2}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.667384000000d-10</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/planck_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">planck_constant</span></span><a class="headerlink" href="#f/sf_constants/planck_constant" title="Link to this definition"></a></dt>
+<dd><p>Planck constant <span class="math notranslate nohighlight">\(h\;[J \cdot s]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.662606957000d-33</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/planck_constant_in_ev_s">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">planck_constant_in_ev_s</span></span><a class="headerlink" href="#f/sf_constants/planck_constant_in_ev_s" title="Link to this definition"></a></dt>
+<dd><p>Planck constant <span class="math notranslate nohighlight">\(h\;[eV \cdot s]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.413566751600d-14</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/planck_constant_over_2_pi">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">planck_constant_over_2_pi</span></span><a class="headerlink" href="#f/sf_constants/planck_constant_over_2_pi" title="Link to this definition"></a></dt>
+<dd><p>Reduced Planck constant <span class="math notranslate nohighlight">\(h\;[J \cdot s]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.105457172600d-33</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/rydberg_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">rydberg_constant</span></span><a class="headerlink" href="#f/sf_constants/rydberg_constant" title="Link to this definition"></a></dt>
+<dd><p>Highest wavenumber of a photon emitted by a Hydrogen atom <span class="math notranslate nohighlight">\(R_{\infty}=\frac{m_{e}e^{4}}{8\epsilon_{0}^{2}h^{3}c}\;[m^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.109737315685d+08</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/rydberg_constant_times_c_in_hz">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">rydberg_constant_times_c_in_hz</span></span><a class="headerlink" href="#f/sf_constants/rydberg_constant_times_c_in_hz" title="Link to this definition"></a></dt>
+<dd><p>Rydberg constant times <span class="math notranslate nohighlight">\(c\)</span> : <span class="math notranslate nohighlight">\(R_{\infty}c=\frac{m_{e}e^{4}}{8\epsilon_{0}^{2}h^{3}}\;[Hz]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.328984196036d+16</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/rydberg_constant_times_hc_in_ev">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">rydberg_constant_times_hc_in_ev</span></span><a class="headerlink" href="#f/sf_constants/rydberg_constant_times_hc_in_ev" title="Link to this definition"></a></dt>
+<dd><p>Rydberg constant times <span class="math notranslate nohighlight">\(hc\)</span> : <span class="math notranslate nohighlight">\(R_{\infty}c=\frac{m_{e}e^{4}}{8\epsilon_{0}^{2}h^{2}}\;[eV]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>13.60569253d000</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/rydberg_constant_times_hc_in_j">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">rydberg_constant_times_hc_in_j</span></span><a class="headerlink" href="#f/sf_constants/rydberg_constant_times_hc_in_j" title="Link to this definition"></a></dt>
+<dd><p>Rydberg constant times <span class="math notranslate nohighlight">\(hc\)</span> : <span class="math notranslate nohighlight">\(R_{\infty}c=\frac{m_{e}e^{4}}{8\epsilon_{0}^{2}h^{2}}\;[J]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.217987217100d-17</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/speed_of_light_in_vacuum">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">speed_of_light_in_vacuum</span></span><a class="headerlink" href="#f/sf_constants/speed_of_light_in_vacuum" title="Link to this definition"></a></dt>
+<dd><p>Speed of light <span class="math notranslate nohighlight">\(c\;[m\cdot s^{-1}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.299792458000d+09</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/standard_acceleration_of_gravity">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">standard_acceleration_of_gravity</span></span><a class="headerlink" href="#f/sf_constants/standard_acceleration_of_gravity" title="Link to this definition"></a></dt>
+<dd><p>Acceleration of gravity on Earth <span class="math notranslate nohighlight">\(g\;[m\cdot s^{-2}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>9.80665d000000</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="f variable">
+<dt class="sig sig-object f" id="f/sf_constants/stefan_boltzmann_constant">
+<span class="sig-prename descclassname"><span class="pre">sf_constants/</span></span><span class="sig-name descname"><span class="pre">stefan_boltzmann_constant</span></span><a class="headerlink" href="#f/sf_constants/stefan_boltzmann_constant" title="Link to this definition"></a></dt>
+<dd><p>Total energy radiated per unit surface of a black body <span class="math notranslate nohighlight">\(\sigma\;[W \cdot m^{2} \cdot K^{-4}]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>real</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p>public, parameter</p>
+</dd>
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.567037300000d-07</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SF_COLORS.html" class="btn btn-neutral float-left" title="SF_COLORS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_DERIVATE.html" class="btn btn-neutral float-right" title="SF_DERIVATE" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

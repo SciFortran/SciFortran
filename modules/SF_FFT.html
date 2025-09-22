@@ -1,0 +1,927 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SF_FFT &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SF_FONTS" href="SF_FONTS.html" />
+    <link rel="prev" title="SF_DERIVATE" href="SF_DERIVATE.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../structure.html">Structure</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../structure.html">Structure</a></li>
+      <li class="breadcrumb-item active">SF_FFT</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/SF_FFT.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="SF_DERIVATE.html" class="btn btn-neutral float-left" title="SF_DERIVATE" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_FONTS.html" class="btn btn-neutral float-right" title="SF_FONTS" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sf-fft">
+<h1>SF_FFT<a class="headerlink" href="#sf-fft" title="Link to this heading"></a></h1>
+<p class="rubric" id="f/sf_fft_fftpack">Description</p>
+<p>SciFortran module for Fourier transform</p>
+<p class="rubric">Quick access</p>
+<dl class="field-list simple">
+<dt class="field-odd">Routines<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#f/sf_fft_fftpack/cfft_1d_backward" title="f/sf_fft_fftpack/cfft_1d_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_1d_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cfft_1d_ex" title="f/sf_fft_fftpack/cfft_1d_ex"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_1d_ex()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cfft_1d_forward" title="f/sf_fft_fftpack/cfft_1d_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_1d_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cfft_1d_ishift" title="f/sf_fft_fftpack/cfft_1d_ishift"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_1d_ishift()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cfft_1d_shift" title="f/sf_fft_fftpack/cfft_1d_shift"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_1d_shift()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cfft_2d_backward" title="f/sf_fft_fftpack/cfft_2d_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_2d_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cfft_2d_forward" title="f/sf_fft_fftpack/cfft_2d_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_2d_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cfft_nd_backward" title="f/sf_fft_fftpack/cfft_nd_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_nd_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cfft_nd_forward" title="f/sf_fft_fftpack/cfft_nd_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cfft_nd_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cosft" title="f/sf_fft_fftpack/cosft"><code class="xref f f-func docutils literal notranslate"><span class="pre">cosft()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cosftn" title="f/sf_fft_fftpack/cosftn"><code class="xref f f-func docutils literal notranslate"><span class="pre">cosftn()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cost_1d_backward" title="f/sf_fft_fftpack/cost_1d_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cost_1d_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cost_1d_forward" title="f/sf_fft_fftpack/cost_1d_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cost_1d_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cost_nd_backward" title="f/sf_fft_fftpack/cost_nd_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cost_nd_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/cost_nd_forward" title="f/sf_fft_fftpack/cost_nd_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">cost_nd_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fft" title="f/sf_fft_fftpack/fft"><code class="xref f f-func docutils literal notranslate"><span class="pre">fft()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fft2" title="f/sf_fft_fftpack/fft2"><code class="xref f f-func docutils literal notranslate"><span class="pre">fft2()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fft_farray" title="f/sf_fft_fftpack/fft_farray"><code class="xref f f-func docutils literal notranslate"><span class="pre">fft_farray()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fft_fmax" title="f/sf_fft_fftpack/fft_fmax"><code class="xref f f-func docutils literal notranslate"><span class="pre">fft_fmax()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fft_signal" title="f/sf_fft_fftpack/fft_signal"><code class="xref f f-func docutils literal notranslate"><span class="pre">fft_signal()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fft_tarray" title="f/sf_fft_fftpack/fft_tarray"><code class="xref f f-func docutils literal notranslate"><span class="pre">fft_tarray()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fft_tmax" title="f/sf_fft_fftpack/fft_tmax"><code class="xref f f-func docutils literal notranslate"><span class="pre">fft_tmax()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fftex" title="f/sf_fft_fftpack/fftex"><code class="xref f f-func docutils literal notranslate"><span class="pre">fftex()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fftn" title="f/sf_fft_fftpack/fftn"><code class="xref f f-func docutils literal notranslate"><span class="pre">fftn()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/fftshift" title="f/sf_fft_fftpack/fftshift"><code class="xref f f-func docutils literal notranslate"><span class="pre">fftshift()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/ft_direct" title="f/sf_fft_fftpack/ft_direct"><code class="xref f f-func docutils literal notranslate"><span class="pre">ft_direct()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/ft_inverse" title="f/sf_fft_fftpack/ft_inverse"><code class="xref f f-func docutils literal notranslate"><span class="pre">ft_inverse()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/icosft" title="f/sf_fft_fftpack/icosft"><code class="xref f f-func docutils literal notranslate"><span class="pre">icosft()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/icosftn" title="f/sf_fft_fftpack/icosftn"><code class="xref f f-func docutils literal notranslate"><span class="pre">icosftn()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/ifft" title="f/sf_fft_fftpack/ifft"><code class="xref f f-func docutils literal notranslate"><span class="pre">ifft()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/ifft2" title="f/sf_fft_fftpack/ifft2"><code class="xref f f-func docutils literal notranslate"><span class="pre">ifft2()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/ifft_signal" title="f/sf_fft_fftpack/ifft_signal"><code class="xref f f-func docutils literal notranslate"><span class="pre">ifft_signal()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/ifftn" title="f/sf_fft_fftpack/ifftn"><code class="xref f f-func docutils literal notranslate"><span class="pre">ifftn()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/ifftshift" title="f/sf_fft_fftpack/ifftshift"><code class="xref f f-func docutils literal notranslate"><span class="pre">ifftshift()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/isinft" title="f/sf_fft_fftpack/isinft"><code class="xref f f-func docutils literal notranslate"><span class="pre">isinft()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/isinftn" title="f/sf_fft_fftpack/isinftn"><code class="xref f f-func docutils literal notranslate"><span class="pre">isinftn()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/itfft" title="f/sf_fft_fftpack/itfft"><code class="xref f f-func docutils literal notranslate"><span class="pre">itfft()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_1d_backward" title="f/sf_fft_fftpack/rfft_1d_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_1d_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_1d_ex" title="f/sf_fft_fftpack/rfft_1d_ex"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_1d_ex()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_1d_forward" title="f/sf_fft_fftpack/rfft_1d_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_1d_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_1d_ishift" title="f/sf_fft_fftpack/rfft_1d_ishift"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_1d_ishift()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_1d_shift" title="f/sf_fft_fftpack/rfft_1d_shift"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_1d_shift()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_2d_backward" title="f/sf_fft_fftpack/rfft_2d_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_2d_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_2d_forward" title="f/sf_fft_fftpack/rfft_2d_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_2d_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_nd_backward" title="f/sf_fft_fftpack/rfft_nd_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_nd_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/rfft_nd_forward" title="f/sf_fft_fftpack/rfft_nd_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">rfft_nd_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/sinft" title="f/sf_fft_fftpack/sinft"><code class="xref f f-func docutils literal notranslate"><span class="pre">sinft()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/sinftn" title="f/sf_fft_fftpack/sinftn"><code class="xref f f-func docutils literal notranslate"><span class="pre">sinftn()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/sint_1d_backward" title="f/sf_fft_fftpack/sint_1d_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">sint_1d_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/sint_1d_forward" title="f/sf_fft_fftpack/sint_1d_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">sint_1d_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/sint_nd_backward" title="f/sf_fft_fftpack/sint_nd_backward"><code class="xref f f-func docutils literal notranslate"><span class="pre">sint_nd_backward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/sint_nd_forward" title="f/sf_fft_fftpack/sint_nd_forward"><code class="xref f f-func docutils literal notranslate"><span class="pre">sint_nd_forward()</span></code></a>, <a class="reference internal" href="#f/sf_fft_fftpack/tfft" title="f/sf_fft_fftpack/tfft"><code class="xref f f-func docutils literal notranslate"><span class="pre">tfft()</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Used modules</p>
+<ul>
+<li><p><a class="reference internal" href="SF_INTEGRATE.html#f/sf_integrate" title="f/sf_integrate: SciFortran module for function integration"><code class="xref f f-mod docutils literal notranslate"><span class="pre">sf_integrate</span></code></a>: SciFortran module for function integration</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="SF_INTEGRATE.html#f/sf_integrate/simps" title="f/sf_integrate/simps"><code class="xref f f-func docutils literal notranslate"><span class="pre">simps()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference internal" href="SF_ARRAYS.html#f/sf_arrays" title="f/sf_arrays: SciFortran module for array creation and manipulation"><code class="xref f f-mod docutils literal notranslate"><span class="pre">sf_arrays</span></code></a>: SciFortran module for array creation and manipulation</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="SF_ARRAYS.html#f/sf_arrays/linspace" title="f/sf_arrays/linspace"><code class="xref f f-func docutils literal notranslate"><span class="pre">linspace()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference internal" href="SF_CONSTANTS.html#f/sf_constants" title="f/sf_constants: SciFortran module for physical and mathematical constants"><code class="xref f f-mod docutils literal notranslate"><span class="pre">sf_constants</span></code></a>: SciFortran module for physical and mathematical constants</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="SF_CONSTANTS.html#f/sf_constants/pi2" title="f/sf_constants/pi2"><code class="xref f f-var docutils literal notranslate"><span class="pre">pi2</span></code></a></p></li>
+<li><p><a class="reference internal" href="SF_CONSTANTS.html#f/sf_constants/xi" title="f/sf_constants/xi"><code class="xref f f-var docutils literal notranslate"><span class="pre">xi</span></code></a></p></li>
+<li><p><a class="reference internal" href="SF_CONSTANTS.html#f/sf_constants/pi" title="f/sf_constants/pi"><code class="xref f f-var docutils literal notranslate"><span class="pre">pi</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p class="rubric">Subroutines and functions</p>
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/ft_direct">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">ft_direct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ft</span></em>, <em class="sig-param"><span class="pre">t</span></em>, <em class="sig-param"><span class="pre">w</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/ft_direct" title="Link to this definition"></a></dt>
+<dd><p>This function evaluates the direct Fourier transform of a discretized function
+from time to frequency domain. Takes as input a discretized function <span class="math notranslate nohighlight">\(ft_{i}\)</span> on a
+set of time points <span class="math notranslate nohighlight">\(t_{i}\)</span> and a set of frequencies <span class="math notranslate nohighlight">\(w_{j}\)</span> and returns
+a discretized function <span class="math notranslate nohighlight">\(fw_{j}\)</span> = <a class="reference internal" href="SF_INTEGRATE.html#f/sf_integrate/simps" title="f/sf_integrate/simps"><code class="xref f f-func_inline docutils literal notranslate"><span class="pre">simps</span></code></a>
+<span class="math notranslate nohighlight">\((ft_{i} \cdot e^{-i 2\pi w_{j}t_{i}}, t_{1}, t_{N})\)</span> , where <code class="code docutils literal notranslate"><span class="pre">N=size(t)</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ft</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>in,required</em><em>]</em> – Dicretized function to transform (time domain)</p></li>
+<li><p><strong>t</strong> (size(ft))<em> [</em><em>real</em><em>, </em><em>in</em><em>]</em> – Discretized time points</p></li>
+<li><p><strong>w</strong> (•)<em> [</em><em>real</em><em>, </em><em>in</em><em>]</em> – Discretized frequency points</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fw</strong> (size(w))<em> [</em><em>real/complex</em><em>]</em> – Discretized Fourier-transform function (frequency domain)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/ft_inverse">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">ft_inverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fw</span></em>, <em class="sig-param"><span class="pre">t</span></em>, <em class="sig-param"><span class="pre">w</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/ft_inverse" title="Link to this definition"></a></dt>
+<dd><p>This function evaluates the inverse Fourier transform of a discretized function
+from frequency to time domain. Takes as input a discretized function <span class="math notranslate nohighlight">\(fw_{i}\)</span> on a
+set of time points <span class="math notranslate nohighlight">\(w_{i}\)</span> and a set of frequencies <span class="math notranslate nohighlight">\(t_{j}\)</span> and returns
+a discretized function <span class="math notranslate nohighlight">\(ft_{j}\)</span> = <a class="reference internal" href="SF_INTEGRATE.html#f/sf_integrate/simps" title="f/sf_integrate/simps"><code class="xref f f-func_inline docutils literal notranslate"><span class="pre">simps</span></code></a>
+<span class="math notranslate nohighlight">\((fw_{i} \cdot e^{i 2\pi t_{j}w_{i}}, w_{1}, w_{N})\)</span> , where <code class="code docutils literal notranslate"><span class="pre">N=size(w)</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fw</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>in,required</em><em>]</em> – Dicretized function to transform (frequency domain)</p></li>
+<li><p><strong>t</strong> (•)<em> [</em><em>real</em><em>, </em><em>in</em><em>]</em> – Discretized time points</p></li>
+<li><p><strong>w</strong> (size(fw))<em> [</em><em>real</em><em>, </em><em>in</em><em>]</em> – Discretized frequency points</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ft</strong> (size(t))<em> [</em><em>real/complex</em><em>]</em> – Discretized Fourier-transform function (time domain)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fft_signal">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fft_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ft</span></em>, <em class="sig-param"><span class="pre">dt</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fft_signal" title="Link to this definition"></a></dt>
+<dd><p>This function evaluates the fast Fourier transform of a discretized function <code class="xref f f-var docutils literal notranslate"><span class="pre">ft</span></code> .
+It returns <code class="xref f f-var docutils literal notranslate"><span class="pre">fw</span></code> = <code class="xref f f-var docutils literal notranslate"><span class="pre">dt</span></code> ·
+<a class="reference internal" href="#f/sf_fft_fftpack/tfft" title="f/sf_fft_fftpack/tfft"><code class="xref f f-func_inline docutils literal notranslate"><span class="pre">tfft</span></code></a> ( <code class="xref f f-var docutils literal notranslate"><span class="pre">ft</span></code> )</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ft</strong> (•)<em> [</em><em>real/complex</em><em>]</em> – Time-domain function</p></li>
+<li><p><strong>dt</strong><em> [</em><em>real</em><em>]</em> – Time step</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fw</strong> (size(ft))<em> [</em><em>real/complex</em><em>]</em> – Frequency-domain function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/ifft_signal">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">ifft_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fw</span></em>, <em class="sig-param"><span class="pre">dt</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/ifft_signal" title="Link to this definition"></a></dt>
+<dd><p>This function evaluates the inverse fast Fourier transform of a discretized function
+<code class="xref f f-var docutils literal notranslate"><span class="pre">fw</span></code> . It returns <code class="xref f f-var docutils literal notranslate"><span class="pre">ft</span></code> = <a class="reference internal" href="#f/sf_fft_fftpack/itfft" title="f/sf_fft_fftpack/itfft"><code class="xref f f-func_inline docutils literal notranslate"><span class="pre">itfft</span></code></a> ( <code class="xref f f-var docutils literal notranslate"><span class="pre">fw</span></code> ) / <code class="xref f f-var docutils literal notranslate"><span class="pre">ft</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fw</strong> (•)<em> [</em><em>real/complex</em><em>]</em> – Frequency-domain function</p></li>
+<li><p><strong>dt</strong><em> [</em><em>real</em><em>]</em> – Time step</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ft</strong> (size(fw))<em> [</em><em>real/complex</em><em>]</em> – Time-domain function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/tfft">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">tfft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func_in</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">func_out</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/tfft" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func_in</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>in,required</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>func_out</strong> (size(func_in))<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/itfft">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">itfft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func_in</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">func_out</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/itfft" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func_in</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>in,required</em><em>]</em></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>func_out</strong> (size(func_in))<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fft">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fft" title="Link to this definition"></a></dt>
+<dd><p>This subroutine evaluates the forward 1-dimensional FFT of an array of lenght <code class="code docutils literal notranslate"><span class="pre">N</span></code>
+using the FFTPACK 5.1 routines <code class="xref f f-func_inline docutils literal notranslate"><span class="pre">rfft1i</span></code> + <code class="xref f f-func_inline docutils literal notranslate"><span class="pre">rfft1f</span></code>
+for the real case and <code class="xref f f-func_inline docutils literal notranslate"><span class="pre">cfft1i</span></code> + <code class="xref f f-func_inline docutils literal notranslate"><span class="pre">cfft1f</span></code> for the
+complex case. These are called with the parameters</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">lensav</span></code> = <code class="code docutils literal notranslate"><span class="pre">N</span> <span class="pre">+</span> <span class="pre">int(</span> <span class="pre">log(dble(N))/log(2.d0)</span> <span class="pre">)</span> <span class="pre">+</span> <span class="pre">4</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">lenwrk</span></code> = <code class="code docutils literal notranslate"><span class="pre">N</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">lenr</span></code>  = <code class="code docutils literal notranslate"><span class="pre">N</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">inc</span></code> = <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></li>
+</ul>
+<p>The subroutine modifies the input array to contain</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">[y(0),</span> <span class="pre">y(1),</span> <span class="pre">...,</span> <span class="pre">y(N/2),</span>&#160;&#160;&#160;&#160; <span class="pre">y(-N/2+1),</span> <span class="pre">...,</span>&#160;&#160; <span class="pre">y(-1)]</span></code>   if <cite>N</cite> is even</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">[y(0),</span> <span class="pre">y(1),</span> <span class="pre">...,</span> <span class="pre">y((N-1)/2),</span> <span class="pre">y(-(N-1)/2),</span> <span class="pre">...,</span> <span class="pre">y(-1)]</span></code>   if <cite>N</cite> is odd</p></li>
+</ul>
+<p>where</p>
+<p><span class="math notranslate nohighlight">\(y(j) = \sum_{k=0}^{N-1} x(k) \cdot e^{-i 2\pi/N \cdot j \cdot k}\)</span></p>
+<p>for <span class="math notranslate nohighlight">\(j \in [0,N-1]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em> – Input/output array of size <code class="code docutils literal notranslate"><span class="pre">N</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/ifft">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">ifft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/ifft" title="Link to this definition"></a></dt>
+<dd><p>This subroutine evaluates the backward 1-dimensional FFT of an array of lenght <code class="code docutils literal notranslate"><span class="pre">N</span></code>
+using the FFTPACK 5.1 routines <code class="xref f f-func_inline docutils literal notranslate"><span class="pre">rfft1i</span></code> + <code class="xref f f-func_inline docutils literal notranslate"><span class="pre">rfft1b</span></code>
+for the real case and <code class="xref f f-func_inline docutils literal notranslate"><span class="pre">cfft1i</span></code> + <code class="xref f f-func_inline docutils literal notranslate"><span class="pre">cfft1b</span></code> for the
+complex case. These are called with the parameters</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">lensav</span></code> = <code class="code docutils literal notranslate"><span class="pre">N</span> <span class="pre">+</span> <span class="pre">int(</span> <span class="pre">log(dble(N))/log(2.d0)</span> <span class="pre">)</span> <span class="pre">+</span> <span class="pre">4</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">lenwrk</span></code> = <code class="code docutils literal notranslate"><span class="pre">N</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">lenr</span></code>  = <code class="code docutils literal notranslate"><span class="pre">N</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">inc</span></code> = <code class="code docutils literal notranslate"><span class="pre">1</span></code></p></li>
+</ul>
+<p>The subroutine modifies the input array to contain</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">[y(0),</span> <span class="pre">y(1),</span> <span class="pre">...,</span> <span class="pre">y(N/2),</span>&#160;&#160;&#160;&#160; <span class="pre">y(-N/2+1),</span> <span class="pre">...,</span>&#160;&#160; <span class="pre">y(-1)]</span></code>   if <cite>N</cite> is even</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">[y(0),</span> <span class="pre">y(1),</span> <span class="pre">...,</span> <span class="pre">y((N-1)/2),</span> <span class="pre">y(-(N-1)/2),</span> <span class="pre">...,</span> <span class="pre">y(-1)]</span></code>   if <cite>N</cite> is odd</p></li>
+</ul>
+<p>where</p>
+<p><span class="math notranslate nohighlight">\(y(j) = \sum_{k=-N/2}^{N/2-1} x(k) \cdot a^{i 2\pi/N \cdot j \cdot k}\)</span></p>
+<p>for <span class="math notranslate nohighlight">\(j \in [0,N-1]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fft2">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fft2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fft2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/ifft2">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">ifft2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/ifft2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•, •)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fftn">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fftn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fftn" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/ifftn">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">ifftn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/ifftn" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real/complex</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cosft">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cosft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cosft" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/icosft">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">icosft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/icosft" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cosftn">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cosftn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cosftn" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/icosftn">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">icosftn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/icosftn" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/sinft">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">sinft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/sinft" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/isinft">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">isinft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/isinft" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/sinftn">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">sinftn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/sinftn" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/isinftn">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">isinftn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/isinftn" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fftshift">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fftshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fftshift" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fin</strong> (•)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fout</strong> (size(fin))<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/ifftshift">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">ifftshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/ifftshift" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fin</strong> (•)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fout</strong> (size(fin))<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fftex">
+<em class="property"><span class="pre">interface</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fftex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fftex" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real/complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_1d_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_1d_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_1d_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em> – Input/output array of size <code class="code docutils literal notranslate"><span class="pre">N</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_1d_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_1d_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_1d_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>complex</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_2d_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_2d_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_2d_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•, •)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_2d_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_2d_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_2d_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•, •)<em> [</em><em>complex</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_nd_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_nd_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_nd_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_nd_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_nd_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_nd_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>complex</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cost_1d_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cost_1d_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cost_1d_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/sint_1d_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">sint_1d_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/sint_1d_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cost_nd_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cost_nd_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cost_nd_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/sint_nd_forward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">sint_nd_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/sint_nd_forward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_1d_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_1d_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_1d_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_1d_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_1d_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_1d_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>complex</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_2d_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_2d_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_2d_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•, •)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_2d_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_2d_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_2d_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•, •)<em> [</em><em>complex</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_nd_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_nd_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_nd_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_nd_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_nd_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_nd_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>complex</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cost_1d_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cost_1d_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cost_1d_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/sint_1d_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">sint_1d_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/sint_1d_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cost_nd_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cost_nd_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cost_nd_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/sint_nd_backward">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">sint_nd_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">lot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/sint_nd_backward" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (•)<em> [</em><em>real</em><em>, </em><em>inout</em><em>]</em></p></li>
+<li><p><strong>n</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+<li><p><strong>lot</strong><em> [</em><em>integer</em><em>, </em><em>in</em><em>]</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_1d_shift">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_1d_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_1d_shift" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fin</strong> (•)<em> [</em><em>real</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fout</strong> (size(fin))<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_1d_shift">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_1d_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_1d_shift" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fin</strong> (•)<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fout</strong> (size(fin))<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_1d_ishift">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_1d_ishift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_1d_ishift" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fin</strong> (•)<em> [</em><em>real</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fout</strong> (size(fin))<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_1d_ishift">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_1d_ishift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_1d_ishift" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fin</strong> (•)<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fout</strong> (size(fin))<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/rfft_1d_ex">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">rfft_1d_ex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/rfft_1d_ex" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/cfft_1d_ex">
+<em class="property"><span class="pre">subroutine</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">cfft_1d_ex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/cfft_1d_ex" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (•)<em> [</em><em>complex</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fft_tmax">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fft_tmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">l</span></em>, <em class="sig-param"><span class="pre">dt</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fft_tmax" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>l</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>dt</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fft_tmax</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fft_fmax">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fft_fmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">l</span></em>, <em class="sig-param"><span class="pre">dt</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fft_fmax" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>l</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>dt</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fft_fmax</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fft_tarray">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fft_tarray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">l</span></em>, <em class="sig-param"><span class="pre">dt</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fft_tarray" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>l</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>dt</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Result<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>time</strong> (l)<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object f" id="f/sf_fft_fftpack/fft_farray">
+<em class="property"><span class="pre">function</span>&#160; </em><span class="sig-prename descclassname"><span class="pre">sf_fft_fftpack/</span></span><span class="sig-name descname"><span class="pre">fft_farray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">l</span></em>, <em class="sig-param"><span class="pre">dt</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">df</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#f/sf_fft_fftpack/fft_farray" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>l</strong><em> [</em><em>integer</em><em>]</em></p></li>
+<li><p><strong>dt</strong><em> [</em><em>real</em><em>]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong><em> [</em><em>real</em><em>]</em></p>
+</dd>
+<dt class="field-odd">Result<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> (l)<em> [</em><em>real</em><em>]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SF_DERIVATE.html" class="btn btn-neutral float-left" title="SF_DERIVATE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SF_FONTS.html" class="btn btn-neutral float-right" title="SF_FONTS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start" href="quickstart.html" />
+    <link rel="prev" title="Dependencies" href="dependencies.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Install</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="dependencies.html" class="btn btn-neutral float-left" title="Dependencies" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="install">
+<h1>Install<a class="headerlink" href="#install" title="Link to this heading"></a></h1>
+<p>SciFortran is available in the form of a static Fortran library
+<cite>libscifor.a</cite> and the related Fortran module <cite>SCIFOR</cite>.
+Our build system relies on CMake. Experimental support for linking
+Intel’s MKL is provided, although it may fail on some systems.</p>
+<section id="building-scifortran">
+<h2>Building SciFortran<a class="headerlink" href="#building-scifortran" title="Link to this heading"></a></h2>
+<p>Clone the repo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/SciFortran/SciFortran<span class="w"> </span>scifor
+</pre></div>
+</div>
+<p>Optionally <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> define the fortran compiler:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">FC</span><span class="o">=</span>mpif90/gfortran/ifort
+</pre></div>
+</div>
+<p>From the repository directory (<cite>cd scifor</cite>) make a standard
+out-of-source CMake compilation:</p>
+<p><strong>GNU Make</strong></p>
+<p>Using GNU <cite>make</cite> is the default CMake workflow, with widest version
+support (CMake &gt; 3.0). Note that parallel <cite>make</cite> execution is tested
+and working.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+make<span class="w"> </span>-j
+</pre></div>
+</div>
+<p>The <cite>CMake</cite> compilation can be customized using the following
+additional variables (default values between <cite>&lt; &gt;</cite>, optional in <cite>[ ]</cite>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-DLONG_PREFIX<span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;yes&gt;/no<span class="w">  </span><span class="c1">#set a long or short prefix for the default installation directory</span>
+
+-DCMAKE_INSTALL_PREFIX<span class="w">    </span><span class="c1">#specify custom installation prefix</span>
+
+-DUSE_MPI<span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;yes&gt;/no<span class="w">        </span><span class="c1">#set use of MPI</span>
+
+-DVERBOSE<span class="w"> </span><span class="o">=</span><span class="w"> </span>yes/&lt;no&gt;
+
+-DBUILD_TYPE<span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;RELEASE&gt;/TESTING/DEBUG/AGGRESSIVE<span class="w">  </span><span class="c1">#compilation options. TESTING:mild or no optimization, DEBUG:relevant debugging options, AGGRESSIVE: all debug options of (might not compile on  some systems)</span>
+
+-DWITH_BLAS_LAPACK<span class="w"> </span><span class="o">=</span><span class="w"> </span>yes/&lt;no&gt;<span class="w">   </span><span class="c1"># skip search of preinstalled linear algebra libraries and enforce compilation from local source</span>
+
+-DWITH_SCALAPACK<span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;yes&gt;/no<span class="w">       </span><span class="c1">#search and link to available ScaLAPACK library</span>
+</pre></div>
+</div>
+</section>
+<section id="install-scifortran">
+<h2>Install SciFortran<a class="headerlink" href="#install-scifortran" title="Link to this heading"></a></h2>
+<p>System-wide installation is completed after the build step using
+either:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>To actually link the library to any of your project we provide
+different solutions:</p>
+<ul class="simple">
+<li><p>A generated <a class="reference external" href="https://github.com/cea-hpc/modules">environment module</a>, installed to <cite>~/.modules.d/scifor/&lt;PLAT&gt;/&lt;VERSION&gt;</cite></p></li>
+<li><p>A generated <cite>bash</cite> script at <cite>&lt;PREFIX&gt;/bin/configvars.sh</cite>, to be sourced for permanent loading.</p></li>
+<li><p>A generated <a class="reference external" href="https://github.com/freedesktop/pkg-config">pkg-config</a> file to, installed to
+<cite>~/.pkgconfig.d/scifor.pc</cite></p></li>
+</ul>
+<p>which you can choose among by following the instructions printed on screen.</p>
+</section>
+<section id="uninstall">
+<h2>Uninstall<a class="headerlink" href="#uninstall" title="Link to this heading"></a></h2>
+<p>CMake does not officially provide uninstall procedures in the
+generated Make files. Hence SciFortran supplies a homebrew
+method to remove the generated files by calling (from the relevant
+build folder):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>uninstall
+</pre></div>
+</div>
+</section>
+<section id="known-issues">
+<h2>Known issues<a class="headerlink" href="#known-issues" title="Link to this heading"></a></h2>
+<p><cite>SciFortran</cite> has been tested with success on several Unix/Linux
+platforms. Support for Windows, through <a class="reference external" href="https://learn.microsoft.com/en-us/windows/wsl/install">WSL</a>, is still experimental, although few people reported successful installation with minimal efforts.</p>
+<p>Some have reported issues concerning the wrong setup for the library <cite>pkg-config</cite> file, contained in  <cite>$PREFIX/&lt;PLAT&gt;/&lt;VERSION&gt;/etc/scifor.pc</cite>. The variable <cite>Libs=-L${libdir} -lscifor &lt;blas/lapack/scalapack&gt;</cite> produced by <cite>cmake</cite> during the configuration and installation process can be not properly defined for the part corresponding to third parties libraries such as Blas/Lapack/Scalapack. This breaks compilation against <cite>scifor</cite> whenever <cite>pkg-config</cite> is used to generate the linking options.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Corrupted <cite>pkg-config</cite> file can be fixed manually. Edit the
+<cite>scifor.pc</cite> file  overwriting the definition of the variable
+<cite>Libs</cite>, as appropriate for your system.</p>
+</div>
+<p class="rubric">footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>In some cases CMake fails to find the MPI fortran compiler,
+even if it is effectively installed and loaded into the
+system. An easy fix is to setup and export the <cite>FC=mpif90</cite>
+environment variable before invoking the <cite>cmake &lt;options&gt; ..</cite>
+command.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dependencies.html" class="btn btn-neutral float-left" title="Dependencies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
