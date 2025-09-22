@@ -8,11 +8,12 @@ STRING(REGEX REPLACE "\n" ";" files "${files}")
 FOREACH(file ${files})
   MESSAGE(STATUS "Uninstalling $ENV{DESTDIR}${file}")
   IF(IS_SYMLINK "$ENV{DESTDIR}${file}" OR EXISTS "$ENV{DESTDIR}${file}")
-    EXEC_PROGRAM(
-      "@CMAKE_COMMAND@" ARGS "-E rm -rf \"$ENV{DESTDIR}${file}\""
+    EXECUTE_PROCESS(
+      COMMAND "@CMAKE_COMMAND@" -E remove "$ENV{DESTDIR}${file}"
       OUTPUT_VARIABLE rm_out
-      RETURN_VALUE rm_retval
+      RESULT_VARIABLE rm_retval
       )
+
     IF(NOT "${rm_retval}" STREQUAL 0)
       MESSAGE(FATAL_ERROR "Problem when removing $ENV{DESTDIR}${file}")
     ENDIF()

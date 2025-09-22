@@ -54,21 +54,21 @@ module SF_TIMER
   integer,dimension(Tmax,8),save           :: dt_T0=00
   integer,dimension(Tmax,8),save           :: dt_T1=0
   !Using Cpu_time
-  real,dimension(Tmax),save                :: ct_T_start=0d0
-  real,dimension(Tmax),save                :: ct_T_stop=0d0
-  real,dimension(Tmax),save                :: ct_T0=0d0
-  real,dimension(Tmax),save                :: ct_T1=0d0
+  real(8),dimension(Tmax),save                :: ct_T_start=0d0
+  real(8),dimension(Tmax),save                :: ct_T_stop=0d0
+  real(8),dimension(Tmax),save                :: ct_T0=0d0
+  real(8),dimension(Tmax),save                :: ct_T1=0d0
   !Using System_clock
-  integer(8),dimension(Tmax),save          :: st_T_start=0
-  integer(8),dimension(Tmax),save          :: st_T_stop=0
-  integer(8),dimension(Tmax),save          :: st_T0=0
-  integer(8),dimension(Tmax),save          :: st_T1=0
+  real(8),dimension(Tmax),save          :: st_T_start=0
+  real(8),dimension(Tmax),save          :: st_T_stop=0
+  real(8),dimension(Tmax),save          :: st_T0=0
+  real(8),dimension(Tmax),save          :: st_T1=0
   !
   !Using System_clock
-  integer(8),dimension(Tmax),save          :: pr_T_start=0
-  integer(8),dimension(Tmax),save          :: pr_T_stop=0
-  integer(8),dimension(Tmax),save          :: pr_T0=0
-  integer(8),dimension(Tmax),save          :: pr_T1=0
+  real(8),dimension(Tmax),save          :: pr_T_start=0
+  real(8),dimension(Tmax),save          :: pr_T_stop=0
+  real(8),dimension(Tmax),save          :: pr_T0=0
+  real(8),dimension(Tmax),save          :: pr_T1=0
   !MPI
   integer                                  :: mpi_id
   integer                                  :: mpi_size
@@ -97,21 +97,24 @@ contains
   !PURPOSE  : start a timer to measure elapsed time between two call
   !+-------------------------------------------------------------------+
   function t_start() result(pr_T)
-    real(8) :: pr_T
+    real(8)    :: pr_T
+    integer(8) :: T_
     !
     Tprof=Tprof+1
     if(Tprof>Tmax)stop "start_timer error: too many timers started"
     !
-    call system_clock(count_rate=pr_rate)
-    !
-#ifdef _MPI    
+#ifdef _MPI
     if(check_MPI())then
-       pr_T_start(Tindex) = MPI_Wtime()
+       pr_T_start(Tprof) = MPI_Wtime()
     else
-       call system_clock(count=pr_T_start(Tprof))
+       call system_clock(count_rate=pr_rate)
+       call system_clock(count=T_)
+       pr_T_start(Tprof) = dble(T_)
     endif
 #else
-    call system_clock(count=pr_T_start(Tprof))
+    call system_clock(count_rate=pr_rate)
+    call system_clock(count=T_)
+    pr_T_start(Tprof) = dble(T_)
 #endif
     pr_T=0d0
   end function t_start
@@ -121,21 +124,26 @@ contains
   !PURPOSE  : stop the timer and get the partial time
   !+-------------------------------------------------------------------+
   function t_stop() result(pr_T)
-    real(8) :: pr_T
+    real(8)    :: pr_T
+    integer(8) :: T_
     !
 #ifdef _MPI    
     if(check_MPI())then
        pr_T_stop(Tprof) = MPI_Wtime()
+       pr_T = pr_T_stop(Tprof)-pr_T_start(Tprof)
     else
-       call system_clock(count=pr_T_stop(Tprof))
+       call system_clock(count=T_)
+       pr_T_stop(Tprof)=dble(T_)
+       pr_T = dble(pr_T_stop(Tprof)-pr_T_start(Tprof))/st_rate
     endif
 #else
-    call system_clock(count=pr_T_stop(Tprof))
-#endif
+    call system_clock(count=T_)
+    pr_T_stop(Tprof)=dble(T_)
     pr_T = dble(pr_T_stop(Tprof)-pr_T_start(Tprof))/st_rate
+#endif
     !
-    pr_T_start(Tprof)   = 0
-    pr_T_stop(Tprof)    = 0
+    pr_T_start(Tprof)   = 0d0
+    pr_T_stop(Tprof)    = 0d0
     !
     if(Tprof>1)then
        Tprof=Tprof-1
@@ -156,6 +164,8 @@ contains
   subroutine start_timer(title,unit)
     character(len=*),optional :: title
     integer,optional          :: unit
+    integer(8)                :: T_
+    real :: cT_
     !
     Tindex=Tindex+1
     if(Tindex>Tmax)stop "start_timer error: too many timers started"
@@ -174,13 +184,16 @@ contains
        st_T_start(Tindex) = MPI_Wtime()
     else
        call system_clock(count_rate=st_rate)
-       call system_clock(count=st_T_start(Tindex))
+       call system_clock(count=T_)
+       st_T_start(Tindex)=dble(T_)
     endif
 #else
     call system_clock(count_rate=st_rate)
-    call system_clock(count=st_T_start(Tindex))
+    call system_clock(count=T_)
+    st_T_start(Tindex)=dble(T_)
 #endif
-    call cpu_time(ct_T_start(Tindex))
+    call cpu_time(cT_)
+    ct_T_start(Tindex)=dble(cT_)
     call date_and_time(values=dt_T_start(Tindex,:))
     st_T0 = st_T_start
     ct_T0 = ct_T_start
@@ -199,21 +212,26 @@ contains
   !+-------------------------------------------------------------------+
   subroutine stop_timer(msg)
     character(len=*),optional :: msg
-    real                      :: ct_T
-    real                      :: st_T
-    integer,dimension(8)      :: dt_T
+    real(8)              :: ct_T
+    real(8)              :: st_T
+    integer,dimension(8) :: dt_T
+    integer(8)           :: T_
+    real :: cT_
     !
     !
 #ifdef _MPI    
     if(check_MPI())then
        st_T_stop(Tindex) = MPI_Wtime()
     else
-       call system_clock(count=st_T_stop(Tindex))
+       call system_clock(count=T_)
+       st_T_stop(Tindex)=dble(T_)
     endif
 #else
-    call system_clock(count=st_T_stop(Tindex))
+    call system_clock(count=T_)
+    st_T_stop(Tindex)=dble(T_)
 #endif
-    call cpu_time(ct_T_stop(Tindex))
+    call cpu_time(cT_)
+    ct_T_stop(Tindex)=dble(cT_)
     call date_and_time(values=dt_T_stop(Tindex,:))
     ct_T = ct_time_difference(ct_T_stop(Tindex),ct_T_start(Tindex))
     st_T = st_time_difference(st_T_stop(Tindex),st_T_start(Tindex))
@@ -224,11 +242,11 @@ contains
     else
        call print_total_time(ct_T,st_T,dt_T)
     endif
-    ct_T_start(Tindex)   = 0
-    st_T_start(Tindex)   = 0
+    ct_T_start(Tindex)   = 0d0
+    st_T_start(Tindex)   = 0d0
     dt_T_start(Tindex,:) = 0
-    ct_T_stop(Tindex)    = 0
-    st_T_stop(Tindex)    = 0
+    ct_T_stop(Tindex)    = 0d0
+    st_T_stop(Tindex)    = 0d0
     dt_T_stop(Tindex,:)  = 0
     !
     funit(Tindex)        = 6
@@ -375,20 +393,25 @@ contains
     character(len=*)        :: method
     real(8)                 :: total_time
     integer(4),dimension(8) :: dummy
+    integer(8) :: T_
+    real(8) :: cT_
     select case(trim(method))
     case default
 #ifdef _MPI    
        if(check_MPI())then
           st_T1(Tindex) = MPI_Wtime()
        else
-          call system_clock(count=st_T1(Tindex))
+          call system_clock(count=T_)
+          st_T1(Tindex)=T_
        endif
 #else
-       call system_clock(count=st_T1(Tindex))
+       call system_clock(count=T_)
+       st_T1(Tindex)=T_
 #endif              
        total_time = st_time_difference(st_T1(Tindex),st_T0(Tindex))
     case("c","ct","cpu","cpu_time")
-       call cpu_time(ct_T1(Tindex))
+       call cpu_time(cT_)
+       ct_T1(Tindex)=dble(cT_)
        total_time = ct_time_difference(ct_T1(Tindex),ct_T0(Tindex))
     case("d","dt","date_time","date","time","date_and_time")
        call date_and_time(values=dt_T1(Tindex,:))
@@ -415,14 +438,14 @@ contains
   !PURPOSE  : get time difference between two events
   !+-------------------------------------------------------------------+
   function ct_time_difference(data1,data0) result(time_difference)
-    real    :: data1,data0
+    real(8) :: data1,data0
     real(8) :: time_difference
     time_difference =dble(data1-data0)
   end function ct_time_difference
 
   function st_time_difference(data1,data0) result(time_difference)
-    integer(8):: data1,data0
-    real(8)   :: time_difference
+    real(8) :: data1,data0
+    real(8) :: time_difference
     time_difference = dble(data1-data0)/st_rate
   end function st_time_difference
 
@@ -469,8 +492,8 @@ contains
   !PURPOSE  : print total time
   !+-------------------------------------------------------------------+
   subroutine print_total_time(ct_T,st_T,dt_T,title)
-    real                      :: ct_T
-    real                      :: st_T
+    real(8)                   :: ct_T
+    real(8)                   :: st_T
     integer                   :: dt_T(8)
     character(len=*),optional :: title
     !
