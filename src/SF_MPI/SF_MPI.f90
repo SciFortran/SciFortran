@@ -170,54 +170,163 @@ MODULE SF_MPI
 
 
   interface Reduce_MPI
-     module procedure :: MPI_Reduce_Bool_0
-     module procedure :: MPI_Reduce_Bool_1
-     module procedure :: MPI_Reduce_Bool_2
-     module procedure :: MPI_Reduce_Bool_3
-     module procedure :: MPI_Reduce_Bool_4
-     module procedure :: MPI_Reduce_Bool_5
-     module procedure :: MPI_Reduce_Bool_6
-     module procedure :: MPI_Reduce_Bool_7
+     module procedure :: MPI_ReduceSum_Bool_0
+     module procedure :: MPI_ReduceSum_Bool_1
+     module procedure :: MPI_ReduceSum_Bool_2
+     module procedure :: MPI_ReduceSum_Bool_3
+     module procedure :: MPI_ReduceSum_Bool_4
+     module procedure :: MPI_ReduceSum_Bool_5
+     module procedure :: MPI_ReduceSum_Bool_6
+     module procedure :: MPI_ReduceSum_Bool_7
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
-     module procedure :: MPI_Reduce_Bool_8
+     module procedure :: MPI_ReduceSum_Bool_8
 #endif
      !
-     module procedure :: MPI_Reduce_Int_0
-     module procedure :: MPI_Reduce_Int_1
-     module procedure :: MPI_Reduce_Int_2
-     module procedure :: MPI_Reduce_Int_3
-     module procedure :: MPI_Reduce_Int_4
-     module procedure :: MPI_Reduce_Int_5
-     module procedure :: MPI_Reduce_Int_6
-     module procedure :: MPI_Reduce_Int_7
+     module procedure :: MPI_ReduceSum_Int_0
+     module procedure :: MPI_ReduceSum_Int_1
+     module procedure :: MPI_ReduceSum_Int_2
+     module procedure :: MPI_ReduceSum_Int_3
+     module procedure :: MPI_ReduceSum_Int_4
+     module procedure :: MPI_ReduceSum_Int_5
+     module procedure :: MPI_ReduceSum_Int_6
+     module procedure :: MPI_ReduceSum_Int_7
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
-     module procedure :: MPI_Reduce_Int_8
+     module procedure :: MPI_ReduceSum_Int_8
 #endif
      !
-     module procedure :: MPI_Reduce_Dble_0
-     module procedure :: MPI_Reduce_Dble_1
-     module procedure :: MPI_Reduce_Dble_2
-     module procedure :: MPI_Reduce_Dble_3
-     module procedure :: MPI_Reduce_Dble_4
-     module procedure :: MPI_Reduce_Dble_5
-     module procedure :: MPI_Reduce_Dble_6
-     module procedure :: MPI_Reduce_Dble_7
+     module procedure :: MPI_ReduceSum_Dble_0
+     module procedure :: MPI_ReduceSum_Dble_1
+     module procedure :: MPI_ReduceSum_Dble_2
+     module procedure :: MPI_ReduceSum_Dble_3
+     module procedure :: MPI_ReduceSum_Dble_4
+     module procedure :: MPI_ReduceSum_Dble_5
+     module procedure :: MPI_ReduceSum_Dble_6
+     module procedure :: MPI_ReduceSum_Dble_7
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
-     module procedure :: MPI_Reduce_Dble_8
+     module procedure :: MPI_ReduceSum_Dble_8
 #endif
      !
-     module procedure :: MPI_Reduce_Cmplx_0
-     module procedure :: MPI_Reduce_Cmplx_1
-     module procedure :: MPI_Reduce_Cmplx_2
-     module procedure :: MPI_Reduce_Cmplx_3
-     module procedure :: MPI_Reduce_Cmplx_4
-     module procedure :: MPI_Reduce_Cmplx_5
-     module procedure :: MPI_Reduce_Cmplx_6
-     module procedure :: MPI_Reduce_Cmplx_7
+     module procedure :: MPI_ReduceSum_Cmplx_0
+     module procedure :: MPI_ReduceSum_Cmplx_1
+     module procedure :: MPI_ReduceSum_Cmplx_2
+     module procedure :: MPI_ReduceSum_Cmplx_3
+     module procedure :: MPI_ReduceSum_Cmplx_4
+     module procedure :: MPI_ReduceSum_Cmplx_5
+     module procedure :: MPI_ReduceSum_Cmplx_6
+     module procedure :: MPI_ReduceSum_Cmplx_7
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
-     module procedure :: MPI_Reduce_Cmplx_8
+     module procedure :: MPI_ReduceSum_Cmplx_8
 #endif
   end interface Reduce_MPI
+
+
+
+
+
+  interface Sum_MPI
+     module procedure :: MPI_ReduceSum_Bool_0
+     module procedure :: MPI_ReduceSum_Bool_1
+     module procedure :: MPI_ReduceSum_Bool_2
+     module procedure :: MPI_ReduceSum_Bool_3
+     module procedure :: MPI_ReduceSum_Bool_4
+     module procedure :: MPI_ReduceSum_Bool_5
+     module procedure :: MPI_ReduceSum_Bool_6
+     module procedure :: MPI_ReduceSum_Bool_7
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+     module procedure :: MPI_ReduceSum_Bool_8
+#endif
+     !
+     module procedure :: MPI_ReduceSum_Int_0
+     module procedure :: MPI_ReduceSum_Int_1
+     module procedure :: MPI_ReduceSum_Int_2
+     module procedure :: MPI_ReduceSum_Int_3
+     module procedure :: MPI_ReduceSum_Int_4
+     module procedure :: MPI_ReduceSum_Int_5
+     module procedure :: MPI_ReduceSum_Int_6
+     module procedure :: MPI_ReduceSum_Int_7
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+     module procedure :: MPI_ReduceSum_Int_8
+#endif
+     !
+     module procedure :: MPI_ReduceSum_Dble_0
+     module procedure :: MPI_ReduceSum_Dble_1
+     module procedure :: MPI_ReduceSum_Dble_2
+     module procedure :: MPI_ReduceSum_Dble_3
+     module procedure :: MPI_ReduceSum_Dble_4
+     module procedure :: MPI_ReduceSum_Dble_5
+     module procedure :: MPI_ReduceSum_Dble_6
+     module procedure :: MPI_ReduceSum_Dble_7
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+     module procedure :: MPI_ReduceSum_Dble_8
+#endif
+     !
+     module procedure :: MPI_ReduceSum_Cmplx_0
+     module procedure :: MPI_ReduceSum_Cmplx_1
+     module procedure :: MPI_ReduceSum_Cmplx_2
+     module procedure :: MPI_ReduceSum_Cmplx_3
+     module procedure :: MPI_ReduceSum_Cmplx_4
+     module procedure :: MPI_ReduceSum_Cmplx_5
+     module procedure :: MPI_ReduceSum_Cmplx_6
+     module procedure :: MPI_ReduceSum_Cmplx_7
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+     module procedure :: MPI_ReduceSum_Cmplx_8
+#endif
+  end interface Sum_MPI
+
+
+
+  interface Max_MPI
+     module procedure :: MPI_ReduceMax_Bool_0
+     module procedure :: MPI_ReduceMax_Bool_1
+     module procedure :: MPI_ReduceMax_Bool_2
+     module procedure :: MPI_ReduceMax_Bool_3
+     module procedure :: MPI_ReduceMax_Bool_4
+     module procedure :: MPI_ReduceMax_Bool_5
+     module procedure :: MPI_ReduceMax_Bool_6
+     module procedure :: MPI_ReduceMax_Bool_7
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+     module procedure :: MPI_ReduceMax_Bool_8
+#endif
+     !
+     module procedure :: MPI_ReduceMax_Int_0
+     module procedure :: MPI_ReduceMax_Int_1
+     module procedure :: MPI_ReduceMax_Int_2
+     module procedure :: MPI_ReduceMax_Int_3
+     module procedure :: MPI_ReduceMax_Int_4
+     module procedure :: MPI_ReduceMax_Int_5
+     module procedure :: MPI_ReduceMax_Int_6
+     module procedure :: MPI_ReduceMax_Int_7
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+     module procedure :: MPI_ReduceMax_Int_8
+#endif
+     !
+     module procedure :: MPI_ReduceMax_Dble_0
+     module procedure :: MPI_ReduceMax_Dble_1
+     module procedure :: MPI_ReduceMax_Dble_2
+     module procedure :: MPI_ReduceMax_Dble_3
+     module procedure :: MPI_ReduceMax_Dble_4
+     module procedure :: MPI_ReduceMax_Dble_5
+     module procedure :: MPI_ReduceMax_Dble_6
+     module procedure :: MPI_ReduceMax_Dble_7
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+     module procedure :: MPI_ReduceMax_Dble_8
+#endif
+     !
+     module procedure :: MPI_ReduceMax_Cmplx_0
+     module procedure :: MPI_ReduceMax_Cmplx_1
+     module procedure :: MPI_ReduceMax_Cmplx_2
+     module procedure :: MPI_ReduceMax_Cmplx_3
+     module procedure :: MPI_ReduceMax_Cmplx_4
+     module procedure :: MPI_ReduceMax_Cmplx_5
+     module procedure :: MPI_ReduceMax_Cmplx_6
+     module procedure :: MPI_ReduceMax_Cmplx_7
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+     module procedure :: MPI_ReduceMax_Cmplx_8
+#endif
+  end interface Max_MPI
+
+
+
 
 
   public :: Init_MPI
@@ -237,6 +346,8 @@ MODULE SF_MPI
   public :: Reduce_MPI
   public :: AllGather_MPI
   public :: AllReduce_MPI
+  public :: Sum_MPI
+  public :: Max_MPI
 
 
   integer :: ierr
@@ -1684,11 +1795,19 @@ contains
 
 
 
+
+
+
+
+
+
+
+
   !****************************************
-  !              MPI REDUCE IN_PLACE
+  !    MPI REDUCE IN_PLACE: MPI_SUM
   !****************************************
   !!BOOL
-  subroutine MPI_Reduce_Bool_0(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_0(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data
     logical,intent(inout),optional :: recv
@@ -1700,10 +1819,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,1,MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_0')
-  end subroutine MPI_Reduce_Bool_0
+    call Error_MPI(sub='MPI_ReduceSum_Bool_0')
+  end subroutine MPI_ReduceSum_Bool_0
   !
-  subroutine MPI_Reduce_Bool_1(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_1(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data(:)
     logical,intent(inout),optional :: recv(:)
@@ -1715,10 +1834,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_1')
-  end subroutine MPI_Reduce_Bool_1
+    call Error_MPI(sub='MPI_ReduceSum_Bool_1')
+  end subroutine MPI_ReduceSum_Bool_1
   !
-  subroutine MPI_Reduce_Bool_2(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_2(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data(:,:)
     logical,intent(inout),optional :: recv(:,:)
@@ -1730,10 +1849,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_2')
-  end subroutine MPI_Reduce_Bool_2
+    call Error_MPI(sub='MPI_ReduceSum_Bool_2')
+  end subroutine MPI_ReduceSum_Bool_2
   !
-  subroutine MPI_Reduce_Bool_3(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_3(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data(:,:,:)
     logical,intent(inout),optional :: recv(:,:,:)
@@ -1745,10 +1864,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_3')
-  end subroutine MPI_Reduce_Bool_3
+    call Error_MPI(sub='MPI_ReduceSum_Bool_3')
+  end subroutine MPI_ReduceSum_Bool_3
   !
-  subroutine MPI_Reduce_Bool_4(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_4(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data(:,:,:,:)
     logical,intent(inout),optional :: recv(:,:,:,:)
@@ -1760,10 +1879,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_4')
-  end subroutine MPI_Reduce_Bool_4
+    call Error_MPI(sub='MPI_ReduceSum_Bool_4')
+  end subroutine MPI_ReduceSum_Bool_4
   !
-  subroutine MPI_Reduce_Bool_5(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_5(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data(:,:,:,:,:)
     logical,intent(inout),optional :: recv(:,:,:,:,:)
@@ -1775,10 +1894,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_5')
-  end subroutine MPI_Reduce_Bool_5
+    call Error_MPI(sub='MPI_ReduceSum_Bool_5')
+  end subroutine MPI_ReduceSum_Bool_5
   !
-  subroutine MPI_Reduce_Bool_6(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_6(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data(:,:,:,:,:,:)
     logical,intent(inout),optional :: recv(:,:,:,:,:,:)
@@ -1790,10 +1909,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_6')
-  end subroutine MPI_Reduce_Bool_6
+    call Error_MPI(sub='MPI_ReduceSum_Bool_6')
+  end subroutine MPI_ReduceSum_Bool_6
   !
-  subroutine MPI_Reduce_Bool_7(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_7(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data(:,:,:,:,:,:,:)
     logical,intent(inout),optional :: recv(:,:,:,:,:,:,:)
@@ -1805,11 +1924,11 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_7')
-  end subroutine MPI_Reduce_Bool_7
+    call Error_MPI(sub='MPI_ReduceSum_Bool_7')
+  end subroutine MPI_ReduceSum_Bool_7
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
-  subroutine MPI_Reduce_Bool_8(comm,data,recv,root)
+  subroutine MPI_ReduceSum_Bool_8(comm,data,recv,root)
     integer,intent(in)             :: comm
     logical,intent(inout)          :: data(:,:,:,:,:,:,:,:)
     logical,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
@@ -1821,15 +1940,15 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_Bool_8')
-  end subroutine MPI_Reduce_Bool_8
+    call Error_MPI(sub='MPI_ReduceSum_Bool_8')
+  end subroutine MPI_ReduceSum_Bool_8
 #endif
 
 
 
 
   !INTEGER
-  subroutine MPI_Reduce_int_0(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_0(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data
     integer,intent(inout),optional :: recv
@@ -1842,10 +1961,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,1,MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_0')
-  end subroutine MPI_Reduce_int_0
+    call Error_MPI(sub='MPI_ReduceSum_int_0')
+  end subroutine MPI_ReduceSum_int_0
   !
-  subroutine MPI_Reduce_int_1(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_1(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data(:)
     integer,intent(inout),optional :: recv(:)
@@ -1858,10 +1977,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_1')
-  end subroutine MPI_Reduce_int_1
+    call Error_MPI(sub='MPI_ReduceSum_int_1')
+  end subroutine MPI_ReduceSum_int_1
   !
-  subroutine MPI_Reduce_int_2(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_2(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data(:,:)
     integer,intent(inout),optional :: recv(:,:)
@@ -1874,10 +1993,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_2')
-  end subroutine MPI_Reduce_int_2
+    call Error_MPI(sub='MPI_ReduceSum_int_2')
+  end subroutine MPI_ReduceSum_int_2
   !
-  subroutine MPI_Reduce_int_3(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_3(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data(:,:,:)
     integer,intent(inout),optional :: recv(:,:,:)
@@ -1890,10 +2009,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_3')
-  end subroutine MPI_Reduce_int_3
+    call Error_MPI(sub='MPI_ReduceSum_int_3')
+  end subroutine MPI_ReduceSum_int_3
   !
-  subroutine MPI_Reduce_int_4(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_4(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data(:,:,:,:)
     integer,intent(inout),optional :: recv(:,:,:,:)
@@ -1906,10 +2025,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_4')
-  end subroutine MPI_Reduce_int_4
+    call Error_MPI(sub='MPI_ReduceSum_int_4')
+  end subroutine MPI_ReduceSum_int_4
   !
-  subroutine MPI_Reduce_int_5(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_5(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data(:,:,:,:,:)
     integer,intent(inout),optional :: recv(:,:,:,:,:)
@@ -1922,10 +2041,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_5')
-  end subroutine MPI_Reduce_int_5
+    call Error_MPI(sub='MPI_ReduceSum_int_5')
+  end subroutine MPI_ReduceSum_int_5
   !
-  subroutine MPI_Reduce_int_6(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_6(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data(:,:,:,:,:,:)
     integer,intent(inout),optional :: recv(:,:,:,:,:,:)
@@ -1938,10 +2057,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_6')
-  end subroutine MPI_Reduce_int_6
+    call Error_MPI(sub='MPI_ReduceSum_int_6')
+  end subroutine MPI_ReduceSum_int_6
   !
-  subroutine MPI_Reduce_int_7(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_7(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data(:,:,:,:,:,:,:)
     integer,intent(inout),optional :: recv(:,:,:,:,:,:,:)
@@ -1954,11 +2073,11 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_7')
-  end subroutine MPI_Reduce_int_7
+    call Error_MPI(sub='MPI_ReduceSum_int_7')
+  end subroutine MPI_ReduceSum_int_7
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
-  subroutine MPI_Reduce_int_8(comm,data,recv,root)
+  subroutine MPI_ReduceSum_int_8(comm,data,recv,root)
     integer,intent(in)             :: comm
     integer,intent(inout)          :: data(:,:,:,:,:,:,:,:)
     integer,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
@@ -1971,12 +2090,12 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_int_8')
-  end subroutine MPI_Reduce_int_8
+    call Error_MPI(sub='MPI_ReduceSum_int_8')
+  end subroutine MPI_ReduceSum_int_8
 #endif
 
   !REAL8
-  subroutine MPI_Reduce_dble_0(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_0(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data
     real(8),intent(inout),optional :: recv
@@ -1989,10 +2108,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,1,MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_0')
-  end subroutine MPI_Reduce_dble_0
+    call Error_MPI(sub='MPI_ReduceSum_dble_0')
+  end subroutine MPI_ReduceSum_dble_0
   !
-  subroutine MPI_Reduce_dble_1(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_1(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data(:)
     real(8),intent(inout),optional :: recv(:)
@@ -2005,10 +2124,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_1')
-  end subroutine MPI_Reduce_dble_1
+    call Error_MPI(sub='MPI_ReduceSum_dble_1')
+  end subroutine MPI_ReduceSum_dble_1
   !
-  subroutine MPI_Reduce_dble_2(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_2(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data(:,:)
     real(8),intent(inout),optional :: recv(:,:)
@@ -2021,10 +2140,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_2')
-  end subroutine MPI_Reduce_dble_2
+    call Error_MPI(sub='MPI_ReduceSum_dble_2')
+  end subroutine MPI_ReduceSum_dble_2
   !
-  subroutine MPI_Reduce_dble_3(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_3(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data(:,:,:)
     real(8),intent(inout),optional :: recv(:,:,:)
@@ -2037,10 +2156,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_3')
-  end subroutine MPI_Reduce_dble_3
+    call Error_MPI(sub='MPI_ReduceSum_dble_3')
+  end subroutine MPI_ReduceSum_dble_3
   !
-  subroutine MPI_Reduce_dble_4(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_4(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data(:,:,:,:)
     real(8),intent(inout),optional :: recv(:,:,:,:)
@@ -2053,10 +2172,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_4')
-  end subroutine MPI_Reduce_dble_4
+    call Error_MPI(sub='MPI_ReduceSum_dble_4')
+  end subroutine MPI_ReduceSum_dble_4
   !
-  subroutine MPI_Reduce_dble_5(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_5(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data(:,:,:,:,:)
     real(8),intent(inout),optional :: recv(:,:,:,:,:)
@@ -2069,10 +2188,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_5')
-  end subroutine MPI_Reduce_dble_5
+    call Error_MPI(sub='MPI_ReduceSum_dble_5')
+  end subroutine MPI_ReduceSum_dble_5
   !
-  subroutine MPI_Reduce_dble_6(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_6(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data(:,:,:,:,:,:)
     real(8),intent(inout),optional :: recv(:,:,:,:,:,:)
@@ -2085,10 +2204,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_6')
-  end subroutine MPI_Reduce_dble_6
+    call Error_MPI(sub='MPI_ReduceSum_dble_6')
+  end subroutine MPI_ReduceSum_dble_6
   !
-  subroutine MPI_Reduce_dble_7(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_7(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data(:,:,:,:,:,:,:)
     real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)
@@ -2101,11 +2220,11 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_7')
-  end subroutine MPI_Reduce_dble_7
+    call Error_MPI(sub='MPI_ReduceSum_dble_7')
+  end subroutine MPI_ReduceSum_dble_7
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
-  subroutine MPI_Reduce_dble_8(comm,data,recv,root)
+  subroutine MPI_ReduceSum_dble_8(comm,data,recv,root)
     integer,intent(in)             :: comm
     real(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)
     real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
@@ -2118,14 +2237,14 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_dble_8')
-  end subroutine MPI_Reduce_dble_8
+    call Error_MPI(sub='MPI_ReduceSum_dble_8')
+  end subroutine MPI_ReduceSum_dble_8
 #endif
 
 
 
   !CMPLX8
-  subroutine MPI_Reduce_cmplx_0(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_0(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data
     complex(8),intent(inout),optional :: recv
@@ -2138,10 +2257,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,1,MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_0')
-  end subroutine MPI_Reduce_cmplx_0
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_0')
+  end subroutine MPI_ReduceSum_cmplx_0
   !
-  subroutine MPI_Reduce_cmplx_1(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_1(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data(:)
     complex(8),intent(inout),optional :: recv(:)
@@ -2154,10 +2273,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_1')
-  end subroutine MPI_Reduce_cmplx_1
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_1')
+  end subroutine MPI_ReduceSum_cmplx_1
   !
-  subroutine MPI_Reduce_cmplx_2(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_2(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data(:,:)
     complex(8),intent(inout),optional :: recv(:,:)
@@ -2170,10 +2289,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_2')
-  end subroutine MPI_Reduce_cmplx_2
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_2')
+  end subroutine MPI_ReduceSum_cmplx_2
   !
-  subroutine MPI_Reduce_cmplx_3(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_3(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data(:,:,:)
     complex(8),intent(inout),optional :: recv(:,:,:)
@@ -2186,10 +2305,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_3')
-  end subroutine MPI_Reduce_cmplx_3
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_3')
+  end subroutine MPI_ReduceSum_cmplx_3
   !
-  subroutine MPI_Reduce_cmplx_4(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_4(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data(:,:,:,:)
     complex(8),intent(inout),optional :: recv(:,:,:,:)
@@ -2202,10 +2321,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_4')
-  end subroutine MPI_Reduce_cmplx_4
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_4')
+  end subroutine MPI_ReduceSum_cmplx_4
   !
-  subroutine MPI_Reduce_cmplx_5(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_5(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data(:,:,:,:,:)
     complex(8),intent(inout),optional :: recv(:,:,:,:,:)
@@ -2218,10 +2337,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_5')
-  end subroutine MPI_Reduce_cmplx_5
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_5')
+  end subroutine MPI_ReduceSum_cmplx_5
   !
-  subroutine MPI_Reduce_cmplx_6(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_6(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data(:,:,:,:,:,:)
     complex(8),intent(inout),optional :: recv(:,:,:,:,:,:)
@@ -2234,10 +2353,10 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_6')
-  end subroutine MPI_Reduce_cmplx_6
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_6')
+  end subroutine MPI_ReduceSum_cmplx_6
   !
-  subroutine MPI_Reduce_cmplx_7(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_7(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data(:,:,:,:,:,:,:)
     complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)
@@ -2250,11 +2369,11 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_7')
-  end subroutine MPI_Reduce_cmplx_7
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_7')
+  end subroutine MPI_ReduceSum_cmplx_7
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
-  subroutine MPI_Reduce_cmplx_8(comm,data,recv,root)
+  subroutine MPI_ReduceSum_cmplx_8(comm,data,recv,root)
     integer,intent(in)                :: comm
     complex(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)
     complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
@@ -2267,9 +2386,611 @@ contains
     else     
        call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,rank,comm,ierr)
     endif
-    call Error_MPI(sub='MPI_Reduce_cmplx_8')
-  end subroutine MPI_Reduce_cmplx_8
+    call Error_MPI(sub='MPI_ReduceSum_cmplx_8')
+  end subroutine MPI_ReduceSum_cmplx_8
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  !****************************************
+  !    MPI REDUCE IN_PLACE: MPI_MAX
+  !****************************************
+  !!BOOL
+  subroutine MPI_ReduceMax_Bool_0(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data
+    logical,intent(inout),optional :: recv
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,1,MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,1,MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_0')
+  end subroutine MPI_ReduceMax_Bool_0
+  !
+  subroutine MPI_ReduceMax_Bool_1(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data(:)
+    logical,intent(inout),optional :: recv(:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_1')
+  end subroutine MPI_ReduceMax_Bool_1
+  !
+  subroutine MPI_ReduceMax_Bool_2(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data(:,:)
+    logical,intent(inout),optional :: recv(:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_2')
+  end subroutine MPI_ReduceMax_Bool_2
+  !
+  subroutine MPI_ReduceMax_Bool_3(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data(:,:,:)
+    logical,intent(inout),optional :: recv(:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_3')
+  end subroutine MPI_ReduceMax_Bool_3
+  !
+  subroutine MPI_ReduceMax_Bool_4(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data(:,:,:,:)
+    logical,intent(inout),optional :: recv(:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_4')
+  end subroutine MPI_ReduceMax_Bool_4
+  !
+  subroutine MPI_ReduceMax_Bool_5(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data(:,:,:,:,:)
+    logical,intent(inout),optional :: recv(:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_5')
+  end subroutine MPI_ReduceMax_Bool_5
+  !
+  subroutine MPI_ReduceMax_Bool_6(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data(:,:,:,:,:,:)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_6')
+  end subroutine MPI_ReduceMax_Bool_6
+  !
+  subroutine MPI_ReduceMax_Bool_7(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data(:,:,:,:,:,:,:)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_7')
+  end subroutine MPI_ReduceMax_Bool_7
+  !
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+  subroutine MPI_ReduceMax_Bool_8(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    logical,intent(inout)          :: data(:,:,:,:,:,:,:,:)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       call MPI_Reduce(data,recv,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_LOGICAL,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_Bool_8')
+  end subroutine MPI_ReduceMax_Bool_8
+#endif
+
+
+
+
+  !INTEGER
+  subroutine MPI_ReduceMax_int_0(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data
+    integer,intent(inout),optional :: recv
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,1,MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,1,MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_0')
+  end subroutine MPI_ReduceMax_int_0
+  !
+  subroutine MPI_ReduceMax_int_1(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data(:)
+    integer,intent(inout),optional :: recv(:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_1')
+  end subroutine MPI_ReduceMax_int_1
+  !
+  subroutine MPI_ReduceMax_int_2(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data(:,:)
+    integer,intent(inout),optional :: recv(:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_2')
+  end subroutine MPI_ReduceMax_int_2
+  !
+  subroutine MPI_ReduceMax_int_3(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data(:,:,:)
+    integer,intent(inout),optional :: recv(:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_3')
+  end subroutine MPI_ReduceMax_int_3
+  !
+  subroutine MPI_ReduceMax_int_4(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data(:,:,:,:)
+    integer,intent(inout),optional :: recv(:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_4')
+  end subroutine MPI_ReduceMax_int_4
+  !
+  subroutine MPI_ReduceMax_int_5(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data(:,:,:,:,:)
+    integer,intent(inout),optional :: recv(:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_5')
+  end subroutine MPI_ReduceMax_int_5
+  !
+  subroutine MPI_ReduceMax_int_6(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data(:,:,:,:,:,:)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_6')
+  end subroutine MPI_ReduceMax_int_6
+  !
+  subroutine MPI_ReduceMax_int_7(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data(:,:,:,:,:,:,:)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_7')
+  end subroutine MPI_ReduceMax_int_7
+  !
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+  subroutine MPI_ReduceMax_int_8(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    integer,intent(inout)          :: data(:,:,:,:,:,:,:,:)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0
+       call MPI_Reduce(data,recv,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_INTEGER,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_int_8')
+  end subroutine MPI_ReduceMax_int_8
+#endif
+
+  !REAL8
+  subroutine MPI_ReduceMax_dble_0(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data
+    real(8),intent(inout),optional :: recv
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,1,MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,1,MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_0')
+  end subroutine MPI_ReduceMax_dble_0
+  !
+  subroutine MPI_ReduceMax_dble_1(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data(:)
+    real(8),intent(inout),optional :: recv(:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_1')
+  end subroutine MPI_ReduceMax_dble_1
+  !
+  subroutine MPI_ReduceMax_dble_2(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data(:,:)
+    real(8),intent(inout),optional :: recv(:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_2')
+  end subroutine MPI_ReduceMax_dble_2
+  !
+  subroutine MPI_ReduceMax_dble_3(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data(:,:,:)
+    real(8),intent(inout),optional :: recv(:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_3')
+  end subroutine MPI_ReduceMax_dble_3
+  !
+  subroutine MPI_ReduceMax_dble_4(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data(:,:,:,:)
+    real(8),intent(inout),optional :: recv(:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_4')
+  end subroutine MPI_ReduceMax_dble_4
+  !
+  subroutine MPI_ReduceMax_dble_5(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data(:,:,:,:,:)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_5')
+  end subroutine MPI_ReduceMax_dble_5
+  !
+  subroutine MPI_ReduceMax_dble_6(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data(:,:,:,:,:,:)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_6')
+  end subroutine MPI_ReduceMax_dble_6
+  !
+  subroutine MPI_ReduceMax_dble_7(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data(:,:,:,:,:,:,:)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_7')
+  end subroutine MPI_ReduceMax_dble_7
+  !
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+  subroutine MPI_ReduceMax_dble_8(comm,data,recv,root)
+    integer,intent(in)             :: comm
+    real(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
+    integer,intent(in),optional    :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=0d0
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_PRECISION,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_dble_8')
+  end subroutine MPI_ReduceMax_dble_8
+#endif
+
+
+
+  !CMPLX8
+  subroutine MPI_ReduceMax_cmplx_0(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data
+    complex(8),intent(inout),optional :: recv
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,1,MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,1,MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_0')
+  end subroutine MPI_ReduceMax_cmplx_0
+  !
+  subroutine MPI_ReduceMax_cmplx_1(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data(:)
+    complex(8),intent(inout),optional :: recv(:)
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_1')
+  end subroutine MPI_ReduceMax_cmplx_1
+  !
+  subroutine MPI_ReduceMax_cmplx_2(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data(:,:)
+    complex(8),intent(inout),optional :: recv(:,:)
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_2')
+  end subroutine MPI_ReduceMax_cmplx_2
+  !
+  subroutine MPI_ReduceMax_cmplx_3(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data(:,:,:)
+    complex(8),intent(inout),optional :: recv(:,:,:)
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_3')
+  end subroutine MPI_ReduceMax_cmplx_3
+  !
+  subroutine MPI_ReduceMax_cmplx_4(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data(:,:,:,:)
+    complex(8),intent(inout),optional :: recv(:,:,:,:)
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_4')
+  end subroutine MPI_ReduceMax_cmplx_4
+  !
+  subroutine MPI_ReduceMax_cmplx_5(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data(:,:,:,:,:)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:)
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_5')
+  end subroutine MPI_ReduceMax_cmplx_5
+  !
+  subroutine MPI_ReduceMax_cmplx_6(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:)
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_6')
+  end subroutine MPI_ReduceMax_cmplx_6
+  !
+  subroutine MPI_ReduceMax_cmplx_7(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_7')
+  end subroutine MPI_ReduceMax_cmplx_7
+  !
+#if defined __GFORTRAN__ &&  __GNUC__ > 8
+  subroutine MPI_ReduceMax_cmplx_8(comm,data,recv,root)
+    integer,intent(in)                :: comm
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
+    integer,intent(in),optional       :: root
+    rank=0;if(present(root))rank=root
+    if(comm==MPI_COMM_NULL)return
+    if(present(recv))then
+       recv=dcmplx(0d0,0d0)
+       call MPI_Reduce(data,recv,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    else     
+       call MPI_Reduce(Mpi_In_Place,data,size(data),MPI_DOUBLE_COMPLEX,MPI_MAX,rank,comm,ierr)
+    endif
+    call Error_MPI(sub='MPI_ReduceMax_cmplx_8')
+  end subroutine MPI_ReduceMax_cmplx_8
+#endif
+
 
 
 
