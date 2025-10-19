@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [macos-latest]
         pack: [open]   # puoi aggiungere 'mkl' se vuoi generare entrambi
 
     steps:
@@ -32,8 +32,9 @@ jobs:
       - name: Configure & build SciFortran
         run: |
           mkdir build && cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release
-          make -j$(nproc || sysctl -n hw.ncpu)
+          cmake .. 
+          # make -j$(nproc || sysctl -n hw.ncpu)
+          make -j
           cd ..
 
       # Package
@@ -42,7 +43,7 @@ jobs:
           VERSION=${GITHUB_REF_NAME}
           PKG_NAME="SciFortran-${VERSION}-${{ matrix.os }}-${{ matrix.pack }}"
           mkdir -p dist/${PKG_NAME}
-          cp -r build/lib build/modules dist/${PKG_NAME}/ || true
+          cp -r build/lib* build/etc build/include dist/${PKG_NAME}/ || true
           cd dist
           tar czf ${PKG_NAME}.tar.gz ${PKG_NAME}
           echo "Created dist/${PKG_NAME}.tar.gz"
