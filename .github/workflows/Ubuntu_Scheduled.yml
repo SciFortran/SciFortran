@@ -2,10 +2,11 @@
 #Revised by: Adriano Amaricci
 name: Scheduled CI SciFortran workflow for Ubuntu
 
-on:
-  push:
-    branches:
-      - master
+on: workflow_dispatch
+# on:
+#   push:
+#     branches:
+#       - master
 
 defaults:
   run:

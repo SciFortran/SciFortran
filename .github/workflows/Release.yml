@@ -1,0 +1,71 @@
+name: Build and Release SciFortran
+on: workflow_dispatch
+# on:
+#   push:
+#     tags:
+#       - 'v*'    # Esegue il workflow solo quando pushi un tag (es: v1.2.0)
+
+defaults:
+  run:
+    shell: bash -l {0}
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        pack: [open]   # puoi aggiungere 'mkl' se vuoi generare entrambi
+
+    steps:
+      # Checkout
+      - name: Checkout SciFortran
+        uses: actions/checkout@v4
+
+      # Setup ambiente (usa la tua action esistente)
+      - name: Setup environment
+        uses: ./.github/actions
+        with:
+          pack-type: ${{ matrix.pack }}
+
+      # Build con CMake
+      - name: Configure & build SciFortran
+        run: |
+          mkdir build && cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          make -j$(nproc || sysctl -n hw.ncpu)
+          cd ..
+
+      # Package
+      - name: Create package
+        run: |
+          VERSION=${GITHUB_REF_NAME}
+          PKG_NAME="SciFortran-${VERSION}-${{ matrix.os }}-${{ matrix.pack }}"
+          mkdir -p dist/${PKG_NAME}
+          cp -r build/lib build/modules dist/${PKG_NAME}/ || true
+          cd dist
+          tar czf ${PKG_NAME}.tar.gz ${PKG_NAME}
+          echo "Created dist/${PKG_NAME}.tar.gz"
+
+      # Upload artifact (per debugging o verifica)
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SciFortran-${{ matrix.os }}-${{ matrix.pack }}
+          path: dist/*.tar.gz
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./artifacts/**/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -9,9 +9,9 @@ ENDIF(NOT CMAKE_Fortran_COMPILER_SUPPORTS_F90)
 IF( (${CMAKE_Fortran_COMPILER_ID} MATCHES Intel) OR (${CMAKE_Fortran_COMPILER_ID} MATCHES GNU))
   MESSAGE(STATUS "Fortran Compiler id   = ${CMAKE_Fortran_COMPILER_ID}")
   MESSAGE(STATUS "Fortran Compiler ver. = ${CMAKE_Fortran_COMPILER_VERSION}")
-ELSEIF()
+ELSE()
   MESSAGE(FATAL_ERROR "Unsupported Fortran compiler (use Intel or GNU). Try export FC=<your FC compiler> ")
-ENDIF()  
+ENDIF() 
 
 ############################################################
 # Set Fortran options based on BUILD_TYPE and FC ID
@@ -26,7 +26,7 @@ if(CMAKE_Fortran_COMPILER_ID MATCHES GNU) # this is gfortran
     SET(CMAKE_Fortran_FLAGS         "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
   ENDIF()
   SET(CMAKE_Fortran_FLAGS_TESTING "-O2 -funroll-loops")
-  SET(CMAKE_Fortran_FLAGS_DEBUG   "-O0 -p -g -Wsurprising -Waliasing -fwhole-file -fcheck=all -fbacktrace -fbounds-check -ffree-line-length-none -fPIC -w -Wno-argument-mismatch -ffpe-trap=zero,overflow,underflow")
+  SET(CMAKE_Fortran_FLAGS_DEBUG   "-Og -p -g -Wsurprising -Waliasing -fwhole-file -fcheck=all -fbacktrace -fbounds-check -ffree-line-length-none -fPIC -w -Wno-argument-mismatch -ffpe-trap=zero,overflow,underflow")
   SET(CMAKE_Fortran_FLAGS_AGGRESSIVE   "-O0 -p -g  -fbacktrace -fwhole-file -fcheck=all -fbounds-check -fsanitize=address -fdebug-aux-vars -Wall -Waliasing -Wsurprising -Wampersand -Warray-bounds -Wc-binding-type -Wcharacter-truncation -Wconversion -Wdo-subscript -Wfunction-elimination -Wimplicit-interface -Wimplicit-procedure -Wintrinsic-shadow -Wintrinsics-std -Wno-align-commons -Wno-overwrite-recursive -Wno-tabs -Wreal-q-constant -Wunderflow -Wunused-parameter -Wrealloc-lhs -Wrealloc-lhs-all -Wfrontend-loop-interchange -Wtarget-lifetime")
   SET(CMAKE_Fortran_FLAGS_RELEASE "-O3   -funroll-loops")   
 elseif(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
