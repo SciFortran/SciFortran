@@ -19,13 +19,13 @@ Anyone is welcome to contribute or to test the software.
 * [Make](https://www.gnu.org/software/make/) **OR** [Ninja](https://ninja-build.org/) ≥ 1.10 
 
 See documentation for further details:
-[SciFortran.github.io/SciFortran](https://SciFortran.github.io/SciFortran/scifor_documentation/01_dependencies.html)
+[SciFortran.github.io/SciFortran](https://scifortran.github.io/SciFortran/dependencies.html)
 
 
 ## BUILD & INSTALL 
 
 Detailed instructions for building and installing `SciFor` please read the documentation:
-[SciFortran.github.io/SciFortran](https://SciFortran.github.io/SciFortran/scifor_documentation/02_installation.html)
+[SciFortran.github.io/SciFortran](https://scifortran.github.io/SciFortran/installation.html)
 
 
 
