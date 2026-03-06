@@ -86,7 +86,7 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   !
   !Step 1: gather all Ns and reconstruct full dimension N of the problem:
   Dim = 0
-  call MPI_ALLREDUCE(Ns,Dim,1,MPI_INTEGER,MPI_SUM,MpiComm,ierr)
+  call MPI_ALLREDUCE(Ns,Dim,1,MPI_INTEGER,MPI_MIN,MpiComm,ierr)
   !Step 2: check on NCV
   !Ncv should be at least Nev+2
   tmpncv = max(maxncv,maxnev+2)
@@ -210,6 +210,11 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
      if(ierr/=0)then
         write(*,'(a,i6)')'Error with PZNEUPD, IERR = ',ierr
         write(*,'(a)')'Check the documentation of PZNEUPD.'
+        write(*,'(a)')'Parameters:'
+        write(*,'(a,i6)')'N   = ',ldv
+        write(*,'(a,i6)')'NCV = ',ncv
+        write(*,'(a,i6)')'NEV = ',nev
+        stop
      else
         nconv =  iparam(5)
      end if
