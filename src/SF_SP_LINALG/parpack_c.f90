@@ -210,7 +210,7 @@ subroutine lanczos_parpack_c(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
      if(ierr/=0)then
         write(*,'(a,i6)')'Error with PZNEUPD, IERR = ',ierr
         write(*,'(a)')'Check the documentation of PZNEUPD.'
-        write(*,'(a)')'Parameters:'
+        write(*,'(a,i6)')'Parameters for rank number ', get_rank_mpi(MpiComm)
         write(*,'(a,i6)')'N   = ',ldv
         write(*,'(a,i6)')'NCV = ',ncv
         write(*,'(a,i6)')'NEV = ',nev
