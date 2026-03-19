@@ -183,7 +183,7 @@ module SF_SPECIAL
   public :: pbdv            ! PBDV computes parabolic cylinder functions Dv(x) and derivatives.
   public :: pbvv            ! PBVV computes parabolic cylinder functions Vv(x) and their derivatives.
   public :: pbwa            ! PBWA computes parabolic cylinder functions W(a,x) and derivatives.
-  public :: psi             ! PSI computes the PSI function.
+  !public :: fpsi            ! FPSI computes the PSI function.
   public :: qstar           ! QSTAR computes Q*mn(-ic) for oblate radial functions with a small argument.
   public :: rctj            ! RCTJ computes Riccati-Bessel function of the first kind, and derivatives.
   public :: rcty            ! RCTY computes Riccati-Bessel function of the second kind, and derivatives.

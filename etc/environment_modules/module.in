@@ -21,6 +21,7 @@ prepend-path LD_LIBRARY_PATH    "$root/lib"
 prepend-path LIBRARY_PATH       "$root/lib"
 prepend-path PATH		"$root/bin"
 prepend-path PKG_CONFIG_PATH	"$root/etc"
+prepend-path INCLUDE_PATH       "$root/include"
 
 puts stderr " > (un)load SciFor ($version)"
 #EOF
