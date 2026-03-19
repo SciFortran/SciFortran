@@ -1,6 +1,6 @@
 scifor_dir=@CMAKE_INSTALL_PREFIX@
 exec_prefix=${scifor_dir}/bin
-includedir=${scifor_dir}/include/scifor
+includedir=${scifor_dir}/include
 libdir=${scifor_dir}/lib
 
 Name: scifor
