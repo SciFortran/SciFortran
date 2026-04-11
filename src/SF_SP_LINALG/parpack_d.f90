@@ -77,9 +77,9 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   if(verb)then
      ndigit=-4
      logfil = 6
-     mcaupd=1;mnaupd=1
-     mcaup2=1;mnaup2=1
-     mceupd=4;mneupd=4
+     msaupd=1;mnaupd=1
+     msaup2=1;mnaup2=1
+     mseupd=4;mneupd=4
   endif
   !
   !Step 1: gather all Ns and reconstruct full dimension N of the problem:

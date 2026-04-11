@@ -1,4 +1,4 @@
-subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbose,iexit,NumOp,Niter)
+subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbose,vrandom,iexit,NumOp,Niter)
   !Interface to Matrix-Vector routine:
   interface
      subroutine MatVec(Nloc,vin,vout)
@@ -17,6 +17,7 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   real(8),optional          :: v0(size(evec,1))!(ns)
   real(8),optional          :: tol
   logical,optional          :: iverbose
+  logical,optional          :: vrandom
   integer,optional          :: iexit,NumOp,Niter
   !Dimensions:
   integer                   :: Ns
@@ -33,7 +34,7 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   integer                   :: ipntr(11)
   !Control Vars:
   integer                   :: ido,ierr,info,ishfts,j,lworkl,maxitr,mode1
-  logical                   :: rvec,verb
+  logical                   :: rvec,verb,vran
   integer                   :: i
   real(8)                   :: sigma
   real(8)                   :: tol_
@@ -62,7 +63,8 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   bmat_  = 'I'       ; if(present(bmat))bmat_=bmat
   which_='SA'        !; if(present(which))which_=which
   tol_  = 0d0        ; if(present(tol))tol_=tol
-  verb  =.false.     ; if(present(iverbose))verb=iverbose
+  verb  = .false.    ; if(present(iverbose))verb=iverbose
+  vran  = .true.     ; if(present(vrandom))vran=vrandom
   !
   if(bmat_/='I'.AND.bmat_/='G')stop "ARPACK: selected *bmat* is wrong. can be [I, G]"
   ! if(&
@@ -76,9 +78,9 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   if(verb)then
      ndigit=-4
      logfil = 6
-     mcaupd=1;mnaupd=1
-     mcaup2=1;mnaup2=1
-     mceupd=4;mneupd=4
+     msaupd=1;mnaupd=1
+     msaup2=1;mnaup2=1
+     mseupd=4;mneupd=4
   endif
   !
   ldv    = Ns  
@@ -112,7 +114,8 @@ subroutine lanczos_arpack_d(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   if(present(v0))then
      resid=v0
   else
-     call mt_random(resid)
+     resid = 1d0
+     if(vran)call mt_random(resid)
   endif
   resid=resid/sqrt(dot_product(resid,resid))
   !

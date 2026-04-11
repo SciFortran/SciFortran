@@ -1,4 +1,4 @@
-subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbose,iexit,NumOp,Niter)
+subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbose,vrandom,iexit,NumOp,Niter)
   !Interface to Matrix-Vector routine:
   interface
      subroutine MatVec(Nloc,vin,vout)
@@ -17,6 +17,7 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   complex(8),optional          :: v0(size(evec,1))
   real(8),optional             :: tol
   logical,optional             :: iverbose
+  logical,optional             :: vrandom
   integer,optional             :: iexit,NumOp,Niter
   !Dimensions:
   integer                      :: Ns
@@ -34,7 +35,7 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   integer                      :: ipntr(14)
   !Control Vars:
   integer                      :: ido,ierr,info,ishfts,j,lworkl,maxitr,mode1
-  logical                      :: rvec,verb
+  logical                      :: rvec,verb,vran
   integer                      :: i
   real(8)                      :: sigma
   real(8)                      :: tol_
@@ -65,6 +66,7 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   which_='SR'       ! ; if(present(which))which_=which
   tol_  = 0d0        ; if(present(tol))tol_=tol
   verb  =.false.     ; if(present(iverbose))verb=iverbose
+  vran  = .true.     ; if(present(vrandom))vran=vrandom
   !
   if(bmat_/='I'.AND.bmat_/='G')stop "ARPACK: selected *bmat* is wrong. can be [I, G]"
   ! which_/="LM" .OR. &
@@ -120,7 +122,8 @@ subroutine lanczos_arpack_c(MatVec,eval,evec,Nblock,Nitermax,bmat,v0,tol,iverbos
   if(present(v0))then
      resid=v0
   else
-     call mt_random(resid)
+     resid=one
+     if(vran)call mt_random(resid)
   endif
   resid=resid/sqrt(dot_product(resid,resid))
   !
