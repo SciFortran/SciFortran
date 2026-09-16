@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Binary releases for GitHub CI &mdash; SciFortran beta 4.14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=cb2f70ba" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=9f51cbaa"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SciFortran
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#building-scifortran">Building SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-scifortran">Install SciFortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#uninstall">Uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/1.html">First example</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_ARRAYS.html">SF_ARRAYS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_COLORS.html">SF_COLORS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/SF_COLORS.html#list-of-colors">List of colors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/SF_COLORS.html#default-colors">Default colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/SF_COLORS.html#additional-colors">Additional colors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_CONSTANTS.html">SF_CONSTANTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/SF_CONSTANTS.html#list-of-physical-and-numerical-constants">List of physical and numerical constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/SF_CONSTANTS.html#commonly-used-parameters">Commonly used parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/SF_CONSTANTS.html#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_DERIVATE.html">SF_DERIVATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_FFT.html">SF_FFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_FONTS.html">SF_FONTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_INTEGRATE.html">SF_INTEGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_INTERPOLATE.html">SF_INTERPOLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_IOTOOLS.html">SF_IOTOOLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_LINALG.html">SF_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_MISC.html">SF_MISC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_MPI.html">SF_MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_OPTIMIZE.html">SF_OPTIMIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_PARSE_INPUT.html">SF_PARSE_INPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_RANDOM.html">SF_RANDOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_SPECIAL.html">SF_SPECIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_SPIN.html">SF_SPIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_SP_LINALG.html">SF_SP_LINALG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_STAT.html">SF_STAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_TIMER.html">SF_TIMER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/SF_VERSION.html">SF_VERSION</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/SciFortran/SciFortran">SciFortran on GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SciFortran</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Binary releases for GitHub CI</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/binary-releases.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="binary-releases-for-github-ci">
+<h1>Binary releases for GitHub CI<a class="headerlink" href="#binary-releases-for-github-ci" title="Link to this heading"></a></h1>
+<p>Pushes to <code class="docutils literal notranslate"><span class="pre">master-release</span></code> build two prerelease assets:
+<code class="docutils literal notranslate"><span class="pre">ubuntu-24.04-x86_64</span></code> and <code class="docutils literal notranslate"><span class="pre">macos-15-arm64</span></code>. The workflow reads the nearest
+version tag reachable from the pushed commit and the first eight characters
+of that commit’s SHA. Both the GitHub release tag and title have the form
+<code class="docutils literal notranslate"><span class="pre">scifor-&lt;version</span> <span class="pre">tag&gt;-&lt;sha8&gt;</span></code>; for example, <code class="docutils literal notranslate"><span class="pre">scifor-4.23.13-1234abcd</span></code>.
+Each asset is named <code class="docutils literal notranslate"><span class="pre">scifor-&lt;version</span> <span class="pre">tag&gt;-&lt;sha8&gt;-&lt;platform&gt;.tar.gz</span></code>.
+The full commit SHA is recorded in the release notes and <code class="docutils literal notranslate"><span class="pre">BUILD-INFO</span></code>.
+Push the desired commit from <code class="docutils literal notranslate"><span class="pre">master</span></code> to <code class="docutils literal notranslate"><span class="pre">master-release</span></code> when a binary
+release is wanted.
+The workflow only publishes after a push to <code class="docutils literal notranslate"><span class="pre">master-release</span></code>.</p>
+<p>The archive contains <code class="docutils literal notranslate"><span class="pre">lib/libscifor.a</span></code>, Fortran <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files under <code class="docutils literal notranslate"><span class="pre">include</span></code>,
+<code class="docutils literal notranslate"><span class="pre">lib/pkgconfig/scifor.pc</span></code>, and <code class="docutils literal notranslate"><span class="pre">BUILD-INFO</span></code>. It can be extracted into any
+directory. It does not contain the compiler, MPI, BLAS or LAPACK libraries.
+Install those dependencies with the same setup action used by the build.</p>
+<p>In a downstream GitHub Actions job, use the <code class="docutils literal notranslate"><span class="pre">SciFortran/checkout</span></code> action. It
+installs GNU Fortran, Open MPI, BLAS/LAPACK and <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code>, then selects and
+extracts the newest published binary release for an <code class="docutils literal notranslate"><span class="pre">ubuntu-24.04</span></code> or <code class="docutils literal notranslate"><span class="pre">macos-15</span></code> arm64
+runner. To pin a particular release:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">permissions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-24.04</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scifor</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SciFortran/checkout@main</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">release</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scifor-4.23.13-1234abcd</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">echo &quot;Using $SCIFOR_RELEASE from $SCIFOR_ROOT&quot;</span>
+<span class="w">          </span><span class="no">make</span>
+</pre></div>
+</div>
+<p>Omit <code class="docutils literal notranslate"><span class="pre">with:</span> <span class="pre">release</span></code> to use the most recently published <code class="docutils literal notranslate"><span class="pre">scifor-*</span></code> release.
+The action sets <code class="docutils literal notranslate"><span class="pre">PKG_CONFIG_PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">GLOB_INC</span></code>, <code class="docutils literal notranslate"><span class="pre">GLOB_LIB</span></code>, <code class="docutils literal notranslate"><span class="pre">SCIFOR_ROOT</span></code> and
+<code class="docutils literal notranslate"><span class="pre">SCIFOR_RELEASE</span></code> for later steps, and provides <code class="docutils literal notranslate"><span class="pre">release</span></code> and <code class="docutils literal notranslate"><span class="pre">root</span></code> outputs.
+The <code class="docutils literal notranslate"><span class="pre">uses:</span></code> reference chooses the action version, while <code class="docutils literal notranslate"><span class="pre">with:</span> <span class="pre">release</span></code>
+chooses the binary package. To pin both, use a commit SHA in <code class="docutils literal notranslate"><span class="pre">uses:</span></code> and a
+release tag in <code class="docutils literal notranslate"><span class="pre">with:</span></code>.</p>
+<p>For installation outside GitHub Actions, download the corresponding asset.
+For example on Ubuntu, after installing the same dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">RELEASE</span><span class="o">=</span>scifor-4.23.13-1234abcd<span class="w">  </span><span class="c1"># Replace with a published release tag.</span>
+<span class="nv">PLATFORM</span><span class="o">=</span>ubuntu-24.04-x86_64
+<span class="nv">ASSET</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RELEASE</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">PLATFORM</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$RELEASE</span><span class="s2">&quot;</span><span class="w"> </span>--repo<span class="w"> </span>SciFortran/SciFortran<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pattern<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ASSET</span><span class="s2">&quot;</span><span class="w"> </span>--dir<span class="w"> </span>/tmp/scifor-download
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/opt&quot;</span>
+tar<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/opt&quot;</span><span class="w"> </span>-xzf<span class="w"> </span><span class="s2">&quot;/tmp/scifor-download/</span><span class="nv">$ASSET</span><span class="s2">&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/opt/</span><span class="si">${</span><span class="nv">ASSET</span><span class="p">%.tar.gz</span><span class="si">}</span><span class="s2">/lib/pkgconfig</span><span class="si">${</span><span class="nv">PKG_CONFIG_PATH</span><span class="p">:+:</span><span class="nv">$PKG_CONFIG_PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+pkg-config<span class="w"> </span>--cflags<span class="w"> </span>--libs<span class="w"> </span>scifor
+</pre></div>
+</div>
+<p>Choose <code class="docutils literal notranslate"><span class="pre">macos-15-arm64</span></code> on a matching macOS runner. Use an explicit tag with
+<code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">release</span> <span class="pre">download</span></code>: these CI builds are prereleases and are not marked as
+GitHub’s latest stable release.</p>
+<p>Compile Fortran consumers using a compatible GNU Fortran version and the
+same MPI implementation. The asset’s <code class="docutils literal notranslate"><span class="pre">BUILD-INFO</span></code> records the build compiler
+and link flags. The <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files are compiler-dependent; a package built on
+one runner is not a universal Linux or macOS binary package.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
