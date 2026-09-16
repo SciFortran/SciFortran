@@ -26,6 +26,10 @@ IF (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     IF("${BUILD_TYPE}" MATCHES "debug")
       SET(PATH_ID  "${PATH_ID}/${BUILD_TYPE}")
     ENDIF()
+    #IF not USE_MPI, add /serial
+    IF( NOT USE_MPI )
+      SET(PATH_ID  "${PATH_ID}/serial")
+    ENDIF()
     #set to $HOME/opt/<libname>(/<fc_id>/[<git_branch>{/<debug>}]/<version>)
     #set module name accordingly
     SET(DEFAULT_PREFIX "${DEFAULT_LOCATION}/${PROJECT_NAME}/${PATH_ID}/${VERSION}")    
@@ -55,5 +59,4 @@ SET(CMAKE_INSTALL_PREFIX "${DEFAULT_PREFIX}" CACHE INTERNAL "Prefix prepended to
 
 #Set the module .version file name to be used later in PostConfig.cmake
 SET(VERSION_PATH "${PROJECT_NAME}/${PATH_ID}")
-
 
