@@ -1,0 +1,36 @@
+name: Get SciFortran
+description: Install SciFortran dependencies and a published binary release for this runner
+
+inputs:
+  release:
+    description: Release tag to install, or latest for the newest published SciFortran prerelease
+    required: false
+    default: latest
+  token:
+    description: GitHub token used to read releases
+    required: false
+
+outputs:
+  release:
+    description: Installed SciFortran release tag
+    value: ${{ steps.install.outputs.release }}
+  root:
+    description: Directory containing the installed SciFortran package
+    value: ${{ steps.install.outputs.root }}
+
+runs:
+  using: composite
+  steps:
+    - name: Install compiler and numerical libraries
+      uses: $/.github/actions
+      with:
+        pack-type: open
+    - name: Download and configure SciFortran
+      id: install
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token || github.token }}
+        SCIFOR_REQUESTED_RELEASE: ${{ inputs.release }}
+        SCIFOR_RUNNER_OS: ${{ runner.os }}
+        SCIFOR_RUNNER_ARCH: ${{ runner.arch }}
+      run: bash "$GITHUB_ACTION_PATH/install.sh"

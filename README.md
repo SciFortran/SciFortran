@@ -49,9 +49,8 @@ marked as prereleases. Find them under [Releases](https://github.com/SciFortran/
 and download the platform archive from **Assets**. The automatically generated
 "Source code" archives do not contain the compiled library.
 
-To use the most recently published SciFortran release automatically in another
-repository's GitHub Actions workflow, use a matching runner. The example
-below selects the newest published release whose tag starts with `scifor-`:
+In another repository, the `get_scifor` composite action installs the
+dependencies and the newest published SciFortran release for the runner:
 
 ```yaml
 permissions:
@@ -62,41 +61,25 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: SciFortran/SciFortran/.github/actions@master-release
-        with:
-          pack-type: open
-      - name: Download SciFortran
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          release=$(gh release list -R SciFortran/SciFortran \
-            --exclude-drafts --limit 100 \
-            --json tagName,publishedAt \
-            --jq '[.[] | select(.tagName | startswith("scifor-"))] | sort_by(.publishedAt) | last | .tagName // empty')
-          test -n "$release"
-          asset="${release}-ubuntu-24.04-x86_64.tar.gz"
-          mkdir -p "$RUNNER_TEMP/scifor"
-          gh release download "$release" -R SciFortran/SciFortran \
-            -p "$asset" -D "$RUNNER_TEMP/scifor"
-          tar -C "$RUNNER_TEMP/scifor" -xzf "$RUNNER_TEMP/scifor/$asset"
-          prefix="$RUNNER_TEMP/scifor/${asset%.tar.gz}"
-          echo "PKG_CONFIG_PATH=$prefix/lib/pkgconfig" >> "$GITHUB_ENV"
-          echo "SCIFOR_RELEASE=$release" >> "$GITHUB_ENV"
+      - id: scifor
+        uses: SciFortran/SciFortran/.github/actions/get_scifor@master-release
       - name: Build dependent project
         run: |
-          echo "Using SciFortran $SCIFOR_RELEASE"
-          export GLOB_INC="$(pkg-config --cflags scifor)"
-          export GLOB_LIB="$(pkg-config --libs scifor)"
+          echo "Using SciFortran ${{ steps.scifor.outputs.release }}"
           make
 ```
 
-The download step resolves the release once for that CI run; the selected tag
-is recorded in `SCIFOR_RELEASE`. To reproduce a build later, pin that tag
-explicitly as shown in [binary release details](doc/binary-releases.md).
+The action selects the newest published `scifor-*` prerelease, downloads the
+asset matching `ubuntu-24.04` or `macos-15` (arm64), and makes
+`PKG_CONFIG_PATH`, `GLOB_INC`, `GLOB_LIB`, `SCIFOR_ROOT` and `SCIFOR_RELEASE`
+available to later steps. It also exposes `release` and `root` outputs. To
+reproduce a build, set `with: release: scifor-4.23.13-1234abcd` on the action.
+That pins the binary release; use the corresponding release tag instead of
+`master-release` in `uses:` if you also want to pin the action code. See
+[binary release details](doc/binary-releases.md).
 If a new `master-release` workflow is still running, this selects the previous
 successfully published release.
-Because CI releases are marked as prereleases, `gh release download` without
-a tag would select GitHub's latest stable release instead.
+Because CI releases are prereleases, the action selects a tag explicitly.
 
 The setup action installs the external compiler, MPI, BLAS and LAPACK
 dependencies. The archive supplies `libscifor.a`, Fortran `.mod` files and

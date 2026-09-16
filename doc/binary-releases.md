@@ -16,9 +16,37 @@ The archive contains `lib/libscifor.a`, Fortran `.mod` files under `include`,
 directory. It does not contain the compiler, MPI, BLAS or LAPACK libraries.
 Install those dependencies with the same setup action used by the build.
 
-In a downstream GitHub Actions job on a matching runner, pin the release
-tag and download the corresponding asset. For example on Ubuntu, after
-installing GNU Fortran, Open MPI, BLAS/LAPACK and `pkg-config`:
+In a downstream GitHub Actions job, use the `get_scifor` action. It installs
+GNU Fortran, Open MPI, BLAS/LAPACK and `pkg-config`, then selects and extracts
+the newest published binary release for an `ubuntu-24.04` or `macos-15` arm64
+runner. To pin a particular release:
+
+```yaml
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - id: scifor
+        uses: SciFortran/SciFortran/.github/actions/get_scifor@master-release
+        with:
+          release: scifor-4.23.13-1234abcd
+      - run: |
+          echo "Using $SCIFOR_RELEASE from $SCIFOR_ROOT"
+          make
+```
+
+Omit `with: release` to use the most recently published `scifor-*` release.
+The action sets `PKG_CONFIG_PATH`, `GLOB_INC`, `GLOB_LIB`, `SCIFOR_ROOT` and
+`SCIFOR_RELEASE` for later steps, and provides `release` and `root` outputs.
+The `uses:` reference chooses the action version, while `with: release`
+chooses the binary package. To pin both, use the release tag in both places.
+
+For installation outside GitHub Actions, download the corresponding asset.
+For example on Ubuntu, after installing the same dependencies:
 
 ```bash
 RELEASE=scifor-4.23.13-1234abcd  # Replace with a published release tag.
@@ -32,45 +60,9 @@ export PKG_CONFIG_PATH="$HOME/opt/${ASSET%.tar.gz}/lib/pkgconfig${PKG_CONFIG_PAT
 pkg-config --cflags --libs scifor
 ```
 
-In GitHub Actions, set `GH_TOKEN: ${{ github.token }}` on the download step
-and write `PKG_CONFIG_PATH` to `$GITHUB_ENV` so later steps can use it.
-Choose `macos-15-arm64` instead on a matching macOS runner. Use an explicit
-tag with `gh release download`: these CI builds are prereleases and are not
-marked as GitHub's latest stable release.
-
-For a downstream repository, a complete Ubuntu setup step looks like this
-(replace the example tag in both places):
-
-```yaml
-permissions:
-  contents: read
-
-jobs:
-  build:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: SciFortran/SciFortran/.github/actions@scifor-4.23.13-1234abcd
-        with:
-          pack-type: open
-      - name: Download SciFortran
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE: scifor-4.23.13-1234abcd
-        run: |
-          platform=ubuntu-24.04-x86_64
-          asset="${RELEASE}-${platform}.tar.gz"
-          mkdir -p "$RUNNER_TEMP/scifor"
-          gh release download "$RELEASE" -R SciFortran/SciFortran \
-            -p "$asset" -D "$RUNNER_TEMP/scifor"
-          tar -C "$RUNNER_TEMP/scifor" -xzf "$RUNNER_TEMP/scifor/$asset"
-          prefix="$RUNNER_TEMP/scifor/${asset%.tar.gz}"
-          echo "PKG_CONFIG_PATH=$prefix/lib/pkgconfig" >> "$GITHUB_ENV"
-      - name: Build dependent project
-        run: |
-          pkg-config --cflags --libs scifor
-          # Invoke your project's build with FC=mpif90 and the flags above.
-```
+Choose `macos-15-arm64` on a matching macOS runner. Use an explicit tag with
+`gh release download`: these CI builds are prereleases and are not marked as
+GitHub's latest stable release.
 
 Compile Fortran consumers using a compatible GNU Fortran version and the
 same MPI implementation. The asset's `BUILD-INFO` records the build compiler
