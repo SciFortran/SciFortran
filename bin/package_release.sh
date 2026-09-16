@@ -10,8 +10,11 @@ fi
 build_dir=$(cd "$1" && pwd)
 output_dir=$2
 platform=$3
-sha=${GITHUB_SHA:-$(git rev-parse HEAD)}
-name="scifor-${sha}-${platform}"
+repo_dir=$(cd "$(dirname "$0")/.." && pwd)
+sha=${GITHUB_SHA:-$(git -C "$repo_dir" rev-parse HEAD)}
+version=$(git -C "$repo_dir" describe --tags --exclude='ci-*' --abbrev=0)
+short_sha=${sha:0:8}
+name="scifor-${version}-g${short_sha}-${platform}"
 mkdir -p "$output_dir"
 output_dir=$(cd "$output_dir" && pwd)
 stage=$(mktemp -d)
@@ -32,6 +35,7 @@ sed 's|^scifor_dir=.*|scifor_dir=${pcfiledir}/../..|' \
 
 {
   echo "commit=$sha"
+  echo "version_tag=$version"
   echo "platform=$platform"
   echo "fortran_compiler=$(${FC:-gfortran} --version | head -n 1)"
   echo "mpi_compiler=$(mpif90 --version | head -n 1)"

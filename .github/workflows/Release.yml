@@ -41,7 +41,9 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
         run: |
           bash bin/package_release.sh build-release "$RUNNER_TEMP/packages" "$PLATFORM"
-          bash bin/verify_release.sh "$RUNNER_TEMP/packages/scifor-${GITHUB_SHA}-${PLATFORM}.tar.gz"
+          archives=("$RUNNER_TEMP/packages"/scifor-*-"$PLATFORM".tar.gz)
+          test -f "${archives[0]}"
+          bash bin/verify_release.sh "${archives[0]}"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -56,6 +58,10 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: actions/download-artifact@v4
         with:
           path: dist
@@ -67,13 +73,15 @@ jobs:
           GH_REPO: ${{ github.repository }}
           SHA: ${{ github.sha }}
         run: |
-          tag="ci-${SHA}"
+          version=$(git describe --tags --exclude='ci-*' --abbrev=0)
+          short_sha=${SHA:0:8}
+          tag="ci-${version}-g${short_sha}"
           if gh release view "$tag" >/dev/null 2>&1; then
             gh release upload "$tag" dist/*.tar.gz --clobber
           else
             gh release create "$tag" dist/*.tar.gz \
               --target "$SHA" \
-              --title "SciFortran CI ${SHA:0:12}" \
+              --title "SciFortran ${version} (${short_sha})" \
               --notes "Binary packages built from master-release at commit ${SHA}. See the package metadata for compiler and dependencies." \
               --prerelease --latest=false
           fi
