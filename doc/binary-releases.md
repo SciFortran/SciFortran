@@ -3,8 +3,8 @@
 Pushes to `master-release` build two prerelease assets:
 `ubuntu-24.04-x86_64` and `macos-15-arm64`. Each release is tagged
 `ci-<full commit SHA>` and each asset is named
-`scifor-<full commit SHA>-<platform>.tar.gz`. The source of changes is
-`dev_release`; merge it into `master-release` when a binary release is wanted.
+`scifor-<full commit SHA>-<platform>.tar.gz`. Push the desired commit from
+`master` to `master-release` when a binary release is wanted.
 The workflow only publishes after a push to `master-release`.
 
 The archive contains `lib/libscifor.a`, Fortran `.mod` files under `include`,

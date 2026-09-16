@@ -1,0 +1,31 @@
+name: Build SciFortran
+
+on:
+  push:
+    branches: [master-ci]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, macos-15]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install compiler and numerical libraries
+        uses: ./.github/actions
+        with:
+          pack-type: open
+
+      - name: Configure
+        env:
+          FC: mpif90
+        run: cmake -S . -B build-ci -DBUILD_TYPE=RELEASE -DUSE_MPI=ON -DWITH_SCALAPACK=OFF
+
+      - name: Compile
+        run: cmake --build build-ci --parallel 2
