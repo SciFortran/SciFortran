@@ -16,9 +16,9 @@ The archive contains `lib/libscifor.a`, Fortran `.mod` files under `include`,
 directory. It does not contain the compiler, MPI, BLAS or LAPACK libraries.
 Install those dependencies with the same setup action used by the build.
 
-In a downstream GitHub Actions job, use the `get_scifor` action. It installs
-GNU Fortran, Open MPI, BLAS/LAPACK and `pkg-config`, then selects and extracts
-the newest published binary release for an `ubuntu-24.04` or `macos-15` arm64
+In a downstream GitHub Actions job, use the `SciFortran/checkout` action. It
+installs GNU Fortran, Open MPI, BLAS/LAPACK and `pkg-config`, then selects and
+extracts the newest published binary release for an `ubuntu-24.04` or `macos-15` arm64
 runner. To pin a particular release:
 
 ```yaml
@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: scifor
-        uses: SciFortran/get_scifor@main
+        uses: SciFortran/checkout@main
         with:
           release: scifor-4.23.13-1234abcd
       - run: |

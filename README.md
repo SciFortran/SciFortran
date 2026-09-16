@@ -49,7 +49,7 @@ marked as prereleases. Find them under [Releases](https://github.com/SciFortran/
 and download the platform archive from **Assets**. The automatically generated
 "Source code" archives do not contain the compiled library.
 
-In another repository, the `get_scifor` composite action installs the
+In another repository, the `SciFortran/checkout` composite action installs the
 dependencies and the newest published SciFortran release for the runner:
 
 ```yaml
@@ -62,7 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: scifor
-        uses: SciFortran/get_scifor@main
+        uses: SciFortran/checkout@main
       - name: Build dependent project
         run: |
           echo "Using SciFortran ${{ steps.scifor.outputs.release }}"
