@@ -1,77 +1,79 @@
-name: Build and Release SciFortran
-on: workflow_dispatch
+name: Build SciFortran binary releases
+
+on:
+  push:
+    branches: [master-release]
+
 permissions:
-  contents: write
-  
-# on:
-#   push:
-#     tags:
-#       - 'v*'    # Esegue il workflow solo quando pushi un tag (es: v1.2.0)
-
-
-  
-defaults:
-  run:
-    shell: bash -l {0}
+  contents: read
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [macos-latest]
-        pack: [open]   # puoi aggiungere 'mkl' se vuoi generare entrambi
-
+        include:
+          - runner: ubuntu-24.04
+            platform: ubuntu-24.04-x86_64
+          - runner: macos-15
+            platform: macos-15-arm64
+    runs-on: ${{ matrix.runner }}
     steps:
-      # Checkout
-      - name: Checkout SciFortran
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # Setup ambiente (usa la tua action esistente)
-      - name: Setup environment
+      - name: Install compiler and numerical libraries
         uses: ./.github/actions
         with:
-          pack-type: ${{ matrix.pack }}
+          pack-type: open
 
-      # Build con CMake
-      - name: Configure & build SciFortran
+      - name: Configure and build
+        env:
+          FC: mpif90
         run: |
-          mkdir build && cd build
-          cmake .. 
-          # make -j$(nproc || sysctl -n hw.ncpu)
-          make -j
-          cd ..
+          cmake -S . -B build-release -DBUILD_TYPE=RELEASE -DUSE_MPI=ON -DWITH_SCALAPACK=OFF
+          cmake --build build-release --parallel 2
 
-      # Package
-      - name: Create package
+      - name: Package and verify installed layout
+        env:
+          FC: mpif90
+          PLATFORM: ${{ matrix.platform }}
         run: |
-          VERSION=${GITHUB_REF_NAME}
-          PKG_NAME="SciFortran-${VERSION}-${{ matrix.os }}-${{ matrix.pack }}"
-          mkdir -p dist/${PKG_NAME}
-          cp -r build/lib* build/etc build/include dist/${PKG_NAME}/ || true
-          cd dist
-          tar czf ${PKG_NAME}.tar.gz ${PKG_NAME}
-          echo "Created dist/${PKG_NAME}.tar.gz"
+          bash bin/package_release.sh build-release "$RUNNER_TEMP/packages" "$PLATFORM"
+          bash bin/verify_release.sh "$RUNNER_TEMP/packages/scifor-${GITHUB_SHA}-${PLATFORM}.tar.gz"
 
-      # Upload artifact (per debugging o verifica)
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: SciFortran-${{ matrix.os }}-${{ matrix.pack }}
-          path: dist/*.tar.gz
+          name: scifor-${{ matrix.platform }}
+          path: ${{ runner.temp }}/packages/*.tar.gz
+          if-no-files-found: error
 
   release:
-    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master-release'
     needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
-          path: ./artifacts
+          path: dist
+          merge-multiple: true
 
-      - name: Publish GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: ./artifacts/**/*.tar.gz
+      - name: Publish prerelease for this commit
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          tag="ci-${SHA}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" dist/*.tar.gz --clobber
+          else
+            gh release create "$tag" dist/*.tar.gz \
+              --target "$SHA" \
+              --title "SciFortran CI ${SHA:0:12}" \
+              --notes "Binary packages built from master-release at commit ${SHA}. See the package metadata for compiler and dependencies." \
+              --prerelease --latest=false
+          fi
