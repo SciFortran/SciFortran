@@ -62,7 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: scifor
-        uses: SciFortran/SciFortran/.github/actions/get_scifor@master-release
+        uses: SciFortran/get_scifor@main
       - name: Build dependent project
         run: |
           echo "Using SciFortran ${{ steps.scifor.outputs.release }}"
@@ -74,8 +74,8 @@ asset matching `ubuntu-24.04` or `macos-15` (arm64), and makes
 `PKG_CONFIG_PATH`, `GLOB_INC`, `GLOB_LIB`, `SCIFOR_ROOT` and `SCIFOR_RELEASE`
 available to later steps. It also exposes `release` and `root` outputs. To
 reproduce a build, set `with: release: scifor-4.23.13-1234abcd` on the action.
-That pins the binary release; use the corresponding release tag instead of
-`master-release` in `uses:` if you also want to pin the action code. See
+That pins the binary release; use a commit SHA instead of `main` in `uses:`
+if you also want to pin the action code. See
 [binary release details](doc/binary-releases.md).
 If a new `master-release` workflow is still running, this selects the previous
 successfully published release.

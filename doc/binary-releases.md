@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: scifor
-        uses: SciFortran/SciFortran/.github/actions/get_scifor@master-release
+        uses: SciFortran/get_scifor@main
         with:
           release: scifor-4.23.13-1234abcd
       - run: |
@@ -43,7 +43,8 @@ Omit `with: release` to use the most recently published `scifor-*` release.
 The action sets `PKG_CONFIG_PATH`, `GLOB_INC`, `GLOB_LIB`, `SCIFOR_ROOT` and
 `SCIFOR_RELEASE` for later steps, and provides `release` and `root` outputs.
 The `uses:` reference chooses the action version, while `with: release`
-chooses the binary package. To pin both, use the release tag in both places.
+chooses the binary package. To pin both, use a commit SHA in `uses:` and a
+release tag in `with:`.
 
 For installation outside GitHub Actions, download the corresponding asset.
 For example on Ubuntu, after installing the same dependencies:
