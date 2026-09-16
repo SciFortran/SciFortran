@@ -16,6 +16,8 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install compiler and numerical libraries
         uses: ./.github/actions
