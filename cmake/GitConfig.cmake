@@ -22,7 +22,7 @@ IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
     MESSAGE( STATUS "${Yellow}Git branch: ${ColourReset}${GIT_BRANCH}" )
     #
     EXECUTE_PROCESS(
-      COMMAND ${GIT_EXECUTABLE} describe --tags --exclude=ci-*
+      COMMAND ${GIT_EXECUTABLE} describe --tags --exclude=ci-* --exclude=scifor-*
       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
       OUTPUT_VARIABLE GIT_TAG
       ERROR_QUIET

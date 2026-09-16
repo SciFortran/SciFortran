@@ -1,10 +1,11 @@
 # Binary releases for GitHub CI
 
 Pushes to `master-release` build two prerelease assets:
-`ubuntu-24.04-x86_64` and `macos-15-arm64`. Each release is tagged
-`ci-<version tag>-g<8-character commit SHA>`; for example,
-`ci-4.23.13-g1234abcd`. Each asset is named
-`scifor-<version tag>-g<8-character commit SHA>-<platform>.tar.gz`.
+`ubuntu-24.04-x86_64` and `macos-15-arm64`. The workflow reads the nearest
+version tag reachable from the pushed commit and the first eight characters
+of that commit's SHA. Both the GitHub release tag and title have the form
+`scifor-<version tag>-<sha8>`; for example, `scifor-4.23.13-1234abcd`.
+Each asset is named `scifor-<version tag>-<sha8>-<platform>.tar.gz`.
 The full commit SHA is recorded in the release notes and `BUILD-INFO`.
 Push the desired commit from `master` to `master-release` when a binary
 release is wanted.
@@ -20,9 +21,9 @@ tag and download the corresponding asset. For example on Ubuntu, after
 installing GNU Fortran, Open MPI, BLAS/LAPACK and `pkg-config`:
 
 ```bash
-RELEASE=ci-4.23.13-g1234abcd  # Replace with a published release tag.
+RELEASE=scifor-4.23.13-1234abcd  # Replace with a published release tag.
 PLATFORM=ubuntu-24.04-x86_64
-ASSET="scifor-${RELEASE#ci-}-${PLATFORM}.tar.gz"
+ASSET="${RELEASE}-${PLATFORM}.tar.gz"
 gh release download "$RELEASE" --repo SciFortran/SciFortran \
   --pattern "$ASSET" --dir /tmp/scifor-download
 mkdir -p "$HOME/opt"
@@ -49,16 +50,16 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: SciFortran/SciFortran/.github/actions@ci-4.23.13-g1234abcd
+      - uses: SciFortran/SciFortran/.github/actions@scifor-4.23.13-1234abcd
         with:
           pack-type: open
       - name: Download SciFortran
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE: ci-4.23.13-g1234abcd
+          RELEASE: scifor-4.23.13-1234abcd
         run: |
           platform=ubuntu-24.04-x86_64
-          asset="scifor-${RELEASE#ci-}-${platform}.tar.gz"
+          asset="${RELEASE}-${platform}.tar.gz"
           mkdir -p "$RUNNER_TEMP/scifor"
           gh release download "$RELEASE" -R SciFortran/SciFortran \
             -p "$asset" -D "$RUNNER_TEMP/scifor"

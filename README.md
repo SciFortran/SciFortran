@@ -27,6 +27,66 @@ See documentation for further details:
 Detailed instructions for building and installing `SciFor` please read the documentation:
 [SciFortran.github.io/SciFortran](https://scifortran.github.io/SciFortran/installation.html)
 
+## GitHub workflows and binary releases
+
+The three workflow branches have separate purposes. Push a commit from local
+`master` to the branch whose workflow you want to run:
+
+| Branch | Workflow | Result |
+| --- | --- | --- |
+| `master-doc` | `documentation.yml` | Build the documentation and publish it to GitHub Pages. |
+| `master-ci` | `CI.yml` | Compile SciFortran on Ubuntu and macOS; no tests or installation. |
+| `master-release` | `Release.yml` | Build and publish Ubuntu x86_64 and macOS arm64 binary archives. |
+
+For example, `git push origin master:master-ci` runs the compilation workflow,
+while `git push origin master:master-release` creates a binary release if both
+platform builds and package checks pass. The release workflow reads the nearest
+version tag reachable from the pushed commit and its eight-character commit
+SHA. A release tag and title look like `scifor-4.23.13-1234abcd`; its assets
+are named `scifor-4.23.13-1234abcd-ubuntu-24.04-x86_64.tar.gz` and
+`scifor-4.23.13-1234abcd-macos-15-arm64.tar.gz`. These per-push builds are
+marked as prereleases. Find them under [Releases](https://github.com/SciFortran/SciFortran/releases)
+and download the platform archive from **Assets**. The automatically generated
+"Source code" archives do not contain the compiled library.
+
+To use a release in another repository's GitHub Actions workflow, select a
+published release tag and use a matching runner. For Ubuntu, replace the
+example tag in both places below:
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: SciFortran/SciFortran/.github/actions@scifor-4.23.13-1234abcd
+        with:
+          pack-type: open
+      - name: Download SciFortran
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE: scifor-4.23.13-1234abcd
+        run: |
+          asset="${RELEASE}-ubuntu-24.04-x86_64.tar.gz"
+          mkdir -p "$RUNNER_TEMP/scifor"
+          gh release download "$RELEASE" -R SciFortran/SciFortran \
+            -p "$asset" -D "$RUNNER_TEMP/scifor"
+          tar -C "$RUNNER_TEMP/scifor" -xzf "$RUNNER_TEMP/scifor/$asset"
+          prefix="$RUNNER_TEMP/scifor/${asset%.tar.gz}"
+          echo "PKG_CONFIG_PATH=$prefix/lib/pkgconfig" >> "$GITHUB_ENV"
+      - name: Build dependent project
+        run: |
+          export GLOB_INC="$(pkg-config --cflags scifor)"
+          export GLOB_LIB="$(pkg-config --libs scifor)"
+          make
+```
+
+The setup action installs the external compiler, MPI, BLAS and LAPACK
+dependencies. The archive supplies `libscifor.a`, Fortran `.mod` files and
+`scifor.pc`. Use a compatible GNU Fortran and MPI setup on the consuming runner;
+the `.mod` files are compiler-dependent. For macOS, use `macos-15` and the
+`macos-15-arm64` asset. See [binary release details](doc/binary-releases.md).
+
 
 
 ## AUTHORS
@@ -53,4 +113,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU LGPL for more details.
 
 You should have received a copy of the GNU LGPL along with this program.  If not, see <http://www.gnu.org/licenses/>.
-

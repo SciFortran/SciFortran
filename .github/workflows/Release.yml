@@ -73,15 +73,15 @@ jobs:
           GH_REPO: ${{ github.repository }}
           SHA: ${{ github.sha }}
         run: |
-          version=$(git describe --tags --exclude='ci-*' --abbrev=0)
+          version=$(git describe --tags --exclude='ci-*' --exclude='scifor-*' --abbrev=0)
           short_sha=${SHA:0:8}
-          tag="ci-${version}-g${short_sha}"
+          tag="scifor-${version}-${short_sha}"
           if gh release view "$tag" >/dev/null 2>&1; then
             gh release upload "$tag" dist/*.tar.gz --clobber
           else
             gh release create "$tag" dist/*.tar.gz \
               --target "$SHA" \
-              --title "SciFortran ${version} (${short_sha})" \
+              --title "$tag" \
               --notes "Binary packages built from master-release at commit ${SHA}. See the package metadata for compiler and dependencies." \
               --prerelease --latest=false
           fi
