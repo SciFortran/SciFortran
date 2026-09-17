@@ -63,17 +63,19 @@ jobs:
       - uses: actions/checkout@v4
       - id: scifor
         uses: SciFortran/checkout@main
-      - name: Build dependent project
-        run: |
-          echo "Using SciFortran ${{ steps.scifor.outputs.release }}"
-          make
 ```
+
+Add the consuming project's own configure and build steps after the action.
+For a CMake project, configure a build directory first and then use
+`cmake --build` on that directory.
 
 The action selects the newest published `scifor-*` prerelease, downloads the
 asset matching `ubuntu-24.04` or `macos-15` (arm64), and makes
-`PKG_CONFIG_PATH`, `GLOB_INC`, `GLOB_LIB`, `SCIFOR_ROOT` and `SCIFOR_RELEASE`
-available to later steps. It also exposes `release` and `root` outputs. To
-reproduce a build, set `with: release: scifor-4.23.13-1234abcd` on the action.
+`PKG_CONFIG_PATH`, `SFROOT`, `SCIFOR_ROOT`, `SCIFOR_RELEASE`, `LIBRARY_PATH`,
+`LD_LIBRARY_PATH`, `INCLUDE_PATH`, `FC`, `GLOB_INC` and `GLOB_LIB`
+available to later steps in the same job. It also exposes `release` and `root`
+outputs. To reproduce a build, set
+`with: release: scifor-4.23.13-1234abcd` on the action.
 That pins the binary release; use a commit SHA instead of `main` in `uses:`
 if you also want to pin the action code. See
 [binary release details](doc/binary-releases.md).

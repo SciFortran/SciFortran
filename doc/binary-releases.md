@@ -34,14 +34,16 @@ jobs:
         uses: SciFortran/checkout@main
         with:
           release: scifor-4.23.13-1234abcd
-      - run: |
-          echo "Using $SCIFOR_RELEASE from $SCIFOR_ROOT"
-          make
 ```
 
+Follow the action with the consuming project's own configure and build steps.
+For a CMake project, run `cmake -S . -B build` before `cmake --build build`.
+
 Omit `with: release` to use the most recently published `scifor-*` release.
-The action sets `PKG_CONFIG_PATH`, `GLOB_INC`, `GLOB_LIB`, `SCIFOR_ROOT` and
-`SCIFOR_RELEASE` for later steps, and provides `release` and `root` outputs.
+The action sets `PKG_CONFIG_PATH`, `SFROOT`, `SCIFOR_ROOT`, `SCIFOR_RELEASE`,
+`LIBRARY_PATH`, `LD_LIBRARY_PATH`, `INCLUDE_PATH`, `FC`, `GLOB_INC` and
+`GLOB_LIB` for later steps in the same job, and provides `release` and `root`
+outputs.
 The `uses:` reference chooses the action version, while `with: release`
 chooses the binary package. To pin both, use a commit SHA in `uses:` and a
 release tag in `with:`.
