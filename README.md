@@ -90,7 +90,6 @@ the `.mod` files are compiler-dependent. For macOS, use `macos-15` and the
 `macos-15-arm64` asset. See [binary release details](doc/binary-releases.md).
 
 
-
 ## AUTHORS
 [Adriano Amaricci](https://github.com/aamaricci)  
 [Lorenzo Crippa](https://github.com/lcrippa)  
