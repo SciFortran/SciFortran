@@ -1,12 +1,13 @@
 function d_trapz2d_func(func,xrange,yrange,Nx,Ny) result(int)
   interface
-     function func(x)
+     function func(x)   !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
        real(8),dimension(:) :: x
        real(8)              :: func
      end function func
   end interface
-  real(8),dimension(2) :: xrange,yrange
-  integer              :: Nx,Ny,i,j
+  real(8),dimension(2) :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
+  integer              :: Nx,Ny          !number of grid points along x and y
+  integer              :: i,j
   real(8)              :: xx(Nx),yy(Ny)
   real(8)              :: hx,hy
   real(8)              :: int
@@ -37,13 +38,14 @@ end function d_trapz2d_func
 
 function c_trapz2d_func(func,xrange,yrange,Nx,Ny) result(int)
   interface
-     function func(x)
+     function func(x)   !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
        real(8),dimension(:) :: x
        complex(8)           :: func
      end function func
   end interface
-  real(8),dimension(2) :: xrange,yrange
-  integer              :: Nx,Ny,i,j
+  real(8),dimension(2) :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
+  integer              :: Nx,Ny          !number of grid points along x and y
+  integer              :: i,j
   real(8)              :: xx(Nx),yy(Ny)
   real(8)              :: hx,hy
   complex(8)           :: int
@@ -75,19 +77,19 @@ end function c_trapz2d_func
 !RECURSIVE VERSIONS:
 function d_trapz2d_func_recursive(func,xrange,yrange,N0,iterative,threshold) result(int)
   interface
-     function func(x)
+     function func(x)   !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
        real(8),dimension(:) :: x
        real(8)              :: func
      end function func
   end interface
-  real(8),dimension(2)      :: xrange,yrange
+  real(8),dimension(2)      :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
   integer                   :: N,icount
   real(8)                   :: int,eps,int0
-  integer,optional          :: N0
+  integer,optional          :: N0             !initial number of grid points along x and y (default 51)
   integer                   :: N0_
-  logical,optional          :: iterative
+  logical,optional          :: iterative      !if T refine grid N->2*N-10 until relative change < threshold (default F)
   logical                   :: iterative_
-  real(8),optional          :: threshold
+  real(8),optional          :: threshold      !relative accuracy of the grid refinement (default 5d-3 if iterative)
   real(8)                   :: threshold_
   iterative_=.false.;if(present(iterative))iterative_=iterative
   N0_=51;if(present(N0))N0_=N0
@@ -108,19 +110,19 @@ end function d_trapz2d_func_recursive
 
 function c_trapz2d_func_recursive(func,xrange,yrange,N0,iterative,threshold) result(int)
   interface
-     function func(x)
+     function func(x)   !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
        real(8),dimension(:) :: x
        complex(8)           :: func
      end function func
   end interface
-  real(8),dimension(2)      :: xrange,yrange
+  real(8),dimension(2)      :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
   integer                   :: N,icount
   real(8)                   :: eps,int0
-  integer,optional          :: N0
+  integer,optional          :: N0             !initial number of grid points along x and y (default 51)
   integer                   :: N0_
-  logical,optional          :: iterative
+  logical,optional          :: iterative      !if T refine grid N->2*N-10 until relative change < threshold (default F)
   logical                   :: iterative_
-  real(8),optional          :: threshold
+  real(8),optional          :: threshold      !relative accuracy of the grid refinement (default 5d-3 if iterative)
   real(8)                   :: threshold_
   complex(8)                :: int
   iterative_=.false.;if(present(iterative))iterative_=iterative
@@ -148,13 +150,14 @@ end function c_trapz2d_func_recursive
 
 function d_simps2d_func(func,xrange,yrange,Nx,Ny) result(int)
   interface
-     function func(x)
+     function func(x)   !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
        real(8),dimension(:) :: x
        real(8)              :: func
      end function func
   end interface
-  real(8),dimension(2) :: xrange,yrange
-  integer :: Nx,Ny,i,j
+  real(8),dimension(2) :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
+  integer :: Nx,Ny                       !number of Simpson panels along x and y (2*Nx, 2*Ny grid points)
+  integer :: i,j
   real(8) :: xx(2*Nx),yy(2*Ny)
   real(8) :: hx,hy
   real(8) :: int
@@ -211,13 +214,14 @@ end function d_simps2d_func
 
 function c_simps2d_func(func,xrange,yrange,Nx,Ny) result(int)
   interface
-     function func(x)
+     function func(x)   !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
        real(8),dimension(:) :: x
        complex(8)           :: func
      end function func
   end interface
-  real(8),dimension(2) :: xrange,yrange
-  integer              :: Nx,Ny,i,j
+  real(8),dimension(2) :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
+  integer              :: Nx,Ny          !number of Simpson panels along x and y (2*Nx, 2*Ny grid points)
+  integer              :: i,j
   real(8)              :: xx(2*Nx),yy(2*Ny)
   real(8)              :: hx,hy
   complex(8)           :: int
@@ -275,19 +279,19 @@ end function c_simps2d_func
 !RECURSIVE VERSIONS:
 function d_simps2d_func_recursive(func,xrange,yrange,N0,iterative,threshold) result(int)
   interface
-     function func(x)
+     function func(x)   !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
        real(8),dimension(:) :: x
        real(8)              :: func
      end function func
   end interface
-  real(8),dimension(2)      :: xrange,yrange
+  real(8),dimension(2)      :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
   integer                   :: N,icount
   real(8)                   :: eps,int0
-  integer,optional          :: N0
+  integer,optional          :: N0             !initial number of Simpson panels along x and y (default 51)
   integer                   :: N0_
-  logical,optional          :: iterative
+  logical,optional          :: iterative      !if T refine grid N->2*N-10 until relative change < threshold (default F)
   logical                   :: iterative_
-  real(8),optional          :: threshold
+  real(8),optional          :: threshold      !relative accuracy of the grid refinement (default 1d-3 if iterative)
   real(8)                   :: threshold_
   real(8)                   :: int
   iterative_=.false.;if(present(iterative))iterative_=iterative
@@ -309,19 +313,19 @@ end function d_simps2d_func_recursive
 
 function c_simps2d_func_recursive(func,xrange,yrange,N0,iterative,threshold) result(int)
   interface
-     function func(x)
+     function func(x)   !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
        real(8),dimension(:) :: x
        complex(8)           :: func
      end function func
   end interface
-  real(8),dimension(2)      :: xrange,yrange
+  real(8),dimension(2)      :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
   integer                   :: N,icount
   real(8)                   :: eps,int0
-  integer,optional          :: N0
+  integer,optional          :: N0             !initial number of Simpson panels along x and y (default 51)
   integer                   :: N0_
-  logical,optional          :: iterative
+  logical,optional          :: iterative      !if T refine grid N->2*N-10 until relative change < threshold (default F)
   logical                   :: iterative_
-  real(8),optional          :: threshold
+  real(8),optional          :: threshold      !relative accuracy of the grid refinement (default 1d-3 if iterative)
   real(8)                   :: threshold_
   complex(8)                :: int
   iterative_=.false.;if(present(iterative))iterative_=iterative

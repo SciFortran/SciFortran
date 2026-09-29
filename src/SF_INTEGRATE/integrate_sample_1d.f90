@@ -6,8 +6,9 @@
 ! + _dh: given dh=(b-a)/L-1/2 integrate f(:)
 ! + _nonlin: integrate f(:) using given x(:)
 function d_trapz_ab_sample(f,a,b) result(sum)
-  real(8) :: f(:)
-  real(8) :: a,b,dh
+  real(8) :: f(:)  !integrand: function f(x), or array of its samples f(x_i)
+  real(8) :: a,b   !integration limits a (lower), b (upper); default 0,1 for functions
+  real(8) :: dh
   real(8) :: sum
   integer :: i,L
   L=size(f)
@@ -18,8 +19,9 @@ function d_trapz_ab_sample(f,a,b) result(sum)
   enddo
 end function d_trapz_ab_sample
 function c_trapz_ab_sample(f,a,b) result(sum)
-  complex(8) :: f(:)
-  real(8)    :: a,b,dh
+  complex(8) :: f(:)  !integrand: function f(x), or array of its samples f(x_i)
+  real(8)    :: a,b   !integration limits a (lower), b (upper); default 0,1 for functions
+  real(8)    :: dh
   complex(8) :: sum
   integer    :: i,L
   L=size(f)
@@ -34,8 +36,8 @@ end function c_trapz_ab_sample
 
 
 function d_trapz_dh_sample(f,dh) result(sum)
-  real(8) :: f(:)
-  real(8) :: dh
+  real(8) :: f(:)  !integrand: function f(x), or array of its samples f(x_i)
+  real(8) :: dh    !uniform grid spacing
   real(8) :: sum
   integer :: i,L
   L=size(f)
@@ -45,8 +47,8 @@ function d_trapz_dh_sample(f,dh) result(sum)
   enddo
 end function d_trapz_dh_sample
 function c_trapz_dh_sample(f,dh) result(sum)
-  complex(8) :: f(:)
-  real(8)    :: dh
+  complex(8) :: f(:)  !integrand: function f(x), or array of its samples f(x_i)
+  real(8)    :: dh    !uniform grid spacing
   complex(8) :: sum
   integer    :: i,L
   L=size(f)
@@ -61,8 +63,8 @@ end function c_trapz_dh_sample
 
 
 function d_trapz_nonlin_sample(f,x) result(sum)
-  real(8) :: f(:)
-  real(8) :: x(size(f))
+  real(8) :: f(:)        !integrand: function f(x), or array of its samples f(x_i)
+  real(8) :: x(size(f))  !non-uniform grid points x_i
   real(8) :: a,b,dh
   real(8) :: sum
   integer :: i,L
@@ -76,8 +78,8 @@ function d_trapz_nonlin_sample(f,x) result(sum)
   enddo
 end function d_trapz_nonlin_sample
 function c_trapz_nonlin_sample(f,x) result(sum)
-  complex(8) :: f(:)
-  real(8)    :: x(size(f))
+  complex(8) :: f(:)        !integrand: function f(x), or array of its samples f(x_i)
+  real(8)    :: x(size(f))  !non-uniform grid points x_i
   real(8)    :: a,b,dh
   complex(8) :: sum
   integer    :: i,L
@@ -108,8 +110,9 @@ end function c_trapz_nonlin_sample
 ! + _nonlin: integrate f(:) using given x(:)
 !+-----------------------------------------------------------------+
 function d_simpson_ab_sample(f,a,b) result(sum)
-  real(8) :: f(:)
-  real(8) :: dh,a,b
+  real(8) :: f(:)  !integrand: function f(x), or array of its samples f(x_i)
+  real(8) :: a,b   !integration limits a (lower), b (upper); default 0,1 for functions
+  real(8) :: dh
   real(8) :: sum
   integer :: L
   L=size(f)
@@ -117,8 +120,9 @@ function d_simpson_ab_sample(f,a,b) result(sum)
   sum = d_simpson_dh_sample(f,dh)
 end function d_simpson_ab_sample
 function c_simpson_ab_sample(f,a,b) result(sum)
-  complex(8) :: f(:)
-  real(8)    :: dh,a,b
+  complex(8) :: f(:)  !integrand: function f(x), or array of its samples f(x_i)
+  real(8)    :: a,b   !integration limits a (lower), b (upper); default 0,1 for functions
+  real(8)    :: dh
   complex(8) :: sum
   integer    :: L
   L=size(f)
@@ -128,9 +132,10 @@ end function c_simpson_ab_sample
 
 
 function d_simpson_dh_sample(f,dh) result(sum)
-  real(8) :: f(:)
+  real(8) :: f(:)  !integrand: function f(x), or array of its samples f(x_i)
   integer :: n
-  real(8) :: dh,sum,sum1,sum2,int1,int2
+  real(8) :: dh    !uniform grid spacing
+  real(8) :: sum,sum1,sum2,int1,int2
   integer :: i,p,m,mm,mmm
   N=size(f)
   sum=0d0
@@ -162,9 +167,9 @@ function d_simpson_dh_sample(f,dh) result(sum)
   end if
 end function d_simpson_dh_sample
 function c_simpson_dh_sample(f,dh) result(sum)
-  complex(8)           :: f(:)
+  complex(8)           :: f(:)  !integrand: function f(x), or array of its samples f(x_i)
   integer              :: n
-  real(8)              :: dh
+  real(8)              :: dh    !uniform grid spacing
   complex(8)           :: sum,sum1,sum2,int1,int2
   integer              :: i,p,m
   complex(8),parameter :: zero=cmplx(0d0,0d0,8)
@@ -202,8 +207,8 @@ end function c_simpson_dh_sample
 
 
 function d_simpson_nonlin_sample(f,x) result(sum)
-  real(8) :: f(:)
-  real(8) :: x(size(f))
+  real(8) :: f(:)        !integrand: function f(x), or array of its samples f(x_i)
+  real(8) :: x(size(f))  !non-uniform grid points x_i
   real(8) :: dx(size(f)+1)
   real(8) :: sum,sum1,sum2,sum3
   real(8) :: a,b,dh
@@ -236,9 +241,10 @@ function d_simpson_nonlin_sample(f,x) result(sum)
   sum = sum1+sum2+sum3
 end function d_simpson_nonlin_sample
 function c_simpson_nonlin_sample(f,x) result(sum)
-  complex(8) :: f(:)
+  complex(8) :: f(:)       !integrand: function f(x), or array of its samples f(x_i)
   complex(8) :: sum
-  real(8)    :: x(size(f)),rsum,isum
+  real(8)    :: x(size(f))  !non-uniform grid points x_i
+  real(8)    :: rsum,isum
   rsum=d_simpson_nonlin_sample(dreal(f),x)
   isum=d_simpson_nonlin_sample(dimag(f),x)
   sum  = dcmplx(rsum,isum)

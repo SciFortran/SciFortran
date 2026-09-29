@@ -2,13 +2,13 @@
 ! Trapezoidal rule for 1d function integration between a and b.
 function d_trapz_ab_func(f,a,b,N) result(int)
   interface
-     function f(x)
+     function f(x)   !integrand: function f(x), or array of its samples f(x_i)
        real(8) :: x
        real(8) :: f
      end function f
   end interface
-  real(8),optional                 :: a,b
-  integer,optional                 :: N
+  real(8),optional                 :: a,b  !integration limits a (lower), b (upper); default 0,1 for functions
+  integer,optional                 :: N    !number of grid points (default 100)
   real(8)                          :: dh,a_,b_
   integer                          :: L,i
   real(8),dimension(:),allocatable :: xx
@@ -28,13 +28,13 @@ function d_trapz_ab_func(f,a,b,N) result(int)
 end function d_trapz_ab_func
 function c_trapz_ab_func(f,a,b,N) result(int)
   interface
-     function f(x)
+     function f(x)   !integrand: function f(x), or array of its samples f(x_i)
        real(8)    :: x
        complex(8) :: f
      end function f
   end interface
-  real(8),optional                 :: a,b
-  integer,optional                 :: N
+  real(8),optional                 :: a,b  !integration limits a (lower), b (upper); default 0,1 for functions
+  integer,optional                 :: N    !number of grid points (default 100)
   real(8)                          :: dh,a_,b_
   integer                          :: L,i
   real(8),dimension(:),allocatable :: xx
@@ -56,12 +56,12 @@ end function c_trapz_ab_func
 
 function d_trapz_nonlin_func(f,x) result(int)
   interface
-     function f(x)
+     function f(x)   !integrand: function f(x), or array of its samples f(x_i)
        real(8) :: x
        real(8) :: f
      end function f
   end interface
-  real(8),dimension(:) :: x
+  real(8),dimension(:) :: x  !non-uniform grid points x_i
   real(8)              :: dh
   integer              :: L,i
   real(8)              :: int
@@ -75,12 +75,12 @@ function d_trapz_nonlin_func(f,x) result(int)
 end function d_trapz_nonlin_func
 function c_trapz_nonlin_func(f,x) result(int)
   interface
-     function f(x)
+     function f(x)   !integrand: function f(x), or array of its samples f(x_i)
        real(8)    :: x
        complex(8) :: f
      end function f
   end interface
-  real(8),dimension(:) :: x
+  real(8),dimension(:) :: x  !non-uniform grid points x_i
   real(8)              :: dh
   integer              :: L,i
   complex(8)           :: int
@@ -105,13 +105,13 @@ end function c_trapz_nonlin_func
 !+-----------------------------------------------------------------+
 function d_simps_ab_func(f,a,b,N) result(int)
   interface
-     function f(x)
+     function f(x)   !integrand: function f(x), or array of its samples f(x_i)
        real(8) :: x
        real(8) :: f
      end function f
   end interface
-  real(8),optional                 :: a,b
-  integer,optional                 :: N
+  real(8),optional                 :: a,b  !integration limits a (lower), b (upper); default 0,1 for functions
+  integer,optional                 :: N    !number of grid points (default 100)
   real(8)                          :: dh,a_,b_
   integer                          :: L,M,i
   real(8),dimension(:),allocatable :: xx,wt,dx
@@ -132,13 +132,13 @@ function d_simps_ab_func(f,a,b,N) result(int)
 end function d_simps_ab_func
 function c_simps_ab_func(f,a,b,N) result(int)
   interface
-     function f(x)
+     function f(x)   !integrand: function f(x), or array of its samples f(x_i)
        real(8)    :: x
        complex(8) :: f
      end function f
   end interface
-  real(8),optional                 :: a,b
-  integer,optional                 :: N
+  real(8),optional                 :: a,b  !integration limits a (lower), b (upper); default 0,1 for functions
+  integer,optional                 :: N    !number of grid points (default 100)
   real(8)                          :: dh,a_,b_
   integer                          :: L,M,i
   real(8),dimension(:),allocatable :: xx,wt,dx
@@ -166,12 +166,12 @@ end function c_simps_ab_func
 
 function d_simps_nonlin_func(f,x) result(int)
   interface
-     function f(x)
+     function f(x)   !integrand: function f(x), or array of its samples f(x_i)
        real(8) :: x
        real(8) :: f
      end function f
   end interface
-  real(8),dimension(:)             :: x
+  real(8),dimension(:)             :: x  !non-uniform grid points x_i
   real(8)                          :: dh
   integer                          :: L,M,i
   real(8),dimension(:),allocatable :: xx,wt,dx
@@ -203,12 +203,12 @@ function d_simps_nonlin_func(f,x) result(int)
 end function d_simps_nonlin_func
 function c_simps_nonlin_func(f,x) result(int)
   interface
-     function f(x)
+     function f(x)   !integrand: function f(x), or array of its samples f(x_i)
        real(8)    :: x
        complex(8) :: f
      end function f
   end interface
-  real(8),dimension(:)             :: x
+  real(8),dimension(:)             :: x  !non-uniform grid points x_i
   real(8)                          :: dh
   integer                          :: L,M,i
   real(8),dimension(:),allocatable :: xx,wt,dx

@@ -61,6 +61,9 @@ MODULE GAUSS_QUADRATURE
   end interface
 
   interface gauss_quad
+  !This function evaluates the integral of a function using the adaptive Gauss
+  !quadrature rules of order 6 to 14. It is provided by the module
+  !:code:`GAUSS_QUADRATURE` and re-exported here.
      module procedure :: integrate_1d_func_main
      module procedure :: integrate_nd_func_main
      module procedure :: integrate_1d_func_1
@@ -70,6 +73,9 @@ MODULE GAUSS_QUADRATURE
   end interface gauss_quad
 
   interface integrate
+  !This function is the generic interface to the adaptive Gauss quadrature integrators
+  !provided by the module :code:`GAUSS_QUADRATURE` and re-exported here.
+  !
      module procedure :: integrate_1d_func_main
      module procedure :: integrate_nd_func_main
      module procedure :: integrate_1d_func_1
@@ -142,18 +148,18 @@ contains
   !##################################################################
 
   subroutine integrate_1d_func_main(m,fx,xl,xu,ans,tol,method,ierr,err)
-    integer                            :: m
-    procedure(f_x)                     :: fx       !! 1d function: f(x)
-    real(8),intent(in)                 :: xl       !! x integration lower bound
-    real(8),intent(in)                 :: xu       !! x integration upper bound
+    integer                            :: m       !number of components of the integrand F: R^n --> R^m
+    procedure(f_x)                     :: fx       !integrand F(x,m): R --> R^m
+    real(8),intent(in)                 :: xl       !integration lower bound(s): scalar in 1d, one per dimension in nD
+    real(8),intent(in)                 :: xu       !integration upper bound(s): scalar in 1d, one per dimension in nD
     real(8),intent(inout),dimension(m) :: ans
     !
-    real(8),intent(in),optional        :: tol     !! error tolerance for dx integration
-    integer,intent(in),optional        :: method  !! quadrature method to use for x
+    real(8),intent(in),optional        :: tol     !error tolerance (default 1d-9; same for all nD dimensions)
+    integer,intent(in),optional        :: method  !quadrature method 6,8,10,12,14 (default 10; same for all nD dims)
     integer,intent(out),optional       :: ierr
     real(8),intent(out),optional       :: err
     !
-    type(integration_type)             :: self     !! for the 1d integration
+    type(integration_type)             :: self     ! for the 1d integration
     !
     real(8)                            :: tol_
     integer                            :: method_
@@ -181,17 +187,17 @@ contains
 
   subroutine integrate_1d_func_1(func,xl,xu,ans,tol,method,ierr,err)
     interface
-       function func(x)
+       function func(x)   !scalar integrand: f(x) in 1d, f(x) with x an array of size n in nD
          real(8) :: x
          real(8) :: func
        end function func
     end interface
-    real(8),intent(in)                 :: xl       !! x integration lower bound
-    real(8),intent(in)                 :: xu       !! x integration upper bound
+    real(8),intent(in)                 :: xl       !integration lower bound(s): scalar in 1d, one per dimension in nD
+    real(8),intent(in)                 :: xu       !integration upper bound(s): scalar in 1d, one per dimension in nD
     real(8),intent(inout)              :: ans
     !
-    real(8),intent(in),optional        :: tol     !! error tolerance for dx integration
-    integer,intent(in),optional        :: method  !! quadrature method to use for x
+    real(8),intent(in),optional        :: tol     !error tolerance (default 1d-9; same for all nD dimensions)
+    integer,intent(in),optional        :: method  !quadrature method 6,8,10,12,14 (default 10; same for all nD dims)
     integer,intent(out),optional       :: ierr
     real(8),intent(out),optional       :: err
     !
@@ -216,16 +222,16 @@ contains
 
 
   subroutine integrate_nd_func_main(m,fxvec,xl,xu,ans,methods,method,tols,tol,ierr,err)
-    integer                                         :: m
-    procedure(f_xvec)                               :: fxvec    !! 2d function: f(x,y)
-    real(8),dimension(:),intent(in)                 :: xl       !! integration lower bounds
-    real(8),dimension(size(xl)),intent(in)          :: xu       !! integration upper bounds
+    integer                                         :: m       !number of components of the integrand F: R^n --> R^m
+    procedure(f_xvec)                               :: fxvec    !integrand F(x,m): R^n --> R^m, x is an array of size n
+    real(8),dimension(:),intent(in)                 :: xl       !integration lower bound(s): scalar in 1d, one per dimension in nD
+    real(8),dimension(size(xl)),intent(in)          :: xu       !integration upper bound(s): scalar in 1d, one per dimension in nD
     real(8),intent(inout),dimension(m)              :: ans
     !
-    integer,dimension(size(xl)),intent(in),optional :: methods  !! quadrature methods nD-->nD to use
-    integer,intent(in),optional                     :: method   !! quadrature method   1-->nD to use
-    real(8),dimension(size(xl)),intent(in),optional :: tols     !! error tolerances nD-->nD for dx integration
-    real(8),intent(in),optional                     :: tol     !! error tolerance   1-->nD for dx integration
+    integer,dimension(size(xl)),intent(in),optional :: methods  !quadrature methods 6,8,10,12,14, one per dimension (nD)
+    integer,intent(in),optional                     :: method   !quadrature method 6,8,10,12,14 (default 10; same for all nD dims)
+    real(8),dimension(size(xl)),intent(in),optional :: tols     !error tolerances, one per dimension (nD)
+    real(8),intent(in),optional                     :: tol     !error tolerance (default 1d-9; same for all nD dimensions)
     integer,intent(out),optional                    :: ierr
     real(8),intent(out),optional                    :: err
     !
@@ -235,7 +241,7 @@ contains
     real(8)                                         :: err_
     !
     integer                                         :: i
-    type(integration_type)                          :: self     !! for the 1d integration
+    type(integration_type)                          :: self     ! for the 1d integration
     !
     tol_   = 1d-9 ; if(present(tol))tol_ = tol; if(present(tols))tol_ = tols
     method_= 10   ; if(present(method))method_=method; if(present(methods))method_=methods
@@ -349,18 +355,18 @@ contains
 
   subroutine integrate_nd_func_1(func,xl,xu,ans,methods,method,tols,tol,ierr,err)
     interface
-       function func(x)
+       function func(x)   !scalar integrand: f(x) in 1d, f(x) with x an array of size n in nD
          real(8),dimension(:) :: x
          real(8)              :: func
        end function func
     end interface
-    real(8),dimension(:),intent(in)                 :: xl       !! integration lower bounds
-    real(8),dimension(size(xl)),intent(in)          :: xu       !! integration upper bounds
+    real(8),dimension(:),intent(in)                 :: xl       !integration lower bound(s): scalar in 1d, one per dimension in nD
+    real(8),dimension(size(xl)),intent(in)          :: xu       !integration upper bound(s): scalar in 1d, one per dimension in nD
     real(8),intent(inout)                           :: ans
-    integer,dimension(size(xl)),intent(in),optional :: methods  !! quadrature methods nD-->nD to use
-    integer,intent(in),optional                     :: method   !! quadrature method   1-->nD to use
-    real(8),dimension(size(xl)),intent(in),optional :: tols     !! error tolerances nD-->nD for dx integration
-    real(8),intent(in),optional                     :: tol     !! error tolerance   1-->nD for dx integration
+    integer,dimension(size(xl)),intent(in),optional :: methods  !quadrature methods 6,8,10,12,14, one per dimension (nD)
+    integer,intent(in),optional                     :: method   !quadrature method 6,8,10,12,14 (default 10; same for all nD dims)
+    real(8),dimension(size(xl)),intent(in),optional :: tols     !error tolerances, one per dimension (nD)
+    real(8),intent(in),optional                     :: tol     !error tolerance (default 1d-9; same for all nD dimensions)
     integer,intent(out),optional                    :: ierr
     real(8),intent(out),optional                    :: err
     real(8),dimension(size(xl))                     :: tol_,ans_
@@ -397,13 +403,13 @@ contains
   !##################################################################
   !##################################################################
   subroutine integrate_1d_sample(fsample,xl,xu,ans,tol,method,ierr,err)
-    real(8),dimension(:)             :: fsample       !! 1d array: f(x)
-    real(8),intent(in)               :: xl       !! x integration lower bound
-    real(8),intent(in)               :: xu       !! x integration upper bound
+    real(8),dimension(:)             :: fsample       !sampled integrand on uniform grid [xl,xu]: f(x) 1d, f(x,y) 2d
+    real(8),intent(in)               :: xl       !integration lower bound(s): scalar in 1d, one per dimension in nD
+    real(8),intent(in)               :: xu       !integration upper bound(s): scalar in 1d, one per dimension in nD
     real(8),intent(inout)            :: ans
     !
-    real(8),intent(in),optional      :: tol     !! error tolerance for dx integration
-    integer,intent(in),optional      :: method  !! quadrature method to use for x
+    real(8),intent(in),optional      :: tol     !error tolerance (default 1d-9; same for all nD dimensions)
+    integer,intent(in),optional      :: method  !quadrature method 6,8,10,12,14 (default 10; same for all nD dims)
     integer,intent(out),optional     :: ierr
     real(8),intent(out),optional     :: err
     !
@@ -456,15 +462,15 @@ contains
 
 
   subroutine integrate_2d_sample(fsample,xl,xu,ans,methods,method,tols,tol,ierr,err)
-    real(8),dimension(:,:),intent(in)               :: fsample  !! 2d function: f(x,y)
-    real(8),dimension(:),intent(in)                 :: xl       !! integration lower bounds
-    real(8),dimension(size(xl)),intent(in)          :: xu       !! integration upper bounds
+    real(8),dimension(:,:),intent(in)               :: fsample  !sampled integrand on uniform grid [xl,xu]: f(x) 1d, f(x,y) 2d
+    real(8),dimension(:),intent(in)                 :: xl       !integration lower bound(s): scalar in 1d, one per dimension in nD
+    real(8),dimension(size(xl)),intent(in)          :: xu       !integration upper bound(s): scalar in 1d, one per dimension in nD
     real(8),intent(inout)                           :: ans
     !
-    integer,dimension(size(xl)),intent(in),optional :: methods  !! quadrature methods nD-->nD to use
-    integer,intent(in),optional                     :: method   !! quadrature method   1-->nD to use
-    real(8),dimension(size(xl)),intent(in),optional :: tols     !! error tolerances nD-->nD for dx integration
-    real(8),intent(in),optional                     :: tol     !! error tolerance   1-->nD for dx integration
+    integer,dimension(size(xl)),intent(in),optional :: methods  !quadrature methods 6,8,10,12,14, one per dimension (nD)
+    integer,intent(in),optional                     :: method   !quadrature method 6,8,10,12,14 (default 10; same for all nD dims)
+    real(8),dimension(size(xl)),intent(in),optional :: tols     !error tolerances, one per dimension (nD)
+    real(8),intent(in),optional                     :: tol     !error tolerance (default 1d-9; same for all nD dimensions)
     integer,intent(out),optional                    :: ierr
     real(8),intent(out),optional                    :: err
     !

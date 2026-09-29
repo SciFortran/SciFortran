@@ -1,9 +1,9 @@
 !PURPOSE: Trapezoidal rule for 2d data function integration
 ! + _std: integrate f(:) between a and b. a,b default are 0,1
 function d_trapz2d_sample(func,dhx,dhy,xrange,yrange) result(int)
-  real(8),dimension(:,:)        :: func
-  real(8),optional              :: dhx,dhy
-  real(8),dimension(2),optional :: xrange,yrange
+  real(8),dimension(:,:)        :: func           !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
+  real(8),optional              :: dhx,dhy        !grid spacings along x and y (default: from xrange,yrange and grid size)
+  real(8),dimension(2),optional :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
   real(8)                       :: hx,hy
   real(8),dimension(2)          :: xrange_,yrange_
   integer                       :: Nx,Ny,i,j
@@ -33,9 +33,9 @@ function d_trapz2d_sample(func,dhx,dhy,xrange,yrange) result(int)
 end function d_trapz2d_sample
 
 function c_trapz2d_sample(func,dhx,dhy,xrange,yrange) result(int)
-  complex(8),dimension(:,:)     :: func
-  real(8),optional              :: dhx,dhy
-  real(8),dimension(2),optional :: xrange,yrange
+  complex(8),dimension(:,:)     :: func           !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
+  real(8),optional              :: dhx,dhy        !grid spacings along x and y (default: from xrange,yrange and grid size)
+  real(8),dimension(2),optional :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
   real(8)                       :: hx,hy
   real(8),dimension(2)          :: xrange_,yrange_
   integer                       :: Nx,Ny,i,j
@@ -71,9 +71,9 @@ end function c_trapz2d_sample
 !PURPOSE: Simpson rule for 2d data function integration
 !+-----------------------------------------------------------------+
 function d_simps2d_sample(func,dhx,dhy,xrange,yrange) result(int)
-  real(8),dimension(:,:)        :: func
-  real(8),optional              :: dhx,dhy
-  real(8),dimension(2),optional :: xrange,yrange
+  real(8),dimension(:,:)        :: func           !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
+  real(8),optional              :: dhx,dhy        !grid spacings along x and y (default: from xrange,yrange and grid size)
+  real(8),dimension(2),optional :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
   real(8)                       :: hx,hy
   real(8),dimension(2)          :: xrange_,yrange_
   integer                       :: Nx,Ny,i,j
@@ -128,9 +128,9 @@ function d_simps2d_sample(func,dhx,dhy,xrange,yrange) result(int)
 end function d_simps2d_sample
 
 function c_simps2d_sample(func,dhx,dhy,xrange,yrange) result(int)
-  complex(8),dimension(:,:)     :: func
-  real(8),optional              :: dhx,dhy
-  real(8),dimension(2),optional :: xrange,yrange
+  complex(8),dimension(:,:)     :: func           !integrand: function f(x) with x=[x,y], or 2d array of samples f(x_i,y_j)
+  real(8),optional              :: dhx,dhy        !grid spacings along x and y (default: from xrange,yrange and grid size)
+  real(8),dimension(2),optional :: xrange,yrange  !integration limits [lower,upper] along x and y (default [0,1] for samples)
   real(8)                       :: hx,hy
   real(8),dimension(2)          :: xrange_,yrange_
   integer                       :: Nx,Ny,i,j

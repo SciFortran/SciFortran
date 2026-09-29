@@ -11,33 +11,26 @@ subroutine quad_func(func,a,b,epsabs,epsrel,&
      strict,&
      result)
   interface
-     function func(x)
+     function func(x)   !integrand f(x)
        real(8) :: x
        real(8) :: func
      end function func
   end interface
   !optional variables
-  real(8)                       :: a
-  real(8),optional              :: b
-  real(8),optional              :: epsabs
-  real(8),optional              :: epsrel
-  integer,optional              :: key               !order of GK rule in QAG
-  integer,optional              :: inf               !infinite integration limit in QAGI:
-  !                                                  ! -1(-inf:a);1(a:inf);2(-inf:inf)
+  real(8)                       :: a                 !lower integration limit (finite limit of the range if b is absent)
+  real(8),optional              :: b                 !upper integration limit (absent: semi-infinite range, needs inf or omega)
+  real(8),optional              :: epsabs            !absolute accuracy requested (default 1d-12)
+  real(8),optional              :: epsrel            !relative accuracy requested (default 1d-6)
+  integer,optional              :: key               !Gauss-Kronrod rule of QAG: 1..6 = 15,21,31,41,51,61 points
+  integer,optional              :: inf               !range of QAGI: -1 (-inf:a), 1 (a:inf), 2 (-inf:inf)
   logical,optional              :: singular_endpoint !T if singular_endpoint exists (QAGS)
   real(8),dimension(:),optional :: singular_points   !location of singular points in QAGP
   real(8),optional              :: cpole             !location of the pole in QAWC f(x)/x-cpole
-  real(8),optional              :: alfa,beta         !parameters for QAWS
-  real(8),optional              :: omega             !frequency of the weight funcion in QAWF,QAWO
-  integer,optional              :: weight_func       !if(QAWF,QAWO)then
-  !                                                  !  weight_func=1,2 -> cos(omega*x),sin(omega*x)
-  !                                                  !if(QAWS)then
-  !                                                  !  weight_func = 1  (x-a)**alfa*(b-x)**beta
-  !                                                  !  weight_func = 2  (x-a)**alfa*(b-x)**beta*log(x-a)
-  !                                                  !  weight_func = 3  (x-a)**alfa*(b-x)**beta*log(b-x)
-  !                                                  !  weight_func = 4  (x-a)**alfa*(b-x)**beta*log(x-a)*log(b-x)
-  logical,optional              :: verbose
-  logical,optional              :: strict
+  real(8),optional              :: alfa,beta         !exponents of the QAWS weight (x-a)**alfa*(b-x)**beta, both > -1
+  real(8),optional              :: omega             !frequency of the weight function cos/sin(omega*x) in QAWO,QAWF
+  integer,optional              :: weight_func       !weight function index
+  logical,optional              :: verbose           !if T print the selected routine and the integration report (default F)
+  logical,optional              :: strict            !T (default) stop on QUADPACK error code IER (only if verbose=F)
   real(8)                       :: result
   !actual default variables
   real(8)                       :: epsabs_

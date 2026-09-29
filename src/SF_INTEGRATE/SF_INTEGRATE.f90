@@ -35,6 +35,19 @@ module SF_INTEGRATE
 
   !TRAPEZIODAL RULE:
   interface trapz
+  !This function evaluates the integral of a discretized real or complex function
+  !using the trapezoidal rule (2nd order), or of a function passed as argument.
+  !The specific procedures cover
+  !
+  !* a sampled function on a uniform grid defined by the limits :code:`a`, :code:`b`
+  !* a sampled function on a uniform grid defined by the step :code:`dh`
+  !* a sampled function on a non-uniform grid
+  !* a function evaluated between the limits :code:`a`, :code:`b`
+  !* a function evaluated on a non-uniform grid
+  !
+  !The quadrature weights are provided by :f:func_inline:`get_quadrature_weights`
+  !with :code:`nrk=2`.
+  !
      module procedure :: d_trapz_ab_sample
      module procedure :: c_trapz_ab_sample
      module procedure :: d_trapz_dh_sample
@@ -49,6 +62,11 @@ module SF_INTEGRATE
 
   
   interface trapz2d
+  !This function evaluates the 2-dimensional integral of a real or complex function
+  !using the trapezoidal rule (2nd order). The specific procedures cover a function
+  !of two variables, a function evaluated recursively as a nested 1-dimensional
+  !integral, and a sampled function on a 2-dimensional grid.
+  !
      module procedure :: d_trapz2d_func
      module procedure :: c_trapz2d_func
      module procedure :: d_trapz2d_func_recursive
@@ -63,7 +81,19 @@ module SF_INTEGRATE
 
   !SIMPSON'S RULE
   interface simps
-     !SAMPLE:
+  !This function evaluates the integral of a discretized real or complex function
+  !using Simpson's rule (4th order), or of a function passed as argument.
+  !The specific procedures cover
+  !
+  !* a sampled function on a uniform grid defined by the step :code:`dh`
+  !* a sampled function on a uniform grid defined by the limits :code:`a`, :code:`b`
+  !* a sampled function on a non-uniform grid
+  !* a function evaluated between the limits :code:`a`, :code:`b`
+  !* a function evaluated on a non-uniform grid
+  !
+  !The quadrature weights are provided by :f:func_inline:`get_quadrature_weights`
+  !with :code:`nrk=4`.
+  !
      module procedure :: d_simpson_dh_sample
      module procedure :: c_simpson_dh_sample
      module procedure :: d_simpson_ab_sample
@@ -78,6 +108,11 @@ module SF_INTEGRATE
   end interface simps
   !
   interface simps2d
+  !This function evaluates the 2-dimensional integral of a real or complex function
+  !using Simpson's rule (4th order). The specific procedures cover a function
+  !of two variables, a function evaluated recursively as a nested 1-dimensional
+  !integral, and a sampled function on a 2-dimensional grid.
+  !
      module procedure :: d_simps2d_func
      module procedure :: c_simps2d_func
      module procedure :: d_simps2d_func_recursive
@@ -90,6 +125,29 @@ module SF_INTEGRATE
 
   !QUADPACK global interface
   interface quad
+  !This function evaluates the 1-dimensional integral of a function, or of a sampled
+  !function, using the adaptive routines of the QUADPACK library. The routine
+  !is chosen according to the type of integrand and integration region, as described
+  !in the guide at the top of the module (for example :code:`QAGS`, :code:`QAGI`,
+  !:code:`QAWO`, :code:`QAWF`, :code:`QAWC`, :code:`QAWS`).
+  !The optional argument :f:var:`weight_func` selects the weight function :math:`W(x)`
+  !of the integrand :math:`W(x) f(x)` in the routines that integrate with a weight.
+  !
+  !For :code:`QAWO` and :code:`QAWF`, which also require :f:var:`omega`, the accepted values are
+  !
+  !* :code:`weight_func=1`: :math:`W(x) = \cos(\omega x)`
+  !* :code:`weight_func=2`: :math:`W(x) = \sin(\omega x)`
+  !
+  !For :code:`QAWS`, which also requires :f:var:`alfa` and :f:var:`beta`, the accepted values are
+  !
+  !* :code:`weight_func=1`: :math:`W(x) = (x-a)^{\alpha} (b-x)^{\beta}`
+  !* :code:`weight_func=2`: :math:`W(x) = (x-a)^{\alpha} (b-x)^{\beta} \ln(x-a)`
+  !* :code:`weight_func=3`: :math:`W(x) = (x-a)^{\alpha} (b-x)^{\beta} \ln(b-x)`
+  !* :code:`weight_func=4`: :math:`W(x) = (x-a)^{\alpha} (b-x)^{\beta} \ln(x-a) \ln(b-x)`
+  !
+  !with :math:`\alpha, \beta > -1`. The program stops if :f:var:`weight_func` is outside
+  !these ranges. It is ignored by the other routines.
+  !
      module procedure :: quad_func
      module procedure :: quad_sample
   end interface quad
@@ -172,6 +230,23 @@ contains
 
   !PURPOSE  : Perform a fast Kramers-K\"onig integration: 
   function kronig(fi,wr,M) result(fr)
+  !This function evaluates the Kramers-Kronig transform of a function of a
+  !real variable. Given the values :f:var:`fi` of the imaginary part on the
+  !uniform grid :f:var:`wr` of :f:var:`M` points, it returns the real part :f:var:`fr`
+  !on the same grid,
+  !
+  !:math:`f_r(w_i) = \frac{1}{\pi} \, \mathcal{P} \int_{w_1}^{w_M} \frac{f_i(w')}{w'-w_i} \, dw'`
+  !
+  !The principal value is evaluated by subtracting the singularity,
+  !
+  !:math:`\mathcal{P} \int \frac{f_i(w')}{w'-w_i} dw' = \int \frac{f_i(w')-f_i(w_i)}{w'-w_i} dw' + f_i(w_i) \, \mathcal{P} \int \frac{dw'}{w'-w_i}`
+  !
+  !where the first integral is a sum with weight :code:`dh=wr(2)-wr(1)`, using
+  !the finite-difference derivative of :math:`f_i` at the point :math:`w'=w_i`,
+  !and the second is known analytically, :math:`\ln\left(\frac{w_M-w_i}{w_i-w_1}\right)`.
+  !This term is set to zero at the end points :math:`i=1,M`, where it diverges.
+  !The cost scales as :math:`M^2`.
+  !
     integer :: i,j,M
     real(8),dimension(M) :: fi,wr,fr
     real(8),dimension(M) :: logo,deriv
@@ -216,8 +291,29 @@ contains
 
   !PURPOSE: obtain quadrature weights for higher order integration (2,4)
   subroutine get_quadrature_weights(wt,nrk)
-    real(8),dimension(:) :: wt
-    integer,optional     :: nrk
+  !This subroutine returns the quadrature weights :f:var:`wt` for the integration
+  !of a function sampled on :code:`N=size(wt)` points with unit step, such that
+  !
+  !:math:`\int f(x) dx \approx dh \sum_{i=1}^{N} wt(i) \cdot f(x_i)`
+  !
+  !The order of the rule is selected by the optional argument :f:var:`nrk`
+  !
+  !* :code:`nrk=2`: trapezoidal rule (2nd order), :math:`wt = [1/2, 1, ..., 1, 1/2]`
+  !* :code:`nrk=4`: Simpson's rule (4th order), the default
+  !
+  !For :code:`nrk=4` the weights depend on :code:`N`
+  !
+  !* :code:`N=1`: :math:`wt = 1`
+  !* :code:`N=2`: :math:`wt = [1/2, 1/2]`
+  !* :code:`N=3`: Simpson's rule :math:`[1/3, 4/3, 1/3]`
+  !* :code:`N=4`: Simpson's 3/8 rule :math:`[3/8, 9/8, 9/8, 3/8]`
+  !* :code:`N>=5` odd: composite Simpson's rule :math:`[1/3, 4/3, 2/3, ..., 4/3, 1/3]`
+  !* :code:`N>=6` even: composite Simpson's rule, closed by a Simpson's 3/8 rule on the last four points
+  !
+  !The program stops if :f:var:`nrk` is neither 2 nor 4.
+  !
+    real(8),dimension(:) :: wt    !Quadrature weights
+    integer,optional     :: nrk   !Order of the rule
     integer              :: nrk_
     integer              :: N
     nrk_=4;if(present(nrk))nrk_=nrk

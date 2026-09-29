@@ -10,27 +10,21 @@ subroutine quad_sample(fsample,a,b,&
      verbose,&
      Ninterp,&
      result)
-  real(8),dimension(:)             :: fsample
-  real(8)                          :: a
-  real(8)                          :: b
+  real(8),dimension(:)             :: fsample           !integrand sampled on a uniform grid of size(fsample) points in [a,b]
+  real(8)                          :: a                 !lower integration limit
+  real(8)                          :: b                 !upper integration limit
   !optional variables
-  real(8),optional                 :: epsabs
-  real(8),optional                 :: epsrel
-  integer,optional                 :: key               !order of GK rule in QAG
+  real(8),optional                 :: epsabs            !absolute accuracy requested (default 1d-12)
+  real(8),optional                 :: epsrel            !relative accuracy requested (default 1d-6)
+  integer,optional                 :: key               !Gauss-Kronrod rule of QAG: 1..6 = 15,21,31,41,51,61 points
   logical,optional                 :: singular_endpoint !T if singular_endpoint exists (QAGS)
   real(8),dimension(:),optional    :: singular_points   !location of singular points in QAGP
   real(8),optional                 :: cpole             !location of the pole in QAWC f(x)/x-cpole
-  real(8),optional                 :: alfa,beta         !parameters for QAWS
-  real(8),optional                 :: omega             !frequency of the weight funcion in QAWO
-  integer,optional                 :: weight_func       !if(QAWF)then
-  !                                                  !  weight_func=1,2 -> cos(omega*x),sin(omega*x)
-  !                                                  !if(QAWS)then
-  !                                                  !  weight_func = 1  (x-a)**alfa*(b-x)**beta
-  !                                                  !  weight_func = 2  (x-a)**alfa*(b-x)**beta*log(x-a)
-  !                                                  !  weight_func = 3  (x-a)**alfa*(b-x)**beta*log(b-x)
-  !                                                  !  weight_func = 4  (x-a)**alfa*(b-x)**beta*log(x-a)*log(b-x)
-  logical,optional                 :: verbose
-  integer,optional                 :: Ninterp
+  real(8),optional                 :: alfa,beta         !exponents of the QAWS weight (x-a)**alfa*(b-x)**beta, both > -1
+  real(8),optional                 :: omega             !frequency of the weight function cos/sin(omega*x) in QAWO
+  integer,optional                 :: weight_func       !weight function index
+  logical,optional                 :: verbose           !if T print the selected routine and the integration report (default F)
+  integer,optional                 :: Ninterp           !order of the polynomial interpolation of fsample (default 3)
   real(8)                          :: result
   !actual default variables
   real(8)                          :: epsabs_
