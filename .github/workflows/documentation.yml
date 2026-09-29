@@ -2,6 +2,7 @@ name: SciFortran documentation
 on:
   push:
     branches: [master-doc]
+  workflow_dispatch:
 
 permissions:
   contents: write
