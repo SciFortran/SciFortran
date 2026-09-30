@@ -1,6 +1,6 @@
 subroutine data_readA0_R(pname,Y1)
   integer          :: i,Np
-  character(len=*) :: pname
+  character(len=*) :: pname  !name of the input file
   real(8)          :: Y1
   !
   call file_bunzip(reg(pname))
@@ -15,7 +15,7 @@ end subroutine data_readA0_R
 
 subroutine data_readA0_C(pname,Y1)
   integer          :: i,Np
-  character(len=*) :: pname
+  character(len=*) :: pname  !name of the input file
   complex(8)       :: Y1
   !
   call file_bunzip(reg(pname))
@@ -37,7 +37,7 @@ end subroutine data_readA0_C
 
 subroutine data_readA1_R(pname,Y1)
   integer               :: i,Np
-  character(len=*)      :: pname
+  character(len=*)      :: pname  !name of the input file
   real(8),dimension(:)  :: Y1
   !
   call file_bunzip(reg(pname))
@@ -56,7 +56,7 @@ end subroutine data_readA1_R
 
 subroutine data_readA1_C(pname,Y1)
   integer                :: i,Np
-  character(len=*)       :: pname
+  character(len=*)       :: pname  !name of the input file
   complex(8),dimension(:):: Y1
   !
   call file_bunzip(reg(pname))
@@ -83,10 +83,10 @@ end subroutine data_readA1_C
 
 subroutine data_readA2_R(pname,Y1,order,wspace)
   integer                   :: i,j,Ny1,Ny2
-  character(len=*)          :: pname
+  character(len=*)          :: pname   !name of the input file
   real(8),dimension(:,:)    :: Y1
-  character(len=*),optional :: order
-  logical,optional          :: wspace
+  character(len=*),optional :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional          :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)          :: order_
   logical                   :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -121,10 +121,10 @@ end subroutine data_readA2_R
 
 subroutine data_readA2_C(pname,Y1,order,wspace)
   integer                   :: i,j,Ny1,Ny2
-  character(len=*)          :: pname
+  character(len=*)          :: pname   !name of the input file
   complex(8),dimension(:,:) :: Y1
-  character(len=*),optional :: order
-  logical,optional          :: wspace
+  character(len=*),optional :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional          :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)          :: order_
   logical                   :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -164,10 +164,10 @@ end subroutine data_readA2_C
 subroutine data_readA3_R(pname,Y1,order,wspace)
   integer                   :: Ny1,Ny2,Ny3
   integer                   :: i1,i2,i3
-  character(len=*)          :: pname
+  character(len=*)          :: pname   !name of the input file
   real(8),dimension(:,:,:)  :: Y1
-  character(len=*),optional :: order
-  logical,optional          :: wspace
+  character(len=*),optional :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional          :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)          :: order_
   logical                   :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -209,10 +209,10 @@ end subroutine data_readA3_R
 subroutine data_readA3_C(pname,Y1,order,wspace)
   integer                     :: Ny1,Ny2,Ny3
   integer                     :: i1,i2,i3
-  character(len=*)            :: pname
+  character(len=*)            :: pname   !name of the input file
   complex(8),dimension(:,:,:) :: Y1
-  character(len=*),optional   :: order
-  logical,optional            :: wspace
+  character(len=*),optional   :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional            :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)            :: order_
   logical                     :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -263,10 +263,10 @@ end subroutine data_readA3_C
 subroutine data_readA4_R(pname,Y1,order,wspace)
   integer                    :: Ny1,Ny2,Ny3,Ny4
   integer                    :: i1,i2,i3,i4
-  character(len=*)           :: pname
+  character(len=*)           :: pname   !name of the input file
   real(8),dimension(:,:,:,:) :: Y1
-  character(len=*),optional  :: order
-  logical,optional           :: wspace
+  character(len=*),optional  :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional           :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)           :: order_
   logical                    :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -313,10 +313,10 @@ end subroutine data_readA4_R
 subroutine data_readA4_C(pname,Y1,order,wspace)
   integer                       :: Ny1,Ny2,Ny3,Ny4
   integer                       :: i1,i2,i3,i4
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the input file
   complex(8),dimension(:,:,:,:) :: Y1
-  character(len=*),optional     :: order
-  logical,optional              :: wspace
+  character(len=*),optional     :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional              :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)              :: order_
   logical                       :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -372,10 +372,10 @@ end subroutine data_readA4_C
 subroutine data_readA5_R(pname,Y1,order,wspace)
   integer                      :: Ny1,Ny2,Ny3,Ny4,Ny5
   integer                      :: i1,i2,i3,i4,i5
-  character(len=*)             :: pname
+  character(len=*)             :: pname   !name of the input file
   real(8),dimension(:,:,:,:,:) :: Y1
-  character(len=*),optional    :: order
-  logical,optional             :: wspace
+  character(len=*),optional    :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional             :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)             :: order_
   logical                      :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -428,10 +428,10 @@ end subroutine data_readA5_R
 subroutine data_readA5_C(pname,Y1,order,wspace)
   integer                         :: Ny1,Ny2,Ny3,Ny4,Ny5
   integer                         :: i1,i2,i3,i4,i5
-  character(len=*)                :: pname
+  character(len=*)                :: pname   !name of the input file
   complex(8),dimension(:,:,:,:,:) :: Y1
-  character(len=*),optional       :: order
-  logical,optional                :: wspace
+  character(len=*),optional       :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional                :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)                :: order_
   logical                         :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -494,10 +494,10 @@ end subroutine data_readA5_C
 subroutine data_readA6_R(pname,Y1,order,wspace)
   integer                        :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6
   integer                        :: i1,i2,i3,i4,i5,i6
-  character(len=*)               :: pname
+  character(len=*)               :: pname   !name of the input file
   real(8),dimension(:,:,:,:,:,:) :: Y1
-  character(len=*),optional      :: order
-  logical,optional               :: wspace
+  character(len=*),optional      :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional               :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)               :: order_
   logical                        :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -554,10 +554,10 @@ end subroutine data_readA6_R
 subroutine data_readA6_C(pname,Y1,order,wspace)
   integer                           :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6
   integer                           :: i1,i2,i3,i4,i5,i6
-  character(len=*)                  :: pname
+  character(len=*)                  :: pname   !name of the input file
   complex(8),dimension(:,:,:,:,:,:) :: Y1
-  character(len=*),optional         :: order
-  logical,optional                  :: wspace
+  character(len=*),optional         :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional                  :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)                  :: order_
   logical                           :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -625,10 +625,10 @@ end subroutine data_readA6_C
 subroutine data_readA7_R(pname,Y1,order,wspace)
   integer                          :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6,Ny7
   integer                          :: i1,i2,i3,i4,i5,i6,i7
-  character(len=*)                 :: pname
+  character(len=*)                 :: pname   !name of the input file
   real(8),dimension(:,:,:,:,:,:,:) :: Y1
-  character(len=*),optional        :: order
-  logical,optional                 :: wspace
+  character(len=*),optional        :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional                 :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)                 :: order_
   logical                          :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))
@@ -690,10 +690,10 @@ end subroutine data_readA7_R
 subroutine data_readA7_C(pname,Y1,order,wspace)
   integer                             :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6,Ny7
   integer                             :: i1,i2,i3,i4,i5,i6,i7
-  character(len=*)                    :: pname
+  character(len=*)                    :: pname   !name of the input file
   complex(8),dimension(:,:,:,:,:,:,:) :: Y1
-  character(len=*),optional           :: order
-  logical,optional                    :: wspace
+  character(len=*),optional           :: order   !R (default): last index varies fastest, C: first index varies fastest
+  logical,optional                    :: wspace  !not used when reading, present for consistency with save_array
   character(len=1)                    :: order_
   logical                             :: wspace_
   order_ = "R"   ; if(present(order))order_=trim(order(1:1))

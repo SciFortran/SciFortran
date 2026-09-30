@@ -1,9 +1,9 @@
 subroutine splotA1_RR(pname,X,Y1,append)
   integer                       :: i,Np
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the output file
   real(8),dimension(:)          :: X
-  real(8),dimension(size(X))    :: Y1
-  logical,optional              :: append
+  real(8),dimension(size(X))    :: Y1      !function values Y1(...,k) at X(k), real or complex, rank 1 to 7
+  logical,optional              :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                       :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -21,10 +21,10 @@ subroutine splotA1_RR(pname,X,Y1,append)
 end subroutine splotA1_RR
 subroutine splotA1_RC(pname,X,Y1,append)
   integer                       :: i,j,Np
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the output file
   real(8),dimension(:)          :: X
-  complex(8),dimension(size(X)) :: Y1
-  logical,optional              :: append
+  complex(8),dimension(size(X)) :: Y1      !function values Y1(...,k) at X(k), real or complex, rank 1 to 7
+  logical,optional              :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                       :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -50,10 +50,10 @@ end subroutine splotA1_RC
 
 subroutine splotA2_RR(pname,X,Y1,append)
   integer                       :: i,j,Ny1,Ny2
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the output file
   real(8),dimension(:,:)        :: Y1
-  real(8),dimension(size(Y1,2)) :: X
-  logical,optional              :: append
+  real(8),dimension(size(Y1,2)) :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional              :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                       :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -78,10 +78,10 @@ end subroutine splotA2_RR
 !
 subroutine splotA2_RC(pname,X,Y1,append)
   integer                       :: i,j,Ny1,Ny2
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the output file
   complex(8),dimension(:,:)     :: Y1
-  real(8),dimension(size(Y1,2)) :: X
-  logical,optional              :: append
+  real(8),dimension(size(Y1,2)) :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional              :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                       :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -110,10 +110,10 @@ end subroutine splotA2_RC
 
 subroutine splotA3_RR(pname,X,Y1,append)
   integer                       :: i,j,k,Ny1,Ny2,Ny3
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the output file
   real(8),dimension(:,:,:)      :: Y1
-  real(8),dimension(size(Y1,3)) :: X
-  logical,optional              :: append
+  real(8),dimension(size(Y1,3)) :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional              :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                       :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -141,10 +141,10 @@ end subroutine splotA3_RR
 !
 subroutine splotA3_RC(pname,X,Y1,append)
   integer                       :: i,j,k,Ny1,Ny2,Ny3
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the output file
   complex(8),dimension(:,:,:)   :: Y1
-  real(8),dimension(size(Y1,3)) :: X
-  logical,optional              :: append
+  real(8),dimension(size(Y1,3)) :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional              :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                       :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -177,10 +177,10 @@ end subroutine splotA3_RC
 subroutine splotA4_RR(pname,X,Y1,append)
   integer                       :: Ny1,Ny2,Ny3,Ny4
   integer                       :: i1,i2,i3,i4
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the output file
   real(8),dimension(:,:,:,:)    :: Y1
-  real(8),dimension(size(Y1,4)) :: X
-  logical,optional              :: append
+  real(8),dimension(size(Y1,4)) :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional              :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                       :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -212,10 +212,10 @@ end subroutine splotA4_RR
 subroutine splotA4_RC(pname,X,Y1,append)
   integer                       :: Ny1,Ny2,Ny3,Ny4
   integer                       :: i1,i2,i3,i4
-  character(len=*)              :: pname
+  character(len=*)              :: pname   !name of the output file
   complex(8),dimension(:,:,:,:) :: Y1
-  real(8),dimension(size(Y1,4)) :: X
-  logical,optional              :: append
+  real(8),dimension(size(Y1,4)) :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional              :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                       :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -254,10 +254,10 @@ end subroutine splotA4_RC
 subroutine splotA5_RR(pname,X,Y1,append)
   integer                         :: Ny1,Ny2,Ny3,Ny4,Ny5
   integer                         :: i1,i2,i3,i4,i5
-  character(len=*)                :: pname
+  character(len=*)                :: pname   !name of the output file
   real(8),dimension(:,:,:,:,:)    :: Y1
-  real(8),dimension(size(Y1,5))   :: X
-  logical,optional                :: append
+  real(8),dimension(size(Y1,5))   :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional                :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                         :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -292,10 +292,10 @@ end subroutine splotA5_RR
 subroutine splotA5_RC(pname,X,Y1,append)
   integer                         :: Ny1,Ny2,Ny3,Ny4,Ny5
   integer                         :: i1,i2,i3,i4,i5
-  character(len=*)                :: pname
+  character(len=*)                :: pname   !name of the output file
   complex(8),dimension(:,:,:,:,:) :: Y1
-  real(8),dimension(size(Y1,5))   :: X
-  logical,optional                :: append
+  real(8),dimension(size(Y1,5))   :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional                :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                         :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -337,10 +337,10 @@ end subroutine splotA5_RC
 subroutine splotA6_RR(pname,X,Y1,append)
   integer                           :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6
   integer                           :: i1,i2,i3,i4,i5,i6
-  character(len=*)                  :: pname
+  character(len=*)                  :: pname   !name of the output file
   real(8),dimension(:,:,:,:,:,:)    :: Y1
-  real(8),dimension(size(Y1,6))     :: X
-  logical,optional                  :: append
+  real(8),dimension(size(Y1,6))     :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional                  :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                           :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -378,10 +378,10 @@ end subroutine splotA6_RR
 subroutine splotA6_RC(pname,X,Y1,append)
   integer                           :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6
   integer                           :: i1,i2,i3,i4,i5,i6
-  character(len=*)                  :: pname
+  character(len=*)                  :: pname   !name of the output file
   complex(8),dimension(:,:,:,:,:,:) :: Y1
-  real(8),dimension(size(Y1,6))     :: X
-  logical,optional                  :: append
+  real(8),dimension(size(Y1,6))     :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional                  :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                           :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -426,10 +426,10 @@ end subroutine splotA6_RC
 subroutine splotA7_RR(pname,X,Y1,append)
   integer                             :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6,Ny7
   integer                             :: i1,i2,i3,i4,i5,i6,i7
-  character(len=*)                    :: pname
+  character(len=*)                    :: pname   !name of the output file
   real(8),dimension(:,:,:,:,:,:,:)    :: Y1
-  real(8),dimension(size(Y1,7))       :: X
-  logical,optional                    :: append
+  real(8),dimension(size(Y1,7))       :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional                    :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                             :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then
@@ -470,10 +470,10 @@ end subroutine splotA7_RR
 subroutine splotA7_RC(pname,X,Y1,append)
   integer                             :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6,Ny7
   integer                             :: i1,i2,i3,i4,i5,i6,i7
-  character(len=*)                    :: pname
+  character(len=*)                    :: pname   !name of the output file
   complex(8),dimension(:,:,:,:,:,:,:) :: Y1
-  real(8),dimension(size(Y1,7))       :: X
-  logical,optional                    :: append
+  real(8),dimension(size(Y1,7))       :: X       !abscissa, one per element of the last dimension of Y1
+  logical,optional                    :: append  !if T add to an existing file instead of overwriting it (default F)
   logical                             :: check,append_
   append_=.false.;if(present(append))append_=append
   if(append_)then

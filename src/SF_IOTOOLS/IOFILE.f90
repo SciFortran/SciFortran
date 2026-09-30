@@ -1,4 +1,5 @@
 module IOFILE
+  !Contains procedures for generating output files
   implicit none
   private
 
@@ -6,6 +7,18 @@ module IOFILE
   integer,save :: store_size=2048
 
   interface str
+  !This function converts an integer, real, complex, logical or character variable into a character string,
+  !left-justified and without leading or trailing blanks. The specific procedures cover
+  !
+  !* an integer, optionally zero padded to :code:`Npad` characters, :code:`str(12)` gives :code:`12` and :code:`str(12,5)` gives
+  !  :code:`00012`
+  !* a real, written in fixed format with :code:`d+lead` decimals (defaults :code:`d=6`, :code:`lead=1`) if
+  !  :math:`|r| \ge 10^{-lead}`,
+  !  and in scientific format with :code:`d` decimals otherwise, :code:`str(3.14159d0)` gives :code:`3.1415900`
+  !* a complex, written as :code:`(re,im)` with each part formatted as a real
+  !* a logical, written as :code:`T` or :code:`F`
+  !* a character string, stripped of leading and trailing blanks
+  !
      module procedure str_i_to_ch
      module procedure str_i_to_ch_pad
      module procedure str_r_to_ch
@@ -15,6 +28,8 @@ module IOFILE
   end interface str
 
   interface txtfy
+  !This function is obsolete, it is a synonym of :f:func_inline:`str`, with the same specific procedures.
+  !
      module procedure str_i_to_ch
      module procedure str_i_to_ch_pad
      module procedure str_r_to_ch
@@ -24,18 +39,32 @@ module IOFILE
   end interface txtfy
 
   interface reg
+  !This function removes the leading and trailing blanks of the character string :f:var:`file`. The result has
+  !length :code:`len_trim(adjustl(file))`.
+  !
      module procedure reg_filename
   end interface reg
 
   interface create_dir
+  !This subroutine creates the directory :f:var:`dir_name` by calling the command :code:`mkdir -v`. The parent directories
+  !are not created, and the error message of :code:`mkdir` is printed if the directory can not be created, for
+  !example if it already exists.
+  !
      module procedure create_data_dir
   end interface create_dir
 
   interface newunit
+  !This function returns a free unit number, see :f:func_inline:`free_unit`.
+  !
      module procedure free_unit
   end interface newunit
 
   interface print_matrix
+  !This subroutine prints the real or complex matrix :f:var:`M` row by row, on the standard output or
+  !in the file :f:var:`file` if present. Each element is written with width :f:var:`w` and :f:var:`d` decimals, separated
+  !by a blank. Complex elements are written as :code:`(re,im)`. The file is opened with a unit given by
+  !:f:func_inline:`free_unit`, and it is not closed by the subroutine.
+  !
      module procedure print_array_d
      module procedure print_array_c
   end interface print_matrix
@@ -84,8 +113,12 @@ contains
 
 
   pure function reverse(string,n) result(reverse_string)
-    character(len=*), intent(in) :: string
-    integer,optional,intent(in)  :: n
+    !This function returns the last :f:var:`n` characters of the character string :f:var:`string` in reverse order,
+    !so the length of the result is :code:`n`. If :f:var:`n` is absent all the characters are reversed, hence
+    !:code:`reverse("abcdef")` returns :code:`fedcba` and :code:`reverse("abcdef",3)` returns :code:`fed`.
+    !
+    character(len=*), intent(in) :: string  !string to reverse
+    integer,optional,intent(in)  :: n       !number of characters to reverse, taken from the end of string (default len(string))
     character(len=:),allocatable :: reverse_string
     integer                      :: i,m,mm
     m = len(string);if(present(n))m=n
@@ -102,13 +135,16 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   pure function reg_filename(file) result(reg)
-    character(len=*),intent(in)                        :: file    
+    character(len=*),intent(in)                        :: file  !string whose leading and trailing blanks are removed
     character(len=len_trim(trim(adjustl(trim(file))))) :: reg
     reg=trim(adjustl(trim(file)))
   end function reg_filename
 
   function get_filename(string) result(fname)
-    character(len=*) :: string
+    !This function returns the name of a file without its path, that is the part of :f:var:`string` after the last
+    !:code:`/`, without leading or trailing blanks. It is the whole string if it contains no :code:`/`.
+    !
+    character(len=*) :: string  !path of a file, directories separated by /
     ! character(len=len_trim(string)) :: fname
     character(len=:),allocatable :: fname
     integer :: i,slen
@@ -120,7 +156,10 @@ contains
   end function get_filename
 
   function get_filepath(string) result(pname)
-    character(len=*) :: string
+    !This function returns the path of a file, that is the part of :f:var:`string` up to and including the last
+    !:code:`/`, without leading or trailing blanks. It is an empty string if :f:var:`string` contains no :code:`/`.
+    !
+    character(len=*) :: string  !path of a file, directories separated by /
     ! character(len=len_trim(string)) :: pname
     character(len=:),allocatable :: pname
     integer :: i,slen
@@ -133,7 +172,12 @@ contains
 
 
   function free_unit(n) result(unit_)
-    integer,optional :: n
+    !This function returns the lowest unit number larger than 100 that is not connected to a file, and stops the
+    !program if there is no free unit smaller than 900. If :f:var:`n` is present it is set to the same value.
+    !The unit is not reserved, so it must be opened before the function is called again. The function is also
+    !available under the name :f:func_inline:`newunit`.
+    !
+    integer,optional :: n  !if present it is set to the unit returned
     integer          :: unit_,ios
     logical          :: opened
     unit_=100
@@ -147,7 +191,10 @@ contains
   end function free_unit
 
   function free_units(n) result(unit)
-    integer :: n
+    !This function returns an array of :f:var:`n` different unit numbers larger than 100 that are not connected to a
+    !file at the time of the call. The program stops if no free unit smaller than 900 is found.
+    !
+    integer :: n  !number of free units to return
     integer :: unit(n)
     integer :: i,unit_,ios
     logical :: is_it_opened
@@ -170,10 +217,14 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   function file_size(file,printf) result(size)
+    !This function returns the size in Kb of the file :f:var:`file`, rounded to the nearest integer, obtained with
+    !the :code:`fstat` system call. If the file does not exist a message is printed and the returned value is not set.
+    !If :f:var:`printf` is true a message with the file name and its size is printed.
+    !
     integer               :: size,status
-    character(len=*)      :: file
+    character(len=*)      :: file    !file name
     integer,dimension(13) :: buff
-    logical,optional      :: printf
+    logical,optional      :: printf  !if T print the size of the file (default F)
     logical               :: control,printf_
     printf_=.false.;if(present(printf))printf_=printf
     inquire(file=reg(file),exist=control)
@@ -199,8 +250,12 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   function file_info(file)
+    !This function prints on the screen the information on the file :f:var:`file` returned by the :code:`fstat` system
+    !call: device, inode, mode, number of links, owner and group ids, size, times, block size and number of blocks.
+    !It returns 0 if the file does not exist, otherwise the returned value is not set.
+    !
     integer               :: file_info
-    character(len=*)      :: file
+    character(len=*)      :: file  !file name
     integer,dimension(13) :: buff
     integer               :: status,ifile
     logical               :: IOfile
@@ -242,9 +297,18 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   function file_length(file,verbose,incl_comments) result(lines)
+    !This function returns the number of lines of the file :f:var:`file`. Blank lines, and comment lines, that is lines
+    !whose first item contains the character :code:`#`, are not counted unless :f:var:`incl_comments` is true, in which case
+    !only the blank lines are skipped. If the file does not exist but a compressed version with extension :code:`.gz`,
+    !:code:`.bz2` or :code:`.xz` does, the file is first uncompressed with :f:func_inline:`file_gunzip`,
+    !:f:func_inline:`file_bunzip`
+    !or :f:func_inline:`file_unxz`. If no file is found a message is printed and 0 is returned. If :f:var:`verbose`
+    !is true, which is the default, the number of lines is printed.
+    !
     integer           :: lines
-    logical,optional  :: verbose,incl_comments
-    character(len=*)  :: file
+    logical,optional  :: verbose        !if T print the number of lines (default T)
+    logical,optional  :: incl_comments  !if T count the comment lines too (default F)
+    character(len=*)  :: file           !file name, or name without extension of a .gz, .bz2 or .xz compressed file
     integer           :: ifile,ierr,pos
     logical           :: IOfile,bool,bool1,bool2,verbose_,incl_comments_
     character(len=256)::buffer
@@ -299,7 +363,11 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine set_store_size(size)
-    integer :: size
+    !This subroutine sets the size :f:var:`size`, in Kb, used as default threshold by :f:func_inline:`file_gzip`,
+    !:f:func_inline:`file_bzip` and :f:func_inline:`file_xz`: files that are not larger than this value are not compressed.
+    !The default is 2048 Kb. The new value is printed on the screen.
+    !
+    integer :: size  !size threshold in Kb above which files are compressed (default 2048)
     store_size=size
     write(*,"(A)")"store size ="//trim(txtfy(size))//"Kb"
   end subroutine set_store_size
@@ -311,8 +379,12 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_gzip(file,size)
-    character(len=*)  :: file
-    integer,optional  :: size
+    !This subroutine compresses the file :f:var:`file` with :code:`gzip -fv --best --rsyncable`, producing :code:`file.gz`,
+    !if its size given by :f:func_inline:`file_size` is larger than :f:var:`size` Kb. The default threshold is the
+    !store size, 2048 Kb unless changed with :f:func_inline:`set_store_size`. Smaller files are left untouched.
+    !
+    character(len=*)  :: file  !file to compress
+    integer,optional  :: size  !size threshold in Kb, smaller files are not compressed (default: store size)
     logical           :: control
     character(len=9)  :: csize 
     integer           :: cstatus,fsize,unit,len
@@ -335,7 +407,11 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_gunzip(filename)
-    character(len=*)             :: filename
+    !This subroutine uncompresses the file :code:`filename.gz` with :code:`gunzip -fv`, producing :f:var:`filename`.
+    !Nothing is done if :f:var:`filename` already exists. The program stops with a message if neither :f:var:`filename`
+    !nor :code:`filename.gz` exists.
+    !
+    character(len=*)             :: filename  !name of the uncompressed file, without the compression extension
     character(len=3),parameter   :: type='.gz'
     logical                      :: iexist,iopen
     integer                      :: unit
@@ -366,8 +442,12 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_bzip(file,size)
-    character(len=*)  :: file
-    integer,optional  :: size
+    !This subroutine compresses the file :f:var:`file` with :code:`bzip2 -zfv`, producing :code:`file.bz2`, if its size
+    !given by :f:func_inline:`file_size` is larger than :f:var:`size` Kb. The default threshold is the store size,
+    !2048 Kb unless changed with :f:func_inline:`set_store_size`. Smaller files are left untouched.
+    !
+    character(len=*)  :: file  !file to compress
+    integer,optional  :: size  !size threshold in Kb, smaller files are not compressed (default: store size)
     logical           :: control
     character(len=9)  :: csize 
     integer           :: cstatus,fsize,unit,len
@@ -387,7 +467,11 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_bunzip(filename)
-    character(len=*)             :: filename
+    !This subroutine uncompresses the file :code:`filename.bz2` with :code:`bzip2 -dv`, producing :f:var:`filename`.
+    !Nothing is done if :f:var:`filename` already exists. The program stops with a message if neither :f:var:`filename`
+    !nor :code:`filename.bz2` exists.
+    !
+    character(len=*)             :: filename  !name of the uncompressed file, without the compression extension
     character(len=4),parameter   :: type='.bz2'
     logical                      :: iexist,iopen
     integer                      :: unit
@@ -417,8 +501,12 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_xz(file,size)
-    character(len=*)  :: file
-    integer,optional  :: size
+    !This subroutine compresses the file :f:var:`file` with :code:`xz -zfv`, producing :code:`file.xz`, if its size
+    !given by :f:func_inline:`file_size` is larger than :f:var:`size` Kb. The default threshold is the store size,
+    !2048 Kb unless changed with :f:func_inline:`set_store_size`. Smaller files are left untouched.
+    !
+    character(len=*)  :: file  !file to compress
+    integer,optional  :: size  !size threshold in Kb, smaller files are not compressed (default: store size)
     logical           :: control
     character(len=9)  :: csize 
     integer           :: cstatus,fsize,unit,len
@@ -438,7 +526,11 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_unxz(filename)
-    character(len=*)             :: filename
+    !This subroutine uncompresses the file :code:`filename.xz` with :code:`xz -dv`, producing :f:var:`filename`.
+    !Nothing is done if :f:var:`filename` already exists. The program stops with a message if neither :f:var:`filename`
+    !nor :code:`filename.xz` exists.
+    !
+    character(len=*)             :: filename  !name of the uncompressed file, without the compression extension
     character(len=3),parameter   :: type='.xz'
     logical                      :: iexist,iopen
     integer                      :: unit
@@ -468,9 +560,13 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_targz(tarball,pattern,size)
-    character(len=*)           :: tarball
-    character(len=*)           :: pattern
-    integer,optional           :: size
+    !This subroutine stores the files matching :f:var:`pattern` in the compressed tarball :code:`tarball.tgz`, created with
+    !:code:`tar -czf`. If the command succeeds the archived files are removed with :code:`rm -f`. The argument :f:var:`size`
+    !is accepted for consistency with :f:func_inline:`file_gzip` but it is not used: the tarball is always written.
+    !
+    character(len=*)           :: tarball  !tarball name, without the .tgz or .tar.bz2 extension
+    character(len=*)           :: pattern  !files to archive, they are removed after a successful archive
+    integer,optional           :: size     !not used
     character(len=4),parameter :: type='.tgz'
     integer                    :: control,fsize
     character(len=100)         :: cmsg
@@ -491,7 +587,10 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_untargz(tarball)
-    character(len=*)           :: tarball
+    !This subroutine extracts the tarball :code:`tarball.tgz` with :code:`tar -xzf`, and removes it if the command succeeds.
+    !A message is printed and nothing is done if the tarball does not exist.
+    !
+    character(len=*)           :: tarball  !tarball name, without the .tgz or .tar.bz2 extension
     integer                    :: control
     logical                    :: iexist,iopen
     integer                    :: unit
@@ -526,9 +625,13 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_tarbz2(tarball,pattern,size)
-    character(len=*)           :: tarball
-    character(len=*)           :: pattern
-    integer,optional           :: size
+    !This subroutine stores the files matching :f:var:`pattern` in the bzip2 compressed tarball :code:`tarball.tar.bz2`,
+    !created with :code:`tar -cjSf`. If the command succeeds the archived files are removed with :code:`rm -f`. The argument
+    !:f:var:`size` is accepted for consistency with :f:func_inline:`file_bzip` but it is not used: the tarball is always written.
+    !
+    character(len=*)           :: tarball  !tarball name, without the .tgz or .tar.bz2 extension
+    character(len=*)           :: pattern  !files to archive, they are removed after a successful archive
+    integer,optional           :: size     !not used
     character(len=8),parameter :: type='.tar.bz2'
     integer                    :: control,fsize
     character(len=100)         :: cmsg
@@ -549,7 +652,10 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine file_untarbz2(tarball)
-    character(len=*)           :: tarball
+    !This subroutine extracts the tarball :code:`tarball.tar.bz2` with :code:`tar -xjf`, and removes it if the command succeeds.
+    !A message is printed and nothing is done if the tarball does not exist.
+    !
+    character(len=*)           :: tarball  !tarball name, without the .tgz or .tar.bz2 extension
     integer                    :: control
     logical                    :: iexist,iopen
     integer                    :: unit
@@ -586,7 +692,7 @@ contains
   !PURPOSE  : 
   !+-----------------------------------------------------------------+
   subroutine create_data_dir(dir_name)
-    character(len=*) :: dir_name
+    character(len=*) :: dir_name  !name of the directory to create
     logical          :: control
     call system("mkdir -v "//reg(dir_name))
   end subroutine create_data_dir
@@ -599,7 +705,10 @@ contains
 
 
   function to_upper(StrIn) result(StrOut)
-    character(len=*), intent(in) :: strIn
+    !This function returns the character string :f:var:`StrIn` with the lower case letters a-z converted to upper case.
+    !The other characters are unchanged.
+    !
+    character(len=*), intent(in) :: strIn  !string to convert
     character(len=len(strIn))    :: strOut
     integer :: i
     do i = 1,len(StrIn)
@@ -613,7 +722,10 @@ contains
   end function to_upper
 
   function to_lower(StrIn) result(StrOut)
-    character(len=*), intent(in) :: strIn
+    !This function returns the character string :f:var:`StrIn` with the upper case letters A-Z converted to lower case.
+    !The other characters are unchanged.
+    !
+    character(len=*), intent(in) :: strIn  !string to convert
     character(len=len(strIn))    :: strOut
     integer :: i
     do i = 1,len(StrIn)
@@ -672,7 +784,7 @@ contains
 
 
   function str_i_to_ch(i4) result(string)
-    integer                      :: i4
+    integer                      :: i4  !integer to convert
     character(len=:),allocatable :: string
     character(len=16)            :: string_
     call i4_to_s_left(i4,string_)
@@ -680,8 +792,8 @@ contains
   end function str_i_to_ch
 
   function str_i_to_ch_pad(i4,Npad) result(string)
-    integer                      :: i4
-    integer                      :: Npad
+    integer                      :: i4    !integer to convert
+    integer                      :: Npad  !number of characters of the zero padded string
     character(len=:),allocatable :: string
     character(len=Npad)          :: string_pad
     call i4_to_s_zero(i4,string_pad)
@@ -689,8 +801,9 @@ contains
   end function str_i_to_ch_pad
 
   function str_r_to_ch(r8,d,lead) result(string)
-    real(8)                      :: r8
-    integer,optional             :: d,lead
+    real(8)                      :: r8    !real to convert
+    integer,optional             :: d     !digits parameter of the format (default 6)
+    integer,optional             :: lead  !values with abs < 10**(-lead) use scientific format (default 1)
     integer                      :: w_,d_,lead_
     character(len=:),allocatable :: string
     character(len=:),allocatable :: string_
@@ -704,8 +817,9 @@ contains
 
 
   function str_c_to_ch(c,d,lead) result(string)
-    complex(8)                   :: c
-    integer,optional             :: d,lead
+    complex(8)                   :: c     !complex to convert
+    integer,optional             :: d     !digits parameter of the format (default 6)
+    integer,optional             :: lead  !values with abs < 10**(-lead) use scientific format (default 1)
     integer                      :: w_,d_,lead_
     character(len=:),allocatable :: string
     character(len=:),allocatable :: sre,sim
@@ -726,14 +840,14 @@ contains
 
 
   function str_l_to_ch(bool) result(string)
-    logical          :: bool
+    logical          :: bool  !logical to convert
     character(len=1) :: string
     string='F'
     if(bool)string='T'
   end function str_l_to_ch
 
   function str_ch_to_ch(txt) result(string)
-    character(len=*)                             :: txt
+    character(len=*)                             :: txt  !character string to strip of leading and trailing blanks
     character(len=:),allocatable :: string
     string=trim(adjustl(trim(txt)))
   end function str_ch_to_ch
@@ -963,8 +1077,9 @@ contains
 
   subroutine print_array_d(M,file,w,d)
     real(8),dimension(:,:)    :: M
-    character(len=*),optional :: file
-    integer,optional          :: w,d
+    character(len=*),optional :: file  !file where to print the matrix (default: standard output)
+    integer,optional          :: w     !width of each printed number (default 5)
+    integer,optional          :: d     !number of decimals of each printed number (default 2)
     integer                   :: w_,d_
     integer                   :: i,j
     integer                   :: unit
@@ -981,8 +1096,9 @@ contains
 
   subroutine print_array_c(M,file,w,d)
     complex(8),dimension(:,:) :: M
-    character(len=*),optional :: file
-    integer,optional          :: w,d
+    character(len=*),optional :: file  !file where to print the matrix (default: standard output)
+    integer,optional          :: w     !width of each printed number (default 5)
+    integer,optional          :: d     !number of decimals of each printed number (default 2)
     integer                   :: w_,d_
     integer                   :: i,j
     integer                   :: unit
@@ -999,7 +1115,3 @@ contains
 
 
 end module IOFILE
-
-
-
-

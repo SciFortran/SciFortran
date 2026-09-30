@@ -1,6 +1,6 @@
 subroutine sreadA1_RR(pname,X,Y1)
   integer                             :: i,Np
-  character(len=*)                    :: pname
+  character(len=*)                    :: pname  !name of the input file
   real(8),dimension(:)                :: X
   real(8),dimension(size(X))          :: Y1
   call ioread_control(pname,control)
@@ -14,7 +14,7 @@ end subroutine sreadA1_RR
 
 subroutine sreadA1_RC(pname,X,Y1)
   integer                       :: i,Np
-  character(len=*)              :: pname
+  character(len=*)              :: pname  !name of the input file
   real(8),dimension(:)          :: X
   complex(8),dimension(size(X)) :: Y1
   real(8),dimension(size(X))    :: reY,imY
@@ -38,7 +38,7 @@ end subroutine sreadA1_RC
 
 subroutine sreadA2_RR(pname,X,Y1)
   integer                       :: i,j,Ny1,Ny2
-  character(len=*)              :: pname
+  character(len=*)              :: pname  !name of the input file
   real(8),dimension(:,:)        :: Y1
   real(8),dimension(size(Y1,2)) :: X
   call ioread_control(pname,control)
@@ -58,7 +58,7 @@ end subroutine sreadA2_RR
 
 subroutine sreadA2_RC(pname,X,Y1)
   integer                                  :: i,j,Ny1,Ny2
-  character(len=*)                         :: pname
+  character(len=*)                         :: pname  !name of the input file
   complex(8),dimension(:,:)                :: Y1
   real(8),dimension(size(Y1,2))            :: X
   real(8),dimension(size(Y1,1),size(Y1,2)) :: reY,imY
@@ -86,7 +86,7 @@ end subroutine sreadA2_RC
 
 subroutine sreadA3_RR(pname,X,Y1)
   integer                       :: i,j,k,Ny1,Ny2,Ny3
-  character(len=*)              :: pname
+  character(len=*)              :: pname  !name of the input file
   real(8),dimension(:,:,:)      :: Y1
   real(8),dimension(size(Y1,3)) :: X
   call ioread_control(pname,control)
@@ -108,7 +108,7 @@ end subroutine sreadA3_RR
 
 subroutine sreadA3_RC(pname,X,Y1)
   integer                                             :: i,j,k,Ny1,Ny2,Ny3
-  character(len=*)                                    :: pname
+  character(len=*)                                    :: pname  !name of the input file
   complex(8),dimension(:,:,:)                         :: Y1
   real(8),dimension(size(Y1,3))                       :: X
   real(8),dimension(size(Y1,1),size(Y1,2),size(Y1,3)) :: reY,imY
@@ -139,7 +139,7 @@ end subroutine sreadA3_RC
 subroutine sreadA4_RR(pname,X,Y1)
   integer                       :: Ny1,Ny2,Ny3,Ny4
   integer                       :: i1,i2,i3,i4
-  character(len=*)              :: pname
+  character(len=*)              :: pname  !name of the input file
   real(8),dimension(:,:,:,:)    :: Y1
   real(8),dimension(size(Y1,4)) :: X
   call ioread_control(pname,control)
@@ -165,7 +165,7 @@ end subroutine sreadA4_RR
 subroutine sreadA4_RC(pname,X,Y1)
   integer                       :: Ny1,Ny2,Ny3,Ny4
   integer                       :: i1,i2,i3,i4
-  character(len=*)              :: pname
+  character(len=*)              :: pname  !name of the input file
   complex(8),dimension(:,:,:,:) :: Y1
   real(8),dimension(size(Y1,4)) :: X
   real(8),dimension(&
@@ -206,7 +206,7 @@ end subroutine sreadA4_RC
 subroutine sreadA5_RR(pname,X,Y1)
   integer                         :: Ny1,Ny2,Ny3,Ny4,Ny5
   integer                         :: i1,i2,i3,i4,i5
-  character(len=*)                :: pname
+  character(len=*)                :: pname  !name of the input file
   real(8),dimension(:,:,:,:,:)    :: Y1
   real(8),dimension(size(Y1,5))   :: X
   !
@@ -236,7 +236,7 @@ end subroutine sreadA5_RR
 subroutine sreadA5_RC(pname,X,Y1)
   integer                         :: Ny1,Ny2,Ny3,Ny4,Ny5
   integer                         :: i1,i2,i3,i4,i5
-  character(len=*)                :: pname
+  character(len=*)                :: pname  !name of the input file
   complex(8),dimension(:,:,:,:,:) :: Y1
   real(8),dimension(size(Y1,5))   :: X
   real(8),dimension(&
@@ -280,7 +280,7 @@ end subroutine sreadA5_RC
 subroutine sreadA6_RR(pname,X,Y1)
   integer                           :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6
   integer                           :: i1,i2,i3,i4,i5,i6
-  character(len=*)                  :: pname
+  character(len=*)                  :: pname  !name of the input file
   real(8),dimension(:,:,:,:,:,:)    :: Y1
   real(8),dimension(size(Y1,6))     :: X
   !
@@ -313,7 +313,7 @@ end subroutine sreadA6_RR
 subroutine sreadA6_RC(pname,X,Y1)
   integer                           :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6
   integer                           :: i1,i2,i3,i4,i5,i6
-  character(len=*)                  :: pname
+  character(len=*)                  :: pname  !name of the input file
   complex(8),dimension(:,:,:,:,:,:) :: Y1
   real(8),dimension(size(Y1,6))     :: X
   real(8),dimension(&
@@ -361,7 +361,7 @@ end subroutine sreadA6_RC
 subroutine sreadA7_RR(pname,X,Y1)
   integer                             :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6,Ny7
   integer                             :: i1,i2,i3,i4,i5,i6,i7
-  character(len=*)                    :: pname
+  character(len=*)                    :: pname  !name of the input file
   real(8),dimension(:,:,:,:,:,:,:)    :: Y1
   real(8),dimension(size(Y1,7))       :: X
   !
@@ -397,7 +397,7 @@ end subroutine sreadA7_RR
 subroutine sreadA7_RC(pname,X,Y1)
   integer                             :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6,Ny7
   integer                             :: i1,i2,i3,i4,i5,i6,i7
-  character(len=*)                    :: pname
+  character(len=*)                    :: pname  !name of the input file
   complex(8),dimension(:,:,:,:,:,:,:) :: Y1
   real(8),dimension(size(Y1,7))       :: X
   real(8),dimension(&
