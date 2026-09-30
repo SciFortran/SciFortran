@@ -10,8 +10,14 @@ contains
 
 
   function locate(xx,x)
-    REAL(8), DIMENSION(:), INTENT(IN) :: xx
-    REAL(8), INTENT(IN) :: x
+    !This function performs a binary search in the table :f:var:`xx` and returns the index
+    !:code:`j` such that :f:var:`x` lies between :code:`xx(j)` and :code:`xx(j+1)`. The table must
+    !be monotonic, either ascending or descending. The function returns :code:`0` if :f:var:`x` lies
+    !before :code:`xx(1)` and :code:`N` if it lies beyond :code:`xx(N)`, with :code:`N=size(xx)`, 
+    !in the order of the table. The values :math:`x = xx(1)` and :math:`x = xx(N)` return :code:`1` 
+    !and :code:`N-1` respectively. From Numerical Recipes.
+    REAL(8), DIMENSION(:), INTENT(IN) :: xx  !monotonic table, ascending or descending
+    REAL(8), INTENT(IN) :: x                 !value to locate in the table
     INTEGER :: locate
     INTEGER :: n,jl,jm,ju
     LOGICAL :: ascnd
@@ -41,8 +47,13 @@ contains
 
 
   SUBROUTINE polint(xa,ya,x,y,dy)
-    REAL(8), DIMENSION(:), INTENT(IN) :: xa,ya
-    REAL(8), INTENT(IN)          :: x
+    !This subroutine evaluates the polynomial of degree :code:`n-1` through the :code:`n` points
+    !(:f:var:`xa`, :f:var:`ya`) at the point :f:var:`x`, using Neville's algorithm. It returns the
+    !interpolated value :code:`y` and an estimate :code:`dy` of the error. The program stops if
+    !the sizes of :f:var:`xa` and :f:var:`ya` differ, or if two points of :f:var:`xa` coincide.
+    !From Numerical Recipes.
+    REAL(8), DIMENSION(:), INTENT(IN) :: xa,ya  !data points: abscissas xa(i), all distinct, and ordinates ya(i)=f(xa(i))
+    REAL(8), INTENT(IN)          :: x           !point where the polynomial is evaluated
     REAL(8), INTENT(OUT)         :: y,dy
     INTEGER                      :: m,n,ns
     REAL(8), DIMENSION(size(xa)) :: c,d,den,ho
@@ -74,9 +85,16 @@ contains
 
 
   subroutine polin2(x1a,x2a,ya,x1,x2,y,dy)
-    real(8), dimension(:), intent(in)   :: x1a,x2a
-    real(8), dimension(:,:), intent(in) :: ya
-    real(8), intent(in)                 :: x1,x2
+    !This subroutine evaluates the 2-dimensional polynomial interpolation of the function 
+    !:f:var:`ya` tabulated on the grid :f:var:`x1a` :math:`\times` :f:var:`x2a`, at the point
+    !(:f:var:`x1`, :f:var:`x2`). It applies :f:func_inline:`polint` along the second variable 
+    !for each point of :f:var:`x1a`, and then along the first. It returns the interpolated value
+    !:code:`y` and an estimate :code:`dy` of the error, obtained from the last interpolation.
+    !The program stops if the shape of :f:var:`ya` is not :code:`(size(x1a),size(x2a))`.
+    !From Numerical Recipes.
+    real(8), dimension(:), intent(in)   :: x1a,x2a  !grid points along the first and the second variable
+    real(8), dimension(:,:), intent(in) :: ya       !function values on the grid, ya(i,j)=f(x1a(i),x2a(j))
+    real(8), intent(in)                 :: x1,x2    !coordinates of the point where the polynomial is evaluated
     real(8), intent(out)                :: y,dy
     integer                             :: j,m,ndum
     real(8), dimension(size(x1a))       :: ymtmp

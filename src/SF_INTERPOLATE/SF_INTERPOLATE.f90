@@ -13,24 +13,56 @@
     private
 
     type finter_type
-       real(8),allocatable    :: X(:)
-       real(8),allocatable    :: F(:)
-       real(8),allocatable    :: G(:)
-       integer                :: Imin,Imax,N
-       logical                :: status=.false.
+    !This derived type stores the tabulated data of a 1-dimensional function and the order
+    !of the local polynomial interpolation, and is used by :f:func_inline:`finter` and
+    !:f:func_inline:`cinter`. It is initialized with :f:func_inline:`init_finter` and
+    !released with :f:func_inline:`delete_finter`. The components are not meant to be set directly.
+    !
+       real(8),allocatable    :: X(:)    !grid points, strictly increasing
+       real(8),allocatable    :: F(:)    !function values on the grid (real part for a complex function)
+       real(8),allocatable    :: G(:)    !imaginary part of the function values (allocated only for complex data)
+       integer                :: Imin    !index of the first grid point used (set to 1 by init_finter)
+       integer                :: Imax    !index of the last grid point used (set to size(X) by init_finter)
+       integer                :: N       !order of the local polynomial interpolation
+       logical                :: status=.false. !T if the object has been initialized
     end type finter_type
 
     type finter2d_type
-       real(8),allocatable :: X(:)  !vector with frequencies
-       real(8),allocatable :: Y(:)  !vector with frequencies
-       real(8),allocatable :: F(:,:) !corresponding vector of functional values
-       integer             :: N=0
-       integer             :: Imin=0,Imax=0,Jmin=0,Jmax=0
-       logical             :: status=.false.
+    !This derived type stores the tabulated data of a 2-dimensional function on a regular
+    !grid and the order of the local polynomial interpolation, and is used by
+    !:f:func_inline:`finter2d`. It is initialized with :f:func_inline:`init_finter2d` and
+    !released with :f:func_inline:`delete_finter2d`. The components are not meant to be set directly.
+    !
+       real(8),allocatable :: X(:)   !grid points along x, strictly increasing
+       real(8),allocatable :: Y(:)   !grid points along y, strictly increasing
+       real(8),allocatable :: F(:,:) !function values on the grid, F(i,j)=F(X(i),Y(j))
+       integer             :: N=0    !order of the local polynomial interpolation
+       integer             :: Imin=0 !index of the first grid point used along x (set to 1 by init_finter2d)
+       integer             :: Imax=0 !index of the last grid point used along x (set to size(X) by init_finter2d)
+       integer             :: Jmin=0 !index of the first grid point used along y (set to 1 by init_finter2d)
+       integer             :: Jmax=0 !index of the last grid point used along y (set to size(Y) by init_finter2d)
+       logical             :: status=.false. !T if the object has been initialized
     end type finter2d_type
 
 
     interface linear_spline
+    !This subroutine evaluates the piecewise linear interpolation of a real or complex function
+    !tabulated on a grid. The specific procedures cover
+    !
+    !* a function of one variable, evaluated at a single point (scalar :f:var:`Xout`) or at an array of points
+    !* a function of two variables on a regular grid, evaluated at a single point or on the grid
+    !  :f:var:`Xout` :math:`\times` :f:var:`Yout`
+    !
+    !In 1 dimension the interpolation is carried out by the routine :code:`interp_linear`.
+    !The grid :f:var:`Xin` must be strictly increasing, otherwise the program stops. Points outside 
+    !the grid are extrapolated linearly. If the input and output grids have the same size and are 
+    !identical the message :code:`msg: test_grid_equlity: Fout=Fin. Exit.` is printed, and the 
+    !result is the same.
+    !
+    !In 2 dimensions the interpolation is bilinear, see
+    !http://en.wikipedia.org/wiki/Bilinear_interpolation. The points must lie inside the input
+    !grid, extrapolation is not available.
+    !
        module procedure :: d_linear_spline_s
        module procedure :: d_linear_spline_v
        module procedure :: c_linear_spline_s
@@ -44,6 +76,21 @@
 
 
     interface poly_spline
+    !This subroutine evaluates the polynomial interpolation of a real or complex function
+    !tabulated on a grid, using the local polynomial of order :f:var:`N` built by
+    !:f:func_inline:`finter` (1 dimension) or :f:func_inline:`finter2d` (2 dimensions). 
+    !The specific procedures cover
+    !
+    !* a function of one variable, evaluated at a single point (scalar :f:var:`Xout`) or at an array of points
+    !* a function of two variables on a regular grid, evaluated at a single point or on the grid
+    !  :f:var:`Xout` :math:`\times` :f:var:`Yout`
+    !
+    !At each point the interpolating polynomial is built on a window of :math:`N+2` neighbouring
+    !grid points (:math:`(N+2)^2` in 2 dimensions) using :f:func_inline:`polint` (:f:func_inline:`polin2`). 
+    !The window is shifted to stay inside the grid at its borders, so points outside the grid are
+    !extrapolated with the polynomial of the first or last window. The grid must have at least
+    !:math:`N+2` points along each direction, and orders :math:`N>20` are not recommended.
+    !
        module procedure :: d_poly_spline_s
        module procedure :: d_poly_spline_v
        module procedure :: c_poly_spline_s
@@ -57,16 +104,24 @@
 
 
     interface cubic_spline
+    !This subroutine evaluates the cubic spline interpolation of a real or complex function
+    !of one variable tabulated on the grid :f:var:`Xin`, at a single point (scalar :f:var:`Xout`)
+    !or at an array of points. It is an interface to the routines :code:`CUBSPL` and :code:`PPVALU`
+    !of C. de Boor, called with the not-a-knot condition at both ends, that is the first 
+    !two and the last two cubic pieces coincide. This routine works well with imaginary time
+    !Green's functions. The grid :f:var:`Xin` must be strictly increasing and have at least 2 points.
+    !Points outside the grid are extrapolated with the first or last cubic piece. If the input
+    !and output grids have the same size and are identical the message
+    !:code:`msg: test_grid_equlity: Fout=Fin. Exit.` is printed, and the result is the same.
+    !
        module procedure :: d_cub_interp_s
        module procedure :: d_cub_interp_v
        module procedure :: c_cub_interp_s
        module procedure :: c_cub_interp_v
     end interface cubic_spline
 
-
-
     !AVAILABLE FROM NR
-    public :: locate !binary search:
+    public :: locate
     public :: polint
     public :: polin2
 
@@ -78,6 +133,14 @@
 
     !Function polynomial interpolation:
     interface init_finter
+    !This subroutine initializes a :f:type:`finter_type` object with the tabulated data of a 
+    !real or complex function of one variable, so that it can be interpolated with 
+    !:f:func_inline:`finter` (real) or :f:func_inline:`cinter` (complex). The data are copied, 
+    !:f:var:`func` does not keep a reference to :f:var:`Xin` and :f:var:`Fin`. If :f:var:`func` 
+    !was already initialized it is first released with :f:func_inline:`delete_finter`. 
+    !In the complex case the real and imaginary parts are stored separately, in 
+    !:code:`func%F` and :code:`func%G`.
+    !
        module procedure :: init_finter_d
        module procedure :: init_finter_c
     end interface init_finter
@@ -107,9 +170,9 @@
     !+-------------------------------------------------------------------+
     subroutine d_linear_spline_s(Xin,Fin,Xout,Fout)
       integer                      :: i,Lin,Lout
-      real(8),dimension(:)         :: Xin
-      real(8),dimension(size(Xin)) :: Fin
-      real(8)                      :: Xout
+      real(8),dimension(:)         :: Xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(size(Xin)) :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8)                      :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       real(8)                      :: Fout
       real(8),dimension(1)         :: xout_,fout_
       integer                      :: k
@@ -123,9 +186,9 @@
     !+-------------------------------------------------------------------+
     subroutine d_linear_spline_v(Xin,Fin,Xout,Fout)
       integer                       :: i,Lin,Lout
-      real(8),dimension(:)          :: Xin
-      real(8),dimension(size(Xin))  :: Fin
-      real(8),dimension(:)          :: Xout
+      real(8),dimension(:)          :: Xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(size(Xin))  :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8),dimension(:)          :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       real(8),dimension(size(Xout)) :: Fout
       integer                       :: k
       real(8)                       :: x,y,y0,y1,x0,x1
@@ -137,9 +200,9 @@
     !+-------------------------------------------------------------------+
     subroutine c_linear_spline_s(Xin,Fin,Xout,Fout)
       integer                         :: i,Lin
-      real(8),dimension(:)            :: Xin
-      complex(8),dimension(size(Xin)) :: Fin
-      real(8)                         :: Xout
+      real(8),dimension(:)            :: Xin   !input grid points (x axis in 2D), strictly increasing
+      complex(8),dimension(size(Xin)) :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8)                         :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       complex(8)                      :: Fout
       real(8)                         :: ref_,imf_
       Lin = size(Fin)
@@ -150,9 +213,9 @@
     !+-------------------------------------------------------------------+
     subroutine c_linear_spline_v(Xin,Fin,Xout,Fout)
       integer                          :: i,Lin,Lout
-      real(8),dimension(:)             :: Xin
-      complex(8),dimension(size(Xin))  :: Fin
-      real(8),dimension(:)             :: Xout
+      real(8),dimension(:)             :: Xin   !input grid points (x axis in 2D), strictly increasing
+      complex(8),dimension(size(Xin))  :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8),dimension(:)             :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       complex(8),dimension(size(Xout)) :: Fout
       real(8),dimension(size(Xout))    :: dummyR,dummyI
       logical                          :: identical=.true.
@@ -179,10 +242,10 @@
     !+-------------------------------------------------------------------+
     subroutine d_poly_spline_s(Xin,Fin,Xout,Fout,N)
       integer                      :: i,Lin,Lout,N_
-      integer,optional             :: N
-      real(8),dimension(:)         :: Xin
-      real(8),dimension(size(Xin)) :: Fin
-      real(8)                      :: Xout
+      integer,optional             :: N     !order of the local polynomial interpolation (default 5)
+      real(8),dimension(:)         :: Xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(size(Xin)) :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8)                      :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       real(8)                      :: Fout
       type(finter_type)            :: pfinter
       Lin =size(Fin)
@@ -194,10 +257,10 @@
     !+-------------------------------------------------------------------+
     subroutine d_poly_spline_v(Xin,Fin,Xout,Fout,N)
       integer                       :: i,Lin,Lout,N_
-      integer,optional              :: N
-      real(8),dimension(:)          :: Xin
-      real(8),dimension(size(Xin))  :: Fin
-      real(8),dimension(:)          :: Xout
+      integer,optional              :: N     !order of the local polynomial interpolation (default 5)
+      real(8),dimension(:)          :: Xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(size(Xin))  :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8),dimension(:)          :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       real(8),dimension(size(Xout)) :: Fout
       type(finter_type)                 :: pfinter
       Lin =size(Fin) ; Lout=size(Fout)
@@ -212,10 +275,10 @@
     !+-------------------------------------------------------------------+
     subroutine c_poly_spline_s(Xin,Fin,Xout,Fout,N)
       integer                         :: i,Lin,Lout
-      integer,optional                :: N
-      real(8),dimension(:)            :: Xin
-      complex(8),dimension(size(Xin)) :: Fin
-      real(8)                         :: Xout
+      integer,optional                :: N     !order of the local polynomial interpolation (default 5)
+      real(8),dimension(:)            :: Xin   !input grid points (x axis in 2D), strictly increasing
+      complex(8),dimension(size(Xin)) :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8)                         :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       complex(8)                      :: Fout
       real(8)                         :: dummyR,dummyI
       Lin =size(Fin)
@@ -231,10 +294,10 @@
     !+-------------------------------------------------------------------+
     subroutine c_poly_spline_v(Xin,Fin,Xout,Fout,N)
       integer                          :: i,Lin,Lout
-      integer,optional                 :: N
-      real(8),dimension(:)             :: Xin
-      complex(8),dimension(size(Xin))  :: Fin
-      real(8),dimension(:)             :: Xout
+      integer,optional                 :: N     !order of the local polynomial interpolation (default 5)
+      real(8),dimension(:)             :: Xin   !input grid points (x axis in 2D), strictly increasing
+      complex(8),dimension(size(Xin))  :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8),dimension(:)             :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       complex(8),dimension(size(Xout)) :: Fout
       real(8),dimension(size(Fout))    :: dummyR,dummyI
       Lin =size(Fin) ; Lout=size(Fout)
@@ -264,9 +327,9 @@
     subroutine d_cub_interp_s(Xin,Fin,Xout,Fout)
       integer                      :: i, j
       integer                      :: Lin, Lout
-      real(8),dimension(:)         :: Xin
-      real(8),dimension(size(Xin)) :: Fin
-      real(8)                      :: Xout
+      real(8),dimension(:)         :: Xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(size(Xin)) :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8)                      :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       real(8)                      :: Fout
       real(8)                      :: xa(1:size(Fin)), ya(4,1:size(Fin))
       real(8)                      :: x, y
@@ -283,9 +346,9 @@
     subroutine d_cub_interp_v(Xin,Fin,Xout,Fout)
       integer                       :: i, j
       integer                       :: Lin, Lout
-      real(8),dimension(:)          :: Xin
-      real(8),dimension(size(Xin))  :: Fin
-      real(8),dimension(:)          :: Xout
+      real(8),dimension(:)          :: Xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(size(Xin))  :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8),dimension(:)          :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       real(8),dimension(size(Xout)) :: Fout
       real(8)                       :: xa(1:size(Fin)), ya(4,1:size(Fin))
       real(8)                       :: x, y
@@ -311,9 +374,9 @@
     subroutine c_cub_interp_s(Xin,Fin,Xout,Fout)
       integer                         :: i, j
       integer                         :: Lin, Lout
-      real(8),dimension(:)            :: Xin
-      complex(8),dimension(size(Xin)) :: Fin
-      real(8)                         :: Xout
+      real(8),dimension(:)            :: Xin   !input grid points (x axis in 2D), strictly increasing
+      complex(8),dimension(size(Xin)) :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8)                         :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       complex(8)                      :: Fout
       real(8)                         :: reFout,imFout
       Lin = size(Fin)
@@ -325,9 +388,9 @@
     subroutine c_cub_interp_v(Xin,Fin,Xout,Fout)
       integer                          :: i, j
       integer                          :: Lin, Lout
-      real(8),dimension(:)             :: Xin
-      complex(8),dimension(size(Xin))  :: Fin
-      real(8),dimension(:)             :: Xout
+      real(8),dimension(:)             :: Xin   !input grid points (x axis in 2D), strictly increasing
+      complex(8),dimension(size(Xin))  :: Fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
+      real(8),dimension(:)             :: Xout  !points where to interpolate (x axis in 2D): scalar or array
       complex(8),dimension(size(Xout)) :: Fout
       real(8),dimension(size(Xout))    :: reFout,imFout
       Lin = size(Fin)   ; Lout= size(Fout)
@@ -353,23 +416,23 @@
     ! Reference: http://en.wikipedia.org/wiki/Bilinear_interpolation
     !+-------------------------------------------------------------------+
     subroutine d_linear_spline_2d_s(xin,yin,fin,xout,yout,fout)
-      real(8),dimension(:)                   :: xin
-      real(8),dimension(:)                   :: yin
-      real(8),dimension(size(xin),size(yin)) :: fin
+      real(8),dimension(:)                   :: xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(:)                   :: yin   !input grid points along y (2D), strictly increasing
+      real(8),dimension(size(xin),size(yin)) :: fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
       integer                                :: Lxin,Lyin
-      real(8)                                :: xout
-      real(8)                                :: yout
+      real(8)                                :: xout  !points where to interpolate (x axis in 2D): scalar or array
+      real(8)                                :: yout  !points along y where to interpolate (2D): scalar or array
       real(8)                                :: fout
       fout = bilinear_interpolate(xin,yin,fin,xout,yout)
     end subroutine d_linear_spline_2d_s
     !+-------------------------------------------------------------------+!
     subroutine d_linear_spline_2d_v(xin,yin,fin,xout,yout,fout)
-      real(8),dimension(:)                     :: xin
-      real(8),dimension(:)                     :: yin
-      real(8),dimension(size(xin),size(yin))   :: fin
+      real(8),dimension(:)                     :: xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(:)                     :: yin   !input grid points along y (2D), strictly increasing
+      real(8),dimension(size(xin),size(yin))   :: fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
       integer                                  :: Lxin,Lyin
-      real(8),dimension(:)                     :: xout
-      real(8),dimension(:)                     :: yout
+      real(8),dimension(:)                     :: xout  !points where to interpolate (x axis in 2D): scalar or array
+      real(8),dimension(:)                     :: yout  !points along y where to interpolate (2D): scalar or array
       real(8),dimension(size(xout),size(yout)) :: fout
       integer                                  :: Lxout,Lyout
       integer                                  :: ix,iy
@@ -386,12 +449,12 @@
     end subroutine d_linear_spline_2d_v
     !+-------------------------------------------------------------------+
     subroutine c_linear_spline_2d_s(xin,yin,fin,xout,yout,fout)
-      real(8),dimension(:)                      :: xin
-      real(8),dimension(:)                      :: yin
-      complex(8),dimension(size(xin),size(yin)) :: fin
+      real(8),dimension(:)                      :: xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(:)                      :: yin   !input grid points along y (2D), strictly increasing
+      complex(8),dimension(size(xin),size(yin)) :: fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
       integer                                   :: Lxin,Lyin
-      real(8)                                   :: xout
-      real(8)                                   :: yout
+      real(8)                                   :: xout  !points where to interpolate (x axis in 2D): scalar or array
+      real(8)                                   :: yout  !points along y where to interpolate (2D): scalar or array
       complex(8)                                :: fout
       real(8)                                   :: ref,imf
       ref = bilinear_interpolate(xin,yin,dreal(fin),xout,yout)
@@ -400,12 +463,12 @@
     end subroutine c_linear_spline_2d_s
     !+-------------------------------------------------------------------+
     subroutine c_linear_spline_2d_v(xin,yin,fin,xout,yout,fout)
-      real(8),dimension(:)                     :: xin
-      real(8),dimension(:)                     :: yin
-      complex(8),dimension(size(xin),size(yin))   :: fin
+      real(8),dimension(:)                     :: xin     !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(:)                     :: yin     !input grid points along y (2D), strictly increasing
+      complex(8),dimension(size(xin),size(yin))   :: fin  !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
       integer                                  :: Lxin,Lyin
-      real(8),dimension(:)                     :: xout
-      real(8),dimension(:)                     :: yout
+      real(8),dimension(:)                     :: xout    !points where to interpolate (x axis in 2D): scalar or array
+      real(8),dimension(:)                     :: yout    !points along y where to interpolate (2D): scalar or array
       complex(8),dimension(size(xout),size(yout)) :: fout
       integer                                  :: Lxout,Lyout
       integer                                  :: ix,iy
@@ -438,14 +501,14 @@
     ! local plaquette (order N**2).
     !+-------------------------------------------------------------------+
     subroutine d_poly_spline_2d_s(xin,yin,fin,xout,yout,fout,N)
-      real(8),dimension(:)                   :: xin
-      real(8),dimension(:)                   :: yin
-      real(8),dimension(size(xin),size(yin)) :: fin
+      real(8),dimension(:)                   :: xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(:)                   :: yin   !input grid points along y (2D), strictly increasing
+      real(8),dimension(size(xin),size(yin)) :: fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
       integer                                :: Lxin,Lyin
-      integer,optional                       :: N
+      integer,optional                       :: N     !order of the local polynomial interpolation (default 5)
       integer                                :: N_
-      real(8)                                :: xout
-      real(8)                                :: yout
+      real(8)                                :: xout  !points where to interpolate (x axis in 2D): scalar or array
+      real(8)                                :: yout  !points along y where to interpolate (2D): scalar or array
       real(8)                                :: fout
       type(finter2d_type)                    :: pfinter
       Lxin = size(xin)
@@ -456,14 +519,14 @@
     end subroutine d_poly_spline_2d_s
     !+-------------------------------------------------------------------+
     subroutine d_poly_spline_2d_v(xin,yin,fin,xout,yout,fout,N)
-      real(8),dimension(:)                     :: xin
-      real(8),dimension(:)                     :: yin
-      real(8),dimension(size(xin),size(yin))   :: fin
+      real(8),dimension(:)                     :: xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(:)                     :: yin   !input grid points along y (2D), strictly increasing
+      real(8),dimension(size(xin),size(yin))   :: fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
       integer                                  :: Lxin,Lyin
-      integer,optional                         :: N
+      integer,optional                         :: N     !order of the local polynomial interpolation (default 5)
       integer                                  :: N_
-      real(8),dimension(:)                     :: xout
-      real(8),dimension(:)                     :: yout
+      real(8),dimension(:)                     :: xout  !points where to interpolate (x axis in 2D): scalar or array
+      real(8),dimension(:)                     :: yout  !points along y where to interpolate (2D): scalar or array
       real(8),dimension(size(xout),size(yout)) :: fout
       integer                                  :: Lxout,Lyout
       integer                                  :: ix,iy
@@ -485,14 +548,14 @@
     end subroutine d_poly_spline_2d_v
     !+-------------------------------------------------------------------+
     subroutine c_poly_spline_2d_s(xin,yin,fin,xout,yout,fout,N)
-      real(8),dimension(:)                      :: xin
-      real(8),dimension(:)                      :: yin
-      complex(8),dimension(size(xin),size(yin)) :: fin
+      real(8),dimension(:)                      :: xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(:)                      :: yin   !input grid points along y (2D), strictly increasing
+      complex(8),dimension(size(xin),size(yin)) :: fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
       integer                                   :: Lxin,Lyin
-      integer,optional                          :: N
+      integer,optional                          :: N     !order of the local polynomial interpolation (default 5)
       integer                                   :: N_
-      real(8)                                   :: xout
-      real(8)                                   :: yout
+      real(8)                                   :: xout  !points where to interpolate (x axis in 2D): scalar or array
+      real(8)                                   :: yout  !points along y where to interpolate (2D): scalar or array
       complex(8)                                :: fout
       real(8)                                   :: ref,imf
       if(.not.present(N))then
@@ -506,14 +569,14 @@
     end subroutine c_poly_spline_2d_s
     !+-------------------------------------------------------------------+
     subroutine c_poly_spline_2d_v(xin,yin,fin,xout,yout,fout,N)
-      real(8),dimension(:)                        :: xin
-      real(8),dimension(:)                        :: yin
-      complex(8),dimension(size(xin),size(yin))   :: fin
+      real(8),dimension(:)                        :: xin   !input grid points (x axis in 2D), strictly increasing
+      real(8),dimension(:)                        :: yin   !input grid points along y (2D), strictly increasing
+      complex(8),dimension(size(xin),size(yin))   :: fin   !function values: F(Xin(i)) in 1D, F(Xin(i),Yin(j)) in 2D
       integer                                     :: Lxin,Lyin
-      integer,optional                            :: N
+      integer,optional                            :: N     !order of the local polynomial interpolation (default 5)
       integer                                     :: N_
-      real(8),dimension(:)                        :: xout
-      real(8),dimension(:)                        :: yout
+      real(8),dimension(:)                        :: xout  !points where to interpolate (x axis in 2D): scalar or array
+      real(8),dimension(:)                        :: yout  !points along y where to interpolate (2D): scalar or array
       complex(8),dimension(size(xout),size(yout)) :: fout
       real(8),dimension(size(xout),size(yout))    :: ref,imf
       integer                                     :: Lxout,Lyout

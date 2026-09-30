@@ -1,8 +1,14 @@
 subroutine init_finter2d(func,Xin,Yin,Fin,N)
-  type(finter2d_type) :: func
-  real(8)       :: xin(:),yin(:)
-  real(8)       :: fin(size(xin),size(yin))
-  integer       :: N,Lx,Ly
+  !This subroutine initializes a :f:type:`finter2d_type` object with the tabulated data of a
+  !real function of two variables on the regular grid :f:var:`Xin` :math:`\times` :f:var:`Yin`, 
+  !so that it can be interpolated with :f:func_inline:`finter2d`. The data are copied, 
+  !:f:var:`func` does not keep a reference to :f:var:`Xin`, :f:var:`Yin` and :f:var:`Fin`. If 
+  !:f:var:`func` was already initialized its memory is first released.
+  type(finter2d_type) :: func                !finter2d_type object to initialize (previous content is released)
+  real(8)       :: xin(:),yin(:)             !grid points along x and y, strictly increasing
+  real(8)       :: fin(size(xin),size(yin))  !function values on the grid, Fin(i,j)=F(Xin(i),Yin(j))
+  integer       :: N                         !order of the local polynomial interpolation (window of (N+2)x(N+2) grid points)
+  integer       :: Lx,Ly
   if(func%status)deallocate(func%x,func%y,func%f)
   Lx=size(xin) ; Ly=size(yin)
   allocate(func%x(Lx),func%y(Ly),func%f(Lx,Ly))
@@ -22,7 +28,9 @@ end subroutine init_finter2d
 
 
 subroutine delete_finter2d(func)
-  type(finter2d_type) :: func
+  !This subroutine releases the memory of the :f:type:`finter2d_type` object :f:var:`func` and
+  !resets it to the uninitialized state: :code:`Imin=Imax=Jmin=Jmax=N=0` and :code:`status=.false.`.
+  type(finter2d_type) :: func  !finter2d_type object to release
   if(allocated(func%x))deallocate(func%x)
   if(allocated(func%y))deallocate(func%y)
   if(allocated(func%f))deallocate(func%f)
@@ -42,8 +50,14 @@ end subroutine delete_finter2d
 
 
 function finter2d(func,x,y)
-  real(8)         :: x,y
-  type(finter2d_type) :: func
+  !This function evaluates at the point (:f:var:`x`, :f:var:`y`) the function stored in the
+  !:f:type:`finter2d_type` object :f:var:`func`. It finds the grid cell containing the point 
+  !with :f:func_inline:`locate` along each direction and interpolates with :f:func_inline:`polin2` 
+  !on a window of :math:`(N+2) \times (N+2)` grid points around it, with :code:`N=func%N`. 
+  !The window is shifted to stay inside the grid, so points outside the grid are extrapolated 
+  !with the polynomial of the first or last window.
+  real(8)         :: x,y       !coordinates x,y of the point where the function is interpolated
+  type(finter2d_type) :: func  !finter2d_type object, initialized with init_finter2d
   real(8)         :: finter2d
   real(8)         :: f,df
   integer         :: itmp,jtmp,kx,ky,k0x,k0y,k1x,k1y
