@@ -192,7 +192,7 @@ pure function deye_matrix(n) result(A)
   !interfaces :f:func_inline:`deye` and :f:func_inline:`eye`; the complex version is :f:func_inline:`zeye_matrix`.
   !
   integer, intent(in) :: n        ! size of the matrix
-  real(8)             :: A(n, n)  ! identity matrix, [n,n]
+  real(8)             :: A(n, n)  ! identity matrix [n,n] or matrix element (scalar)
   integer             :: i
   A = 0d0
   do i = 1, n
@@ -205,7 +205,7 @@ pure function zeye_matrix(n) result(A)
   !interface :f:func_inline:`zeye`; the real version is :f:func_inline:`deye_matrix`.
   !
   integer, intent(in) :: n        ! size of the matrix
-  complex(8)          :: A(n, n)  ! identity matrix, [n,n]
+  complex(8)          :: A(n, n)  ! identity matrix [n,n] or matrix element (scalar)
   integer             :: i
   A = zero
   do i = 1, n

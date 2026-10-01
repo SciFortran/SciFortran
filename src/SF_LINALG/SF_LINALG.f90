@@ -394,29 +394,30 @@ module SF_LINALG
   end interface det
   !
   interface deye
-  !This function returns real identity elements: :code:`deye(n)` is the :math:`n\times n` identity matrix
-  !(:f:func_inline:`deye_matrix`) and :code:`deye(i,j)` is the Kronecker delta :math:`\delta_{ij}`, 1 if :code:`i==j` and 0
-  !otherwise (:f:func_inline:`deye_indices`). It is the same as :f:func_inline:`eye`, and the complex version is
-  !:f:func_inline:`zeye`.
+  !This function returns real identity matrices or matrix elements: if one integer input variable is provided, it returns 
+  !the the :math:`n\times n` identity matrix :code:`deye(n)`  (:f:func_inline:`deye_matrix`). If instead two integer input
+  !variables are provided, it returns the Kronecker delta :math:`\delta_{ij}`, 1 if :code:`i==j` and 0 otherwise 
+  !(:f:func_inline:`deye_indices`). It is the same as :f:func_inline:`eye`, and the complex version is :f:func_inline:`zeye`.
   !
      module procedure deye_matrix
      module procedure deye_indices
   end interface deye
   !
   interface zeye
-  !This function returns complex identity elements: :code:`zeye(n)` is the :math:`n\times n` identity matrix
-  !(:f:func_inline:`zeye_matrix`) and :code:`zeye(i,j)` is the Kronecker delta :math:`\delta_{ij}`, 1 if :code:`i==j` and 0
-  !otherwise (:f:func_inline:`zeye_indices`). The real version is :f:func_inline:`deye`.
+  !This function returns complex identity matrices or matrix elements: if one integer input variable is provided, it returns 
+  !the the :math:`n\times n` identity matrix :code:`zeye(n)`  (:f:func_inline:`zeye_matrix`). If instead two integer input
+  !variables are provided, it returns the Kronecker delta :math:`\delta_{ij}`, 1 if :code:`i==j` and 0 otherwise 
+  !(:f:func_inline:`zeye_indices`).
   !
      module procedure zeye_matrix
      module procedure zeye_indices
   end interface zeye
   !
   interface eye
-  !This function returns real identity elements: :code:`eye(n)` is the :math:`n\times n` identity matrix
-  !(:f:func_inline:`deye_matrix`) and :code:`eye(i,j)` is the Kronecker delta :math:`\delta_{ij}`, 1 if :code:`i==j` and 0
-  !otherwise (:f:func_inline:`deye_indices`). It is the same as :f:func_inline:`deye`. The complex version is
-  !:f:func_inline:`zeye`.
+  !This function returns real identity matrices or matrix elements: if one integer input variable is provided, it returns 
+  !the the :math:`n\times n` identity matrix :code:`deye(n)`  (:f:func_inline:`deye_matrix`). If instead two integer input
+  !variables are provided, it returns the Kronecker delta :math:`\delta_{ij}`, 1 if :code:`i==j` and 0 otherwise 
+  !(:f:func_inline:`deye_indices`). It is the same as :f:func_inline:`deye`, and the complex version is :f:func_inline:`zeye`.
   !
      module procedure deye_matrix
      module procedure deye_indices
