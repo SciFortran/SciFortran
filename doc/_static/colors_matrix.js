@@ -4,7 +4,7 @@
  * Turns the long auto-generated list of colors (one <dl> per color, each
  * containing a <span class="colored-square">) into a compact swatch matrix:
  * a compact grid where hue runs left -> right and lightness runs top -> bottom
- * (grays in their own block on the right).
+ * (vivid | muted | gray blocks).
  * Clicking a tile opens a popup with the color name, its Fortran value
  * (e.g. rgb_color(255,0,0)), hex, copy buttons and a link to the full entry.
  *
@@ -40,8 +40,24 @@
     return { h: h, s: s, l: l, v: max, chroma: d * 255 };
   }
 
+  /* sRGB (0-255) -> OKLCH: perceptual lightness L (0-1), chroma C, hue h (deg) */
+  function rgbToOklch(r, g, b) {
+    function lin(v) { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    var R = lin(r), G = lin(g), B = lin(b);
+    var l = Math.cbrt(0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B);
+    var m = Math.cbrt(0.2119034982 * R + 0.6806995451 * G + 0.1073969566 * B);
+    var s = Math.cbrt(0.0883024619 * R + 0.2817188376 * G + 0.6299787005 * B);
+    var L = 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s;
+    var a = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s;
+    var bb = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
+    var h = Math.atan2(bb, a) * 180 / Math.PI; if (h < 0) h += 360;
+    return { L: L, C: Math.sqrt(a * a + bb * bb), h: h };
+  }
+
   var SMALL_LIST = 24;    // sections with at most this many colors are shown as a plain row
-  var GRAY_CHROMA = 25;   // colors with (max-min) <= this go to the gray block
+  var GRAY_C = 0.03;      // OKLCH chroma below this -> gray block
+  var MUTED_C = 0.09;     // below this (but above gray) -> muted/dusty block
+  var HUE_START = 20;     // hue (deg) where the left-to-right rainbow starts (red)
 
   /* merge aliases (gray/grey) and compute hsl; returns [{hex,names,ids,vals,rgb,h,l,chroma}] */
   function prepare(items, noMerge) {
@@ -55,41 +71,51 @@
     });
     return Object.keys(byHex).map(function (k) {
       var e = byHex[k], rgb = hexToRgb(e.hex), c = rgbToHsl(rgb[0], rgb[1], rgb[2]);
-      e.rgb = rgb; e.h = c.h; e.l = c.l; e.chroma = c.chroma;
+      var o = rgbToOklch(rgb[0], rgb[1], rgb[2]);
+      e.rgb = rgb; e.l = o.L; e.c = o.C; e.h = (o.h - HUE_START + 360) % 360;
       return e;
     });
   }
 
-  /* cut a list into columns of `rows` cells, each column sorted light -> dark */
+  /* cut a list into columns of at most `rows` cells, as even as possible
+     (no tiny last column), each column sorted light -> dark */
   function chunk(list, rows) {
-    var cols = [];
-    for (var i = 0; i < list.length; i += rows) {
-      cols.push(list.slice(i, i + rows).sort(function (a, b) {
+    var n = list.length, k = Math.ceil(n / rows), cols = [];
+    for (var i = 0; i < k; i++) {
+      cols.push(list.slice(Math.round(i * n / k), Math.round((i + 1) * n / k)).sort(function (a, b) {
         return (b.l - a.l) || (a.h - b.h) || (a.names[0] < b.names[0] ? -1 : 1);
       }));
     }
     return cols;
   }
 
-  /* Matrix layout: hue runs left -> right, lightness runs top -> bottom.
-     Chromatic colors are sorted by hue, then cut into equally tall columns, so
-     the block is a clean rectangle; grays get their own block on the right.
-     Returns {chroma: [col,...], gray: [col,...]}. */
-  function layout(entries, rows) {
-    var chroma = entries.filter(function (e) { return e.chroma > GRAY_CHROMA; })
-      .sort(function (a, b) { return (a.h - b.h) || (b.l - a.l); });
-    var gray = entries.filter(function (e) { return e.chroma <= GRAY_CHROMA; })
-      .sort(function (a, b) { return b.l - a.l; });
-    return { chroma: chunk(chroma, rows), gray: chunk(gray, rows) };
+  /* Matrix layout: hue runs left -> right, lightness top -> bottom.
+     Three blocks, each sorted by hue and cut into equally tall columns:
+       vivid colors | muted/dusty colors | grays
+     Keeping the muted colors apart stops their unstable hue from making them
+     look out of place among the vivid ones. Returns [vividCols, mutedCols, grayCols]. */
+  function split(entries) {
+    var out = [[], [], []];
+    entries.forEach(function (e) { out[e.c < GRAY_C ? 2 : e.c < MUTED_C ? 1 : 0].push(e); });
+    return out;
   }
 
-  /* smallest number of rows such that both blocks fit in `avail` tile columns */
+  function layout(entries, rows) {
+    var parts = split(entries);
+    return [
+      chunk(parts[0].sort(function (a, b) { return (a.h - b.h) || (b.l - a.l); }), rows),
+      chunk(parts[1].sort(function (a, b) { return (a.h - b.h) || (b.l - a.l); }), rows),
+      chunk(parts[2].sort(function (a, b) { return b.l - a.l; }), rows)
+    ];
+  }
+
+  /* smallest number of rows such that all blocks fit in `avail` tile columns */
   function pickRows(entries, avail) {
-    var g = entries.filter(function (e) { return e.chroma <= GRAY_CHROMA; }).length;
-    var c = entries.length - g;
+    var sizes = split(entries).map(function (p) { return p.length; });
+    var nb = sizes.filter(Boolean).length;
     var rows = Math.max(1, Math.ceil(entries.length / Math.max(1, avail)));
-    while (rows < entries.length &&
-           Math.ceil(c / rows) + Math.ceil(g / rows) + (g && c ? 1 : 0) > avail) rows++;
+    function cols(r) { return sizes.reduce(function (n, k) { return n + Math.ceil(k / r); }, 0) + (nb - 1); }
+    while (rows < entries.length && cols(rows) > avail) rows++;
     return rows;
   }
 
@@ -285,11 +311,19 @@
       }
       var avail = Math.max(4, Math.floor((wrap.clientWidth || 700) / 28) - 1);
       var lay = layout(entries, pickRows(entries, avail));
-      [lay.chroma, lay.gray].forEach(function (cols) {
+      lay.forEach(function (cols) {
         if (!cols.length) return;
         var block = document.createElement('div'); block.className = 'cm-block';
-        cols.forEach(function (col) { col.forEach(function (e) { block.appendChild(tile(e)); }); });
-        block.style.gridTemplateRows = 'repeat(' + cols[0].length + ', auto)';
+        var nrows = 0;
+        cols.forEach(function (col, ci) {
+          nrows = Math.max(nrows, col.length);
+          col.forEach(function (e, ri) {
+            var t = tile(e);
+            t.style.gridColumn = String(ci + 1); t.style.gridRow = String(ri + 1);
+            block.appendChild(t);
+          });
+        });
+        block.style.gridTemplateRows = 'repeat(' + nrows + ', auto)';
         grid.appendChild(block);
       });
     }
