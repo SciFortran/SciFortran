@@ -3,7 +3,8 @@
  *
  * Turns the long auto-generated list of colors (one <dl> per color, each
  * containing a <span class="colored-square">) into a compact swatch matrix:
- * one column per hue family, light at the top -> dark at the bottom.
+ * a compact grid where hue runs left -> right and lightness runs top -> bottom
+ * (grays in their own block on the right).
  * Clicking a tile opens a popup with the color name, its Fortran value
  * (e.g. rgb_color(255,0,0)), hex, copy buttons and a link to the full entry.
  *
@@ -39,53 +40,61 @@
     return { h: h, s: s, l: l, v: max, chroma: d * 255 };
   }
 
-  /* Column order = left to right in the matrix. Tweak freely. */
-  var COLUMNS = [
-    'Blue', 'Cyan', 'Green', 'Yellow', 'Orange', 'Red',
-    'Pink', 'Purple', 'Brown', 'White', 'Light gray', 'Dark gray'
-  ];
+  var SMALL_LIST = 24;    // sections with at most this many colors are shown as a plain row
+  var GRAY_CHROMA = 25;   // colors with (max-min) <= this go to the gray block
 
-  function classify(rgb) {
-    var c = rgbToHsl(rgb[0], rgb[1], rgb[2]);
-    if (c.l >= 0.93) return 'White';                 // snow, ivory, linen, ...
-    if (c.chroma <= 25) return c.l >= 0.5 ? 'Light gray' : 'Dark gray';
-    var h = c.h;
-    if (h >= 8 && h < 50 && (c.v < 0.7 || (c.s < 0.6 && c.l < 0.8))) return 'Brown';
-    if (h >= 345 || h < 8) return 'Red';
-    if (h < 45) return 'Orange';
-    if (h < 70) return 'Yellow';
-    if (h < 165) return 'Green';
-    if (h < 200) return 'Cyan';
-    if (h < 255) return 'Blue';
-    if (h < 290) return 'Purple';
-    return 'Pink';                                    // 290..345 magenta/pink
-  }
-
-  /* items: [{name, hex}] -> {columnName: [{hex, names:[...]}, ...]} (sorted) */
-  function buildColumns(items) {
-    var byHex = {};                                   // merge aliases (gray/grey)
-    items.forEach(function (it) {
-      var k = it.hex.toUpperCase();
-      (byHex[k] = byHex[k] || { hex: k, names: [], ids: [], vals: [] });
+  /* merge aliases (gray/grey) and compute hsl; returns [{hex,names,ids,vals,rgb,h,l,chroma}] */
+  function prepare(items, noMerge) {
+    var byHex = {};
+    items.forEach(function (it, i) {
+      var k = it.hex.toUpperCase() + (noMerge ? '#' + i : '');
+      (byHex[k] = byHex[k] || { hex: it.hex.toUpperCase(), names: [], ids: [], vals: [] });
       byHex[k].names.push(it.name);
       byHex[k].ids.push(it.id);
       byHex[k].vals.push(it.value || '');
     });
-    var cols = {};
-    COLUMNS.forEach(function (c) { cols[c] = []; });
-    Object.keys(byHex).forEach(function (k) {
-      var e = byHex[k], rgb = hexToRgb(k), hsl = rgbToHsl(rgb[0], rgb[1], rgb[2]);
-      e.rgb = rgb; e.l = hsl.l; e.h = hsl.h;
-      cols[classify(rgb)].push(e);
+    return Object.keys(byHex).map(function (k) {
+      var e = byHex[k], rgb = hexToRgb(e.hex), c = rgbToHsl(rgb[0], rgb[1], rgb[2]);
+      e.rgb = rgb; e.h = c.h; e.l = c.l; e.chroma = c.chroma;
+      return e;
     });
-    COLUMNS.forEach(function (c) {
-      cols[c].sort(function (a, b) { return (b.l - a.l) || (a.h - b.h) || (a.names[0] < b.names[0] ? -1 : 1); });
-    });
+  }
+
+  /* cut a list into columns of `rows` cells, each column sorted light -> dark */
+  function chunk(list, rows) {
+    var cols = [];
+    for (var i = 0; i < list.length; i += rows) {
+      cols.push(list.slice(i, i + rows).sort(function (a, b) {
+        return (b.l - a.l) || (a.h - b.h) || (a.names[0] < b.names[0] ? -1 : 1);
+      }));
+    }
     return cols;
   }
 
+  /* Matrix layout: hue runs left -> right, lightness runs top -> bottom.
+     Chromatic colors are sorted by hue, then cut into equally tall columns, so
+     the block is a clean rectangle; grays get their own block on the right.
+     Returns {chroma: [col,...], gray: [col,...]}. */
+  function layout(entries, rows) {
+    var chroma = entries.filter(function (e) { return e.chroma > GRAY_CHROMA; })
+      .sort(function (a, b) { return (a.h - b.h) || (b.l - a.l); });
+    var gray = entries.filter(function (e) { return e.chroma <= GRAY_CHROMA; })
+      .sort(function (a, b) { return b.l - a.l; });
+    return { chroma: chunk(chroma, rows), gray: chunk(gray, rows) };
+  }
+
+  /* smallest number of rows such that both blocks fit in `avail` tile columns */
+  function pickRows(entries, avail) {
+    var g = entries.filter(function (e) { return e.chroma <= GRAY_CHROMA; }).length;
+    var c = entries.length - g;
+    var rows = Math.max(1, Math.ceil(entries.length / Math.max(1, avail)));
+    while (rows < entries.length &&
+           Math.ceil(c / rows) + Math.ceil(g / rows) + (g && c ? 1 : 0) > avail) rows++;
+    return rows;
+  }
+
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { buildColumns: buildColumns, COLUMNS: COLUMNS };
+    module.exports = { prepare: prepare, layout: layout, pickRows: pickRows };
   }
   if (typeof document === 'undefined') return;
 
@@ -94,12 +103,12 @@
   var CSS =
     '.cm-wrap{margin:1em 0}' +
     '.cm-info{min-height:2.4em;margin:0 0 .5em;font-family:monospace;font-size:.9em}' +
-    '.cm-grid{display:flex;gap:6px;align-items:flex-start;overflow-x:auto;padding-bottom:6px}' +
-    '.cm-col{flex:1 0 64px;min-width:64px}' +
-    '.cm-head{font-size:.7em;text-align:center;margin-bottom:3px;color:#555;white-space:nowrap}' +
-    '.cm-sw{display:block;height:16px;margin-bottom:1px;border-radius:2px;' +
-    'box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);transition:transform .08s}' +
-    '.cm-sw:hover,.cm-sw:focus{transform:scale(1.18);position:relative;z-index:1;' +
+    '.cm-grid{display:flex;gap:14px;align-items:flex-start}' +
+    '.cm-block{display:grid;grid-auto-flow:column;gap:2px}' +
+    '.cm-block.cm-row{display:flex;flex-wrap:wrap;gap:2px}' +
+    '.cm-sw{display:block;width:26px;height:26px;border-radius:3px;' +
+    'box-shadow:inset 0 0 0 1px rgba(0,0,0,.1);transition:transform .08s}' +
+    '.cm-sw:hover,.cm-sw:focus{transform:scale(1.2);position:relative;z-index:1;' +
     'box-shadow:0 0 0 2px #2980b9;outline:none}' +
     '.cm-sw.cm-sel{box-shadow:0 0 0 2px #2980b9;position:relative;z-index:1}' +
     '.cm-pop{position:absolute;z-index:1000;min-width:230px;max-width:340px;padding:12px 14px;' +
@@ -237,39 +246,53 @@
     })[0];
     if (firstP) nodes.unshift(firstP);
 
-    var cols = buildColumns(items);
+    // short lists (the default colors) stay as plain separate tiles, in page order:
+    // no hue sorting, no merging of colors that share a value
+    var small = items.length <= SMALL_LIST;
+    var entries = prepare(items, small);
     var wrap = document.createElement('div'); wrap.className = 'cm-wrap';
     var info = document.createElement('div'); info.className = 'cm-info';
     info.textContent = 'Hover a swatch to see its name; click it for details.';
     var grid = document.createElement('div'); grid.className = 'cm-grid';
-
-    COLUMNS.forEach(function (cname) {
-      var list = cols[cname];
-      if (!list.length) return;
-      var col = document.createElement('div'); col.className = 'cm-col';
-      var head = document.createElement('div'); head.className = 'cm-head';
-      head.textContent = cname + ' (' + list.reduce(function (n, e) { return n + e.names.length; }, 0) + ')';
-      col.appendChild(head);
-      list.forEach(function (e) {
-        var a = document.createElement('a');
-        a.className = 'cm-sw';
-        a.href = '#' + e.ids[0];
-        a.style.backgroundColor = e.hex;
-        var label = e.names.join(' / ') + '  ' + e.hex + '  rgb_color(' + e.rgb.join(',') + ')';
-        a.title = label;
-        a.setAttribute('aria-label', label);
-        var show = function () { info.textContent = label; };
-        a.addEventListener('mouseenter', show);
-        a.addEventListener('focus', show);
-        a.addEventListener('click', function (ev) {
-          ev.preventDefault();
-          if (popTarget === a) closePop(); else showPop(a, e);
-        });
-        col.appendChild(a);
-      });
-      grid.appendChild(col);
-    });
     wrap.appendChild(info); wrap.appendChild(grid);
+
+    function tile(e) {
+      var a = document.createElement('a');
+      a.className = 'cm-sw';
+      a.href = '#' + e.ids[0];
+      a.style.backgroundColor = e.hex;
+      var label = e.names.join(' / ') + '  ' + e.hex + '  rgb_color(' + e.rgb.join(',') + ')';
+      a.title = label;
+      a.setAttribute('aria-label', label);
+      var show = function () { info.textContent = label; };
+      a.addEventListener('mouseenter', show);
+      a.addEventListener('focus', show);
+      a.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        if (popTarget === a) closePop(); else showPop(a, e);
+      });
+      return a;
+    }
+
+    function render() {
+      closePop();
+      grid.textContent = '';
+      if (small) {
+        var row = document.createElement('div'); row.className = 'cm-block cm-row';
+        entries.forEach(function (e) { row.appendChild(tile(e)); });
+        grid.appendChild(row);
+        return;
+      }
+      var avail = Math.max(4, Math.floor((wrap.clientWidth || 700) / 28) - 1);
+      var lay = layout(entries, pickRows(entries, avail));
+      [lay.chroma, lay.gray].forEach(function (cols) {
+        if (!cols.length) return;
+        var block = document.createElement('div'); block.className = 'cm-block';
+        cols.forEach(function (col) { col.forEach(function (e) { block.appendChild(tile(e)); }); });
+        block.style.gridTemplateRows = 'repeat(' + cols[0].length + ', auto)';
+        grid.appendChild(block);
+      });
+    }
 
     var details = document.createElement('details'); details.className = 'cm-details';
     var sum = document.createElement('summary');
@@ -279,6 +302,15 @@
     section.insertBefore(wrap, nodes[0]);
     section.insertBefore(details, nodes[0]);
     nodes.forEach(function (n) { details.appendChild(n); });
+
+    render();
+    var timer, lastW = wrap.clientWidth;
+    window.addEventListener('resize', function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        if (wrap.clientWidth !== lastW) { lastW = wrap.clientWidth; render(); }
+      }, 150);
+    });
   }
 
   // open the collapsed list if the URL (or a click) targets an entry in it
