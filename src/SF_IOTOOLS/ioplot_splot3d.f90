@@ -1,12 +1,13 @@
 subroutine d_splot3D(pname,X1,X2,Y,xmin,xmax,ymin,ymax,nosurface,wlines,nlines)
   integer                              :: i,j,Nx1,Nx2,count,Nl
-  character(len=*)                     :: pname
-  real(8),dimension(:)                 :: X1
-  real(8),dimension(:)                 :: X2
-  real(8),dimension(size(X1),size(X2)) :: Y
-  real(8),optional                     :: xmin,xmax,ymin,ymax
-  integer,optional                     :: nlines
-  logical,optional                     :: wlines,nosurface
+  character(len=*)                     :: pname                !name of the data file, base name of the gnuplot scripts
+  real(8),dimension(:)                 :: X1                   !grid points along x, first dimension of Y
+  real(8),dimension(:)                 :: X2                   !grid points along y, second dimension of Y
+  real(8),dimension(size(X1),size(X2)) :: Y                    !values Y(i,j)=F(X1(i),X2(j)); Y(i,j,m) for animate
+  real(8),optional                     :: xmin,xmax,ymin,ymax  !plot ranges in x and y (default: extrema of X1, X2)
+  integer,optional                     :: nlines               !step of the first index in the _withlines file (default 5)
+  logical,optional                     :: wlines               !if present also write the _withlines file (any value)
+  logical,optional                     :: nosurface            !if T do not write the gnuplot script of the surface (default F)
   logical                              :: nosurface_
   real(8)                              :: X1min,X1max
   real(8)                              :: X2min,X2max
@@ -71,13 +72,14 @@ end subroutine d_splot3D
 
 subroutine c_splot3D(pname,X1,X2,Y,xmin,xmax,ymin,ymax,nosurface,wlines,nlines)
   integer                                 :: i,j,Nx1,Nx2,count,Nl
-  character(len=*)                        :: pname
-  real(8),dimension(:)                    :: X1
-  real(8),dimension(:)                    :: X2
-  complex(8),dimension(size(X1),size(X2)) :: Y
-  real(8),optional                        :: xmin,xmax,ymin,ymax
-  integer,optional                        :: nlines
-  logical,optional                        :: wlines,nosurface
+  character(len=*)                        :: pname                !name of the data file, base name of the gnuplot scripts
+  real(8),dimension(:)                    :: X1                   !grid points along x, first dimension of Y
+  real(8),dimension(:)                    :: X2                   !grid points along y, second dimension of Y
+  complex(8),dimension(size(X1),size(X2)) :: Y                    !values Y(i,j)=F(X1(i),X2(j)); Y(i,j,m) for animate
+  real(8),optional                        :: xmin,xmax,ymin,ymax  !plot ranges in x and y (default: extrema of X1, X2)
+  integer,optional                        :: nlines               !step of the first index in the _withlines file (default 5)
+  logical,optional                        :: wlines               !if present also write the _withlines file (any value)
+  logical,optional                        :: nosurface            !if T do not write the gnuplot script of the surface (default F)
   logical                                 :: nosurface_
   real(8)                                 :: X1min,X1max
   real(8)                                 :: X2min,X2max
@@ -186,13 +188,13 @@ end subroutine c_splot3D
 
 subroutine d_splot3d_animate(pname,X1,X2,Y,xmin,xmax,ymin,ymax)
   integer                  :: i,j,m,Nx1,Nx2,Nt
-  character(len=*)         :: pname
-  real(8),dimension(:)     :: X1
-  real(8),dimension(:)     :: X2
-  real(8),dimension(:,:,:) :: Y
+  character(len=*)         :: pname                !name of the data file, base name of the gnuplot scripts
+  real(8),dimension(:)     :: X1                   !grid points along x, first dimension of Y
+  real(8),dimension(:)     :: X2                   !grid points along y, second dimension of Y
+  real(8),dimension(:,:,:) :: Y                    !values Y(i,j)=F(X1(i),X2(j)); Y(i,j,m) for animate
   real(8)                  :: X1min,X1max
   real(8)                  :: X2min,X2max
-  real(8),optional         :: xmin,xmax,ymin,ymax
+  real(8),optional         :: xmin,xmax,ymin,ymax  !plot ranges in x and y (default: extrema of X1, X2)
   real(8)                  :: Rmin(3),Rmax(3),Zmin,Zmax
   Character(len=256)       :: fname,dname
   fname=get_filename(reg(pname))
@@ -245,13 +247,13 @@ end subroutine d_splot3D_animate
 
 subroutine c_splot3d_animate(pname,X1,X2,Y,xmin,xmax,ymin,ymax)
   integer                     :: i,j,m,Nx1,Nx2,Nt
-  character(len=*)            :: pname
-  real(8),dimension(:)        :: X1
-  real(8),dimension(:)        :: X2
-  complex(8),dimension(:,:,:) :: Y
+  character(len=*)            :: pname                !name of the data file, base name of the gnuplot scripts
+  real(8),dimension(:)        :: X1                   !grid points along x, first dimension of Y
+  real(8),dimension(:)        :: X2                   !grid points along y, second dimension of Y
+  complex(8),dimension(:,:,:) :: Y                    !values Y(i,j)=F(X1(i),X2(j)); Y(i,j,m) for animate
   real(8)                     :: X1min,X1max
   real(8)                     :: X2min,X2max
-  real(8),optional            :: xmin,xmax,ymin,ymax
+  real(8),optional            :: xmin,xmax,ymin,ymax  !plot ranges in x and y (default: extrema of X1, X2)
   real(8)                     :: Rmin(3),Rmax(3),Zmin,Zmax  
   character(len=256)          :: fname,dname
   fname=get_filename(reg(pname))

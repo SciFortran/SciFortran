@@ -3,12 +3,22 @@
 ! real/complex matrix A
 !-------------------------------------------------------------------------------------------
 subroutine dsvd(A, s, U, Vtransp)
-  ! real m x n matrix A
-  ! U is m x m
-  ! Vtransp is n x n
-  ! s has size min(m, n) --> sigma matrix is (n x m) with sigma_ii = s_i
-  real(8), intent(in)  :: A(:,:)
-  real(8), intent(out) :: s(:), U(:,:), Vtransp(:,:)
+  !This subroutine computes the singular value decomposition :math:`A = U \Sigma V^T` of a real :math:`m\times n`
+  !matrix :f:var:`A`, with full :math:`U` and :math:`V^T`, using the LAPACK routine :f:func_inline:`dgesvd`. The
+  !complex version :f:func_inline:`zsvd` uses :f:func_inline:`zgesvd` and returns :math:`V^H`. Both are instances of
+  !the generic interface :f:func_inline:`svd`.
+  !
+  !The input matrix is copied and left untouched. :math:`\Sigma` is the :math:`m\times n` matrix with diagonal
+  !elements :math:`\Sigma_{ii} = s_i`, the singular values :f:var:`s` being in descending order. Note that the
+  !routine returns the transpose :f:var:`Vtransp` (conjugate transpose in the complex case) of :math:`V`, not :math:`V`.
+  !
+  !The program stops if :f:var:`U` does not have shape :code:`[m,m]`, if :f:var:`Vtransp` does not have shape
+  !:code:`[n,n]`, or if the LAPACK routine returns an error code.
+  !
+  real(8), intent(in)  :: A(:,:)        ! real matrix [m,n], not modified
+  real(8), intent(out) :: s(:)          ! singular values, descending, size min(m,n)
+  real(8), intent(out) :: U(:,:)        ! left singular vectors (columns), [m,m]
+  real(8), intent(out) :: Vtransp(:,:)  ! V^T (V^H in the complex case), [n,n]
   integer              :: info, lwork, m, n, ldu
   real(8), allocatable :: work(:), At(:,:)
   m = size(A(:,1))  ! = lda

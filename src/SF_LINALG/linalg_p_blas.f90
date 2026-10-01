@@ -1,9 +1,21 @@
 subroutine p_d_matmul(A,B,C,Nblock,alfa,beta)
-  real(8),dimension(:,:),intent(inout) :: A ![N,K]
-  real(8),dimension(:,:),intent(inout) :: B ![K,M]
-  real(8),dimension(:,:),intent(inout) :: C ![N,M]
-  integer                              :: Nblock
-  real(8),optional                     :: alfa,beta
+  !This subroutine is the distributed-memory (ScaLAPACK) counterpart of :f:func_inline:`d_matmul`: it computes the real
+  !matrix-matrix product :math:`C = \alpha A B + \beta C` with the routine :f:func_inline:`PDGEMM`. The complex version
+  !is :f:func_inline:`p_z_matmul`. Both are instances of the generic interface :f:func_inline:`p_mat_product`,
+  !available only when compiling with :code:`_SCALAPACK`.
+  !
+  !The matrices :f:var:`A` and :f:var:`B` (full copies are expected on every process) are distributed on the BLACS
+  !process grid of the module (:code:`p_context`, :code:`p_Nx` x :code:`p_Ny`) in a block-cyclic layout with square
+  !blocks of size :f:var:`Nblock`, and the product is gathered back into :f:var:`C`. By default :math:`\alpha=1` and
+  !:math:`\beta=0`. Timings are written by the master process to the file :code:`p_dgemm.info`. The program stops if
+  !:f:var:`B` or :f:var:`C` do not have the shapes :code:`[K,M]` and :code:`[N,M]`.
+  !
+  real(8),dimension(:,:),intent(inout) :: A       ! matrix [N,K]
+  real(8),dimension(:,:),intent(inout) :: B       ! matrix [K,M]
+  real(8),dimension(:,:),intent(inout) :: C       ! out: product alfa*A*B, [N,M]
+  integer                              :: Nblock  ! block size of the block-cyclic distribution
+  real(8),optional                     :: alfa    ! optional scalar, default 1
+  real(8),optional                     :: beta    ! optional scalar, default 0
   real(8)                              :: alfa_,beta_
   integer                              :: Nb
   integer                              :: N,K,M
@@ -195,9 +207,18 @@ end subroutine p_z_matmul
 !###### OVERLOAD PARALLEL MATMUL OPERATOR --> .px. #########
 
 function p_d_matmul_f(A,B) result(C)
-  real(8),dimension(:,:),intent(in)      :: A ![N,K]
-  real(8),dimension(:,:),intent(in)      :: B ![K,M]
-  real(8),dimension(size(A,1),size(B,2)) :: C ![N,M]
+  !This function returns the real matrix-matrix product :math:`C = A B`, computed in parallel with the ScaLAPACK
+  !routine :f:func_inline:`PDGEMM`, :math:`A` being :math:`N\times K` and :math:`B` :math:`K\times M`. It is the
+  !function behind the operator :code:`.Px.`, i.e. :code:`C = A .Px. B`; the complex version is
+  !:f:func_inline:`p_z_matmul_f`. Available only when compiling with :code:`_SCALAPACK`.
+  !
+  !The block size of the block-cyclic distribution is chosen automatically, as the largest power of 2 smaller than
+  !:code:`min(N,K,M)`, up to 64. The product is gathered back into :f:var:`C`. The program stops if :f:var:`B` does not
+  !have the shape :code:`[K,M]`.
+  !
+  real(8),dimension(:,:),intent(in)      :: A  ! matrix [N,K]
+  real(8),dimension(:,:),intent(in)      :: B  ! matrix [K,M]
+  real(8),dimension(size(A,1),size(B,2)) :: C  ! product A*B, [N,M]
   real(8)                                :: alfa_,beta_
   integer                                :: Nb
   integer                                :: N,K,M

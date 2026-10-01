@@ -4,7 +4,13 @@
 !by its matrix inverse.
 !+-----------------------------------------------------------------+
 subroutine Dinv_gj(a)
-  real(8), dimension(:,:), intent(inout) :: a
+  !This subroutine inverts in place a real square matrix :f:var:`a` with the Gauss-Jordan elimination with full
+  !pivoting. The complex version :f:func_inline:`Zinv_gj` works alike. Both are instances of the generic interface
+  !:f:func_inline:`inv_gj`.
+  !
+  !On output :f:var:`a` is replaced by its inverse. The program stops if the matrix is singular.
+  !
+  real(8), dimension(:,:), intent(inout) :: a  ! in: square matrix [n,n]; out: its inverse
   integer, dimension(size(a,1))      :: ipiv,indxr,indxc
   !these arrays are used for bookkeeping on the pivoting.
   !integer                            :: nn

@@ -1,7 +1,18 @@
 
 function dlstsq(A, b) result(x)
-  real(8), intent(in)  :: A(:,:), b(:)
-  real(8), allocatable :: x(:)
+  !This function returns the least-squares solution :math:`x = \mathrm{argmin}_x \| A x - b \|_2` of the real linear
+  !system :math:`A x = b`, with :math:`A` an :math:`m\times n` matrix, computed with the LAPACK routine
+  !:f:func_inline:`dgelsy`, which uses a complete orthogonal factorization with column pivoting and is thus suitable
+  !also for rank-deficient matrices (the effective rank is determined with :code:`rcond = 0`). The complex version
+  !:f:func_inline:`zlstsq` uses :f:func_inline:`zgelsy`. Both are instances of the generic interface
+  !:f:func_inline:`lstsq`.
+  !
+  !The input arrays are copied and left untouched. The solution is allocated with size :code:`n`. The program stops
+  !if the LAPACK routine returns an error code.
+  !
+  real(8), intent(in)  :: A(:,:)  ! real matrix [m,n], not modified
+  real(8), intent(in)  :: b(:)    ! right-hand side, size m, not modified
+  real(8), allocatable :: x(:)    ! least-squares solution, size n
   integer              :: info, ldb, lwork, m, n, rank
   real(8)              :: rcond
   real(8), allocatable :: work(:), At(:,:), Bt(:,:)

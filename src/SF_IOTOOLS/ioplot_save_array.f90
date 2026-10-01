@@ -25,7 +25,7 @@ end subroutine data_saveA0_C
 subroutine data_saveA1_R(pname,Y1)
   integer                              :: i,Np
   character(len=*)                     :: pname  !name of the output file
-  real(8),dimension(:)                 :: Y1
+  real(8),dimension(:)                 :: Y1     !data to write: scalar or array of rank 1 to 7, real or complex
   Np=size(Y1)
   open(free_unit(unit),file=reg(pname))
   do i=1,Np
@@ -38,7 +38,7 @@ end subroutine data_saveA1_R
 subroutine data_saveA1_C(pname,Y1)
   integer                              :: i,Np
   character(len=*)                     :: pname  !name of the output file
-  complex(8),dimension(:)              :: Y1
+  complex(8),dimension(:)              :: Y1     !data to write: scalar or array of rank 1 to 7, real or complex
   Np=size(Y1)  
   open(free_unit(unit),file=reg(pname))
   do i=1,Np
@@ -55,7 +55,7 @@ end subroutine data_saveA1_C
 subroutine data_saveA2_R(pname,Y1,order,wspace)
   integer                   :: i,j,Ny1,Ny2
   character(len=*)          :: pname   !name of the output file
-  real(8),dimension(:,:)    :: Y1
+  real(8),dimension(:,:)    :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional          :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)          :: order_
@@ -89,7 +89,7 @@ end subroutine data_saveA2_R
 subroutine data_saveA2_C(pname,Y1,order,wspace)
   integer                   :: i,j,Ny1,Ny2
   character(len=*)          :: pname   !name of the output file
-  complex(8),dimension(:,:) :: Y1
+  complex(8),dimension(:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional          :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)          :: order_
@@ -129,7 +129,7 @@ subroutine data_saveA3_R(pname,Y1,order,wspace)
   integer                     :: Ny1,Ny2,Ny3
   integer                     :: i1,i2,i3
   character(len=*)            :: pname   !name of the output file
-  real(8),dimension(:,:,:)    :: Y1
+  real(8),dimension(:,:,:)    :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional   :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional            :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)            :: order_
@@ -173,7 +173,7 @@ subroutine data_saveA3_C(pname,Y1,order,wspace)
   integer                     :: Ny1,Ny2,Ny3
   integer                     :: i1,i2,i3
   character(len=*)            :: pname   !name of the output file
-  complex(8),dimension(:,:,:) :: Y1
+  complex(8),dimension(:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional   :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional            :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)            :: order_
@@ -225,7 +225,7 @@ subroutine data_saveA4_R(pname,Y1,order,wspace)
   integer                    :: Ny1,Ny2,Ny3,Ny4
   integer                    :: i1,i2,i3,i4
   character(len=*)           :: pname   !name of the output file
-  real(8),dimension(:,:,:,:) :: Y1
+  real(8),dimension(:,:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional  :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional           :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)           :: order_
@@ -271,7 +271,7 @@ subroutine data_saveA4_C(pname,Y1,order,wspace)
   integer                       :: Ny1,Ny2,Ny3,Ny4
   integer                       :: i1,i2,i3,i4
   character(len=*)              :: pname   !name of the output file
-  complex(8),dimension(:,:,:,:) :: Y1
+  complex(8),dimension(:,:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional     :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional              :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)              :: order_
@@ -327,7 +327,7 @@ subroutine data_saveA5_R(pname,Y1,order,wspace)
   integer                      :: Ny1,Ny2,Ny3,Ny4,Ny5
   integer                      :: i1,i2,i3,i4,i5
   character(len=*)             :: pname   !name of the output file
-  real(8),dimension(:,:,:,:,:) :: Y1
+  real(8),dimension(:,:,:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional    :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional             :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)             :: order_
@@ -378,7 +378,7 @@ subroutine data_saveA5_C(pname,Y1,order,wspace)
   integer                         :: Ny1,Ny2,Ny3,Ny4,Ny5
   integer                         :: i1,i2,i3,i4,i5
   character(len=*)                :: pname   !name of the output file
-  complex(8),dimension(:,:,:,:,:) :: Y1
+  complex(8),dimension(:,:,:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional       :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional                :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)                :: order_
@@ -439,7 +439,7 @@ subroutine data_saveA6_R(pname,Y1,order,wspace)
   integer                        :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6
   integer                        :: i1,i2,i3,i4,i5,i6
   character(len=*)               :: pname   !name of the output file
-  real(8),dimension(:,:,:,:,:,:) :: Y1
+  real(8),dimension(:,:,:,:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional      :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional               :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)               :: order_
@@ -496,7 +496,7 @@ subroutine data_saveA6_C(pname,Y1,order,wspace)
   integer                           :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6
   integer                           :: i1,i2,i3,i4,i5,i6
   character(len=*)                  :: pname   !name of the output file
-  complex(8),dimension(:,:,:,:,:,:) :: Y1
+  complex(8),dimension(:,:,:,:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional         :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional                  :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)                  :: order_
@@ -564,7 +564,7 @@ subroutine data_saveA7_R(pname,Y1,order,wspace)
   integer                          :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6,Ny7
   integer                          :: i1,i2,i3,i4,i5,i6,i7
   character(len=*)                 :: pname   !name of the output file
-  real(8),dimension(:,:,:,:,:,:,:) :: Y1
+  real(8),dimension(:,:,:,:,:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional        :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional                 :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)                 :: order_
@@ -626,7 +626,7 @@ subroutine data_saveA7_C(pname,Y1,order,wspace)
   integer                             :: Ny1,Ny2,Ny3,Ny4,Ny5,Ny6,Ny7
   integer                             :: i1,i2,i3,i4,i5,i6,i7
   character(len=*)                    :: pname   !name of the output file
-  complex(8),dimension(:,:,:,:,:,:,:) :: Y1
+  complex(8),dimension(:,:,:,:,:,:,:) :: Y1      !data to write: scalar or array of rank 1 to 7, real or complex
   character(len=*),optional           :: order   !R (default): last index varies fastest, C: first index varies fastest
   logical,optional                    :: wspace  !if T (default) write a blank line after each run of the fastest index
   character(len=1)                    :: order_

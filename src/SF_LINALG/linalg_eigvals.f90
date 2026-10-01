@@ -1,6 +1,15 @@
 function deigvals(A) result(lam)
-  real(8), intent(in)     :: A(:, :) ! matrix for eigenvalue compuation
-  complex(8)              :: lam(size(A,1))  ! eigenvalues: A c = lam c
+  !This function returns the eigenvalues of a general real matrix :f:var:`A`, computed with the LAPACK routine
+  !:f:func_inline:`dgeev` without eigenvectors. The complex version :f:func_inline:`zeigvals` uses
+  !:f:func_inline:`zgeev`. Both are instances of the generic interface :f:func_inline:`eigvals`.
+  !
+  !The input matrix is copied and left untouched. The eigenvalues are complex and are returned in the order given
+  !by LAPACK (not sorted).
+  !
+  !The program stops if :f:var:`A` is not square, or if the LAPACK routine returns an error code.
+  !
+  real(8), intent(in)     :: A(:, :)         ! real square matrix [n,n], not modified
+  complex(8)              :: lam(size(A,1))  ! eigenvalues of A, A c = lam c, size n
   real(8), allocatable    :: At(:,:),vl(:,: ),vr(:,:),wi(:),work(:),wr(:)
   real(8)                 :: lwork_guess(1)
   integer                 :: info, lda, ldvl, ldvr, lwork, n

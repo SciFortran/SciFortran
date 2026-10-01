@@ -3,9 +3,18 @@
 ! M is destroyed and replaces by its inverse M^-1
 !-------------------------------------------------------------------------------------------
 subroutine zinv_her(A,uplo)
-  complex(8),dimension(:,:)                 :: A
+  !This subroutine inverts in place a complex hermitian matrix :f:var:`A` using the Bunch-Kaufman factorization,
+  !:f:func_inline:`zhetrf` + :f:func_inline:`zhetri`. It is the only instance of the generic interface
+  !:f:func_inline:`inv_her`.
+  !
+  !The hermiticity of :f:var:`A` is tested first. Only the triangle selected by :f:var:`uplo` is referenced by the
+  !LAPACK routines; on output :f:var:`A` contains the full inverse, the other triangle being filled with the complex
+  !conjugate of the computed one. The program stops if :f:var:`A` is not hermitian, or if any of the LAPACK routines
+  !returns an error code.
+  !
+  complex(8),dimension(:,:)                 :: A     ! in: hermitian matrix; out: its inverse (full matrix)
   complex(8)                                :: c
-  character(len=*),optional                 :: uplo
+  character(len=*),optional                 :: uplo  ! optional: 'U' (default) or 'L', triangle of A referenced
   character(len=1)                          :: uplo_
   integer                                   :: n,lda,info,lwork,i,j
   integer,dimension(:),allocatable          :: ipvt

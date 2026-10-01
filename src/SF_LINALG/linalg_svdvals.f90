@@ -1,6 +1,14 @@
 function dsvdvals(A) result(s)
-  real(8), intent(in)  :: A(:,:)
-  real(8), allocatable :: s(:)
+  !This function returns the singular values of a real :math:`m\times n` matrix :f:var:`A`, in descending order,
+  !computed with the LAPACK routine :f:func_inline:`dgesvd` without singular vectors. The complex version
+  !:f:func_inline:`zsvdvals` uses :f:func_inline:`zgesvd`. Both are instances of the generic interface
+  !:f:func_inline:`svdvals`.
+  !
+  !The input matrix is copied and left untouched. The result is allocated with size :code:`min(m,n)`; the program
+  !stops if the LAPACK routine returns an error code.
+  !
+  real(8), intent(in)  :: A(:,:)  ! real matrix [m,n], not modified
+  real(8), allocatable :: s(:)    ! singular values, descending, size min(m,n)
   integer              :: info, lwork, m, n
   real(8), allocatable :: work(:), At(:,:)
   real(8)              :: u(1,1), vt(1,1)  ! not used if only s is to be computed

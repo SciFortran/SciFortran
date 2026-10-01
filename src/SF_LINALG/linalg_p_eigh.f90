@@ -1,14 +1,34 @@
 subroutine p_deigh_simple(A,W,Nblock,method,jobz,uplo,vl,vu,il,iu,tol)
-  real(8),dimension(:,:),intent(inout)       :: A ! M v = E v/v(i,j) = ith component of jth vec.
-  real(8),dimension(size(A,2)),intent(inout) :: W ! eigenvalues
-  integer                                    :: Nblock
+  !This subroutine is the distributed-memory (ScaLAPACK) counterpart of :f:func_inline:`deigh_simple`: it computes
+  !the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix :f:var:`A`. The complex version
+  !:f:func_inline:`p_zeigh_simple` works on hermitian matrices. Both are instances of the generic interface
+  !:f:func_inline:`p_eigh`, available only when compiling with :code:`_SCALAPACK`.
+  !
+  !The matrix :f:var:`A` (a full copy is expected on every process) is distributed on the BLACS process grid of the
+  !module (:code:`p_context`, :code:`p_Nx` x :code:`p_Ny`) in a block-cyclic layout with square blocks of size
+  !:f:var:`Nblock`, and diagonalized with the driver selected by :f:var:`method`: :f:func_inline:`PDSYEVR` (default),
+  !:f:func_inline:`PDSYEV`, :f:func_inline:`PDSYEVD` or :f:func_inline:`PDSYEVX`. If :code:`jobz='V'` the eigenvectors
+  !are gathered back into :f:var:`A`, column-wise. The eigenvalues are returned in ascending order in :f:var:`W`.
+  !The selection of a subset of the spectrum by :f:var:`vl`, :f:var:`vu`, :f:var:`il`, :f:var:`iu` works as in
+  !:f:func_inline:`deigh_simple` (:code:`PDSYEVR` and :code:`PDSYEVX` only). Timings are written by the master
+  !process to the file :code:`p_eigh.info`.
+  !
+  !The program stops if both a value range and an index range are given, or if :f:var:`A` is not square.
+  !
+  real(8),dimension(:,:),intent(inout)       :: A       ! in: symmetric matrix; out: eigenvectors (columns) if jobz=V
+  real(8),dimension(size(A,2)),intent(inout) :: W       ! eigenvalues, ascending, size n
+  integer                                    :: Nblock  ! block size of the block-cyclic distribution
   integer                                    :: Nb
-  character(len=*),optional                  :: method
-  character(len=1),optional                  :: jobz,uplo
+  character(len=*),optional                  :: method  ! optional: 'dsyevr' (default), 'dsyev', 'dsyevd', 'dsyevx'
+  character(len=1),optional                  :: jobz    ! optional: 'V' (default) eigenvectors too, 'N' eigenvalues only
+  character(len=1),optional                  :: uplo    ! optional: 'L' (default) or 'U', triangle of A to be used
   character(len=1)                           :: jobz_,uplo_,range
   character(len=20)                          :: method_
-  real(8),optional                           :: vl,vu,tol
-  integer,optional                           :: il,iu
+  real(8),optional                           :: vl      ! optional: lower bound of the eigenvalue interval (vl,vu]
+  real(8),optional                           :: vu      ! optional: upper bound of the eigenvalue interval (vl,vu]
+  real(8),optional                           :: tol     ! optional: accepted but currently not used
+  integer,optional                           :: il      ! optional: index of the first eigenvalue wanted
+  integer,optional                           :: iu      ! optional: index of the last eigenvalue wanted
   real(8)                                    :: vL_,vU_,tol_
   integer                                    :: iL_,iU_
   integer                                    :: Ns

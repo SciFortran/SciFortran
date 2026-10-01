@@ -66,7 +66,12 @@ contains
   !PURPOSE: init the input list
   !+------------------------------------------------------------------+
   subroutine init_input_list(list)
-    type(input_list),optional :: list    
+  !This subroutine initializes an empty input list. If :f:var:`list` is not present the module-level default list,
+  !the one filled by :f:func_inline:`append_to_input_list`, is initialized. An already initialized list is first
+  !deleted with :f:func_inline:`delete_input_list`. The default list is initialized automatically at the first
+  !append, so a call is needed only to empty it.
+  !
+    type(input_list),optional :: list  ! optional: list to initialize (default list if absent)
     if(present(list))then
        if(list%status)call delete_input_list(list)
        allocate(list%root)    
@@ -90,7 +95,12 @@ contains
   !PURPOSE: delete the list
   !+------------------------------------------------------------------+
   subroutine delete_input_list(list)
-    type(input_list),optional :: list
+  !This subroutine deletes the input list :f:var:`list`, or the default list if :f:var:`list` is not present, freeing
+  !all its nodes. The variables registered in the list are not touched, only the pointers to them are released.
+  !Nothing is done if the list is not initialized. It is also available as :f:func_inline:`delete_input` in the module
+  !:f:mod:`SF_PARSE_INPUT`.
+  !
+    type(input_list),optional :: list  ! optional: list to delete (default list if absent)
     type(input_node),pointer  :: p,c
     integer :: i
     
@@ -144,8 +154,11 @@ contains
   !PURPOSE: get list size
   !+------------------------------------------------------------------+
   function size_input_list(list) result(size)
-    type(input_list),optional :: list
-    integer                   :: size
+  !This function returns the number of variables registered in the input list :f:var:`list`, or in the default list
+  !if :f:var:`list` is not present.
+  !
+    type(input_list),optional :: list  ! optional: list to query (default list if absent)
+    integer                   :: size  ! number of variables in the list
     size=default_list%size
     if(present(list))size=list%size
   end function size_input_list
@@ -159,9 +172,20 @@ contains
   !+------------------------------------------------------------------+
   !========================SCALAR==================================
   subroutine i_append_to_input_list(variable,name,comment)
-    integer,target            :: variable
-    character(len=*)          :: name
-    character(len=*),optional :: comment
+  !This subroutine appends a scalar variable to the default input list, initializing the list if necessary. The
+  !generic interface :f:func_inline:`append_to_input_list` has the same calling sequence for integer, real(8), logical
+  !and character scalars (:f:func_inline:`i_append_to_input_list`, :f:func_inline:`d_append_to_input_list`,
+  !:f:func_inline:`l_append_to_input_list`, :f:func_inline:`ch_append_to_input_list`); see
+  !:f:func_inline:`iv_append_to_input_list` for vectors.
+  !
+  !The list stores a pointer to :f:var:`variable`, not a copy, so the value printed by
+  !:f:func_inline:`print_input_list` is the one the variable has at the time of the printing, and the variable must
+  !still exist at that time. The variables are kept in the order they are appended. This routine is called by
+  !:f:func_inline:`parse_input_variable`.
+  !
+    integer,target            :: variable  ! variable to be registered (stored by pointer)
+    character(len=*)          :: name      ! name of the variable, as printed in the list
+    character(len=*),optional :: comment   ! optional: description of the variable, printed after the value
     type(input_node),pointer  :: p,c
     if(.not.default_list%status)call init_input_list()
     p => default_list%root
@@ -262,9 +286,15 @@ contains
 
   !========================VECTOR==================================
   subroutine iv_append_to_input_list(variable,name,comment)
-    integer,dimension(:),target :: variable
-    character(len=*)            :: name
-    character(len=*),optional   :: comment
+  !This subroutine appends a vector variable to the default input list, initializing the list if necessary. The
+  !generic interface :f:func_inline:`append_to_input_list` has the same calling sequence for integer, real(8) and
+  !logical vectors (:f:func_inline:`iv_append_to_input_list`, :f:func_inline:`dv_append_to_input_list`,
+  !:f:func_inline:`lv_append_to_input_list`); see :f:func_inline:`i_append_to_input_list` for scalars and the details,
+  !which are the same. The vector is stored as a single entry, and it is printed as a comma separated list.
+  !
+    integer,dimension(:),target :: variable  ! vector to be registered (elements stored by pointer)
+    character(len=*)            :: name      ! name of the variable, as printed in the list
+    character(len=*),optional   :: comment   ! optional: description of the variable, printed after the value
     type(input_node),pointer    :: p,c
     integer :: i
     if(.not.default_list%status)call init_input_list()
@@ -428,8 +458,18 @@ contains
   !PURPOSE: print the list to file
   !+------------------------------------------------------------------+
   subroutine print_input_list(file,list)
-    character(len=*),optional :: file
-    type(input_list),optional :: list
+  !This subroutine prints the input list :f:var:`list`, or the default list if :f:var:`list` is not present. It is the
+  !function behind the generic name :f:func_inline:`print_input` in the module :f:mod:`SF_PARSE_INPUT`.
+  !
+  !Each variable is printed, in the order it was appended, on a line :code:`NAME=value`, with vectors as comma separated
+  !lists, followed by its comment preceded by :code:`!`, which is aligned at column 46 when possible. The output has
+  !the same format as the input files read by :f:func_inline:`parse_input_variable`. If :f:var:`file` is present the
+  !output is written to the file :code:`used.`:f:var:`file`, replacing it if it exists; otherwise it is written to the
+  !standard output. An empty default list prints :code:`input list: empty`, while an uninitialized :f:var:`list`
+  !prints nothing.
+  !
+    character(len=*),optional :: file  ! optional: base name of the output file, written as used.<file>
+    type(input_list),optional :: list  ! optional: list to print (default list if absent)
     integer                   :: i,counter,size
     type(input_node),pointer  :: c
     !

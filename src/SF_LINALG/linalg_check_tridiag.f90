@@ -2,9 +2,14 @@
 !PURPOSE:  comment
 !+-----------------------------------------------------------------------------+!
 function d_check_tridiag(Amat) result(Mcheck)
-  real(8),dimension(:,:)                       :: Amat
+  !This function checks whether the real matrix :f:var:`Amat` is tridiagonal, i.e. whether all the elements outside
+  !the main, sub- and over-diagonals are exactly zero. The complex version is :f:func_inline:`c_check_tridiag`. Both
+  !are instances of the generic interface :f:func_inline:`check_tridiag`. The result is :code:`.true.` for a tridiagonal
+  !matrix. The program stops if :f:var:`Amat` is not square.
+  !
+  real(8),dimension(:,:)                       :: Amat    ! square matrix [N,N] to be checked
   logical,dimension(size(Amat,1),size(Amat,2)) :: Lmat
-  logical                                      :: Mcheck
+  logical                                      :: Mcheck  ! .true. if Amat is tridiagonal
   integer                                      :: i,j,N
   N=size(Amat,1)
   call assert_shape(Amat,[N,N],"d_check_tridiag","Amat")
@@ -34,12 +39,18 @@ function c_check_tridiag(Amat) result(Mcheck)
   Mcheck = .not.(sum(abs(Amat),mask=Lmat)>0d0)
 end function c_check_tridiag
 function d_check_tridiag_block(Nblock,Nsize,Amat) result(Mcheck)
-  integer                                          :: Nblock
-  integer                                          :: Nsize
-  real(8),dimension(Nblock*Nsize,Nblock*Nsize)     :: Amat
+  !This function checks whether the real matrix :f:var:`Amat`, made of :code:`Nblock` blocks of size
+  !:math:`N_{size}\times N_{size}`, is block tridiagonal, i.e. whether all the elements outside the main, sub- and
+  !over-diagonal blocks are exactly zero. The complex version is :f:func_inline:`c_check_tridiag_block`. Both are
+  !instances of the generic interface :f:func_inline:`check_tridiag`. The result is :code:`.true.` for a block
+  !tridiagonal matrix.
+  !
+  integer                                          :: Nblock  ! number of blocks
+  integer                                          :: Nsize   ! size of each block
+  real(8),dimension(Nblock*Nsize,Nblock*Nsize)     :: Amat    ! matrix [Nblock*Nsize,Nblock*Nsize] to be checked
   logical,dimension(Nblock*Nsize,Nblock*Nsize)     :: Lmat
   integer                                          :: i,j,iblock,is,js
-  logical                                          :: Mcheck
+  logical                                          :: Mcheck  ! .true. if Amat is block tridiagonal
   Lmat=.true.
   do iblock=1,Nblock-1
      do i=1,Nsize

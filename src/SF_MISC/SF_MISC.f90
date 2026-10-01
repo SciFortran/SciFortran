@@ -6,22 +6,47 @@ module SF_MISC
 
   !UNIINV = Merge-sort inverse ranking of an array, with removal of duplicate entries. 
   interface uniinv
+  !This subroutine evaluates the merge-sort inverse ranking of a real(8), real(4) or integer array :f:var:`xdont`,
+  !with removal of the duplicate entries: for each element :code:`xdont(i)` it returns in :f:var:`igoest` (
+  !:code:`i` ) the rank of its value among the distinct values of :f:var:`xdont` taken in ascending order, so
+  !:code:`[3,1,3,2,1,5]` gives :code:`[3,1,3,2,1,4]`. Only the first :code:`min(size(xdont),size(igoest))`
+  !elements are considered. It is adapted from the ORDERPACK library and it is used by :f:func_inline:`unista`.
+  !
      module procedure d_uniinv, r_uniinv, i_uniinv
   end interface uniinv
 
   !UNISTA = (stable unique) removes duplicates from an array, leaving unique entries
   ! in the order of their first appearance in the initial set.
   interface unista
+  !This subroutine is a stable unique: it removes the duplicates from a real(8), real(4) or integer array
+  !:f:var:`xdont`, leaving the unique entries in the order of their first appearance. The input array is
+  !overwritten: its first :f:var:`nuni` elements contain the unique values and the other ones are left unchanged.
+  !If the optional argument :f:var:`mask`, of size :code:`size(xdont)`, is present it is true for the first
+  !occurrence of each value. It relies on :f:func_inline:`uniinv`.
+  !
      module procedure d_unista, r_unista, i_unista
   end interface unista
 
 
   interface uniq_array
+  !This subroutine removes the duplicates from an integer or real(8) array :f:var:`AIN`, leaving the unique
+  !entries in the order of their first appearance in :f:var:`AIN`, and returns them in the allocatable array
+  !:f:var:`AOUT`. The input array is overwritten: its first :code:`size(AOUT)` elements contain the unique values
+  !and the other ones are left unchanged. If the optional argument :f:var:`MASK` is present it is allocated with
+  !size :code:`size(AIN)` and is true for the first occurrence of each value. The function form is
+  !:f:func_inline:`uniq`. It relies on :f:func_inline:`unista`.
+  !
      module procedure :: i_uniq
      module procedure :: d_uniq
   end interface uniq_array
 
   interface uniq
+  !This function returns the unique entries of an integer or real(8) array :f:var:`AIN`, in the order of their
+  !first appearance, as an allocatable array. The input array is overwritten: its first elements contain the
+  !unique values and the other ones are left unchanged. If the optional argument :f:var:`MASK` is present it is
+  !allocated with size :code:`size(AIN)` and is true for the first occurrence of each value. The subroutine form
+  !is :f:func_inline:`uniq_array`.
+  !
      module procedure :: f_i_uniq
      module procedure :: f_d_uniq
   end interface uniq
@@ -32,6 +57,12 @@ module SF_MISC
   end interface nearless
 
   interface assert_shape
+  !This subroutine checks that the shape of the integer, real(8) or complex(8) array :f:var:`A`, of rank 1 to 7 (8
+  !with gfortran newer than 8), is equal to :f:var:`Ndim`. If it is not, the message
+  !:code:`routine error: matname has illegal shape` is printed, only if both :f:var:`routine` and :f:var:`matname`
+  !are present, and the program stops with the message :code:`assert_shape error: wrong matrix shape`. The source
+  !has to be preprocessed.
+  !
      module procedure i_assert_shape_N1
      module procedure i_assert_shape_N2
      module procedure i_assert_shape_N3
@@ -68,6 +99,12 @@ module SF_MISC
 
 
   interface reorder_array
+  !This subroutine reorders a one-dimensional integer, real(8), complex(8) or logical array :f:var:`Ain` in place,
+  !moving the element :code:`Ain(i)` to the position :code:`Index(i)`, that is :code:`Aout(Index(i)) = Ain(i)`.
+  !The array :f:var:`Index` must be a permutation of :code:`1..size(Ain)`. Note that this is the inverse of the
+  !permutation returned as :code:`indx` by :f:func_inline:`sort`: to apply the latter use :code:`a(indx)`. The
+  !function form is :f:func_inline:`reorder`.
+  !
      module procedure :: I_reshuffle
      module procedure :: D_reshuffle
      module procedure :: Z_reshuffle
@@ -75,6 +112,11 @@ module SF_MISC
   end interface reorder_array
 
   interface reorder
+  !This function returns a reordered copy of a one-dimensional integer, real(8), complex(8) or logical array
+  !:f:var:`Ain`, with the element :code:`Ain(i)` moved to the position :code:`Index(i)`, that is
+  !:code:`Aout(Index(i)) = Ain(i)`. The array :f:var:`Index` must be a permutation of :code:`1..size(Ain)`, and
+  !:f:var:`Ain` is unchanged. The subroutine form is :f:func_inline:`reorder_array`.
+  !
      module procedure :: f_I_reshuffle
      module procedure :: f_D_reshuffle
      module procedure :: f_Z_reshuffle
@@ -82,27 +124,55 @@ module SF_MISC
   end interface reorder
 
   interface sort_insertion
+  !This subroutine sorts an integer or real(8) array :f:var:`a` in ascending order, in place, using the insertion
+  !method, whose cost scales as :math:`N^2`, so it is meant for small arrays. The argument :f:var:`indx_a`, of
+  !size :code:`size(a)`, is required and returns the permutation that sorts the input array,
+  !:code:`a_sorted(i) = a_in(indx_a(i))`. The sort is stable.
+  !
      module procedure :: sort_insertion_i
      module procedure :: sort_insertion_d
   end interface sort_insertion
 
   interface sort_quicksort
+  !This subroutine sorts an integer or real(8) array :f:var:`a` in ascending order, in place, using the quicksort
+  !algorithm with the median of the first, middle and last elements as pivot. If the optional argument
+  !:f:var:`indx` is present it returns the permutation that sorts the input array,
+  !:code:`a_sorted(i) = a_in(indx(i))`. The sort is not stable. It is also available under the names
+  !:f:func_inline:`sort` and :f:func_inline:`sort_array`.
+  !
      module procedure :: sort_quicksort_i
      module procedure :: sort_quicksort_d
   end interface sort_quicksort
 
   interface sort
+  !This subroutine sorts an integer or real(8) array :f:var:`a` in ascending order, in place, using the quicksort
+  !algorithm with the median of the first, middle and last elements as pivot. If the optional argument
+  !:f:var:`indx` is present it returns the permutation that sorts the input array,
+  !:code:`a_sorted(i) = a_in(indx(i))`. The sort is not stable. It is the generic name of
+  !:f:func_inline:`sort_quicksort`, also available as :f:func_inline:`sort_array`.
+  !
      module procedure :: sort_quicksort_i
      module procedure :: sort_quicksort_d
   end interface sort
 
   interface sort_array
+  !This subroutine sorts an integer or real(8) array :f:var:`a` in ascending order, in place, using the quicksort
+  !algorithm, and it is an alias of :f:func_inline:`sort_quicksort`, see there for the description. If the
+  !optional argument :f:var:`indx` is present it returns the permutation that sorts the input array,
+  !:code:`a_sorted(i) = a_in(indx(i))`.
+  !
      module procedure :: sort_quicksort_i
      module procedure :: sort_quicksort_d
   end interface sort_array
 
 
   interface sort_qsort
+  !This subroutine sorts an integer or real(8) array :f:var:`a` in ascending order, in place, using a somehow
+  !slower implementation of the quicksort algorithm that chooses the pivot at random with :code:`random_number`.
+  !The argument :f:var:`indx_a`, of size :code:`size(a)`, is required and returns the permutation that sorts the
+  !input array, :code:`a_sorted(i) = a_in(indx_a(i))`. The sort is not stable, and the order of equal elements in
+  !:f:var:`indx_a` can change between runs.
+  !
      module procedure :: sort_array_i
      module procedure :: sort_array_d
   end interface sort_qsort
@@ -132,9 +202,9 @@ contains
   !PURPOSE: assert shape of a fiven array up to 7 dimensions (gnu gfortran max rank)
   !+-----------------------------------------------------------------------------+!
   subroutine i_assert_shape_N1(A,Ndim,routine,matname)
-    integer,dimension(:),intent(in)          :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    integer,dimension(:),intent(in)          :: A                  !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -142,9 +212,9 @@ contains
     end if
   end subroutine i_assert_shape_N1
   subroutine i_assert_shape_N2(A,Ndim,routine,matname)
-    integer,dimension(:,:),intent(in)          :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    integer,dimension(:,:),intent(in)          :: A                !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -152,9 +222,9 @@ contains
     end if
   end subroutine i_assert_shape_N2
   subroutine i_assert_shape_N3(A,Ndim,routine,matname)
-    integer,dimension(:,:,:),intent(in)        :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    integer,dimension(:,:,:),intent(in)        :: A                !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -162,9 +232,9 @@ contains
     end if
   end subroutine i_assert_shape_N3
   subroutine i_assert_shape_N4(A,Ndim,routine,matname)
-    integer,dimension(:,:,:,:),intent(in)        :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    integer,dimension(:,:,:,:),intent(in)        :: A              !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -172,9 +242,9 @@ contains
     end if
   end subroutine i_assert_shape_N4
   subroutine i_assert_shape_N5(A,Ndim,routine,matname)
-    integer,dimension(:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    integer,dimension(:,:,:,:,:),intent(in)    :: A                !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -182,9 +252,9 @@ contains
     end if
   end subroutine i_assert_shape_N5
   subroutine i_assert_shape_N6(A,Ndim,routine,matname)
-    integer,dimension(:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    integer,dimension(:,:,:,:,:,:),intent(in)    :: A              !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -192,9 +262,9 @@ contains
     end if
   end subroutine i_assert_shape_N6
   subroutine i_assert_shape_N7(A,Ndim,routine,matname)
-    integer,dimension(:,:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    integer,dimension(:,:,:,:,:,:,:),intent(in)    :: A            !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -203,9 +273,9 @@ contains
   end subroutine i_assert_shape_N7
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine i_assert_shape_N8(A,Ndim,routine,matname)
-    integer,dimension(:,:,:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    integer,dimension(:,:,:,:,:,:,:,:),intent(in)    :: A          !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -217,9 +287,9 @@ contains
   !
   !
   subroutine d_assert_shape_N1(A,Ndim,routine,matname)
-    real(8),dimension(:),intent(in)            :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    real(8),dimension(:),intent(in)            :: A                !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -227,9 +297,9 @@ contains
     end if
   end subroutine d_assert_shape_N1
   subroutine d_assert_shape_N2(A,Ndim,routine,matname)
-    real(8),dimension(:,:),intent(in)          :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    real(8),dimension(:,:),intent(in)          :: A                !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -237,9 +307,9 @@ contains
     end if
   end subroutine d_assert_shape_N2
   subroutine d_assert_shape_N3(A,Ndim,routine,matname)
-    real(8),dimension(:,:,:),intent(in)        :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    real(8),dimension(:,:,:),intent(in)        :: A                !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -247,9 +317,9 @@ contains
     end if
   end subroutine d_assert_shape_N3
   subroutine d_assert_shape_N4(A,Ndim,routine,matname)
-    real(8),dimension(:,:,:,:),intent(in)        :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    real(8),dimension(:,:,:,:),intent(in)        :: A              !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -257,9 +327,9 @@ contains
     end if
   end subroutine d_assert_shape_N4
   subroutine d_assert_shape_N5(A,Ndim,routine,matname)
-    real(8),dimension(:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    real(8),dimension(:,:,:,:,:),intent(in)    :: A                !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -267,9 +337,9 @@ contains
     end if
   end subroutine d_assert_shape_N5
   subroutine d_assert_shape_N6(A,Ndim,routine,matname)
-    real(8),dimension(:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    real(8),dimension(:,:,:,:,:,:),intent(in)    :: A              !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -277,9 +347,9 @@ contains
     end if
   end subroutine d_assert_shape_N6
   subroutine d_assert_shape_N7(A,Ndim,routine,matname)
-    real(8),dimension(:,:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    real(8),dimension(:,:,:,:,:,:,:),intent(in)    :: A            !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -288,9 +358,9 @@ contains
   end subroutine d_assert_shape_N7
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine d_assert_shape_N8(A,Ndim,routine,matname)
-    real(8),dimension(:,:,:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    real(8),dimension(:,:,:,:,:,:,:,:),intent(in)    :: A          !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -302,9 +372,9 @@ contains
   !
   !
   subroutine z_assert_shape_N1(A,Ndim,routine,matname)
-    complex(8),dimension(:),intent(in)         :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    complex(8),dimension(:),intent(in)         :: A                !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -312,9 +382,9 @@ contains
     end if
   end subroutine z_assert_shape_N1
   subroutine z_assert_shape_N2(A,Ndim,routine,matname)
-    complex(8),dimension(:,:),intent(in)          :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    complex(8),dimension(:,:),intent(in)          :: A             !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -322,9 +392,9 @@ contains
     end if
   end subroutine z_assert_shape_N2
   subroutine z_assert_shape_N3(A,Ndim,routine,matname)
-    complex(8),dimension(:,:,:),intent(in)        :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    complex(8),dimension(:,:,:),intent(in)        :: A             !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -332,9 +402,9 @@ contains
     end if
   end subroutine z_assert_shape_N3
   subroutine z_assert_shape_N4(A,Ndim,routine,matname)
-    complex(8),dimension(:,:,:,:),intent(in)        :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    complex(8),dimension(:,:,:,:),intent(in)        :: A           !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -342,9 +412,9 @@ contains
     end if
   end subroutine z_assert_shape_N4
   subroutine z_assert_shape_N5(A,Ndim,routine,matname)
-    complex(8),dimension(:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    complex(8),dimension(:,:,:,:,:),intent(in)    :: A             !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -352,9 +422,9 @@ contains
     end if
   end subroutine z_assert_shape_N5
   subroutine z_assert_shape_N6(A,Ndim,routine,matname)
-    complex(8),dimension(:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    complex(8),dimension(:,:,:,:,:,:),intent(in)    :: A           !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -362,9 +432,9 @@ contains
     end if
   end subroutine z_assert_shape_N6
   subroutine z_assert_shape_N7(A,Ndim,routine,matname)
-    complex(8),dimension(:,:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    complex(8),dimension(:,:,:,:,:,:,:),intent(in)    :: A         !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -373,9 +443,9 @@ contains
   end subroutine z_assert_shape_N7
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine z_assert_shape_N8(A,Ndim,routine,matname)
-    complex(8),dimension(:,:,:,:,:,:,:,:),intent(in)    :: A
-    integer,dimension(:),intent(in)            :: Ndim
-    character(len=*),optional                  :: routine, matname
+    complex(8),dimension(:,:,:,:,:,:,:,:),intent(in)    :: A       !array whose shape is checked: integer, real(8) or complex(8)
+    integer,dimension(:),intent(in)            :: Ndim             !expected shape, one element for each dimension of A
+    character(len=*),optional                  :: routine,matname  !calling routine and array names, for the error message
     if(any(shape(A) /= Ndim)) then
        if(present(routine).AND.present(matname))&
             write(*,"(A,10I2)")trim(routine)//" error: "//trim(matname)//" has illegal shape"
@@ -391,7 +461,7 @@ contains
   !###################################################################
   !> sort using the insertion method (scale as N**2, small arrays)
   subroutine sort_insertion_i(a,indx_a)
-    integer, dimension(:),intent(inout)      :: a
+    integer, dimension(:),intent(inout)      :: a  !array to sort, overwritten with the values in ascending order
     integer,dimension(size(a)),intent(inout) :: indx_a
     integer                                  :: na
     real(8)                                  :: temp
@@ -420,7 +490,7 @@ contains
   end subroutine sort_insertion_i
   !
   subroutine sort_insertion_d(a,indx_a)
-    real(8), dimension(:),intent(inout)      :: a
+    real(8), dimension(:),intent(inout)      :: a  !array to sort, overwritten with the values in ascending order
     integer,dimension(size(a)),intent(inout) :: indx_a
     integer                                  :: na
     real(8)                                  :: temp
@@ -452,7 +522,7 @@ contains
 
   !> subroutine to sort using the quicksort algorithm
   subroutine sort_quicksort_i(a,indx)
-    integer,dimension(:),intent(inout)                :: a
+    integer,dimension(:),intent(inout)                :: a  !array to sort, overwritten with the values in ascending order
     integer,dimension(size(a)),intent(inout),optional :: indx
     integer,dimension(size(a))                        :: indx_a
     integer                                           :: i
@@ -527,7 +597,7 @@ contains
 
   !
   subroutine sort_quicksort_d(a,indx)
-    real(8), dimension(:),intent(inout)               :: a
+    real(8), dimension(:),intent(inout)               :: a  !array to sort, overwritten with the values in ascending order
     integer,dimension(size(a)),intent(inout),optional :: indx
     integer,dimension(size(a))                        :: indx_a
     integer                                           :: i
@@ -606,7 +676,7 @@ contains
 
   !> subroutine to sort using the quicksort algorithm in a somehow slower implementation:
   subroutine sort_array_i(a,indx_a)
-    integer, dimension(:),intent(inout)      :: a
+    integer, dimension(:),intent(inout)      :: a  !array to sort, overwritten with the values in ascending order
     integer,dimension(size(a)),intent(inout) :: indx_a
     integer                                  :: na
     integer,dimension(size(a))               :: a_tmp
@@ -665,7 +735,7 @@ contains
 
 
   subroutine sort_array_d(a,indx_a)
-    real(8), dimension(:),intent(inout)      :: a
+    real(8), dimension(:),intent(inout)      :: a  !array to sort, overwritten with the values in ascending order
     integer,dimension(size(a)),intent(inout) :: indx_a
     integer                                  :: na
     real(8),dimension(size(a))               :: a_tmp
@@ -740,7 +810,7 @@ contains
   !PURPOSE  :   
   !+-----------------------------------------------------------------+
   subroutine i_uniq(AIN,AOUT,MASK)
-    integer,dimension(:),intent(INOUT)                    :: AIN
+    integer,dimension(:),intent(INOUT)                    :: AIN  !array to reduce; first elements become the unique values
     integer,dimension(:),allocatable,intent(OUT)          :: AOUT
     integer                                               :: NDIM
     logical,dimension(:),allocatable,intent(OUT),optional :: MASK
@@ -754,7 +824,7 @@ contains
     AOUT(1:NDIM)=AIN(1:NDIM)
   end subroutine i_uniq
   subroutine d_uniq(AIN,AOUT,MASK)
-    real(8),dimension(:),intent(INOUT)                    :: AIN
+    real(8),dimension(:),intent(INOUT)                    :: AIN  !array to reduce; first elements become the unique values
     real(8),dimension(:),allocatable,intent(OUT)          :: AOUT
     integer                                               :: NDIM
     logical,dimension(:),allocatable,intent(OUT),optional :: MASK
@@ -769,7 +839,7 @@ contains
   end subroutine d_uniq
 
   function f_i_uniq(AIN,MASK) result(AOUT)
-    integer,dimension(:),intent(INOUT)                    :: AIN
+    integer,dimension(:),intent(INOUT)                    :: AIN  !array to reduce; first elements become the unique values
     integer,dimension(:),allocatable                      :: AOUT
     integer                                               :: NDIM
     logical,dimension(:),allocatable,intent(OUT),optional :: MASK
@@ -783,7 +853,7 @@ contains
     AOUT(1:NDIM)=AIN(1:NDIM)
   end function f_i_uniq
   function f_d_uniq(AIN,MASK) result(AOUT)
-    real(8),dimension(:),intent(INOUT)                    :: AIN
+    real(8),dimension(:),intent(INOUT)                    :: AIN  !array to reduce; first elements become the unique values
     real(8),dimension(:),allocatable                      :: AOUT
     integer                                               :: NDIM
     logical,dimension(:),allocatable,intent(OUT),optional :: MASK
@@ -804,32 +874,32 @@ contains
   !PURPOSE  :   
   !+-----------------------------------------------------------------+
   subroutine I_reshuffle(Ain,Index)
-    integer,dimension(:)         :: Ain
-    integer,dimension(size(Ain)) :: Index
+    integer,dimension(:)         :: Ain    !array to reorder
+    integer,dimension(size(Ain)) :: Index  !permutation: Ain(i) is moved to position Index(i)
     integer,dimension(size(Ain)) :: Aout
     integer                        :: i
     forall(i=1:size(Ain))Aout(Index(i)) = Ain(i)
     Ain = Aout
   end subroutine I_reshuffle
   subroutine D_reshuffle(Ain,Index)
-    real(8),dimension(:)         :: Ain
-    integer,dimension(size(Ain)) :: Index
+    real(8),dimension(:)         :: Ain    !array to reorder
+    integer,dimension(size(Ain)) :: Index  !permutation: Ain(i) is moved to position Index(i)
     real(8),dimension(size(Ain)) :: Aout
     integer                      :: i
     forall(i=1:size(Ain))Aout(Index(i)) = Ain(i)
     Ain = Aout
   end subroutine D_reshuffle
   subroutine Z_reshuffle(Ain,Index)
-    complex(8),dimension(:)         :: Ain
-    integer,dimension(size(Ain))    :: Index
+    complex(8),dimension(:)         :: Ain    !array to reorder
+    integer,dimension(size(Ain))    :: Index  !permutation: Ain(i) is moved to position Index(i)
     complex(8),dimension(size(Ain)) :: Aout
     integer                         :: i
     forall(i=1:size(Ain))Aout(Index(i)) = Ain(i)
     Ain = Aout
   end subroutine Z_reshuffle
   subroutine L_reshuffle(Ain,Index)
-    logical,dimension(:)         :: Ain
-    integer,dimension(size(Ain)) :: Index
+    logical,dimension(:)         :: Ain    !array to reorder
+    integer,dimension(size(Ain)) :: Index  !permutation: Ain(i) is moved to position Index(i)
     logical,dimension(size(Ain)) :: Aout
     integer                      :: i
     forall(i=1:size(Ain))Aout(Index(i)) = Ain(i)
@@ -837,29 +907,29 @@ contains
   end subroutine L_reshuffle
 
   function f_I_reshuffle(Ain,Index) result(Aout)
-    integer,dimension(:)         :: Ain
-    integer,dimension(size(Ain)) :: Index
+    integer,dimension(:)         :: Ain    !array to reorder
+    integer,dimension(size(Ain)) :: Index  !permutation: Ain(i) is moved to position Index(i)
     integer,dimension(size(Ain)) :: Aout
     integer                        :: i
     forall(i=1:size(Ain))Aout(Index(i)) = Ain(i)
   end function f_I_reshuffle
   function f_D_reshuffle(Ain,Index) result(Aout)
-    real(8),dimension(:)         :: Ain
-    integer,dimension(size(Ain)) :: Index
+    real(8),dimension(:)         :: Ain    !array to reorder
+    integer,dimension(size(Ain)) :: Index  !permutation: Ain(i) is moved to position Index(i)
     real(8),dimension(size(Ain)) :: Aout
     integer                      :: i
     forall(i=1:size(Ain))Aout(Index(i)) = Ain(i)
   end function f_D_reshuffle
   function f_Z_reshuffle(Ain,Index) result(Aout)
-    complex(8),dimension(:)         :: Ain
-    integer,dimension(size(Ain))    :: Index
+    complex(8),dimension(:)         :: Ain    !array to reorder
+    integer,dimension(size(Ain))    :: Index  !permutation: Ain(i) is moved to position Index(i)
     complex(8),dimension(size(Ain)) :: Aout
     integer                         :: i
     forall(i=1:size(Ain))Aout(Index(i)) = Ain(i)
   end function f_Z_reshuffle
   function f_L_reshuffle(Ain,Index) result(Aout)
-    logical,dimension(:)         :: Ain
-    integer,dimension(size(Ain)) :: Index
+    logical,dimension(:)         :: Ain    !array to reorder
+    integer,dimension(size(Ain)) :: Index  !permutation: Ain(i) is moved to position Index(i)
     logical,dimension(size(Ain)) :: Aout
     integer                      :: i
     forall(i=1:size(Ain))Aout(Index(i)) = Ain(i)
@@ -877,7 +947,7 @@ contains
 
 
   subroutine d_uniinv (xdont, igoest)
-    real (kind=8), dimension (:), intent (in) :: xdont
+    real (kind=8), dimension (:), intent (in) :: xdont  !array to rank
     integer, dimension (:), intent (out)      :: igoest
     real (kind=8) :: xtst, xdona, xdonb
     integer, dimension (size(igoest)) :: jwrkt, irngt
@@ -1111,7 +1181,7 @@ contains
   end subroutine d_uniinv
   !
   subroutine r_uniinv (xdont, igoest)
-    real, dimension (:), intent (in) :: xdont
+    real, dimension (:), intent (in) :: xdont  !array to rank
     integer, dimension (:), intent (out) :: igoest
     real    :: xtst, xdona, xdonb
     integer, dimension (size(igoest)) :: jwrkt, irngt
@@ -1354,7 +1424,7 @@ contains
     !   out of the standard loop, and use dedicated coding.
     ! __________________________________________________________
     ! __________________________________________________________
-    integer, dimension (:), intent (in)  :: xdont
+    integer, dimension (:), intent (in)  :: xdont  !array to rank
     integer, dimension (:), intent (out) :: igoest
     ! __________________________________________________________
     integer :: xtst, xdona, xdonb
@@ -1632,7 +1702,7 @@ contains
 
 
   subroutine d_unista (xdont, nuni, mask)
-    real(kind=8), dimension (:), intent (inout) :: xdont
+    real(kind=8), dimension (:), intent (inout) :: xdont  !array to reduce; first nuni elements become the unique values
     integer, intent (out)                       :: nuni
     integer, dimension (size(xdont)) :: iwrkt
     logical, dimension (size(xdont)) :: ifmptyt
@@ -1653,7 +1723,7 @@ contains
   end subroutine d_unista
 
   subroutine r_unista (xdont, nuni, mask)
-    real, dimension (:), intent (inout) :: xdont
+    real, dimension (:), intent (inout) :: xdont  !array to reduce; first nuni elements become the unique values
     integer, intent (out)               :: nuni
     integer, dimension (size(xdont)) :: iwrkt
     logical, dimension (size(xdont)) :: ifmptyt
@@ -1674,7 +1744,7 @@ contains
   end subroutine r_unista
 
   subroutine i_unista (xdont, nuni, mask)
-    integer, dimension (:), intent (inout)  :: xdont
+    integer, dimension (:), intent (inout)  :: xdont  !array to reduce; first nuni elements become the unique values
     integer, intent (out) :: nuni
     integer, dimension (size(xdont)) :: iwrkt
     logical, dimension (size(xdont)) :: ifmptyt

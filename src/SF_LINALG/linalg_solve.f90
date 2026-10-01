@@ -1,8 +1,18 @@
 subroutine Dsolve_1rhs(A,b,trans)
-  real(8),dimension(:,:),intent(in)  :: A
-  real(8),dimension(:),intent(inout) :: b
+  !This subroutine solves the real linear system :math:`A x = b` with a single right-hand side using the LU
+  !factorization, :f:func_inline:`dgetrf` + :f:func_inline:`dgetrs`. The complex version :f:func_inline:`Zsolve_1rhs`
+  !uses :f:func_inline:`zgetrf` + :f:func_inline:`zgetrs`. Both are instances of the generic interface
+  !:f:func_inline:`solve`.
+  !
+  !The solution :math:`x` overwrites :f:var:`b`. Note that :f:var:`A` is factorized in place by :f:func_inline:`dgetrf`:
+  !despite the :code:`intent(in)` it contains the LU factors on exit, so a copy must be passed if the original matrix
+  !is needed afterwards. If :f:var:`trans` is :code:`'T'` or :code:`'C'` the system :math:`A^T x = b` is solved instead.
+  !The program stops if a LAPACK routine returns an error code, e.g. for a singular matrix.
+  !
+  real(8),dimension(:,:),intent(in)  :: A      ! square matrix [n,n]; overwritten by its LU factors
+  real(8),dimension(:),intent(inout) :: b      ! in: right-hand side, size n; out: solution x
   real(8),dimension(:,:),allocatable :: b_
-  character(len=1),optional          :: trans
+  character(len=1),optional          :: trans  ! optional: 'N' (default) solve A x = b, 'T'/'C' solve A^T x = b
   character(len=1)                   :: trans_
   integer                            :: m,n,nrhs,lda,ldb
   integer                            :: info
@@ -51,9 +61,19 @@ subroutine Zsolve_1rhs(A,b,trans)
 end subroutine Zsolve_1rhs
 
 subroutine Dsolve_Mrhs(A,b,trans)
-  real(8),dimension(:,:),intent(in)    :: A
-  real(8),dimension(:,:),intent(inout) :: b
-  character(len=1),optional          :: trans
+  !This subroutine solves the real linear system :math:`A X = B` with several right-hand sides, stored as the columns
+  !of :f:var:`b`, using the LU factorization, :f:func_inline:`dgetrf` + :f:func_inline:`dgetrs`. The complex version
+  !:f:func_inline:`Zsolve_Mrhs` uses :f:func_inline:`zgetrf` + :f:func_inline:`zgetrs`. Both are instances of the
+  !generic interface :f:func_inline:`solve`.
+  !
+  !The solutions :math:`X` overwrite :f:var:`b`. Note that :f:var:`A` is factorized in place by :f:func_inline:`dgetrf`:
+  !despite the :code:`intent(in)` it contains the LU factors on exit, so a copy must be passed if the original matrix
+  !is needed afterwards. If :f:var:`trans` is :code:`'T'` or :code:`'C'` the system :math:`A^T X = B` is solved instead.
+  !The program stops if a LAPACK routine returns an error code, e.g. for a singular matrix.
+  !
+  real(8),dimension(:,:),intent(in)    :: A    ! square matrix [n,n]; overwritten by its LU factors
+  real(8),dimension(:,:),intent(inout) :: b    ! in: right-hand sides, [n,nrhs]; out: solutions X
+  character(len=1),optional          :: trans  ! optional: 'N' (default) solve A X = B, 'T'/'C' solve A^T X = B
   character(len=1)                   :: trans_
   integer                            :: m,n,nrhs,lda,ldb
   integer                            :: info

@@ -1,8 +1,18 @@
 subroutine d_jacobi(a,d,v,nrot)
-  real(8),dimension(:,:),intent(inout)               :: a
-  real(8),dimension(size(a,1)),intent(out)           :: d
-  real(8),dimension(size(a,1),size(a,2)),intent(out) :: v
-  integer,intent(out)                                :: nrot
+  !This subroutine computes all the eigenvalues and eigenvectors of a real symmetric matrix :f:var:`a` with the Jacobi
+  !method of plane rotations. It is an instance of the generic interface :f:func_inline:`eigh_jacobi`; the complex
+  !hermitian version is :f:func_inline:`c_jacobi`.
+  !
+  !Only the upper triangle of :f:var:`a` is referenced, and :f:var:`a` is destroyed on exit. The eigenvalues :f:var:`d`
+  !are NOT sorted. The eigenvectors are stored column-wise, :f:var:`v(:,j)` being the normalized eigenvector associated
+  !to :f:var:`d(j)`. The number of Jacobi rotations performed is returned in :f:var:`nrot`.
+  !
+  !The program stops if :f:var:`a` is not square, or if convergence is not reached within 50 sweeps.
+  !
+  real(8),dimension(:,:),intent(inout)               :: a     ! in: symmetric matrix (upper triangle used); destroyed on exit
+  real(8),dimension(size(a,1)),intent(out)           :: d     ! eigenvalues, NOT sorted, size n
+  real(8),dimension(size(a,1),size(a,2)),intent(out) :: v     ! eigenvectors, v(:,j) <-> d(j), [n,n]
+  integer,intent(out)                                :: nrot  ! number of Jacobi rotations performed
   integer                                            :: i,ip,iq,n
   real(8)                                            :: c,g,h,s,sm,t,tau,theta,tresh
   real(8),dimension(size(d))                         :: b,z
@@ -68,17 +78,28 @@ contains
 end subroutine d_jacobi
 
 subroutine c_jacobi(A,D,U,sweep)
+  !This subroutine computes all the eigenvalues and eigenvectors of a complex hermitian matrix :f:var:`A` with the
+  !Jacobi method of plane rotations. It is an instance of the generic interface :f:func_inline:`eigh_jacobi`; the real
+  !version is :f:func_inline:`d_jacobi`.
+  !
+  !Only the upper triangle of :f:var:`A` is referenced, and :f:var:`A` is destroyed on exit. The eigenvalues :f:var:`D`
+  !are NOT sorted. Note that the eigenvectors are stored in the ROWS of :f:var:`U`, conjugated: :f:var:`U` is unitary
+  !and :math:`A = U^\dagger \, \mathrm{diag}(D)\, U`, i.e. the eigenvector associated to :f:var:`D(j)` is
+  !:code:`conjg(U(j,:))`. The index of the sweep at which convergence was detected is returned in :f:var:`sweep`.
+  !
+  !The program stops if :f:var:`A` is not square, or if convergence is not reached within 50 sweeps.
+  !
   implicit none
-  complex(8),dimension(:,:),intent(inout)               :: a
-  real(8),dimension(size(a,1)),intent(out)              :: d
-  complex(8),dimension(size(a,1),size(a,2)),intent(out) :: U
+  complex(8),dimension(:,:),intent(inout)               :: a      ! in: hermitian matrix (upper triangle used); destroyed on exit
+  real(8),dimension(size(a,1)),intent(out)              :: d      ! eigenvalues, NOT sorted, size n
+  complex(8),dimension(size(a,1),size(a,2)),intent(out) :: U      ! eigenvectors: conjg(U(j,:)) <-> D(j), [n,n]
   integer                                               :: n
   integer                                               :: p, q, j
   real(8)                                               :: red, off, thresh
   real(8)                                               :: t, delta, invc, s
   complex(8)                                            :: x, y, Apq
   real(8)                                               :: ev(2,size(a,1))
-  integer                                               :: sweep
+  integer                                               :: sweep  ! sweep at which convergence was detected
   real(8)                                               :: SYM_EPS=tiny(1d0)
   !
   n=size(a,1);if(size(a,2)/=n)stop "Error in Jacobi: size(a)!=n**2 - a not a square matrix"

@@ -7,12 +7,32 @@ module SF_PARSE_INPUT
   !cmd line variables:
   !=========================================================
   type input_variable
-     character(len=64)                          :: name
-     character(len=256)                         :: value
-     character(len=20),dimension(:),allocatable :: args
+     !This derived type holds one entry :code:`NAME=value` parsed from a line of an input file, by
+     !:f:func_inline:`scan_input_variable`, or from a command line argument, by :f:func_inline:`scan_cmd_variable`.
+     !It is used internally by the parsing routines and it is not public.
+     !
+     character(len=64)                          :: name   ! name of the variable, converted to upper case
+     character(len=256)                         :: value  ! text after the :code:`=` (vectors: comma separated list)
+     character(len=20),dimension(:),allocatable :: args   ! fields of the list in :f:var:`value`, allocated for vectors only
   end type input_variable
-
+  
   interface parse_cmd_variable
+     !Generic interface to update a variable from the command line. It accepts integer, real(8), logical and character scalars
+     !(:f:func_inline:`i_parse_cmd_variable`, :f:func_inline:`d_parse_cmd_variable`, :f:func_inline:`l_parse_cmd_variable`,
+     !:f:func_inline:`ch_parse_cmd_variable`), and integer, real(8) and logical vectors
+     !(:f:func_inline:`iv_parse_cmd_variable`, :f:func_inline:`dv_parse_cmd_variable`,
+     !:f:func_inline:`lv_parse_cmd_variable`). The arguments are documented in :f:func_inline:`i_parse_cmd_variable` and
+     !:f:func_inline:`iv_parse_cmd_variable`.
+     !
+     !First :f:var:`variable` is set to :f:var:`default`, if present. Then every command line argument of the form
+     !:code:`NAME=value`, with :code:`NAME` matching :f:var:`name` (not case sensitive), is read with list-directed input into
+     !:f:var:`variable`; if the argument is repeated the last one wins. A vector is given as a comma separated list without
+     !spaces, :code:`NAME=v1,v2,...,vn`, with :code:`n=size(variable)` entries, and the program stops if the number of entries
+     !differs from :code:`size(variable)`.
+     !
+     !A message :code:`Variable NAME updated to value` is written to standard error for each update. Unlike
+     !:f:func_inline:`parse_input_variable`, the variable is not registered in the input list.
+     !
      module procedure :: i_parse_cmd_variable
      module procedure :: d_parse_cmd_variable
      module procedure :: l_parse_cmd_variable
@@ -24,6 +44,27 @@ module SF_PARSE_INPUT
 
 
   interface parse_input_variable
+     !Generic interface to read a variable from an input file and from the command line, and to register it in the input list.
+     !It accepts integer, real(8), logical and character scalars (:f:func_inline:`i_parse_input`,
+     !:f:func_inline:`d_parse_input`, :f:func_inline:`l_parse_input`, :f:func_inline:`ch_parse_input`), and integer, real(8)
+     !and logical vectors (:f:func_inline:`iv_parse_input`, :f:func_inline:`dv_parse_input`, :f:func_inline:`lv_parse_input`).
+     !The arguments are documented in :f:func_inline:`i_parse_input` and :f:func_inline:`iv_parse_input`.
+     !
+     !First :f:var:`variable` is set to :f:var:`default`, if present. Then, if :f:var:`file` exists, it is scanned line by
+     !line for the first entry :code:`NAME=value` matching :f:var:`name` (not case sensitive), blanks and tabs being ignored
+     !and anything following a comment character (:code:`!`, :code:`#` or :code:`%`) discarded. The value is read with
+     !list-directed input; if the entry is not found the variable keeps its default value. A vector is given as a comma
+     !separated list without spaces, :code:`NAME=v1,v2,...,vn`, with :code:`n=size(variable)` entries; a single trailing comma
+     !is ignored.
+     !
+     !Finally, the command line is parsed with :f:func_inline:`parse_cmd_variable`, so that an argument :code:`NAME=value`
+     !overrides the value read from the file, and the variable is registered, with its :f:var:`comment`, in the input list
+     !used by :f:func_inline:`save_input` and :f:func_inline:`print_input`.
+     !
+     !A missing input file is not an error: the default is used and the module remembers it, so that
+     !:f:func_inline:`save_input` dumps a default input file and stops. The program stops if the value can not be converted to
+     !the type of :f:var:`variable`, or if the number of entries of a vector differs from :code:`size(variable)`.
+     !
      module procedure :: i_parse_input
      module procedure :: d_parse_input
      module procedure :: l_parse_input
@@ -35,10 +76,30 @@ module SF_PARSE_INPUT
 
 
   interface save_input
+     !Generic interface to dump the input list, i.e. all the variables registered so far by
+     !:f:func_inline:`parse_input_variable`, to a file with the same format as the input files, :code:`NAME=value` followed by
+     !the comment of the variable. The only instance is :f:func_inline:`save_input_file`, whose argument :f:var:`file` is the
+     !base name of the output file.
+     !
+     !The output file is named :code:`used.`:f:var:`file` (see :f:func_inline:`print_input`), and it contains the final values
+     !of the variables, i.e. after the command line has been applied. If any of the input files requested by
+     !:f:func_inline:`parse_input_variable` could not be found, the file contains the *default* values and the program stops
+     !after writing it, which provides a way to generate a template input file.
+     !
      module procedure :: save_input_file
   end interface save_input
 
   interface print_input
+     !Generic interface to print the input list, i.e. all the variables registered so far by
+     !:f:func_inline:`parse_input_variable`. The only instance is :f:func_inline:`print_input_list`, whose arguments are the
+     !optional base name :f:var:`file` of the output file and the optional :f:var:`list` to be printed (the default list if
+     !absent).
+     !
+     !Each variable is printed, in the order it was registered, on a line :code:`NAME=value`, with vectors as comma separated
+     !lists, followed by its comment preceded by :code:`!`, aligned at column 46 when possible: the format is the same as that
+     !of the input files. If :f:var:`file` is present the output is written to the file :code:`used.`:f:var:`file`, replacing
+     !it if it exists; otherwise it is written to the standard output. An empty list prints :code:`input list: empty`.
+     !
      module procedure :: print_input_list
   end interface print_input
 
@@ -63,11 +124,11 @@ contains
   !---------------------------------------------------------------------
   !=====================SCALAR=====================================
   subroutine i_parse_input(variable,name,file,default,comment)
-    integer                  :: variable
-    integer,optional         :: default
-    character(len=*)         :: name
-    character(len=*),optional:: comment
-    character(len=*)         :: file
+    integer                  :: variable  ! variable to be set; keeps its value if not found
+    integer,optional         :: default   ! optional: default value, used if not in file
+    character(len=*)         :: name      ! name of the variable in file/command line (case insens.)
+    character(len=*),optional:: comment   ! optional: description, printed in the saved input file
+    character(len=*)         :: file      ! input file name
     character(len=len(name)) :: name_
     type(input_variable)     :: var
     integer                  :: i,unit,pos
@@ -185,11 +246,11 @@ contains
 
   !=====================VECTOR=====================================
   subroutine iv_parse_input(variable,name,file,default,comment)
-    integer,dimension(:)                       :: variable
-    integer,dimension(size(variable)),optional :: default
-    character(len=*)                           :: name
-    character(len=*),optional:: comment
-    character(len=*)                           :: file
+    integer,dimension(:)                       :: variable  ! vector to be set, size n
+    integer,dimension(size(variable)),optional :: default   ! optional: default vector, size n, used if not in file
+    character(len=*)                           :: name      ! name of the variable in file/command line (case insens.)
+    character(len=*),optional:: comment                     ! optional: description, printed in the saved input file
+    character(len=*)                           :: file      ! input file name
     character(len=len(name))                   :: name_
     type(input_variable)                         :: var
     integer                                    ::i,unit,pos,j,ndim,ncount,nargs,pos0,iarg
@@ -405,9 +466,9 @@ contains
   !---------------------------------------------------------------------
   !=====================SCALAR=====================================
   subroutine i_parse_cmd_variable(variable,name,default)
-    integer                   :: variable
-    integer,optional          :: default
-    character(len=*)          :: name
+    integer                   :: variable  ! variable to be set; keeps its value if not given
+    integer,optional          :: default   ! optional: default value
+    character(len=*)          :: name      ! name of the variable on the command line (case insens.)
     character(len=len(name)) :: name_
     type(input_variable)        :: var
     integer                   :: i
@@ -461,9 +522,9 @@ contains
 
   !=====================VECTOR=====================================
   subroutine iv_parse_cmd_variable(variable,name,default)
-    integer,dimension(:)                       :: variable
-    integer,dimension(size(variable)),optional :: default
-    character(len=*)                           :: name
+    integer,dimension(:)                       :: variable  ! vector to be set, size n
+    integer,dimension(size(variable)),optional :: default   ! optional: default vector, size n
+    character(len=*)                           :: name      ! name of the variable on the command line (case insens.)
     character(len=len(name))                  :: name_
     type(input_variable)                         :: var
     integer                                    :: i,j,ndim,ncount,nargs,pos0,iarg
@@ -599,7 +660,16 @@ contains
   !PURPOSE:
   !---------------------------------------------------------------------
   subroutine save_input_file(file)
-    character(len=*)   :: file
+  !This subroutine dumps the input list, i.e. all the variables registered so far by
+  !:f:func_inline:`parse_input_variable`, to a file with the same format as the input files, :code:`NAME=value` followed
+  !by the comment of the variable. It is the public routine behind the generic name :f:func_inline:`save_input`.
+  !
+  !The output file is named :code:`used.`:f:var:`file` (see :f:func_inline:`print_input_list`), and it contains the
+  !final values of the variables, i.e. after the command line has been applied. If any of the input files requested
+  !by :f:func_inline:`parse_input_variable` could not be found, the file contains the *default* values and the program
+  !stops after writing it, which provides a way to generate a template input file.
+  !
+    character(len=*)   :: file  ! base name of the output file, written as used.<file>
     if(IOinput)then
        call print_input_list(trim(file))
     else

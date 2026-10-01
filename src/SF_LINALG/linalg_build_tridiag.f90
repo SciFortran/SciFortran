@@ -3,10 +3,16 @@
 ! In this version the over-diagonal is optional
 !+-----------------------------------------------------------------------------+!
 function d_build_tridiag(sub,diag,over) result(Amat)
-  real(8),dimension(:)                     :: diag
-  real(8),dimension(size(diag)-1)          :: sub
-  real(8),dimension(size(diag)-1),optional :: over
-  real(8),dimension(size(diag),size(diag)) :: Amat
+  !This function builds the real tridiagonal matrix :f:var:`Amat` from its three diagonals: the sub-diagonal
+  !:code:`A(i+1,i) = sub(i)`, the main diagonal :code:`A(i,i) = diag(i)` and the over-diagonal
+  !:code:`A(i,i+1) = over(i)`. If :f:var:`over` is not present the matrix is symmetric, :code:`over = sub`. The complex
+  !version is :f:func_inline:`c_build_tridiag`. Both are instances of the generic interface
+  !:f:func_inline:`build_tridiag`, the inverse operation being :f:func_inline:`get_tridiag`.
+  !
+  real(8),dimension(:)                     :: diag  ! main diagonal, size N
+  real(8),dimension(size(diag)-1)          :: sub   ! sub-diagonal, size N-1
+  real(8),dimension(size(diag)-1),optional :: over  ! optional: over-diagonal, size N-1 (default: over = sub)
+  real(8),dimension(size(diag),size(diag)) :: Amat  ! tridiagonal matrix, [N,N]
   real(8),dimension(size(diag)-1)          :: over_
   integer                                  :: i,N
   over_=sub;if(present(over))over_=over
@@ -37,12 +43,19 @@ function c_build_tridiag(sub,diag,over) result(Amat)
   Amat(N,N)=diag(N)
 end function c_build_tridiag
 function d_build_tridiag_block(Nblock,Nsize,sub,diag,over) result(Amat)
-  integer                                          :: Nblock
-  integer                                          :: Nsize
-  real(8),dimension(Nblock*Nsize,Nblock*Nsize)     :: Amat
-  real(8),dimension(Nblock-1,Nsize,Nsize)          :: sub
-  real(8),dimension(Nblock,Nsize,Nsize)            :: diag
-  real(8),dimension(Nblock-1,Nsize,Nsize),optional :: over
+  !This function builds the real block tridiagonal matrix :f:var:`Amat`, made of :code:`Nblock` blocks of size
+  !:math:`N_{size}\times N_{size}`, from its three block diagonals: the sub-diagonal blocks
+  !:code:`A(i+1,i) = sub(i,:,:)`, the main diagonal blocks :code:`A(i,i) = diag(i,:,:)` and the over-diagonal blocks
+  !:code:`A(i,i+1) = over(i,:,:)`. If :f:var:`over` is not present :code:`over = sub`. The complex version is
+  !:f:func_inline:`c_build_tridiag_block`. Both are instances of the generic interface
+  !:f:func_inline:`build_tridiag`, the inverse operation being :f:func_inline:`get_tridiag`.
+  !
+  integer                                          :: Nblock  ! number of blocks
+  integer                                          :: Nsize   ! size of each block
+  real(8),dimension(Nblock*Nsize,Nblock*Nsize)     :: Amat    ! block tridiagonal matrix, [Nblock*Nsize,Nblock*Nsize]
+  real(8),dimension(Nblock-1,Nsize,Nsize)          :: sub     ! sub-diagonal blocks, [Nblock-1,Nsize,Nsize]
+  real(8),dimension(Nblock,Nsize,Nsize)            :: diag    ! main diagonal blocks, [Nblock,Nsize,Nsize]
+  real(8),dimension(Nblock-1,Nsize,Nsize),optional :: over    ! optional: over-diagonal blocks (default: over = sub)
   real(8),dimension(Nblock-1,Nsize,Nsize)          :: over_
   integer                                          :: i,j,iblock,is,js
   over_=sub;if(present(over))over_=over

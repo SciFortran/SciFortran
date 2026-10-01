@@ -1,11 +1,23 @@
 !<TODO  add optional switch for left or right eigenvectors in deig() and zeig()?
 !>TODO
 subroutine deig(A,Eval,Evec,jobvl,jobvr)
-  !IN matrix - OUT eigenvectors: A.evec = eval.evec ; evec(i,j) = ith component of jth vec.
-  real(8),intent(in)                 :: A(:,:)
-  complex(8),intent(out)             :: Eval(:)
-  complex(8),intent(out)             :: Evec(:,:)
-  character(len=1),optional          :: jobvl,jobvr
+  !This subroutine computes the eigenvalues and the right eigenvectors of a general (non-symmetric) real matrix
+  !:f:var:`A`, :math:`A v_j = \lambda_j v_j`, using the LAPACK routine :f:func_inline:`dgeev`. The complex version
+  !:f:func_inline:`zeig` uses :f:func_inline:`zgeev`. Both are instances of the generic interface :f:func_inline:`eig`.
+  !
+  !The input matrix is copied and left untouched. The eigenvalues are returned as complex numbers, in the order
+  !given by LAPACK, and the eigenvectors are stored column-wise, i.e. :f:var:`Evec(i,j)` is the :math:`i`-th component
+  !of the eigenvector associated to :f:var:`Eval(j)`. For real input the eigenvectors of complex-conjugate pairs of
+  !eigenvalues are rebuilt from the two real columns returned by :f:func_inline:`dgeev`.
+  !
+  !The left eigenvectors are not available. The program stops if :code:`jobvl='V'`, if :f:var:`A` is not square,
+  !if :f:var:`Evec` does not have shape :code:`[n,n]`, or if the LAPACK routine returns an error code.
+  !
+  real(8),intent(in)                 :: A(:,:)     ! real matrix [n,n], not modified
+  complex(8),intent(out)             :: Eval(:)    ! eigenvalues, size n
+  complex(8),intent(out)             :: Evec(:,:)  ! right eigenvectors, [n,n]; Evec(:,j) <-> Eval(j)
+  character(len=1),optional          :: jobvl      ! optional, 'N' (default); 'V' is not supported
+  character(len=1),optional          :: jobvr      ! optional, 'V' (default) computes the right eigenvectors, 'N' does not
   character(len=1)                   :: jobvl_,jobvr_
   real(8),dimension(:,:),allocatable :: At,vl,vr
   real(8),dimension(:),allocatable   :: wi,wr

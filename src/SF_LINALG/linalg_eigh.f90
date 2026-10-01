@@ -2,12 +2,23 @@
 !PURPOSE:  eigenvalue/-vector problem for real symmetric/complex hermitian matrices:
 !-------------------------------------------------------------------------------------------
 subroutine deigh_generalized(Am, Bm, lam, c)
-  ! solves generalized eigen value problem for all eigenvalues and eigenvectors
-  ! Am must by symmetric, Bm symmetric positive definite. ! Only the lower triangular part of Am and Bm is used.
-  real(8), intent(in)  :: Am(:,:)   ! LHS matrix: Am c = lam Bm c
-  real(8), intent(in)  :: Bm(:,:)   ! RHS matrix: Am c = lam Bm c
-  real(8), intent(out) :: lam(:)   ! eigenvalues: Am c = lam Bm c
-  real(8), intent(out) :: c(:,:)   ! eigenvectors: Am c = lam Bm c; c(i,j) = ith component of jth vec.
+  !This subroutine solves the generalized eigenvalue problem :math:`A c = \lambda B c` for all eigenvalues and
+  !eigenvectors, where :f:var:`Am` is real symmetric and :f:var:`Bm` is real symmetric positive definite, using the
+  !LAPACK routine :f:func_inline:`dsygvd`. The complex version :f:func_inline:`zeigh_generalized` (hermitian :f:var:`Am`
+  !and :f:var:`Bm`, real eigenvalues) uses :f:func_inline:`zhegvd`. Both are instances of the generic interface
+  !:f:func_inline:`eigh`.
+  !
+  !Only the lower triangular parts of :f:var:`Am` and :f:var:`Bm` are referenced; both matrices are copied and left
+  !untouched. The eigenvalues are returned in ascending order and the eigenvectors are stored column-wise,
+  !normalized such that :math:`c^T B c = 1` (:math:`c^H B c = 1` in the complex case).
+  !
+  !The program stops if :f:var:`Am`, :f:var:`Bm` or :f:var:`c` do not have shape :code:`[n,n]`, if :f:var:`Bm` is not
+  !positive definite, or if the LAPACK routine fails to converge.
+  !
+  real(8), intent(in)  :: Am(:,:)  ! LHS matrix of Am c = lam Bm c, [n,n]
+  real(8), intent(in)  :: Bm(:,:)  ! RHS matrix of Am c = lam Bm c, positive definite, [n,n]
+  real(8), intent(out) :: lam(:)   ! eigenvalues, ascending, size n
+  real(8), intent(out) :: c(:,:)   ! eigenvectors, c(i,j) = i-th component of j-th vector, [n,n]
   integer              :: n
   ! lapack variables
   integer              :: lwork, liwork, info
@@ -87,14 +98,35 @@ end subroutine zeigh_generalized
 
 
 subroutine deigh_simple(A,E,method,jobz,uplo,vl,vu,il,iu,tol)
-  real(8),dimension(:,:),intent(inout)       :: A ! M v = E v/v(i,j) = ith component of jth vec.
-  real(8),dimension(size(A,2)),intent(inout) :: E ! eigenvalues
-  character(len=*),optional                  :: method
-  character(len=1),optional                  :: jobz,uplo
+  !This subroutine computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix :f:var:`A`,
+  !using the LAPACK driver selected by :f:var:`method`: :f:func_inline:`dsyevd` (default), :f:func_inline:`dsyevr`,
+  !:f:func_inline:`dsyev` or :f:func_inline:`dsyevx`. An unrecognized method name falls back to :f:func_inline:`dsyevd`.
+  !The complex version :f:func_inline:`zeigh_simple` works on hermitian matrices with :f:func_inline:`zheevd` (default),
+  !:f:func_inline:`zheevr`, :f:func_inline:`zheev` and :f:func_inline:`zheevx`; the eigenvalues are real. Both are
+  !instances of the generic interface :f:func_inline:`eigh`.
+  !
+  !The matrix is diagonalized in place: if :code:`jobz='V'` the first :code:`mE` columns of :f:var:`A` contain on
+  !output the eigenvectors, stored column-wise, otherwise :f:var:`A` is destroyed. The eigenvalues are returned in
+  !:f:var:`E` in ascending order. With the :code:`r` and :code:`x` drivers a subset of the spectrum can be selected
+  !either by value, passing both :f:var:`vl` and :f:var:`vu` (eigenvalues in :math:`(v_l,v_u]`), or by index,
+  !passing :f:var:`il` and/or :f:var:`iu` (a missing one defaults to 1); the other drivers ignore these arguments
+  !and compute the full spectrum.
+  !
+  !The program stops if both a value range and an index range are given, if :f:var:`jobz` or :f:var:`uplo` have an
+  !illegal value, or if :f:var:`A` is not square.
+  !
+  real(8),dimension(:,:),intent(inout)       :: A       ! in: symmetric matrix; out: eigenvectors (columns) if jobz=V
+  real(8),dimension(size(A,2)),intent(inout) :: E       ! eigenvalues, ascending, size n (zero beyond the mE found)
+  character(len=*),optional                  :: method  ! optional: 'dsyevd' (default), 'dsyevr', 'dsyev', 'dsyevx'
+  character(len=1),optional                  :: jobz    ! optional: 'V' (default) eigenvectors too, 'N' eigenvalues only
+  character(len=1),optional                  :: uplo    ! optional: 'U' (default) or 'L', triangle of A to be used
   character(len=1)                           :: jobz_,uplo_,range
   character(len=20)                          :: method_
-  real(8),optional                           :: vl,vu,tol
-  integer,optional                           :: il,iu
+  real(8),optional                           :: vl      ! optional: lower bound of the eigenvalue interval (vl,vu]
+  real(8),optional                           :: vu      ! optional: upper bound of the eigenvalue interval (vl,vu]
+  real(8),optional                           :: tol     ! optional: absolute eigenvalue tolerance (dsyevr/dsyevx), default 0
+  integer,optional                           :: il      ! optional: index of the first eigenvalue wanted
+  integer,optional                           :: iu      ! optional: index of the last eigenvalue wanted
   real(8)                                    :: vL_,vU_,tol_
   integer                                    :: iL_,iU_
   integer                                    :: Ns
@@ -496,11 +528,25 @@ end subroutine zeigh_simple
 
 
 subroutine deigh_tridiag(D,U,Ev,Irange,Vrange)
-  real(8),dimension(:)                :: d
-  real(8),dimension(max(1,size(d)-1)) :: u
-  real(8),dimension(:,:),optional     :: Ev
-  integer,dimension(2),optional       :: Irange
-  integer,dimension(2),optional       :: Vrange
+  !This subroutine computes the eigenvalues and, optionally, the eigenvectors of a real symmetric tridiagonal matrix
+  !using the LAPACK routine :f:func_inline:`dstevr`. The matrix is defined by its main diagonal :f:var:`D` and its
+  !off-diagonal :f:var:`U`, :code:`U(i) = A(i+1,i) = A(i,i+1)`. It is an instance of the generic interface
+  !:f:func_inline:`eigh`.
+  !
+  !Both :f:var:`D` and :f:var:`U` are overwritten. On output the first :code:`m` elements of :f:var:`D` contain the
+  !eigenvalues in ascending order, with :code:`m=n` by default, :code:`m=Irange(2)-Irange(1)+1` if :f:var:`Irange` is
+  !given, or the number of eigenvalues found if :f:var:`Vrange` is given. The eigenvectors are computed only if
+  !:f:var:`Ev` is present, and are stored column-wise. A subset of the spectrum is selected either by index with
+  !:f:var:`Irange` = :code:`[il,iu]`, or by value with :f:var:`Vrange` = :code:`[vl,vu]` (interval :math:`(v_l,v_u]`).
+  !
+  !The program stops if both :f:var:`Irange` and :f:var:`Vrange` are present, if :f:var:`Ev` does not have shape
+  !:code:`[n,m]` (:code:`m=n` for :f:var:`Vrange`), or if :f:func_inline:`dstevr` returns an error code.
+  !
+  real(8),dimension(:)                :: d       ! in: main diagonal, size n; out: eigenvalues (first m valid)
+  real(8),dimension(max(1,size(d)-1)) :: u       ! off-diagonal, size n-1; destroyed on exit
+  real(8),dimension(:,:),optional     :: Ev      ! optional out: eigenvectors, [n,m]
+  integer,dimension(2),optional       :: Irange  ! optional: [il,iu] indices of the first and last eigenvalue wanted
+  integer,dimension(2),optional       :: Vrange  ! optional: [vl,vu] eigenvalue interval (vl,vu]
   !
   integer                             :: n
   ! = 'N':  Compute eigenvalues only;

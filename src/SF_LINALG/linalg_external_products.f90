@@ -4,11 +4,20 @@
 ! the number of rows and columns of the Matrix M1 and M2
 !---------------------------------------------------------------------
 function i_kronecker_product(A,B) result(AxB)
-  integer,intent(in) :: A(:,:), B(:,:)
+  !This function returns the Kronecker (tensor) product :math:`A \otimes B` of two matrices :f:var:`A` and :f:var:`B`,
+  !i.e. the block matrix whose :math:`(i,j)` block is :math:`A_{ij} B`. The result has shape
+  !:code:`[size(A,1)*size(B,1),size(A,2)*size(B,2)]`. This is the integer instance of the generic interfaces
+  !:f:func_inline:`kron`, :f:func_inline:`kronecker_product` and of the operator :code:`.kx.`; the same product is
+  !available for real (:f:func_inline:`d_kronecker_product`), real :math:`\otimes` complex
+  !(:f:func_inline:`dc_kronecker_product`), complex :math:`\otimes` real (:f:func_inline:`cd_kronecker_product`) and
+  !complex (:f:func_inline:`c_kronecker_product`) matrices.
+  !
+  integer,intent(in) :: A(:,:)                                        ! first factor, [rowA,colA]
+  integer,intent(in) :: B(:,:)                                        ! second factor, [rowB,colB]
   integer            :: i,j
   integer            :: rowA,colA
   integer            :: rowB,colB
-  integer            :: AxB(size(A,1)*size(B,1),size(A,2)*size(B,2))
+  integer            :: AxB(size(A,1)*size(B,1),size(A,2)*size(B,2))  ! Kronecker product, [rowA*rowB,colA*colB]
   AxB = 0
   rowA=size(A,1) ; colA=size(A,2)
   rowB=size(B,1) ; colB=size(B,2)

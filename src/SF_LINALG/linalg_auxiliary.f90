@@ -2,9 +2,16 @@
 !PURPOSE: compute the determinant of a matrix using an LU factorization
 !-------------------------------------------------------------------------------------------
 function ddet(A) result(x)
-  ! compute the determinant of a real matrix using an LU factorization
-  real(8), intent(in)  :: A(:, :)
-  real(8)              :: x
+  !This function returns the determinant of a real square matrix :f:var:`A`, computed from its LU factorization
+  !(:f:func_inline:`dgetrf`) as the product of the diagonal elements of :math:`U`, with the sign changes due to the
+  !row permutations. The complex version :f:func_inline:`zdet` uses :f:func_inline:`zgetrf`. Both are instances of the
+  !generic interface :f:func_inline:`det`.
+  !
+  !The input matrix is copied and left untouched. The program stops if :f:var:`A` is not square, or if the LAPACK
+  !routine returns an error code, which includes the case of an exactly singular matrix.
+  !
+  real(8), intent(in)  :: A(:, :)  ! square matrix [n,n], not modified
+  real(8)              :: x        ! determinant of A
   integer              :: i
   integer              :: info, n
   integer, allocatable :: ipiv(:)
@@ -84,8 +91,12 @@ end function zdet
 !PURPOSE:  construct real matrix from diagonal elements
 !-------------------------------------------------------------------------------------------
 pure function ddiag(x) result(A)
-  real(8), intent(in)  :: x(:)
-  real(8), allocatable :: A(:,:)
+  !This function builds a real square matrix with the elements of the array :f:var:`x` on the main diagonal and zeros
+  !elsewhere. The complex version is :f:func_inline:`zdiag`. Both are instances of the generic interface
+  !:f:func_inline:`diag`, the inverse operation being :f:func_inline:`diagonal`.
+  !
+  real(8), intent(in)  :: x(:)    ! diagonal elements, size n
+  real(8), allocatable :: A(:,:)  ! diagonal matrix, A(i,i) = x(i), [n,n]
   integer              :: i, n
   n = size(x)
   allocate(A(n,n))
@@ -113,8 +124,13 @@ end function zdiag
 !PURPOSE:  return the diagonal of a matrix [real]
 !-------------------------------------------------------------------------------------------
 pure function d_diagonal(A) result(dd)
-  real(8),intent(in)           :: A(:,:)
-  real(8),dimension(size(A,1)) :: dd
+  !This function returns the main diagonal of a real matrix :f:var:`A`. The complex version is
+  !:f:func_inline:`z_diagonal`. Both are instances of the generic interface :f:func_inline:`diagonal`, the inverse
+  !operation being :f:func_inline:`diag`. The matrix is expected to be square (the size of the result is
+  !:code:`size(A,1)`).
+  !
+  real(8),intent(in)           :: A(:,:)  ! square matrix [n,n]
+  real(8),dimension(size(A,1)) :: dd      ! diagonal elements, dd(i) = A(i,i), size n
   integer                      :: i
   do i = 1,size(A,1)
      dd(i) = A(i,i)
@@ -139,8 +155,12 @@ end function z_diagonal
 !PURPOSE:  return trace along the main diagonal [real]
 !-------------------------------------------------------------------------------------------
 pure function dtrace(A) result(t)
-  real(8), intent(in) :: A(:,:)
-  real(8)             :: t
+  !This function returns the trace of a real matrix :f:var:`A`, i.e. the sum of the elements along the main diagonal.
+  !The complex version is :f:func_inline:`ztrace`. Both are instances of the generic interface :f:func_inline:`trace`.
+  !For non-square matrices the sum runs up to :code:`min(m,n)`.
+  !
+  real(8), intent(in) :: A(:,:)  ! real matrix [m,n]
+  real(8)             :: t       ! trace of A
   integer             :: i
   t = 0d0
   do i = 1,minval(shape(A))
@@ -168,8 +188,11 @@ end function ztrace
 !PURPOSE:  Returns the identity matrix of size n x n and type real.
 !-------------------------------------------------------------------------------------------
 pure function deye_matrix(n) result(A)
-  integer, intent(in) :: n
-  real(8)             :: A(n, n)
+  !This function returns the real identity matrix of size :math:`n\times n`. It is an instance of the generic
+  !interfaces :f:func_inline:`deye` and :f:func_inline:`eye`; the complex version is :f:func_inline:`zeye_matrix`.
+  !
+  integer, intent(in) :: n        ! size of the matrix
+  real(8)             :: A(n, n)  ! identity matrix, [n,n]
   integer             :: i
   A = 0d0
   do i = 1, n
@@ -178,8 +201,11 @@ pure function deye_matrix(n) result(A)
 end function deye_matrix
 
 pure function zeye_matrix(n) result(A)
-  integer, intent(in) :: n
-  complex(8)          :: A(n, n)
+  !This function returns the complex identity matrix of size :math:`n\times n`. It is an instance of the generic
+  !interface :f:func_inline:`zeye`; the real version is :f:func_inline:`deye_matrix`.
+  !
+  integer, intent(in) :: n        ! size of the matrix
+  complex(8)          :: A(n, n)  ! identity matrix, [n,n]
   integer             :: i
   A = zero
   do i = 1, n
@@ -188,15 +214,24 @@ pure function zeye_matrix(n) result(A)
 end function zeye_matrix
 
 pure function deye_indices(i,j) result(a)
-  integer, intent(in) :: i,j
-  real(8)             :: a
+  !This function returns the real Kronecker delta :math:`\delta_{ij}`: 1 if :code:`i==j`, 0 otherwise. It is an
+  !instance of the generic interfaces :f:func_inline:`deye` and :f:func_inline:`eye`; the complex version is
+  !:f:func_inline:`zeye_indices`.
+  !
+  integer, intent(in) :: i  ! first index
+  integer, intent(in) :: j  ! second index
+  real(8)             :: a  ! delta_ij
   a = 0d0
   if(i==j)a=1d0
 end function deye_indices
 
 pure function zeye_indices(i,j) result(a)
-  integer, intent(in) :: i,j
-  complex(8)          :: a
+  !This function returns the complex Kronecker delta :math:`\delta_{ij}`: 1 if :code:`i==j`, 0 otherwise. It is an
+  !instance of the generic interface :f:func_inline:`zeye`; the real version is :f:func_inline:`deye_indices`.
+  !
+  integer, intent(in) :: i  ! first index
+  integer, intent(in) :: j  ! second index
+  complex(8)          :: a  ! delta_ij
   a = zero
   if(i==j)a=one
 end function zeye_indices
@@ -208,88 +243,172 @@ end function zeye_indices
 !PURPOSE:  Returns an array of zeros of specified size from 1 to 7 dimension
 !-------------------------------------------------------------------------------------------
 pure function zzeros_1(n) result(A)
-  integer, intent(in) :: n
-  complex(8)          :: A(n)
+  !This function returns a rank-1 complex(8) array of shape :code:`[n]` with all the elements set to 0.
+  !It is an instance of the generic interface :f:func_inline:`zeros`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n     ! extent of dimension 1
+  complex(8)          :: A(n)  ! complex array, [n]
   A = zero
 end function zzeros_1
 !
 pure function zzeros_2(n1,n2) result(A)
-  integer, intent(in) :: n1,n2
-  complex(8)          :: A(n1,n2)
+  !This function returns a rank-2 complex(8) array of shape :code:`[n1,n2]` with all the elements set to 0.
+  !It is an instance of the generic interface :f:func_inline:`zeros`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1        ! extent of dimension 1
+  integer, intent(in) :: n2        ! extent of dimension 2
+  complex(8)          :: A(n1,n2)  ! complex array, [n1,n2]
   A = zero
 end function zzeros_2
 !
 pure function zzeros_3(n1,n2,n3) result(A)
-  integer, intent(in) :: n1,n2,n3
-  complex(8)          :: A(n1,n2,n3)
+  !This function returns a rank-3 complex(8) array of shape :code:`[n1,n2,n3]` with all the elements set to 0.
+  !It is an instance of the generic interface :f:func_inline:`zeros`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1           ! extent of dimension 1
+  integer, intent(in) :: n2           ! extent of dimension 2
+  integer, intent(in) :: n3           ! extent of dimension 3
+  complex(8)          :: A(n1,n2,n3)  ! complex array, [n1,n2,n3]
   A = zero
 end function zzeros_3
 !
 pure function zzeros_4(n1,n2,n3,n4) result(A)
-  integer, intent(in) :: n1,n2,n3,n4
-  complex(8)          :: A(n1,n2,n3,n4)
+  !This function returns a rank-4 complex(8) array of shape :code:`[n1,n2,n3,n4]` with all the elements set to 0.
+  !It is an instance of the generic interface :f:func_inline:`zeros`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1              ! extent of dimension 1
+  integer, intent(in) :: n2              ! extent of dimension 2
+  integer, intent(in) :: n3              ! extent of dimension 3
+  integer, intent(in) :: n4              ! extent of dimension 4
+  complex(8)          :: A(n1,n2,n3,n4)  ! complex array, [n1,n2,n3,n4]
   A = zero
 end function zzeros_4
 !
 pure function zzeros_5(n1,n2,n3,n4,n5) result(A)
-  integer, intent(in) :: n1,n2,n3,n4,n5
-  complex(8)          :: A(n1,n2,n3,n4,n5)
+  !This function returns a rank-5 complex(8) array of shape :code:`[n1,n2,n3,n4,n5]` with all the elements set to 0.
+  !It is an instance of the generic interface :f:func_inline:`zeros`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1                 ! extent of dimension 1
+  integer, intent(in) :: n2                 ! extent of dimension 2
+  integer, intent(in) :: n3                 ! extent of dimension 3
+  integer, intent(in) :: n4                 ! extent of dimension 4
+  integer, intent(in) :: n5                 ! extent of dimension 5
+  complex(8)          :: A(n1,n2,n3,n4,n5)  ! complex array, [n1,n2,n3,n4,n5]
   A = zero
 end function zzeros_5
 !
 pure function zzeros_6(n1,n2,n3,n4,n5,n6) result(A)
-  integer, intent(in) :: n1,n2,n3,n4,n5,n6
-  complex(8)          :: A(n1,n2,n3,n4,n5,n6)
+  !This function returns a rank-6 complex(8) array of shape :code:`[n1,n2,n3,n4,n5,n6]` with all the elements set to 0.
+  !It is an instance of the generic interface :f:func_inline:`zeros`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1                    ! extent of dimension 1
+  integer, intent(in) :: n2                    ! extent of dimension 2
+  integer, intent(in) :: n3                    ! extent of dimension 3
+  integer, intent(in) :: n4                    ! extent of dimension 4
+  integer, intent(in) :: n5                    ! extent of dimension 5
+  integer, intent(in) :: n6                    ! extent of dimension 6
+  complex(8)          :: A(n1,n2,n3,n4,n5,n6)  ! complex array, [n1,n2,n3,n4,n5,n6]
   A = zero
 end function zzeros_6
 !
 pure function zzeros_7(n1,n2,n3,n4,n5,n6,n7) result(A)
-  integer, intent(in) :: n1,n2,n3,n4,n5,n6,n7
-  complex(8)          :: A(n1,n2,n3,n4,n5,n6,n7)
+  !This function returns a rank-7 complex(8) array of shape :code:`[n1,n2,n3,n4,n5,n6,n7]` with all the elements set to 0.
+  !It is an instance of the generic interface :f:func_inline:`zeros`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1                       ! extent of dimension 1
+  integer, intent(in) :: n2                       ! extent of dimension 2
+  integer, intent(in) :: n3                       ! extent of dimension 3
+  integer, intent(in) :: n4                       ! extent of dimension 4
+  integer, intent(in) :: n5                       ! extent of dimension 5
+  integer, intent(in) :: n6                       ! extent of dimension 6
+  integer, intent(in) :: n7                       ! extent of dimension 7
+  complex(8)          :: A(n1,n2,n3,n4,n5,n6,n7)  ! complex array, [n1,n2,n3,n4,n5,n6,n7]
   A = zero
 end function zzeros_7
 
 
 
 pure function zones_1(n) result(A)
-  integer, intent(in) :: n
-  complex(8)          :: A(n)
+  !This function returns a rank-1 complex(8) array of shape :code:`[n]` with all the elements set to 1.
+  !It is an instance of the generic interface :f:func_inline:`ones`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n     ! extent of dimension 1
+  complex(8)          :: A(n)  ! complex array, [n]
   A = one
 end function zones_1
 !
 pure function zones_2(n1,n2) result(A)
-  integer, intent(in) :: n1,n2
-  complex(8)          :: A(n1,n2)
+  !This function returns a rank-2 complex(8) array of shape :code:`[n1,n2]` with all the elements set to 1.
+  !It is an instance of the generic interface :f:func_inline:`ones`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1        ! extent of dimension 1
+  integer, intent(in) :: n2        ! extent of dimension 2
+  complex(8)          :: A(n1,n2)  ! complex array, [n1,n2]
   A = one
 end function zones_2
 !
 pure function zones_3(n1,n2,n3) result(A)
-  integer, intent(in) :: n1,n2,n3
-  complex(8)          :: A(n1,n2,n3)
+  !This function returns a rank-3 complex(8) array of shape :code:`[n1,n2,n3]` with all the elements set to 1.
+  !It is an instance of the generic interface :f:func_inline:`ones`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1           ! extent of dimension 1
+  integer, intent(in) :: n2           ! extent of dimension 2
+  integer, intent(in) :: n3           ! extent of dimension 3
+  complex(8)          :: A(n1,n2,n3)  ! complex array, [n1,n2,n3]
   A = one
 end function zones_3
 !
 pure function zones_4(n1,n2,n3,n4) result(A)
-  integer, intent(in) :: n1,n2,n3,n4
-  complex(8)          :: A(n1,n2,n3,n4)
+  !This function returns a rank-4 complex(8) array of shape :code:`[n1,n2,n3,n4]` with all the elements set to 1.
+  !It is an instance of the generic interface :f:func_inline:`ones`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1              ! extent of dimension 1
+  integer, intent(in) :: n2              ! extent of dimension 2
+  integer, intent(in) :: n3              ! extent of dimension 3
+  integer, intent(in) :: n4              ! extent of dimension 4
+  complex(8)          :: A(n1,n2,n3,n4)  ! complex array, [n1,n2,n3,n4]
   A = one
 end function zones_4
 !
 pure function zones_5(n1,n2,n3,n4,n5) result(A)
-  integer, intent(in) :: n1,n2,n3,n4,n5
-  complex(8)          :: A(n1,n2,n3,n4,n5)
+  !This function returns a rank-5 complex(8) array of shape :code:`[n1,n2,n3,n4,n5]` with all the elements set to 1.
+  !It is an instance of the generic interface :f:func_inline:`ones`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1                 ! extent of dimension 1
+  integer, intent(in) :: n2                 ! extent of dimension 2
+  integer, intent(in) :: n3                 ! extent of dimension 3
+  integer, intent(in) :: n4                 ! extent of dimension 4
+  integer, intent(in) :: n5                 ! extent of dimension 5
+  complex(8)          :: A(n1,n2,n3,n4,n5)  ! complex array, [n1,n2,n3,n4,n5]
   A = one
 end function zones_5
 !
 pure function zones_6(n1,n2,n3,n4,n5,n6) result(A)
-  integer, intent(in) :: n1,n2,n3,n4,n5,n6
-  complex(8)          :: A(n1,n2,n3,n4,n5,n6)
+  !This function returns a rank-6 complex(8) array of shape :code:`[n1,n2,n3,n4,n5,n6]` with all the elements set to 1.
+  !It is an instance of the generic interface :f:func_inline:`ones`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1                    ! extent of dimension 1
+  integer, intent(in) :: n2                    ! extent of dimension 2
+  integer, intent(in) :: n3                    ! extent of dimension 3
+  integer, intent(in) :: n4                    ! extent of dimension 4
+  integer, intent(in) :: n5                    ! extent of dimension 5
+  integer, intent(in) :: n6                    ! extent of dimension 6
+  complex(8)          :: A(n1,n2,n3,n4,n5,n6)  ! complex array, [n1,n2,n3,n4,n5,n6]
   A = one
 end function zones_6
 !
 pure function zones_7(n1,n2,n3,n4,n5,n6,n7) result(A)
-  integer, intent(in) :: n1,n2,n3,n4,n5,n6,n7
-  complex(8)          :: A(n1,n2,n3,n4,n5,n6,n7)
+  !This function returns a rank-7 complex(8) array of shape :code:`[n1,n2,n3,n4,n5,n6,n7]` with all the elements set to 1.
+  !It is an instance of the generic interface :f:func_inline:`ones`, which covers ranks from 1 to 7.
+  !
+  integer, intent(in) :: n1                       ! extent of dimension 1
+  integer, intent(in) :: n2                       ! extent of dimension 2
+  integer, intent(in) :: n3                       ! extent of dimension 3
+  integer, intent(in) :: n4                       ! extent of dimension 4
+  integer, intent(in) :: n5                       ! extent of dimension 5
+  integer, intent(in) :: n6                       ! extent of dimension 6
+  integer, intent(in) :: n7                       ! extent of dimension 7
+  complex(8)          :: A(n1,n2,n3,n4,n5,n6,n7)  ! complex array, [n1,n2,n3,n4,n5,n6,n7]
   A = one
 end function zones_7
 

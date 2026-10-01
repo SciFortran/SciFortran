@@ -1,8 +1,18 @@
 subroutine d_matmul(A,B,C,alfa,beta)
-  real(8),dimension(:,:),intent(inout) :: A ![N,K]
-  real(8),dimension(:,:),intent(inout) :: B ![K,M]
-  real(8),dimension(:,:),intent(inout) :: C ![N,M]
-  real(8),optional                     :: alfa,beta
+  !This subroutine computes the real matrix-matrix product :math:`C = \alpha A B + \beta C` with the BLAS routine
+  !:f:func_inline:`dgemm`, :math:`A` being :math:`N\times K`, :math:`B` :math:`K\times M` and :math:`C` :math:`N\times M`.
+  !The complex version is :f:func_inline:`z_matmul`. Both are instances of the generic interface
+  !:f:func_inline:`mat_product`; see also the operator :code:`.x.` (:f:func_inline:`d_matmul_`).
+  !
+  !:f:var:`A` and :f:var:`B` are not modified. By default :math:`\alpha=1` and :math:`\beta=0`, so that :f:var:`C`
+  !contains the plain product :math:`A B` on output. The program stops if :f:var:`B` or :f:var:`C` do not have the
+  !shapes :code:`[K,M]` and :code:`[N,M]`.
+  !
+  real(8),dimension(:,:),intent(inout) :: A     ! matrix [N,K], not modified
+  real(8),dimension(:,:),intent(inout) :: B     ! matrix [K,M], not modified
+  real(8),dimension(:,:),intent(inout) :: C     ! in/out: C = alfa*A*B + beta*C, [N,M]
+  real(8),optional                     :: alfa  ! optional scalar, default 1
+  real(8),optional                     :: beta  ! optional scalar, default 0
   real(8)                              :: alfa_,beta_
   integer                              :: N,K,M
   !
@@ -55,9 +65,15 @@ end subroutine z_matmul
 
 
 function d_matmul_(A,B) result(C)
-  real(8),dimension(:,:),intent(in)      :: A ![N,K]
-  real(8),dimension(:,:),intent(in)      :: B ![K,M]
-  real(8),dimension(size(A,1),size(B,2)) :: C ![N,M]
+  !This function returns the real matrix-matrix product :math:`C = A B`, computed with the BLAS routine
+  !:f:func_inline:`dgemm`, :math:`A` being :math:`N\times K` and :math:`B` :math:`K\times M`. It is the function behind
+  !the operator :code:`.x.`, i.e. :code:`C = A .x. B`; the complex version is :f:func_inline:`z_matmul_`.
+  !
+  !The program stops if :f:var:`B` does not have the shape :code:`[K,M]`.
+  !
+  real(8),dimension(:,:),intent(in)      :: A  ! matrix [N,K]
+  real(8),dimension(:,:),intent(in)      :: B  ! matrix [K,M]
+  real(8),dimension(size(A,1),size(B,2)) :: C  ! product A*B, [N,M]
   integer                                :: N,K,M
   !
   ! C = alfa*A*B + beta*C

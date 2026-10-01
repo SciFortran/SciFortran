@@ -1076,7 +1076,7 @@ contains
 
 
   subroutine print_array_d(M,file,w,d)
-    real(8),dimension(:,:)    :: M
+    real(8),dimension(:,:)    :: M     !matrix to print
     character(len=*),optional :: file  !file where to print the matrix (default: standard output)
     integer,optional          :: w     !width of each printed number (default 5)
     integer,optional          :: d     !number of decimals of each printed number (default 2)
@@ -1095,7 +1095,7 @@ contains
   end subroutine print_array_d
 
   subroutine print_array_c(M,file,w,d)
-    complex(8),dimension(:,:) :: M
+    complex(8),dimension(:,:) :: M     !matrix to print
     character(len=*),optional :: file  !file where to print the matrix (default: standard output)
     integer,optional          :: w     !width of each printed number (default 5)
     integer,optional          :: d     !number of decimals of each printed number (default 2)

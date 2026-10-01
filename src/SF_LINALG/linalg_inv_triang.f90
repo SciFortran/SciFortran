@@ -4,8 +4,17 @@
 ! M on output is the square matrix n*n
 !-------------------------------------------------------------------------------------------
 subroutine Dinv_triang(A,uplo,diag)
-  real(8),dimension(:,:)           :: A
-  character(len=1),optional        :: uplo,diag
+  !This subroutine inverts in place a real triangular matrix :f:var:`A` using the LAPACK routine
+  !:f:func_inline:`dtrtri`. The complex version :f:func_inline:`Zinv_triang` uses :f:func_inline:`ztrtri`. Both are
+  !instances of the generic interface :f:func_inline:`inv_triang`.
+  !
+  !On output the triangle selected by :f:var:`uplo` is replaced by the triangle of the inverse; the other triangle is
+  !not referenced. If :code:`diag='U'` the matrix is assumed unit triangular and its diagonal is not referenced.
+  !The program stops if the LAPACK routine returns an error code, e.g. for a singular matrix.
+  !
+  real(8),dimension(:,:)           :: A     ! in: triangular matrix [n,n]; out: its inverse (same triangle)
+  character(len=1),optional        :: uplo  ! optional: 'U' (default) upper, 'L' lower triangular
+  character(len=1),optional        :: diag  ! optional: 'N' (default) non-unit, 'U' unit triangular
   character(len=1)                 :: uplo_
   character(len=1)                 :: diag_
   integer                          :: n,lda,info

@@ -1,6 +1,15 @@
 function deigvalsh(A) result(lam)
-  real(8), intent(in)  :: A(:, :)         ! matrix for eigenvalue compuation
-  real(8)              :: lam(size(A,1))  ! eigenvalues: A c = lam c
+  !This function returns the eigenvalues of a real symmetric matrix :f:var:`A`, computed with the LAPACK routine
+  !:f:func_inline:`dsyevd` without eigenvectors. The complex version :f:func_inline:`zeigvalsh` works on hermitian
+  !matrices with :f:func_inline:`zheevd`. Both are instances of the generic interface :f:func_inline:`eigvalsh`.
+  !
+  !Only the upper triangle of :f:var:`A` is referenced; the input matrix is copied and left untouched. The eigenvalues
+  !are real (also for hermitian matrices) and are returned in ascending order.
+  !
+  !The program stops if :f:var:`A` is not square, or if the LAPACK routine returns an error code.
+  !
+  real(8), intent(in)  :: A(:, :)         ! real symmetric matrix [n,n], not modified
+  real(8)              :: lam(size(A,1))  ! eigenvalues of A, ascending, size n
   real(8), allocatable :: At(:,:),work(:),iwork(:)
   real(8)              :: lwork_guess(1),liwork_guess(1)
   integer              :: info,lda,lwork,liwork,n

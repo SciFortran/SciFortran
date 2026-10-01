@@ -1,5 +1,12 @@
 subroutine dinv(Am)
-  real(8), intent(inout) :: Am(:,:)            ! matrix to be inverted
+  !This subroutine inverts in place a general real square matrix :f:var:`Am` using the LU factorization with partial
+  !pivoting, :f:func_inline:`dgetrf` + :f:func_inline:`dgetri`. The complex version :f:func_inline:`zinv` uses
+  !:f:func_inline:`zgetrf` + :f:func_inline:`zgetri`. Both are instances of the generic interface :f:func_inline:`inv`.
+  !
+  !On output :f:var:`Am` is replaced by its inverse. The program stops if :f:var:`Am` is not square, if it is singular,
+  !or if the LAPACK routines return an error code.
+  !
+  real(8), intent(inout) :: Am(:,:)  ! in: square matrix to be inverted; out: its inverse
   real(8), allocatable   :: Amt(:,:),work(:)  ! temporary work arrays
   integer                :: info,lda,n,lwork,nb
   integer, allocatable   :: ipiv(:)

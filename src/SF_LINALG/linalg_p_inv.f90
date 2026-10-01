@@ -1,6 +1,16 @@
 subroutine p_Dinv(A,Nblock)
-  real(8),dimension(:,:),intent(inout)       :: A
-  integer                                    :: Nblock
+  !This subroutine is the distributed-memory (ScaLAPACK) counterpart of :f:func_inline:`dinv`: it inverts in place a
+  !general real square matrix :f:var:`A` with the LU factorization, :f:func_inline:`PDGETRF` + :f:func_inline:`PDGETRI`.
+  !The complex version :f:func_inline:`p_Zinv` uses :f:func_inline:`PZGETRF` + :f:func_inline:`PZGETRI`. Both are
+  !instances of the generic interface :f:func_inline:`p_inv`, available only when compiling with :code:`_SCALAPACK`.
+  !
+  !The matrix :f:var:`A` (a full copy is expected on every process) is distributed on the BLACS process grid of the
+  !module (:code:`p_context`, :code:`p_Nx` x :code:`p_Ny`) in a block-cyclic layout with square blocks of size
+  !:f:var:`Nblock`; the inverse is gathered back into :f:var:`A`. Timings are written by the master process to the
+  !file :code:`p_inv.info`. The program stops if :f:var:`A` is not square, or if a ScaLAPACK routine fails.
+  !
+  real(8),dimension(:,:),intent(inout)       :: A       ! in: square matrix to be inverted; out: its inverse
+  integer                                    :: Nblock  ! block size of the block-cyclic distribution
   integer                                    :: Nb
   integer                                    :: Ns
   integer                                    :: Qrows,Qcols
