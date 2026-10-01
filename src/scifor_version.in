@@ -2,7 +2,7 @@ MODULE SF_VERSION
   implicit none
 
   !GIT VERSION
-  character(len=41),parameter,public :: scifor_version_sha1 = "@GIT_SHA1@"
+  character(len=41),parameter,public :: scifor_version_sha1 = "@GIT_SHA1@" !SHA1 of the git commit of this SciFortran version
 
 contains
 
@@ -10,6 +10,11 @@ contains
   !PURPOSE  : print actual version of the software (if any)
   !+-------------------------------------------------------------------+
   subroutine scifor_version()
+  !This subroutine prints the version of the SciFortran library, i.e. the git SHA1 stored in :f:var:`scifor_version_sha1`, and
+  !the current timestamp to the standard output: :code:`SCIFOR VERSION (GIT): sha1` and
+  !:code:`Timestamp: + d Month yyyy h:mm:ss.mmm`. The same lines are written to the file :code:`scifor_version.inc` in the
+  !current directory, overwriting it.
+  !
     integer(4),dimension(8)                  :: dummy
     integer(4)                               :: year
     integer(4)                               :: mese
@@ -44,11 +49,16 @@ contains
 
 
   subroutine code_version(revision,name,git)
-    character(len=*)                         :: revision
-    character(len=*),optional                :: name
+  !This subroutine prints the version of a code and the current timestamp to the standard output, as
+  !:code:`NAME VERSION (GIT): revision` and :code:`Timestamp: + d Month yyyy h:mm:ss.mmm`. The same lines are written to the
+  !file :code:`NAME_version.inc` in the current directory, overwriting it. It is the generalization of
+  !:f:func_inline:`scifor_version` to any code.
+  !
+    character(len=*)                         :: revision  ! version of the code, e.g. the git SHA1
+    character(len=*),optional                :: name      ! optional: name of the code, default 'code'
     character(len=100)                       :: name_
     integer(4),dimension(8)                  :: dummy
-    logical,optional                         :: git
+    logical,optional                         :: git       ! optional: .true. (default) GIT label, .false. plain VERSION
     logical                                  :: git_
     integer(4)                               :: year
     integer(4)                               :: mese

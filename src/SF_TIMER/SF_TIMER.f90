@@ -75,10 +75,31 @@ module SF_TIMER
   logical                                  :: mpi_master
 
   interface start_progress
+     !Generic interface to start a timer, to be stopped with :f:func_inline:`stop_progress`. It is an alias of
+     !:f:func_inline:`start_timer`, whose arguments are documented there.
+     !
+     !At the moment of the call the timer records three clocks: the wall clock (:code:`system_clock`, or :code:`MPI_Wtime`
+     !when compiled with MPI and MPI is initialized), the CPU time (:code:`cpu_time`) and the date and time
+     !(:code:`date_and_time`). It also resets the state used by :f:func_inline:`eta` and :f:func_inline:`progress`, which need
+     !therefore a started timer. Timers can be nested, the last started being the first to be stopped, up to 1000 at the same
+     !time: the program stops otherwise.
+     !
+     !All the output of the timer, i.e. the :f:var:`title`, the messages of :f:func_inline:`eta` and
+     !:f:func_inline:`progress`, and the elapsed time printed by :f:func_inline:`stop_progress`, is written to the unit
+     !:f:var:`unit`. The default is the standard output (unit 6), plus the rank of the process when compiled with MPI, so that
+     !each process writes to its own unit; unit 5 is replaced by 6.
+     !
      module procedure :: start_timer
   end interface start_progress
 
   interface stop_progress
+     !Generic interface to stop the most recently started timer, see :f:func_inline:`start_progress`. It is an alias of
+     !:f:func_inline:`stop_timer`, whose argument is documented there.
+     !
+     !The elapsed CPU time and, in parentheses, the elapsed wall-clock time are printed on the unit of the timer, both as
+     !:code:`hhh:mm:ss.mmm`, followed by :f:var:`msg` if present:
+     !:code:`CPU time (wall time): hhh:mm:ss.mmm (hhh:mm:ss.mmm) : msg`. The timer is then released.
+     !
      module procedure :: stop_timer
   end interface stop_progress
 
@@ -97,7 +118,12 @@ contains
   !PURPOSE  : start a timer to measure elapsed time between two call
   !+-------------------------------------------------------------------+
   function t_start() result(pr_T)
-    real(8)    :: pr_T
+  !This function starts a timer, to be read with :f:func_inline:`t_stop`, to measure the time elapsed between two calls, e.g.
+  !for profiling. It is independent of :f:func_inline:`start_timer`. Timers can be nested, the last started being the first to
+  !be stopped, up to 1000 at the same time: the program stops otherwise. The wall clock is :code:`MPI_Wtime` when compiled
+  !with MPI and MPI is initialized, :code:`system_clock` otherwise. The returned value is always zero.
+  !
+    real(8)    :: pr_T  ! always 0
     integer(8) :: T_
     !
     Tprof=Tprof+1
@@ -124,7 +150,10 @@ contains
   !PURPOSE  : stop the timer and get the partial time
   !+-------------------------------------------------------------------+
   function t_stop() result(pr_T)
-    real(8)    :: pr_T
+  !This function stops the timer most recently started with :f:func_inline:`t_start`, releases it, and returns the time
+  !elapsed since its start, in seconds.
+  !
+    real(8)    :: pr_T  ! time elapsed since the matching t_start, in seconds
     integer(8) :: T_
     !
 #ifdef _MPI    
@@ -162,8 +191,8 @@ contains
   !PURPOSE  : start a timer to measure elapsed time between two call
   !+-------------------------------------------------------------------+
   subroutine start_timer(title,unit)
-    character(len=*),optional :: title
-    integer,optional          :: unit
+    character(len=*),optional :: title  ! optional: title, printed on the unit of the timer
+    integer,optional          :: unit   ! optional: output unit of the timer, default 6 (+ MPI rank)
     integer(8)                :: T_
     real :: cT_
     !
@@ -211,7 +240,7 @@ contains
   !PURPOSE  : stop the timer and get the partial time
   !+-------------------------------------------------------------------+
   subroutine stop_timer(msg)
-    character(len=*),optional :: msg
+    character(len=*),optional :: msg  ! optional: message, printed after the elapsed time
     real(8)              :: ct_T
     real(8)              :: st_T
     integer,dimension(8) :: dt_T
@@ -268,10 +297,20 @@ contains
   !PURPOSE  : get Expected Time of Arrival
   !+-------------------------------------------------------------------+
   subroutine eta(i,L,step,method)
-    integer                   :: i
-    integer                   :: L
-    integer,optional          :: step
-    character(len=*),optional :: method
+  !This subroutine prints the Expected Time of Arrival (ETA) of a loop of :f:var:`L` iterations, to be called at every
+  !iteration :f:var:`i`. It requires a timer started with :f:func_inline:`start_timer`, and it writes on the unit of that
+  !timer.
+  !
+  !The ETA is the average time per iteration spent so far, times the number of iterations, minus the elapsed time. It is
+  !printed only when the completion percentage reaches a multiple of :f:var:`step`, as :code:`NNN% |ETA: hhh:mm:ss.mmm`; at
+  !10%, 50% and 100% the date and time are appended. The internal state is reset when :code:`i==L`, so that the routine can be
+  !used for the next loop. The clock used is selected by the first character of :f:var:`method`: :code:`c` (default) for
+  !:code:`cpu_time`, :code:`d` for :code:`date_and_time`, anything else, e.g. :code:`s`, for :code:`system_clock` (wall time).
+  !
+    integer                   :: i       ! current iteration
+    integer                   :: L       ! total number of iterations
+    integer,optional          :: step    ! optional: print every step percent, default 10
+    character(len=*),optional :: method  ! optional: clock, 'c' cpu_time (default), 'd' date_and_time, 's' system_clock
     !
     integer,save              :: mod_print
     integer                   :: percent,iprint
@@ -345,8 +384,18 @@ contains
   !TYPE     : Subroutine
   !+-------------------------------------------------------------------+
   subroutine progress(i,imax,method)
-    integer                   :: i,imax
-    character(len=*),optional :: method
+  !This subroutine prints a progress bar with the Expected Time of Arrival (ETA), to be called at every iteration :f:var:`i`
+  !of a loop of :f:var:`imax` iterations. It requires a timer started with :f:func_inline:`start_timer`, and it writes on the
+  !unit of that timer.
+  !
+  !The bar has 50 characters, and it is updated in place on the same line, followed by the ETA computed as in
+  !:f:func_inline:`eta`: :code:`NNN% |*****     | ETA h:mm:ss.mmm`. The line is terminated by the last call, :code:`i==imax`.
+  !The clock used is selected by the first character of :f:var:`method`: :code:`c` (default) for :code:`cpu_time`, :code:`d`
+  !for :code:`date_and_time`, anything else, e.g. :code:`s`, for :code:`system_clock` (wall time).
+  !
+    integer                   :: i       ! current iteration
+    integer                   :: imax    ! total number of iterations
+    character(len=*),optional :: method  ! optional: clock, 'c' cpu_time (default), 'd' date_and_time, 's' system_clock
     integer                   :: k,jmax
     character(len=1)          :: method_
     character(len=62)         :: bar="???% |                                                  | ETA "
