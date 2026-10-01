@@ -78,7 +78,7 @@ outputs. To reproduce a build, set
 `with: release: scifor-4.23.13-1234abcd` on the action.
 That pins the binary release; use a commit SHA instead of `main` in `uses:`
 if you also want to pin the action code. See
-[binary release details](doc/binary-releases.md).
+[binary release details](https://scifortran.github.io/SciFortran/installation.html#binary-releases-for-github-ci).
 If a new `master-release` workflow is still running, this selects the previous
 successfully published release.
 Because CI releases are prereleases, the action selects a tag explicitly.
@@ -87,7 +87,7 @@ The setup action installs the external compiler, MPI, BLAS and LAPACK
 dependencies. The archive supplies `libscifor.a`, Fortran `.mod` files and
 `scifor.pc`. Use a compatible GNU Fortran and MPI setup on the consuming runner;
 the `.mod` files are compiler-dependent. For macOS, use `macos-15` and the
-`macos-15-arm64` asset. See [binary release details](doc/binary-releases.md).
+`macos-15-arm64` asset. See [binary release details](https://scifortran.github.io/SciFortran/installation.html#binary-releases-for-github-ci).
 
 
 ## AUTHORS
