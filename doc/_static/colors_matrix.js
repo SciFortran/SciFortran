@@ -55,7 +55,7 @@
   }
 
   var SMALL_LIST = 24;    // sections with at most this many colors are shown as a plain row
-  var GRAY_C = 0.03;      // OKLCH chroma below this -> gray block
+  var GRAY_C = 0.012;     // OKLCH chroma below this -> neutral gray block
   var MUTED_C = 0.09;     // below this (but above gray) -> muted/dusty block
   var HUE_START = 20;     // hue (deg) where the left-to-right rainbow starts (red)
 
@@ -77,14 +77,26 @@
     });
   }
 
-  /* cut a list into columns of at most `rows` cells, as even as possible
-     (no tiny last column), each column sorted light -> dark */
+  /* Cut a list into columns of nearly equal height, longer columns first so
+     any missing cells form a tidy step at the bottom right (not scattered
+     holes). `rows` is a target; up to 3 extra rows are tried to find the height
+     that leaves the fewest empty cells without adding columns. Each column is
+     sorted light -> dark. */
   function chunk(list, rows) {
-    var n = list.length, k = Math.ceil(n / rows), cols = [];
+    var n = list.length, bestK = 0, bestHoles = Infinity;
+    if (!n) return [];
+    for (var r = rows; r <= rows + 3; r++) {
+      var k = Math.ceil(n / r), holes = k * Math.ceil(n / k) - n;
+      if (holes < bestHoles) { bestHoles = holes; bestK = k; }
+    }
+    var k = bestK, h = Math.ceil(n / k), long_ = n - k * (h - 1);   // columns of height h
+    var cols = [], pos = 0;
     for (var i = 0; i < k; i++) {
-      cols.push(list.slice(Math.round(i * n / k), Math.round((i + 1) * n / k)).sort(function (a, b) {
+      var len = i < long_ ? h : h - 1;
+      cols.push(list.slice(pos, pos + len).sort(function (a, b) {
         return (b.l - a.l) || (a.h - b.h) || (a.names[0] < b.names[0] ? -1 : 1);
       }));
+      pos += len;
     }
     return cols;
   }
