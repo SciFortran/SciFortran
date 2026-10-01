@@ -12,6 +12,19 @@
 ! fractional accuracy for a minimum that happens to be exactly zero.
 !+-------------------------------------------------------------------+
 subroutine brent(func,xmin,brack,tol,niter)
+  !This subroutine finds the minimum of a function of one variable, :f:var:`func`, with the Brent method (golden section
+  !search and parabolic interpolation). The abscissa of the minimum is returned in :f:var:`xmin`. The minimum must be
+  !bracketed: :f:var:`brack` contains either a bracketing triplet :code:`(a,x,b)`, with :code:`a<x<b` and :code:`func(x)`
+  !lower than both :code:`func(a)` and :code:`func(b)`, or two starting points, from which a bracketing triplet is searched
+  !downhill with :f:func_inline:`bracket`. If :f:var:`brack` is absent the points 0 and 1 are used as starting points. The
+  !program stops if :f:var:`brack` has a single element.
+  !
+  !@param func: function whose minimum is searched, real(8) function func(x) with real(8) x
+  !@param xmin: abscissa of the minimum
+  !@param brack: optional: 2 starting points or 3 bracketing points, default [0,1]
+  !@param tol: optional: fractional precision of the minimum, default 1d-9
+  !@param niter: optional: maximum number of iterations, default 200
+  !
   interface
      function func(x)
        real(8) :: x
@@ -172,10 +185,10 @@ subroutine dbrent_wgrad(func,dfunc,xmin,brack,tol,niter)
        real(8) :: dfunc
      end function dfunc
   end interface
-  real(8),intent(inout)         :: xmin
-  real(8),dimension(:),optional :: brack
-  real(8),optional              :: tol
-  integer,optional              :: niter
+  real(8),intent(inout)         :: xmin   ! abscissa of the minimum
+  real(8),dimension(:),optional :: brack  ! optional: 2 starting points or 3 bracketing points, default [0,1]
+  real(8),optional              :: tol    ! optional: fractional precision of the minimum, default 1d-9
+  integer,optional              :: niter  ! optional: maximum number of iterations, default 200
   real(8)                       :: tol_
   integer                       :: niter_
   integer                       :: iter
@@ -212,10 +225,10 @@ subroutine dbrent_nograd(func,xmin,brack,tol,niter)
        real(8) :: func
      end function func
   end interface
-  real(8),intent(inout)         :: xmin
-  real(8),dimension(:),optional :: brack
-  real(8),optional              :: tol
-  integer,optional              :: niter
+  real(8),intent(inout)         :: xmin   ! abscissa of the minimum
+  real(8),dimension(:),optional :: brack  ! optional: 2 starting points or 3 bracketing points, default [0,1]
+  real(8),optional              :: tol    ! optional: fractional precision of the minimum, default 1d-9
+  integer,optional              :: niter  ! optional: maximum number of iterations, default 200
   real(8)                       :: tol_
   integer                       :: niter_
   integer                       :: iter
@@ -417,6 +430,20 @@ end function dbrent_optimize
 !     FA, FB, and FC.
 !+-------------------------------------------------------------------+
 subroutine bracket(ax,bx,cx,fa,fb,fc,func)
+  !Given a function :f:var:`func` and two distinct initial points :f:var:`ax` and :f:var:`bx`, this subroutine searches in the
+  !downhill direction, defined by the function evaluated at the initial points, and returns three points :f:var:`ax`,
+  !:f:var:`bx`, :f:var:`cx` which bracket a minimum of the function, i.e. :code:`bx` is between :code:`ax` and :code:`cx` and
+  !:code:`func(bx)` is lower than both :code:`func(ax)` and :code:`func(cx)`. The values of the function at the three points
+  !are returned too.
+  !
+  !@param ax: in: first initial point; out: first point of the bracketing triplet
+  !@param bx: in: second initial point; out: middle point of the bracketing triplet
+  !@param cx: out: last point of the bracketing triplet
+  !@param fa: out: func(ax)
+  !@param fb: out: func(bx)
+  !@param fc: out: func(cx)
+  !@param func: function whose minimum is bracketed, real(8) func(x) with real(8) x
+  !
   real(8), intent(inout) :: ax,bx
   real(8), intent(out) :: cx,fa,fb,fc
   !...the first parameter is the default ratio by which successive intervals

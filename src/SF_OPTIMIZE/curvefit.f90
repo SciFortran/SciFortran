@@ -10,12 +10,12 @@
          real(8),dimension(size(x)) :: model_func
        end function model_func
     end interface
-    real(8),dimension(:)           :: a
-    real(8),dimension(:)           :: xdata
-    real(8),dimension(size(xdata)) :: ydata
+    real(8),dimension(:)           :: a      ! in: starting guess of the parameters; out: fitted parameters, size n
+    real(8),dimension(:)           :: xdata  ! abscissas of the data, size m
+    real(8),dimension(size(xdata)) :: ydata  ! ordinates of the data, size m
     integer                        :: m
-    real(8),optional               :: tol
-    integer,optional               :: info
+    real(8),optional               :: tol    ! optional: tolerance, default 1d-15
+    integer,optional               :: info   ! optional out: status of the MINPACK routine
     real(8)                        :: tol_
     integer                        :: info_
     integer                        :: n
@@ -49,12 +49,12 @@
          real(8),dimension(size(x)) :: f
        end subroutine model_func
     end interface
-    real(8),dimension(:)           :: a
-    real(8),dimension(:)           :: xdata
-    real(8),dimension(size(xdata)) :: ydata
+    real(8),dimension(:)           :: a      ! in: starting guess of the parameters; out: fitted parameters, size n
+    real(8),dimension(:)           :: xdata  ! abscissas of the data, size m
+    real(8),dimension(size(xdata)) :: ydata  ! ordinates of the data, size m
     integer                        :: m
-    real(8),optional               :: tol
-    integer,optional               :: info
+    real(8),optional               :: tol    ! optional: tolerance, default 1d-15
+    integer,optional               :: info   ! optional out: status of the MINPACK routine
     real(8)                        :: tol_
     integer                        :: info_
     integer                        :: n
@@ -97,12 +97,12 @@
          real(8),dimension(size(x),size(a)) :: model_dfunc
        end function model_dfunc
     end interface
-    real(8),dimension(:)                   :: a
-    real(8),dimension(:)                   :: xdata
-    real(8),dimension(size(xdata))         :: ydata
+    real(8),dimension(:)                   :: a      ! in: starting guess of the parameters; out: fitted parameters, size n
+    real(8),dimension(:)                   :: xdata  ! abscissas of the data, size m
+    real(8),dimension(size(xdata))         :: ydata  ! ordinates of the data, size m
     integer                                :: m
-    real(8),optional                       :: tol
-    integer,optional                       :: info
+    real(8),optional                       :: tol    ! optional: tolerance, default 1d-15
+    integer,optional                       :: info   ! optional out: status of the MINPACK routine
     real(8)                                :: tol_
     integer                                :: info_
     integer                                :: n
@@ -148,12 +148,12 @@
          real(8),dimension(size(x),size(a)) :: df
        end subroutine model_dfunc
     end interface
-    real(8),dimension(:)                   :: a
-    real(8),dimension(:)                   :: xdata
-    real(8),dimension(size(xdata))         :: ydata
+    real(8),dimension(:)                   :: a      ! in: starting guess of the parameters; out: fitted parameters, size n
+    real(8),dimension(:)                   :: xdata  ! abscissas of the data, size m
+    real(8),dimension(size(xdata))         :: ydata  ! ordinates of the data, size m
     integer                                :: m
-    real(8),optional                       :: tol
-    integer,optional                       :: info
+    real(8),optional                       :: tol    ! optional: tolerance, default 1d-15
+    integer,optional                       :: info   ! optional out: status of the MINPACK routine
     real(8)                                :: tol_
     integer                                :: info_
     integer                                :: n

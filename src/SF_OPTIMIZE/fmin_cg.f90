@@ -1,38 +1,20 @@
-!+-------------------------------------------------------------------+
-!  PURPOSE  : Minimize the Chi^2 distance using conjugate gradient
-!     Adapted by FRPRM subroutine from NumRec (10.6)
-!     Given a starting point P that is a vector of length N, 
-!     the Fletcher-Reeves-Polak-Ribiere minimisation is performed 
-!     n a functin FUNC,using its gradient as calculated by a 
-!     routine DFUNC. The convergence tolerance on the function 
-!     value is input as FTOL.  
-!     Returned quantities are: 
-!     - P (the location of the minimum), 
-!     - ITER (the number of iterations that were performed), 
-!     - FRET (the minimum value of the function). 
-!     The routine LINMIN is called to perform line minimisations.
-!     Minimisation routines: DFPMIN, D/LINMIN, MNBRAK, D/BRENT and D/F1DIM
-!     come from Numerical Recipes.
-!  NOTE: this routine makes use of abstract interface to communicate 
-!     with routines contained elsewhere. an easier way would be to include
-!     the routines inside each of the two following fmin_cg routines. 
-!+-------------------------------------------------------------------+
 subroutine fmin_cg_df(p,f,df,iter,fret,ftol,itmax,istop,iverbose,err)
-  procedure(cgfit_func)                :: f
-  procedure(cgfit_fjac)                :: df
-  real(8), dimension(:), intent(inout) :: p
-  integer, intent(out)                 :: iter
-  real(8), intent(out)                 :: fret
-  real(8),optional                     :: ftol
+  procedure(cgfit_func)                :: f       ! function to be minimized, real(8) function f(x) with real(8) x(:)
+  procedure(cgfit_fjac)                :: df      ! gradient of f, real(8) function df(x) returning a vector with the size of x
+  real(8), dimension(:), intent(inout) :: p       ! in: starting point; out: location of the minimum
+  integer, intent(out)                 :: iter    ! out: number of iterations performed
+  real(8), intent(out)                 :: fret    ! out: value of f at the minimum
+  real(8),optional                     :: ftol    ! convergence tolerance, default 1d-5
   real(8)                              :: ftol_,a,b
-  integer, optional                    :: itmax,istop
+  integer, optional                    :: itmax   ! maximum number of iterations, default 500
+  integer, optional                    :: istop   ! stopping criterion, 0 (default) both a and b < ftol, 1 a < ftol, 2 b < ftol
   integer                              :: itmax_,istop_
   integer                              :: i,its
   real(8)                              :: dgg,fp,gam,gg,err_
   real(8), dimension(size(p))          :: g,h,xi,p_prev
-  logical,optional                     :: iverbose
+  logical,optional                     :: iverbose ! print information on the convergence, default .false.
   logical                              :: iverbose_,converged
-  real(8),dimension(2),optional        :: err
+  real(8),dimension(2),optional        :: err      ! out: last values of the convergence measures [a,b]
   !
   if(associated(func))nullify(func) ; func=>f
   if(associated(fjac))nullify(fjac) ; fjac=>df
@@ -119,7 +101,8 @@ subroutine fmin_cg_f(p,f,iter,fret,ftol,itmax,istop,deps,iverbose)
   real(8), dimension(:), intent(inout) :: p
   integer, intent(out)                 :: iter
   real(8), intent(out)                 :: fret
-  real(8),optional                     :: ftol,deps
+  real(8),optional                     :: ftol 
+  real(8),optional                     :: deps   !step of the numerical derivative, default 0
   integer, optional                    :: itmax,istop
   real(8)                              :: ftol_,deps_,a,b
   integer                              :: itmax_,istop_

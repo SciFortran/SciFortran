@@ -9,18 +9,51 @@ MODULE SF_OPTIMIZE
 
 
   interface fmin_cg
-     module procedure fmin_cg_df,fmin_cg_f
+     !Generic interface to minimize a function of several variables with the Fletcher-Reeves-Polak-Ribiere conjugate gradient
+     !method (Numerical Recipes 10.6), with the line minimizations done with the Brent method. The gradient is supplied by the
+     !user (:f:func_inline:`fmin_cg_df`) or computed numerically (:f:func_inline:`fmin_cg_f`). The location of the minimum is
+     !returned in :f:var:`p`, the number of iterations in :f:var:`iter` and the value of the function in :f:var:`fret`.
+     !
+     !The convergence is controlled by :f:var:`istop` and :f:var:`ftol`: with :math:`a = |F_n-F_{n-1}|/(1+|F_n|)` and
+     !:math:`b = \|p_n-p_{n-1}\|^2/(1+\|p_n\|^2)`, the iteration stops when :math:`a<ftol` and :math:`b<ftol`
+     !(:code:`istop=0`), when :math:`a<ftol` (:code:`istop=1`) or when :math:`b<ftol` (:code:`istop=2`). The last values of
+     !:math:`a` and :math:`b` are returned in :f:var:`err`.
+     !
+     module procedure :: fmin_cg_df
+     module procedure :: fmin_cg_f
   end interface fmin_cg
 
   interface fmin_cgplus
-     module procedure fmin_cgplus_df,fmin_cgplus_f
+     !Generic interface to minimize a function of several variables with the nonlinear conjugate gradient method of the CG+
+     !package (Gilbert and Nocedal), a very old Fortran 77 code. The gradient is supplied by the user
+     !(:f:func_inline:`fmin_cgplus_df`) or computed numerically (:f:func_inline:`fmin_cgplus_f`). The variant of the method is
+     !selected by :f:var:`imethod`, and the iteration stops when every component of the gradient is smaller than
+     !:math:`ftol(1+|f|)`. The location of the minimum is returned in :f:var:`p`.
+     !
+     module procedure :: fmin_cgplus_df
+     module procedure :: fmin_cgplus_f
   end interface fmin_cgplus
 
   interface fmin_cgminimize
-     module procedure fmin_cgminimize_func,fmin_cgminimize_sub
+     !Generic interface to minimize a function of several variables with a conjugate gradient routine adapted from a very old
+     !Fortran 77 code, a quasi-Newton minimizer with numerical gradient. The function is a function
+     !(:f:func_inline:`fmin_cgminimize_func`) or a subroutine (:f:func_inline:`fmin_cgminimize_sub`). Two versions of the
+     !minimizer are available, selected by :f:var:`new_version`. The location of the minimum is returned in :f:var:`p`.
+     !
+     module procedure :: fmin_cgminimize_func
+     module procedure :: fmin_cgminimize_sub
   end interface fmin_cgminimize
 
   interface leastsq
+     !Generic interface to minimize the sum of squares of :math:`m` nonlinear functions of :math:`n` unknowns, :math:`m\ge n`,
+     !i.e. to find :f:var:`a` so that :math:`f(a)^T f(a)` is minimum, with the Levenberg-Marquardt routines of MINPACK. The
+     !Jacobian is computed numerically (:code:`lmdif`, :f:func_inline:`leastsq_lmdif_func` and
+     !:f:func_inline:`leastsq_lmdif_sub`) or supplied by the user (:code:`lmder`, :f:func_inline:`leastsq_lmder_func` and
+     !:f:func_inline:`leastsq_lmder_sub`). The functions are a function :code:`func(a,m)` returning a vector of size
+     !:math:`m`, or a subroutine :code:`func(a,m,f)`; the Jacobian :code:`dfunc(a,m)` is a matrix of shape :math:`[m,n]`.
+     !
+     !The program stops, writing the reason to the file :code:`LEASTSQ_ERROR.err`, if the status returned by MINPACK is not 1.
+     !
      module procedure :: leastsq_lmdif_func
      module procedure :: leastsq_lmdif_sub
      module procedure :: leastsq_lmder_func
@@ -28,6 +61,15 @@ MODULE SF_OPTIMIZE
   end interface leastsq
 
   interface curvefit
+     !Generic interface to fit a model function to data with the non-linear least squares Levenberg-Marquardt routines of
+     !MINPACK: the parameters :f:var:`a` of :code:`model_func(x,a)` are adjusted to minimize the sum of the squares of
+     !:code:`model_func(xdata,a)-ydata`. The Jacobian is computed numerically (:code:`lmdif`,
+     !:f:func_inline:`curvefit_lmdif_func` and :f:func_inline:`curvefit_lmdif_sub`) or supplied by the user (:code:`lmder`,
+     !:f:func_inline:`curvefit_lmder_func` and :f:func_inline:`curvefit_lmder_sub`). The model is a function
+     !:code:`model_func(x,a)` returning a vector with the size of :code:`x`, or a subroutine :code:`model_func(x,a,f)`; the
+     !derivative :code:`model_dfunc(x,a)` is a matrix of shape :math:`[size(x),size(a)]`. The model is evaluated on the whole
+     !array :code:`xdata` at once.
+     !
      module procedure :: curvefit_lmdif_func
      module procedure :: curvefit_lmdif_sub
      module procedure :: curvefit_lmder_func
@@ -35,16 +77,33 @@ MODULE SF_OPTIMIZE
   end interface curvefit
 
   interface dbrent
+     !Generic interface to find the minimum of a function of one variable, :f:var:`func`, with the Brent method using the
+     !derivative: the user supplies the derivative :f:var:`dfunc` (:f:func_inline:`dbrent_wgrad`), or it is computed
+     !numerically (:f:func_inline:`dbrent_nograd`). The abscissa of the minimum is returned in :f:var:`xmin`. The bracketing
+     !of the minimum, :f:var:`brack`, works as in :f:func_inline:`brent`: a bracketing triplet, or two starting points from
+     !which it is searched with :f:func_inline:`bracket`, with default points 0 and 1. The program stops if :f:var:`brack` has
+     !a single element.
+     !
      module procedure :: dbrent_wgrad
      module procedure :: dbrent_nograd
   end interface dbrent
 
   interface fmin_bfgs
+     !Generic interface to minimize a function of several variables with the limited-memory BFGS algorithm with bounds,
+     !L-BFGS-B (Zhu, Byrd, Lu and Nocedal), subject to the optional bounds :math:`l\le x\le u`. The gradient is supplied by
+     !the user (:f:func_inline:`bfgs_with_grad`) or computed numerically (:f:func_inline:`bfgs_no_grad`). The type of the
+     !bounds is given by :f:var:`nbd`, the bounds are ignored if :f:var:`nbd` is absent. The location of the minimum is
+     !returned in :f:var:`x`.
+     !
      module procedure :: bfgs_with_grad
      module procedure :: bfgs_no_grad
   end interface fmin_bfgs
 
   interface linear_mix
+     !Generic interface for the linear mixing of an array of rank 1 to 7, real (:f:func_inline:`d_linear_mix_1` to
+     !:f:func_inline:`d_linear_mix_7`) or complex (:code:`c_linear_mix_1` to :code:`c_linear_mix_7`):
+     !:math:`x \leftarrow x + \alpha F_x`, with :math:`F_x = x_{out}-x_{in}` the residual of the iteration.
+     !
      module procedure :: d_linear_mix_1
      module procedure :: d_linear_mix_2
      module procedure :: d_linear_mix_3
@@ -63,17 +122,37 @@ MODULE SF_OPTIMIZE
 
 
   interface adaptive_mix
+     !Generic interface for the adaptive linear mixing, real (:f:func_inline:`d_adaptive_mix`) or complex
+     !(:f:func_inline:`c_adaptive_mix`): :math:`x \leftarrow x + \beta F_x`, with an element-wise mixing parameter
+     !:math:`\beta_j`, which starts from :f:var:`alpha`, is increased by :f:var:`alpha` at every iteration in which the
+     !residual :math:`F_{x,j}` keeps its sign, up to 1, and is reset to :f:var:`alpha` if the sign changes (oscillations). The
+     !previous residual is stored between calls: it is reset when :f:var:`iter` is 1.
+     !
      module procedure :: d_adaptive_mix
      module procedure :: c_adaptive_mix
   end interface adaptive_mix
 
   interface broyden_mix
+     !Generic interface for the modified Broyden mixing of Johnson (Phys. Rev. B 38, 12807, 1988), real
+     !(:f:func_inline:`d_broyden_mix`) or complex (:f:func_inline:`c_broyden_mix`): the mixed vector is built from the
+     !residual :math:`F_x = x_{out}-x_{in}` and from the history of the last :f:var:`M` iterations, stored between calls and
+     !reset when :f:var:`iter` is 1. The first iteration is a linear mixing with :f:var:`alpha`, as are all the iterations if
+     !:code:`M=0`. The weight of the initial iteration is :f:var:`w0`.
+     !
      module procedure :: d_broyden_mix
      module procedure :: c_broyden_mix
   end interface broyden_mix
 
 
   interface fsolve
+     !Generic interface to solve a system of :math:`n` nonlinear equations in :math:`n` unknowns, :math:`f(x)=0`, with the
+     !hybrid Powell method of MINPACK. The Jacobian is computed numerically (:code:`hybrd`, :f:func_inline:`fsolve_hybrd_func`
+     !and :f:func_inline:`fsolve_hybrd_sub`) or supplied by the user (:code:`hybrj`, :f:func_inline:`fsolve_hybrj_func` and
+     !:f:func_inline:`fsolve_hybrj_sub`). The system is a function :code:`func(x)` returning a vector with the size of
+     !:code:`x`, or a subroutine :code:`func(x,f)`; the Jacobian :code:`dfunc(x)` is a matrix of shape :math:`[n,n]`. If
+     !:f:var:`icheck` is true, the default, the program stops, writing the reason to a file, when the status returned by
+     !MINPACK is not a success.
+     !
      module procedure :: fsolve_hybrd_func
      module procedure :: fsolve_hybrd_sub
      !

@@ -44,6 +44,22 @@
 !+-------------------------------------------------------------------+
 subroutine fmin(fn,start,&
      lambda,tol,conv_check,max_fun_calls,fun_calls,num_restart,ierr)
+  !This subroutine minimizes a function of several variables with the Nelder-Mead downhill simplex algorithm (:code:`NELMIN`),
+  !a simplex function minimisation procedure due to Nelder and Mead (1965), as implemented by O'Neill (Applied Statistics 20,
+  !338, 1971). The convergence check, carried out every :f:var:`conv_check` iterations, is on the variance of the function
+  !values at the vertices of the simplex; if the simplex is found not to be at a minimum it is restarted. The minimum value of
+  !the function is not returned.
+  !
+  !@param fn: function to be minimized, real(8) function fn(x) with real(8) x(:)
+  !@param start: in: starting point; out: coordinates of the minimum
+  !@param lambda: optional: size and shape of the initial simplex, one step per variable, default 1
+  !@param tol: optional: terminating limit for the variance of the function values, > 0, default 1d-8
+  !@param conv_check: optional: the convergence is checked every conv_check iterations, >= 1, default 10
+  !@param max_fun_calls: optional: maximum number of function evaluations, default 500
+  !@param fun_calls: optional out: number of function evaluations used
+  !@param num_restart: optional out: number of restarts
+  !@param ierr: optional out: 0 ok, 1 illegal tol or conv_check, 2 max_fun_calls exceeded
+  !
   interface
      function fn(x)
        real(8),dimension(:) :: x

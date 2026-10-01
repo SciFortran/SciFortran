@@ -8,14 +8,14 @@ subroutine fsolve_hybrd_func(func,x,tol,info,icheck,maxfev)
        real(8),dimension(size(x))      :: func
      end function func
   end interface
-  real(8),dimension(:)       :: x      
-  real(8),optional           :: tol
-  integer,optional           :: info
-  integer,optional           :: maxfev
+  real(8),dimension(:)       :: x       ! in: starting guess; out: solution, size n
+  real(8),optional           :: tol     ! optional: tolerance, default 1d-15
+  integer,optional           :: info    ! optional out: status of the MINPACK routine
+  integer,optional           :: maxfev  ! optional: maximum number of function evaluations, default 200
   integer                    :: maxfev_
   real(8)                    :: tol_
   integer                    :: info_
-  logical,optional           :: icheck
+  logical,optional           :: icheck  ! optional: .true. (default) stops if the status is not a success
   logical                    :: icheck_
   integer                    :: n
   real(8),dimension(size(x)) :: fvec
@@ -46,14 +46,14 @@ subroutine fsolve_hybrd_sub(func,x,tol,info,icheck,maxfev)
        real(8),dimension(size(x))      :: ff
      end subroutine func
   end interface
-  real(8),dimension(:)       :: x      
-  real(8),optional           :: tol
-  integer,optional           :: info
+  real(8),dimension(:)       :: x       ! in: starting guess; out: solution, size n
+  real(8),optional           :: tol     ! optional: tolerance, default 1d-15
+  integer,optional           :: info    ! optional out: status of the MINPACK routine
   real(8)                    :: tol_
   integer                    :: info_
-  integer,optional           :: maxfev
+  integer,optional           :: maxfev  ! optional: maximum number of function evaluations, default 200
   integer                    :: maxfev_
-  logical,optional           :: icheck
+  logical,optional           :: icheck  ! optional: .true. (default) stops if the status is not a success
   logical                    :: icheck_
   integer                    :: n
   real(8),dimension(size(x)) :: fvec
@@ -96,12 +96,12 @@ subroutine fsolve_hybrj_func(func,dfunc,x,tol,info,icheck)
        real(8),dimension(size(x),size(x)) :: dfunc
      end function dfunc
   end interface
-  real(8),dimension(:)               :: x      
-  real(8),optional                   :: tol
-  integer,optional                   :: info
+  real(8),dimension(:)               :: x       ! in: starting guess; out: solution, size n
+  real(8),optional                   :: tol     ! optional: tolerance, default 1d-15
+  integer,optional                   :: info    ! optional out: status of the MINPACK routine
   real(8)                            :: tol_
   integer                            :: info_
-  logical,optional                   :: icheck
+  logical,optional                   :: icheck  ! optional: .true. (default) stops if the status is not a success
   logical                            :: icheck_
   integer                            :: n
   real(8),dimension(size(x))         :: fvec
@@ -143,12 +143,12 @@ subroutine fsolve_hybrj_sub(func,dfunc,x,tol,info,icheck)
        real(8),dimension(size(x),size(x)) :: df
      end subroutine dfunc
   end interface
-  real(8),dimension(:)               :: x      
-  real(8),optional                   :: tol
-  integer,optional                   :: info
+  real(8),dimension(:)               :: x       ! in: starting guess; out: solution, size n
+  real(8),optional                   :: tol     ! optional: tolerance, default 1d-15
+  integer,optional                   :: info    ! optional out: status of the MINPACK routine
   real(8)                            :: tol_
   integer                            :: info_
-  logical,optional                   :: icheck
+  logical,optional                   :: icheck  ! optional: .true. (default) stops if the status is not a success
   logical                            :: icheck_
   integer                            :: n
   real(8),dimension(size(x))         :: fvec

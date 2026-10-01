@@ -1,21 +1,24 @@
 subroutine fmin_cgplus_df(p,func,fjac,iter,fret,ftol,itmax,imethod,iverb1,iverb2)
-  real(8),dimension(:),intent(inout) :: p
+  real(8),dimension(:),intent(inout) :: p    !in: starting point; out: location of the minimum
   integer                            :: N,i
   interface 
-     function func(a)
+     function func(a)                        !function to be minimized, real(8) function func(x) with real(8) x(:)
        real(8),dimension(:)          ::  a
        real(8)                       ::  func
      end function func
      function fjac(a)
        real(8),dimension(:)          :: a
-       real(8),dimension(size(a))    :: fjac
+       real(8),dimension(size(a))    :: fjac !gradient of func, real(8) function fjac(x) returning a vector with the size of x
      end function fjac
   end interface
-  integer,intent(out)                :: iter
-  real(8)                            :: fret
-  real(8),optional                   :: ftol
+  integer,intent(out)                :: iter !out: number of iterations performed
+  real(8)                            :: fret !out: value of func at the minimum
+  real(8),optional                   :: ftol !convergence tolerance on the gradient, default 1d-5
   real(8)                            :: ftol_
-  integer, optional                  :: itmax,iverb1,iverb2,imethod
+  integer, optional                  :: itmax !maximum number of iterations, default 1000
+  integer, optional                  :: iverb1 !output frequency, < 0 none (default), 0 first and last iteration, > 0 every iverb1 iterations
+  integer, optional                  :: iverb2 ! amount of output, 0 (default) to 3: 1 initial x and gradient, 2 x every iteration, 3 x and gradient
+  integer, optional                  :: imethod !1 Fletcher-Reeves, 2 Polak-Ribiere (default), 3 positive Polak-Ribiere
   integer                            :: itmax_
   real(8),allocatable,dimension(:)   :: x,g,d,gold,w
   real(8)                            :: f,eps,tlev
@@ -89,10 +92,11 @@ subroutine fmin_cgplus_f(p,fcn,iter,fret,ftol,itmax,imethod,deps,iverb1,iverb2)
   !      real(8)                       ::  fcn
   !    end function fcn
   ! end interface
-  procedure(cgfit_func)              :: fcn
+  procedure(cgfit_func)              :: fcn  !function to be minimized, real(8) function fcn(x) with real(8) x(:)
   integer,intent(out)                :: iter
   real(8)                            :: fret
-  real(8),optional                   :: ftol,deps
+  real(8),optional                   :: ftol
+  real(8),optional                   :: deps !optional: step of the numerical derivative, default 0
   real(8)                            :: ftol_,deps_
   integer, optional                  :: itmax,iverb1,iverb2,imethod
   integer                            :: itmax_

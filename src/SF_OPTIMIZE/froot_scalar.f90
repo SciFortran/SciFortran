@@ -1,6 +1,15 @@
 ! ROUTINES TO searche a zero of a scalar function F(X)
 
 function brentq(func,a,b,tol) result(fzero)
+  !This function returns a zero of the function :f:var:`func` in the interval :code:`[a,b]`, found with the Brent method. The
+  !function must change sign in the interval, i.e. the root must be bracketed: otherwise the program stops.
+  !
+  !@param func: function whose zero is searched, real(8) function func(x) with real(8) x
+  !@param a: lower end of the interval
+  !@param b: upper end of the interval
+  !@param tol: optional: tolerance, default epsilon(a)
+  !@param fzero: root of func in [a,b]
+  !
   interface
      function func(x)
        real(8),intent(in) :: x
@@ -105,6 +114,18 @@ end function zbrent
 !         <0 - not a root but singularity, flag=number of iterations
 !
 subroutine bisect(f,x1,x2,eps,niter,flag)
+  !This subroutine finds a zero of the function :f:var:`f` in the interval :code:`[x1,x2]` with the bisection method. On
+  !output :f:var:`x1` and :f:var:`x2` both contain the root. The flag :f:var:`flag` is 0 if the function has the same sign at
+  !the two ends of the interval (no solution), the number of iterations if a root is found, and minus the number of iterations
+  !if the point found is a singularity rather than a root, i.e. :math:`|f|\ge 1` there.
+  !
+  !@param f: function whose zero is searched, real(8) function f(x) with real(8) x
+  !@param x1: in: lower end of the interval; out: root
+  !@param x2: in: upper end of the interval; out: root
+  !@param eps: optional: width of the final interval, default 1d-9
+  !@param niter: optional: maximum number of iterations, default 200
+  !@param flag: optional out: >0 root found in flag iterations, 0 no solution, <0 singularity
+  !
   implicit none
   interface                                                             
      function f(x)                                                   
@@ -159,48 +180,48 @@ end subroutine bisect
 !    the stopping criterion, abs ( B - C ) <= 2 * ( RW * abs ( B ) + AE ).
 !    The method used is an efficient combination of bisection
 !    and the secant rule.
+!    Input, real ( kind = 8 ) R, a (better) guess of a zero of F which could
+!    help in speeding up convergence.  If F(B) and F(R) have opposite signs, 
+!    a root will be found in the interval (B,R); if not, but F(R) and F(C) 
+!    have opposite signs, a root will be found in the interval (R,C); 
+!    otherwise, the interval (B,C) will be searched for a possible root.
+!    When no better guess is known, it is recommended that R be set to B or C;
+!    because if R is not interior to the interval (B,C), it will be ignored.
+!
+!    Input, real ( kind = 8 ) RE, the relative error used for RW in the 
+!    stopping criterion.  If the input RE is less than machine precision,
+!    then RW is set to approximately machine precision.
+!
+!    Input, real ( kind = 8 ) AE, the absolute error used in the stopping
+!    criterion.  If the given interval (B,C) contains the origin, then a
+!    nonzero value should be chosen for AE.
+!    Output, integer IFLAG, a status code.  The user must check IFLAG 
+!    after each call.  Control returns to the user in all cases.
 subroutine fzero(f,b,c,iflag,rguess,tol_rel,tol_abs)
+  !This subroutine searches for a zero of the function :f:var:`f` between the given values :f:var:`b` and :f:var:`c`, until
+  !the width of the interval collapses within the tolerance :code:`abs(b-c) <= 2*(rw*abs(b)+ae)`, with :code:`rw` the relative
+  !and :code:`ae` the absolute tolerance. The method is an efficient combination of bisection and the secant rule.
   !
-  !    Input, real ( kind = 8 ) R, a (better) guess of a zero of F which could
-  !    help in speeding up convergence.  If F(B) and F(R) have opposite signs, 
-  !    a root will be found in the interval (B,R); if not, but F(R) and F(C) 
-  !    have opposite signs, a root will be found in the interval (R,C); 
-  !    otherwise, the interval (B,C) will be searched for a possible root.
-  !    When no better guess is known, it is recommended that R be set to B or C;
-  !    because if R is not interior to the interval (B,C), it will be ignored.
+  !Control returns to the user in all cases, therefore :f:var:`iflag` must be checked after each call. Its possible values are:
   !
-  !    Input, real ( kind = 8 ) RE, the relative error used for RW in the 
-  !    stopping criterion.  If the input RE is less than machine precision,
-  !    then RW is set to approximately machine precision.
+  !* :code:`1`: :code:`b` is within the requested tolerance of a zero. The interval :code:`(b,c)` collapsed to the requested
+  !  tolerance, the function changes sign in :code:`(b,c)`, and :math:`|f(x)|` decreased as :code:`(b,c)` collapsed.
+  !* :code:`2`: :math:`f(b)=0`. However, the interval :code:`(b,c)` may not have collapsed to the requested tolerance.
+  !* :code:`3`: :code:`b` may be near a singular point of :math:`f(x)`. The interval :code:`(b,c)` collapsed to the requested
+  !  tolerance and the function changes sign in :code:`(b,c)`, but :math:`|f(x)|` increased as :code:`(b,c)` collapsed, i.e.
+  !  :math:`\max(|f(b_{in})|,|f(c_{in})|) < |f(b_{out})|`.
+  !* :code:`4`: no change in sign of :math:`f(x)` was found although the interval :code:`(b,c)` collapsed to the requested
+  !  tolerance. The user must examine this case and decide whether :code:`b` is near a local minimum of :math:`f(x)`,
+  !  or near a zero of even multiplicity, or neither of these.
+  !* :code:`5`: too many (more than 500) function evaluations used.
   !
-  !    Input, real ( kind = 8 ) AE, the absolute error used in the stopping
-  !    criterion.  If the given interval (B,C) contains the origin, then a
-  !    nonzero value should be chosen for AE.
-  !
-  !    Output, integer IFLAG, a status code.  The user must check IFLAG 
-  !    after each call.  Control returns to the user in all cases.
-  !
-  !    1, B is within the requested tolerance of a zero.
-  !      the interval (b,c) collapsed to the requested
-  !      tolerance, the function changes sign in (b,c), and
-  !      f(x) decreased in magnitude as (b,c) collapsed.
-  !
-  !    2, F(B) = 0.  however, the interval (b,c) may not have
-  !      collapsed to the requested tolerance.
-  !
-  !    3, B may be near a singular point of f(x).
-  !      the interval (b,c) collapsed to the requested tolerance and 
-  !      the function changes sign in (b,c), but
-  !      f(x) increased in magnitude as (b,c) collapsed,i.e.
-  !      max ( ABS ( f(b in) ), ABS ( f(c in) ) ) < ABS ( f(b out) ).
-  !
-  !    4, no change in sign of f(x) was found although the
-  !      interval (b,c) collapsed to the requested tolerance.
-  !      the user must examine this case and decide whether
-  !      b is near a local minimum of f(x), or B is near a
-  !      zero of even multiplicity, or neither of these.
-  !
-  !    5, too many (more than 500) function evaluations used.
+  !@param f: function whose zero is searched, real(8) function f(x) with real(8) x
+  !@param b: in: one end of the interval; out: best approximation of the zero
+  !@param c: in: other end of the interval; out: other end of the final interval
+  !@param iflag: out: status code, see the list above
+  !@param rguess: optional: a better guess of the zero, default b; it is ignored if not interior to (b,c)
+  !@param tol_rel: optional: relative error rw of the stopping criterion; if smaller than machine precision it is set to it
+  !@param tol_abs: optional: absolute error ae of the stopping criterion; if (b,c) contains the origin it should be nonzero
   !
   implicit none
   interface                                                             
@@ -392,6 +413,14 @@ end subroutine fzero
 
 
 subroutine newton(f,xinit,eps,niter)
+  !This subroutine finds a zero of the function :f:var:`f` with the Newton method, starting from :f:var:`xinit`, the
+  !derivative being evaluated numerically with finite differences. On output :f:var:`xinit` contains the root.
+  !
+  !@param f: function whose zero is searched, real(8) function f(x) with real(8) x
+  !@param xinit: in: starting point; out: root
+  !@param eps: optional: tolerance, default 1d-9
+  !@param niter: optional: maximum number of iterations, default 200
+  !
   interface
      function f(x)
        real(8) :: x

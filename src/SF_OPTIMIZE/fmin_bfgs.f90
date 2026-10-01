@@ -12,17 +12,21 @@ subroutine bfgs_with_grad(func,grad,x,l,u,nbd,factr,pgtol,iprint,nloop)
      end function grad
   end interface
   integer                                   :: n,m = 5, iprint_ = -1
-  integer,optional                          :: iprint,nloop
-  real(8),optional                          :: factr, pgtol
+  integer,optional                          :: iprint  ! optional: <0 (default) no output, larger prints more
+  integer,optional                          :: nloop   ! optional: maximum number of loops
+  real(8),optional                          :: factr   ! optional: f tolerance in eps units, default 1d7
+  real(8),optional                          :: pgtol   ! optional: projected gradient tolerance, default 1d-5
   real(8)                                   :: factr_,pgtol_
   character(len=60)                         :: task, csave
   logical                                   :: lsave(4)
   integer                                   :: isave(44)
   real(8)                                   :: dsave(29),f
   integer,dimension(:),allocatable          :: iwa,nbd_
-  integer,dimension(:),allocatable,optional :: nbd
-  real(8),dimension(:),allocatable          :: x,l_,u_,g,wa
-  real(8),dimension(:),allocatable,optional :: l,u
+  integer,dimension(:),allocatable,optional :: nbd     ! optional: 0 none, 1 lower, 2 both, 3 upper bound
+  real(8),dimension(:),allocatable          :: l_,u_,g,wa
+  real(8),dimension(:),allocatable          :: x       ! in: starting point; out: location of the minimum
+  real(8),dimension(:),allocatable,optional :: l       ! optional: lower bounds, size n
+  real(8),dimension(:),allocatable,optional :: u       ! optional: upper bounds, size n
   !
   n=size(x)
   factr_  = 1.0d+7
@@ -74,17 +78,21 @@ subroutine bfgs_no_grad(func,x,l,u,nbd,factr,pgtol,iprint,nloop)
      end function func
   end interface
   integer                                   :: n,m = 5, iprint_ = -1
-  integer,optional                          :: iprint,nloop
-  real(8),optional                          :: factr, pgtol
+  integer,optional                          :: iprint  ! optional: <0 (default) no output, larger prints more
+  integer,optional                          :: nloop   ! optional: maximum number of loops
+  real(8),optional                          :: factr   ! optional: f tolerance in eps units, default 1d7
+  real(8),optional                          :: pgtol   ! optional: projected gradient tolerance, default 1d-5
   real(8)                                   :: factr_,pgtol_
   character(len=60)                         :: task, csave
   logical                                   :: lsave(4)
   integer                                   :: isave(44)
   real(8)                                   :: dsave(29),f
   integer,dimension(:),allocatable          :: iwa,nbd_
-  integer,dimension(:),allocatable,optional :: nbd
-  real(8),dimension(:),allocatable          :: x,l_,u_,g,wa
-  real(8),dimension(:),allocatable,optional :: l,u
+  integer,dimension(:),allocatable,optional :: nbd     ! optional: 0 none, 1 lower, 2 both, 3 upper bound
+  real(8),dimension(:),allocatable          :: l_,u_,g,wa
+  real(8),dimension(:),allocatable          :: x       ! in: starting point; out: location of the minimum
+  real(8),dimension(:),allocatable,optional :: l       ! optional: lower bounds, size n
+  real(8),dimension(:),allocatable,optional :: u       ! optional: upper bounds, size n
   !
   n=size(x)
   factr_  = 1.0d+7

@@ -1,4 +1,20 @@
 subroutine broyden1(ff,x,icheck,maxits,tol,tol1,tolmin,stpmx,noexit)
+  !This subroutine finds a zero of a system of :math:`n` nonlinear equations in :math:`n` unknowns, :math:`f(x)=0`, with the
+  !Broyden method and a backtracking line search (Numerical Recipes :code:`broydn`): the Jacobian is computed numerically at
+  !the start, and then updated with the Broyden formula, restarting from a new numerical Jacobian when the update fails. On
+  !output :f:var:`x` contains the solution. If the Jacobian turns singular the program stops, unless :f:var:`noexit` is
+  !present and true.
+  !
+  !@param ff: system of equations, vector function of x
+  !@param x: in: starting guess; out: solution, size n
+  !@param icheck: optional out: .true. if converged to a spurious minimum of :math:`|f|^2`
+  !@param maxits: optional: maximum number of iterations, default 200
+  !@param tol: optional: tolerance on the function values, default 1d-8
+  !@param tol1: optional: tolerance at the starting point, default 0.01*tol
+  !@param tolmin: optional: spurious convergence tolerance, default 1d-7
+  !@param stpmx: optional: scaled maximum step of the line search, default 100
+  !@param noexit: optional: .true. returns on singular Jacobian, set .false. if so
+  !
   procedure(broydn_func)               :: ff
   real(8), dimension(:), intent(inout) :: x
   logical, optional                    :: noexit

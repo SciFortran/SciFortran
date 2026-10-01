@@ -4,24 +4,25 @@
 !     don't worry it works...
 !+-------------------------------------------------------------------+
 subroutine fmin_cgminimize_func(p,fcn,iter,fret,ftol,itmax,iverbose,mode,new_version,hh_par)
-  real(8),dimension(:),intent(inout) :: p
-  procedure(cgfit_func)              :: fcn
-  integer                            :: iter
-  real(8)                            :: fret
-  real(8),optional                   :: ftol
+  real(8),dimension(:),intent(inout) :: p       !in: starting point; out: location of the minimum
+  procedure(cgfit_func)              :: fcn     !function to be minimized, real(8) function fcn(x) with real(8) x(:)
+  integer                            :: iter    !out: number of iterations performed
+  real(8)                            :: fret    !out: value of the function at the minimum
+  real(8),optional                   :: ftol    !convergence tolerance, default 1d-5
   real(8)                            :: ftol_
-  integer, optional                  :: itmax,mode
+  integer, optional                  :: itmax   !maximum number of iterations, default 1000 (calls: 2*N*itmax)
+  integer, optional                  :: mode    !mode of the minimizer, default 1 (the value passed is currently ignored)
   integer                            :: itmax_,mode_,iprint_
   integer                            :: n
   real(8)                            :: f
   real(8),allocatable,dimension(:)   :: x,g,h,w,xprmt
   real(8)                            :: dfn,deps,hh
   integer                            :: iexit,itn
-  logical,optional                   :: new_version
+  logical,optional                   :: new_version  !.true. uses the new minimizer, .false. (default) the old one
   logical                            :: new_version_
-  logical,optional                   :: iverbose
+  logical,optional                   :: iverbose  !print information, default .false.
   logical                            :: iverbose_
-  real(8),optional                   :: hh_par
+  real(8),optional                   :: hh_par    !step of the numerical gradient, default 1d-5
   !
   if(associated(func))nullify(func) ; func=>fcn
   !    

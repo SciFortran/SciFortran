@@ -2,12 +2,12 @@
 !X =v[n]
 !Fx=v[n+1]
 subroutine d_broyden_mix(X,Fx,alpha,M,iter,w0)
-  real(8),intent(inout),dimension(:)      :: x
-  real(8),intent(in),dimension(size(x))   :: Fx
-  real(8),intent(in)                      :: alpha
-  integer,intent(in)                      :: M
-  integer,intent(in)                      :: iter
-  real(8),optional                        :: w0
+  real(8),intent(inout),dimension(:)      :: x      ! in: x_in; out: mixed x
+  real(8),intent(in),dimension(size(x))   :: Fx     ! residual, x_out-x_in
+  real(8),intent(in)                      :: alpha  ! mixing parameter
+  integer,intent(in)                      :: M      ! number of previous iterations kept in memory, 0 is linear mixing
+  integer,intent(in)                      :: iter   ! iteration number, 1 resets the memory
+  real(8),optional                        :: w0     ! optional: weight of the initial iteration, default 0.01
   real(8)                                 :: wg0
   real(8),dimension(M)                    :: wg
   integer                                 :: N

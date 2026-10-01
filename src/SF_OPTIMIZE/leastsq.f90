@@ -12,10 +12,10 @@ subroutine leastsq_lmdif_func(func,a,m,tol,info)
        real(8),dimension(m) :: func
      end function func
   end interface
-  real(8),dimension(:) :: a
-  integer              :: m
-  real(8),optional     :: tol
-  integer,optional     :: info
+  real(8),dimension(:) :: a     ! in: starting guess; out: solution, size n
+  integer              :: m     ! number of functions, m >= n
+  real(8),optional     :: tol   ! optional: tolerance, default 1d-15
+  integer,optional     :: info  ! optional out: status of the MINPACK routine
   real(8)              :: tol_
   integer              :: info_
   integer              :: n
@@ -46,10 +46,10 @@ subroutine leastsq_lmdif_sub(func,a,m,tol,info)
      end subroutine func
   end interface
   !
-  real(8),dimension(:) :: a
-  integer              :: m
-  real(8),optional     :: tol
-  integer,optional     :: info
+  real(8),dimension(:) :: a     ! in: starting guess; out: solution, size n
+  integer              :: m     ! number of functions, m >= n
+  real(8),optional     :: tol   ! optional: tolerance, default 1d-15
+  integer,optional     :: info  ! optional out: status of the MINPACK routine
   real(8)              :: tol_
   integer              :: info_
   integer              :: n
@@ -95,10 +95,10 @@ subroutine leastsq_lmder_func(func,dfunc,a,m,tol,info)
        real(8),dimension(m,size(a)) :: dfunc
      end function dfunc
   end interface
-  real(8),dimension(:)         :: a
-  integer                      :: m
-  real(8),optional             :: tol
-  integer,optional             :: info
+  real(8),dimension(:)         :: a     ! in: starting guess; out: solution, size n
+  integer                      :: m     ! number of functions, m >= n
+  real(8),optional             :: tol   ! optional: tolerance, default 1d-15
+  integer,optional             :: info  ! optional out: status of the MINPACK routine
   real(8)                      :: tol_
   integer                      :: info_
   integer                      :: n
@@ -142,10 +142,10 @@ subroutine leastsq_lmder_sub(func,dfunc,a,m,tol,info)
        real(8),dimension(m,size(a)) :: df
      end subroutine dfunc
   end interface
-  real(8),dimension(:)         :: a
-  integer                      :: m
-  real(8),optional             :: tol
-  integer,optional             :: info
+  real(8),dimension(:)         :: a     ! in: starting guess; out: solution, size n
+  integer                      :: m     ! number of functions, m >= n
+  real(8),optional             :: tol   ! optional: tolerance, default 1d-15
+  integer,optional             :: info  ! optional out: status of the MINPACK routine
   real(8)                      :: tol_
   integer                      :: info_
   integer                      :: n

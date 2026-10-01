@@ -1,8 +1,8 @@
 subroutine d_adaptive_mix(x,Fx,alpha,iter)
-   real(8),intent(inout),dimension(:)      :: x       !x_in
-   real(8),intent(in),dimension(size(x))   :: Fx      !x_out-x_in
-   real(8),intent(in)                      :: alpha   !mixing α
-   integer,intent(in)                      :: iter
+   real(8),intent(inout),dimension(:)      :: x      ! in: x_in; out: mixed x
+   real(8),intent(in),dimension(size(x))   :: Fx     ! residual, x_out-x_in
+   real(8),intent(in)                      :: alpha  ! mixing parameter, initial and minimum speed
+   integer,intent(in)                      :: iter   ! iteration number, 1 resets the memory
    integer                                 :: N
    real(8),parameter                       :: alpha_max = 1d0 
    real(8),allocatable,dimension(:),save   :: Fx_prev !prev iter
