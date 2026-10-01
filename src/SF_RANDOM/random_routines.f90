@@ -13,6 +13,12 @@
   !  The algorithm uses the ratio of uniforms method of A.J. Kinderman
   !  and J.F. Monahan augmented with quadratic bounding curves.
 FUNCTION random_normal() RESULT(fn_val)
+  !This function returns a single precision normally distributed random number with zero mean and unit variance, generated
+  !with the ratio of uniforms method of Kinderman and Monahan, augmented with quadratic bounding curves (ACM Algorithm 712).
+  !The uniform numbers are generated with the intrinsic :code:`random_number`.
+  !
+  !@param fn_val: normal deviate, mean 0 and variance 1
+  !
   real :: fn_val
   real :: s = 0.449871, &
        t = -0.386595,   &
@@ -60,6 +66,14 @@ END FUNCTION random_normal
   !     OR random_gamma2 (S < 1.0).
   !     S = SHAPE PARAMETER OF DISTRIBUTION (0 < REAL).
 FUNCTION random_gamma(s, first) RESULT(fn_val)
+  !This function returns a single precision random number from a gamma distribution with shape parameter :f:var:`s` and unit
+  !scale, calling :f:func_inline:`random_gamma1` if :math:`s>1`, :f:func_inline:`random_exponential` if :math:`s=1` and
+  !:f:func_inline:`random_gamma2` if :math:`s<1`. The program stops if :f:var:`s` is not positive.
+  !
+  !@param s: shape parameter, positive
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param fn_val: gamma deviate
+  !
   REAL, INTENT(IN)    :: s
   LOGICAL, INTENT(IN) :: first
   REAL                :: fn_val
@@ -93,6 +107,14 @@ END FUNCTION random_gamma
   ! gamma variables', Trans. om Math. Software (TOMS), vol.26(3), pp.363-372.
   ! Generates a random gamma deviate for shape parameter s >= 1.
 FUNCTION random_gamma1(s, first) RESULT(fn_val)
+  !This function returns a single precision random number from a gamma distribution with shape parameter :f:var:`s` not
+  !smaller than 1 and unit scale, with the method of Marsaglia and Tsang (ACM TOMS 26, 363, 2000). It is called by
+  !:f:func_inline:`random_gamma`.
+  !
+  !@param s: shape parameter, >= 1
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param fn_val: gamma deviate
+  !
   REAL, INTENT(IN)    :: s
   LOGICAL, INTENT(IN) :: first
   REAL                :: fn_val
@@ -144,6 +166,14 @@ END FUNCTION random_gamma1
   !    S = SHAPE PARAMETER OF DISTRIBUTION
   !          (REAL < 1.0)
 FUNCTION random_gamma2(s, first) RESULT(fn_val)
+  !This function returns a single precision random number from a gamma distribution with shape parameter :f:var:`s` smaller
+  !than 1 and unit scale, with a switching method (Dagpunar, 1988). It is called by :f:func_inline:`random_gamma`. The program
+  !stops if :f:var:`s` is not in the interval (0,1).
+  !
+  !@param s: shape parameter, in (0,1)
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param fn_val: gamma deviate
+  !
   REAL, INTENT(IN)    :: s
   LOGICAL, INTENT(IN) :: first
   REAL                :: fn_val
@@ -203,6 +233,13 @@ END FUNCTION random_gamma2
 !PURPOSE  :   
 !+-----------------------------------------------------------------+
 FUNCTION random_chisq(ndf, first) RESULT(fn_val)
+  !This function returns a single precision random number from a chi-square distribution with :f:var:`ndf` degrees of freedom,
+  !computed as twice a gamma deviate of shape :math:`ndf/2`, :f:func_inline:`random_gamma`.
+  !
+  !@param ndf: degrees of freedom
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param fn_val: chi-square deviate
+  !
   !     Generates a random variate from the chi-squared distribution with
   !     ndf degrees of freedom
   INTEGER, INTENT(IN) :: ndf
@@ -230,6 +267,11 @@ END FUNCTION random_chisq
   ! A NEGATIVE EXPONENTIAL DlSTRIBUTION WlTH DENSITY PROPORTIONAL
   ! TO EXP(-random_exponential), USING INVERSION.
 FUNCTION random_exponential() RESULT(fn_val)
+  !This function returns a single precision random number from an exponential distribution with unit mean, density
+  !:math:`e^{-x}`, obtained by inversion.
+  !
+  !@param fn_val: exponential deviate, unit mean
+  !
   REAL  :: fn_val
   !     Local variable
   REAL  :: r
@@ -258,6 +300,12 @@ END FUNCTION random_exponential
   !               a-1  -x
   !     f(x) = a.x    e
 FUNCTION random_Weibull(a) RESULT(fn_val)
+  !This function returns a single precision random number from a Weibull distribution with shape parameter :f:var:`a` and unit
+  !scale, density :math:`a x^{a-1} e^{-x^a}`. For speed, there is no check that :f:var:`a` is not zero or very small.
+  !
+  !@param a: shape parameter, positive
+  !@param fn_val: Weibull deviate
+  !
   REAL, INTENT(IN) :: a
   REAL             :: fn_val
   !     For speed, there is no checking that a is not zero or very small.
@@ -286,6 +334,15 @@ END FUNCTION random_Weibull
   !     AA = SHAPE PARAMETER FROM DISTRIBUTION (0 < REAL)
   !     BB = SHAPE PARAMETER FROM DISTRIBUTION (0 < REAL)
 FUNCTION random_beta(aa, bb, first) RESULT(fn_val)
+  !This function returns a single precision random number in [0,1] from a beta distribution with density proportional to
+  !:math:`x^{aa-1}(1-x)^{bb-1}`, with Cheng's log-logistic method (Dagpunar, 1988). The program stops if a shape parameter is
+  !not positive.
+  !
+  !@param aa: first shape parameter, positive
+  !@param bb: second shape parameter, positive
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param fn_val: beta deviate, in [0,1]
+  !
   REAL, INTENT(IN)    :: aa, bb
   LOGICAL, INTENT(IN) :: first
   REAL                :: fn_val
@@ -381,6 +438,24 @@ END FUNCTION random_beta
   !    ier = 1 if the input covariance matrix is not +ve definite
   !        = 0 otherwise
 SUBROUTINE random_mvnorm(n, h, d, f, first, x, ier)
+  !This subroutine generates a single precision random vector from a multivariate normal distribution of :f:var:`n` variables,
+  !with mean vector :f:var:`h` and covariance matrix :f:var:`d`, using its Cholesky decomposition, :f:var:`f` (Dagpunar,
+  !1988). The covariance matrix and its decomposition are stored as packed triangles: :code:`d(j*(j-1)/2+i)` is the element
+  !:math:`(i,j)` with :math:`j\ge i`, and :code:`f((j-1)*(2*n-j)/2+i)` the element :math:`(i,j)` of the lower triangular
+  !factor with :math:`j\le i`.
+  !
+  !The decomposition is computed only when :f:var:`first` is :code:`.true.`; it is then reused. If the covariance matrix is
+  !not positive definite :f:var:`ier` is set to 1 and the routine returns. The program stops if :f:var:`n` is not positive.
+  !The routine is not public.
+  !
+  !@param n: number of variables, >= 1
+  !@param h: mean vector, size n
+  !@param d: covariance matrix, packed, size n*(n+1)/2
+  !@param f: Cholesky factor of d, packed; computed if first, else reused
+  !@param x: random vector, size n
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param ier: 0 if successful, 1 if d is not positive definite
+  !
   INTEGER, INTENT(IN)   :: n
   REAL, INTENT(IN)      :: h(:), d(:)   ! d(n*(n+1)/2)
   REAL, INTENT(IN OUT)  :: f(:)         ! f(n*(n+1)/2)
@@ -458,6 +533,15 @@ END SUBROUTINE random_mvnorm
   !     H = PARAMETER OF DISTRIBUTION (0 <= REAL)
   !     B = PARAMETER OF DISTRIBUTION (0 < REAL)
 FUNCTION random_inv_gauss(h, b, first) RESULT(fn_val)
+  !This function returns a single precision random number from a reparameterised generalised inverse Gaussian distribution,
+  !with density proportional to :math:`x^{h-1}\exp[-b(x+1/x)/2]`, with a ratio method (Dagpunar, 1988). The program stops if
+  !:math:`h<0`, if :math:`b\le 0`, or if the ratio :math:`h:b` is too small.
+  !
+  !@param h: parameter of the distribution, >= 0
+  !@param b: parameter of the distribution, > 0
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param fn_val: deviate, in [0,inf)
+  !
   REAL, INTENT(IN)    :: h, b
   LOGICAL, INTENT(IN) :: first
   REAL                :: fn_val
@@ -552,6 +636,13 @@ END FUNCTION random_inv_gauss
   !     SEPARATION OF CASES A AND B
   !     .. Scalar Arguments ..
 FUNCTION random_Poisson(mu, first) RESULT(ival)
+  !This function returns an integer random number from a Poisson distribution with mean :f:var:`mu`, with the method of Ahrens
+  !and Dieter (ACM TOMS 8, 163, 1982), based on modified normal distributions.
+  !
+  !@param mu: mean of the distribution
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param ival: Poisson deviate
+  !
   REAL, INTENT(IN)    :: mu
   LOGICAL, INTENT(IN) :: first
   INTEGER             :: ival
@@ -728,6 +819,15 @@ END FUNCTION random_Poisson
   ! Reference: Kemp, C.D. (1986). `A modal method for generating binomial
   !            variables', Commun. Statist. - Theor. Meth. 15(3), 805-813.
 FUNCTION random_binomial1(n, p, first) RESULT(ival)
+  !This function returns an integer random number from a binomial distribution of :f:var:`n` trials with success probability
+  !:f:var:`p`, with the modal method of Kemp (1986). It is suitable when many variates with the SAME parameters are required;
+  !if the parameters change often use :f:func_inline:`random_binomial2`.
+  !
+  !@param n: number of trials, >= 1
+  !@param p: probability of success of each trial, in [0,1]
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param ival: binomial deviate, in [0,n]
+  !
   INTEGER, INTENT(IN) :: n
   REAL, INTENT(IN)    :: p
   LOGICAL, INTENT(IN) :: first
@@ -791,6 +891,14 @@ END FUNCTION random_binomial1
 !PURPOSE  :   
 !+-----------------------------------------------------------------+
 FUNCTION bin_prob(n, p, r) RESULT(fn_val)
+  !This function returns the binomial probability of :math:`r` successes in :math:`n` trials with success probability
+  !:math:`p`, :math:`\binom{n}{r}p^r(1-p)^{n-r}`, computed with the logarithm of the gamma function, :f:func_inline:`lngamma`.
+  !
+  !@param n: number of trials
+  !@param r: number of successes
+  !@param p: probability of success of each trial
+  !@param fn_val: probability of r successes
+  !
   !     Calculate a binomial probability
   INTEGER, INTENT(IN) :: n, r
   REAL, INTENT(IN)    :: p
@@ -814,6 +922,12 @@ END FUNCTION bin_prob
 !PURPOSE  :   
 !+-----------------------------------------------------------------+
 FUNCTION lngamma(x) RESULT(fn_val)
+  !This function returns the natural logarithm of the gamma function :math:`\ln\Gamma(x)`, accurate to about :math:`10^{-14}`.
+  !It is not defined for :math:`x` equal to zero or to a negative integer. Programmer: Alan Miller.
+  !
+  !@param x: argument, not zero or a negative integer
+  !@param fn_val: natural logarithm of the gamma function at x
+  !
   ! Logarithm to base e of the gamma function.
   !
   ! Accurate to about 1.e-14.
@@ -919,6 +1033,16 @@ END FUNCTION lngamma
   !**********************************************************************
   !*****DETERMINE APPROPRIATE ALGORITHM AND WHETHER SETUP IS NECESSARY
 FUNCTION random_binomial2(n, pp, first) RESULT(ival)
+  !This function returns an integer random number from a binomial distribution of :f:var:`n` trials with success probability
+  !:f:var:`pp`, with the BTPE algorithm of Kachitvichyanukul and Schmeiser (Communications of the ACM 31, 216, 1988). It is
+  !suitable when the parameters change often; if many variates with the SAME parameters are required use
+  !:f:func_inline:`random_binomial1`.
+  !
+  !@param pp: probability of success of each trial
+  !@param n: number of trials
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param ival: binomial deviate, in [0,n]
+  !
   !     ..
   !     .. Scalar Arguments ..
   REAL, INTENT(IN)    :: pp
@@ -1085,6 +1209,14 @@ END FUNCTION random_binomial2
   ! OTHERWISE A COMBINATION OF UNSTORED INVERSION AND
   ! THE REPRODUCTIVE PROPERTY IS USED.
 FUNCTION random_neg_binomial(sk, p) RESULT(ival)
+  !This function returns an integer random number from a negative binomial distribution, with unstored inversion and/or the
+  !reproductive property (Dagpunar, 1988). The program stops if :math:`sk\le 0`, or if :f:var:`p` is not in the open interval
+  !(0,1).
+  !
+  !@param sk: number of failures required (power parameter), > 0
+  !@param p: probability of success, in (0,1)
+  !@param ival: negative binomial deviate
+  !
   REAL, INTENT(IN)   :: sk, p
   INTEGER            :: ival
   !     Local variables
@@ -1154,6 +1286,14 @@ END FUNCTION random_neg_binomial
   !                     for k.   When first = .TRUE., the function sets
   !                     up starting values and may be very much slower.
 FUNCTION random_von_Mises(k, first) RESULT(fn_val)
+  !This function returns a single precision random number in :math:`(-\pi,\pi]` from a von Mises distribution with
+  !concentration parameter :f:var:`k`, with algorithm VMD of Dagpunar (1990). The parameter :math:`k` must be non-negative and
+  !not larger than 9.5: otherwise an error message is printed and the result is undefined.
+  !
+  !@param k: concentration parameter, 0 <= k <= 9.5
+  !@param first: set .true. on the first call with new parameter values, .false. if unchanged
+  !@param fn_val: von Mises deviate, in (-pi,pi]
+  !
   REAL, INTENT(IN)     :: k
   LOGICAL, INTENT(IN)  :: first
   REAL                 :: fn_val
@@ -1230,6 +1370,14 @@ END FUNCTION random_von_Mises
 !PURPOSE  :   
 !+-----------------------------------------------------------------+
 SUBROUTINE integral(a, b, result, dk)
+  !This subroutine computes the integral of :math:`e^{k\cos x}` between :f:var:`a` and :f:var:`b` with a 6-point
+  !Gauss-Legendre quadrature. It is used by :f:func_inline:`random_von_Mises`.
+  !
+  !@param dk: parameter k of the integrand
+  !@param a: lower limit of the integral
+  !@param b: upper limit of the integral
+  !@param result: value of the integral
+  !
   !     Gaussian integration of exp(k.cosx) from a to b.
   REAL (dp), INTENT(IN) :: dk
   REAL, INTENT(IN)      :: a, b
@@ -1262,6 +1410,11 @@ END SUBROUTINE integral
 !PURPOSE  :   
 !+-----------------------------------------------------------------+
 FUNCTION random_Cauchy() RESULT(fn_val)
+  !This function returns a single precision random number from the standard Cauchy distribution, with median 0 and scale 1, as
+  !the ratio of two uniform deviates inside the unit circle.
+  !
+  !@param fn_val: Cauchy deviate
+  !
   !     Generate a random deviate from the standard Cauchy distribution
   REAL     :: fn_val
   !     Local variables

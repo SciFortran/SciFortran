@@ -102,8 +102,8 @@ end subroutine pdf_push_sigma_2d
 
 
 subroutine pdf_get_sigma_2d(self,sigma)
-  type(pdf_kernel_2d) :: self    
-  real(8)             :: sigma(2,2)
+  type(pdf_kernel_2d) :: self        ! pdf object
+  real(8)             :: sigma(2,2)  ! covariance matrix of the Gaussian kernel stored in self
   if(.not.self%status)stop "PDF_GET_SIGMA: PDF not allocated"
   sigma = self%sigma
 end subroutine pdf_get_sigma_2d
@@ -164,10 +164,14 @@ end subroutine pdf_accumulate_s_2d
 
 
 function gaussian_kernel_2d(x,y,mean,sigma) result(gaussian_kernel)
-  real(8),intent(in) :: x(:),y(:)
-  real(8),intent(in) :: mean(2)
-  real(8),intent(in) :: sigma(2,2)
-  real(8)            :: gaussian_kernel(size(x),size(y))
+  !This function returns the bivariate Gaussian kernel :math:`e^{-\frac{1}{2}(r-m)^T\Sigma^{-1}(r-m)}/2\pi\sqrt{\det\Sigma}`
+  !with mean :f:var:`mean` and covariance matrix :f:var:`sigma`, evaluated on the grid of the points :math:`r=(x_i,y_j)`.
+  !
+  real(8),intent(in) :: x(:)                              ! grid along x
+  real(8),intent(in) :: y(:)                              ! grid along y
+  real(8),intent(in) :: mean(2)                           ! center of the kernel, (x,y)
+  real(8),intent(in) :: sigma(2,2)                        ! covariance matrix of the kernel, [2,2]
+  real(8)            :: gaussian_kernel(size(x),size(y))  ! value of the kernel on the grid, [size(x),size(y)]
   real(8),parameter  :: pi2=2d0*acos(-1d0)
   real(8)            :: detSigma
   real(8)            :: InvSigma(2,2)

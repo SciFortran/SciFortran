@@ -12,6 +12,12 @@ MODULE SF_MPI
 
 #ifdef _MPI
   interface Bcast_MPI
+  !This subroutine broadcasts the logical, integer, real(8) or complex(8) scalar or array :f:var:`data` from the process
+  !:f:var:`root` to all the processes of the communicator :f:var:`comm`, using :code:`MPI_BCAST`. The specific procedures cover
+  !scalars and arrays up to rank 7 (8 with gfortran newer than 8). Despite the :code:`intent(in)`, :f:var:`data` is overwritten
+  !on the processes other than :f:var:`root`. Nothing is done if :f:var:`comm` is :code:`MPI_COMM_NULL`. MPI errors are reported
+  !by :f:func_inline:`Error_MPI`.
+  !
      module procedure :: MPI_Bcast_Bool_0
      module procedure :: MPI_Bcast_Bool_1
      module procedure :: MPI_Bcast_Bool_2
@@ -64,6 +70,11 @@ MODULE SF_MPI
 
 
   interface AllGather_MPI
+  !This subroutine gathers the logical, integer, real(8) or complex(8) scalar or array :f:var:`send` of every process of the
+  !communicator :f:var:`comm` into :f:var:`data`, on all the processes, in the order of the ranks, using :code:`MPI_ALLGATHER`.
+  !The specific procedures cover scalars and arrays up to rank 7 (8 with gfortran newer than 8). :f:var:`data` has to be large
+  !enough to hold the contributions of all the processes. Nothing is done if :f:var:`comm` is :code:`MPI_COMM_NULL`.
+  !
      module procedure :: MPI_AllGather_Bool_0
      module procedure :: MPI_AllGather_Bool_1
      module procedure :: MPI_AllGather_Bool_2
@@ -117,6 +128,13 @@ MODULE SF_MPI
 
 
   interface AllReduce_MPI
+  !This subroutine sums the logical, integer, real(8) or complex(8) scalar or array :f:var:`send` over all the processes of the
+  !communicator :f:var:`comm`, and returns the sum in :f:var:`data` on every process, using :code:`MPI_ALLREDUCE` with
+  !:code:`MPI_SUM`. The specific procedures cover scalars and arrays up to rank 7 (8 with gfortran newer than 8). Nothing is
+  !done if :f:var:`comm` is :code:`MPI_COMM_NULL`. For the maximum and the sum on a single process see :f:func_inline:`Max_MPI`
+  !and :f:func_inline:`Sum_MPI`. Note that the MPI standard does not define :code:`MPI_SUM` for logical data, so the logical
+  !procedures may fail or depend on the MPI implementation.
+  !
      module procedure :: MPI_AllReduce_Bool_0
      module procedure :: MPI_AllReduce_Bool_1
      module procedure :: MPI_AllReduce_Bool_2
@@ -170,6 +188,16 @@ MODULE SF_MPI
 
 
   interface Reduce_MPI
+  !This subroutine is the same as :f:func_inline:`Sum_MPI`: it sums the logical, integer, real(8) or complex(8) scalar or array
+  !:f:var:`data` over all the processes of the communicator :f:var:`comm` on the process :f:var:`root` (default 0), using
+  !:code:`MPI_REDUCE` with :code:`MPI_SUM`. The specific procedures cover scalars and arrays up to rank 7 (8 with gfortran newer
+  !than 8).
+  !
+  !If :f:var:`recv` is present the sum is returned in :f:var:`recv` and :f:var:`data` is left unchanged. Otherwise the sum
+  !overwrites :f:var:`data` on the process of rank 0, which is the root for the default :f:var:`root`, and :f:var:`data` is
+  !unchanged on the other processes. Nothing is done if :f:var:`comm` is :code:`MPI_COMM_NULL`. Note that the MPI standard does
+  !not define :code:`MPI_SUM` for logical data, so the logical procedures may fail or depend on the MPI implementation.
+  !
      module procedure :: MPI_ReduceSum_Bool_0
      module procedure :: MPI_ReduceSum_Bool_1
      module procedure :: MPI_ReduceSum_Bool_2
@@ -224,6 +252,17 @@ MODULE SF_MPI
 
 
   interface Sum_MPI
+  !This subroutine sums the logical, integer, real(8) or complex(8) scalar or array :f:var:`data` over all the processes of the
+  !communicator :f:var:`comm` on the process :f:var:`root` (default 0), using :code:`MPI_REDUCE` with :code:`MPI_SUM`. The
+  !specific procedures cover scalars and arrays up to rank 7 (8 with gfortran newer than 8). It is the same as
+  !:f:func_inline:`Reduce_MPI`.
+  !
+  !If :f:var:`recv` is present the sum is returned in :f:var:`recv` and :f:var:`data` is left unchanged. Otherwise the sum
+  !overwrites :f:var:`data` on the process of rank 0, which is the root for the default :f:var:`root`, and :f:var:`data` is
+  !unchanged on the other processes. Nothing is done if :f:var:`comm` is :code:`MPI_COMM_NULL`. The sum on every process is
+  !available with :f:func_inline:`AllReduce_MPI`. Note that the MPI standard does not define :code:`MPI_SUM` for logical data,
+  !so the logical procedures may fail or depend on the MPI implementation.
+  !
      module procedure :: MPI_ReduceSum_Bool_0
      module procedure :: MPI_ReduceSum_Bool_1
      module procedure :: MPI_ReduceSum_Bool_2
@@ -276,6 +315,17 @@ MODULE SF_MPI
 
 
   interface Max_MPI
+  !This subroutine evaluates the element-wise maximum of the logical, integer, real(8) or complex(8) scalar or array
+  !:f:var:`data` over all the processes of the communicator :f:var:`comm` on the process :f:var:`root` (default 0), using
+  !:code:`MPI_REDUCE` with :code:`MPI_MAX`. The specific procedures cover scalars and arrays up to rank 7 (8 with gfortran newer
+  !than 8).
+  !
+  !If :f:var:`recv` is present the maximum is returned in :f:var:`recv` and :f:var:`data` is left unchanged. Otherwise the
+  !maximum overwrites :f:var:`data` on the process of rank 0, which is the root for the default :f:var:`root`, and :f:var:`data`
+  !is unchanged on the other processes. Nothing is done if :f:var:`comm` is :code:`MPI_COMM_NULL`. Note that the MPI standard
+  !does not define :code:`MPI_MAX` for logical and complex data, so these procedures may fail or depend on the MPI
+  !implementation.
+  !
      module procedure :: MPI_ReduceMax_Bool_0
      module procedure :: MPI_ReduceMax_Bool_1
      module procedure :: MPI_ReduceMax_Bool_2
@@ -362,8 +412,12 @@ contains
   !              MPI START/STOP
   !****************************************
   subroutine Init_MPI(comm,msg)
+    !This subroutine initializes the MPI environment with :code:`MPI_Init`. If :f:var:`comm` is present it is set to
+    !:code:`MPI_COMM_WORLD`, and if :f:var:`msg` is present and true the start message of :f:func_inline:`StartMsg_MPI` is
+    !printed. MPI errors are reported by :f:func_inline:`Error_MPI`, which does not stop the program.
+    !
     integer,optional :: comm
-    logical,optional :: msg
+    logical,optional :: msg  !if present and T print the start message, see StartMsg_MPI
     call MPI_Init(ierr)
     call Error_MPI(ierr,"MPI_Start")
     if(present(comm))comm=MPI_COMM_WORLD
@@ -373,6 +427,9 @@ contains
   end subroutine Init_MPI
 
   subroutine Finalize_MPI(comm)
+    !This subroutine terminates the MPI environment with :code:`MPI_Finalize`. If :f:var:`comm` is present it is set to
+    !:code:`MPI_COMM_NULL`. MPI errors are reported by :f:func_inline:`Error_MPI`, which does not stop the program.
+    !
     integer,optional :: comm
     call MPI_Finalize(ierr)
     call Error_MPI(ierr,"MPI_Stop")
@@ -380,7 +437,12 @@ contains
   end subroutine Finalize_MPI
 
   subroutine StartMsg_MPI(comm)
-    integer,optional :: comm
+    !This subroutine prints on the standard output a start message made of a header line, one line :code:`rank: i of N alive`
+    !for each process of the communicator :f:var:`comm` in the order of the ranks, and a closing line. The printing is
+    !synchronized with barriers. The default communicator is :code:`MPI_COMM_WORLD`, and nothing is printed for
+    !:code:`MPI_COMM_NULL`.
+    !
+    integer,optional :: comm  !MPI communicator (default: MPI_COMM_WORLD)
     integer          :: comm_,size
     integer          :: i
     comm_=MPI_COMM_WORLD;if(present(comm))comm_=comm
@@ -399,7 +461,11 @@ contains
   end subroutine StartMsg_MPI
 
   subroutine Barrier_MPI(comm)
-    integer,optional :: comm
+    !This subroutine blocks the calling process until all the processes of the communicator :f:var:`comm` have reached the
+    !barrier, using :code:`MPI_Barrier`. The default communicator is :code:`MPI_COMM_WORLD`, and nothing is done for
+    !:code:`MPI_COMM_NULL`.
+    !
+    integer,optional :: comm  !MPI communicator (default: MPI_COMM_WORLD)
     integer          :: comm_
     comm_=MPI_COMM_WORLD;if(present(comm))comm_=comm
     if(comm_/=Mpi_Comm_Null)then
@@ -413,13 +479,18 @@ contains
   !              MPI TOOLS
   !****************************************
   function check_MPI() result(bool)
+    !This function returns :code:`.true.` if the MPI environment has been initialized, as given by :code:`MPI_Initialized`.
+    !
     logical          :: bool    
     call MPI_Initialized(bool,ierr)
   end function check_MPI
 
 
   function get_size_MPI(comm) result(size)
-    integer,optional :: comm
+    !This function returns the number of processes of the communicator :f:var:`comm` (default :code:`MPI_COMM_WORLD`), using
+    !:code:`MPI_Comm_size`. For :code:`MPI_COMM_NULL` the result is not set.
+    !
+    integer,optional :: comm  !MPI communicator (default: MPI_COMM_WORLD)
     integer          :: comm_
     integer          :: size
     comm_=MPI_COMM_WORLD;if(present(comm))comm_=comm    
@@ -432,7 +503,10 @@ contains
   end function get_size_MPI
 
   function Get_rank_MPI(comm) result(rank)
-    integer,optional :: comm
+    !This function returns the rank of the calling process in the communicator :f:var:`comm` (default :code:`MPI_COMM_WORLD`),
+    !using :code:`MPI_Comm_rank`. For :code:`MPI_COMM_NULL` the result is not set.
+    !
+    integer,optional :: comm  !MPI communicator (default: MPI_COMM_WORLD)
     integer          :: comm_
     integer          :: rank
     comm_=MPI_COMM_WORLD;if(present(comm))comm_=comm
@@ -445,7 +519,10 @@ contains
   end function Get_rank_MPI
 
   function Get_master_MPI(comm) result(master)
-    integer,optional :: comm
+    !This function returns :code:`.true.` on the master process, i.e. the process of rank 0, of the communicator :f:var:`comm`
+    !(default :code:`MPI_COMM_WORLD`), and :code:`.false.` on the other processes and for :code:`MPI_COMM_NULL`.
+    !
+    integer,optional :: comm  !MPI communicator (default: MPI_COMM_WORLD)
     integer          :: comm_
     integer          :: rank
     logical          :: master
@@ -461,7 +538,10 @@ contains
   end function Get_master_MPI
 
   function Get_last_MPI(comm) result(last)
-    integer,optional :: comm
+    !This function returns :code:`.true.` on the last process, i.e. the process of rank :code:`size-1`, of the communicator
+    !:f:var:`comm` (default :code:`MPI_COMM_WORLD`), and :code:`.false.` on the other processes and for :code:`MPI_COMM_NULL`.
+    !
+    integer,optional :: comm  !MPI communicator (default: MPI_COMM_WORLD)
     integer          :: comm_
     integer          :: size
     integer          :: rank
@@ -480,6 +560,9 @@ contains
 
   !returns an elapsed time on the calling processor
   function cpu_time_MPI() result(time)
+    !This function returns the elapsed time in seconds on the calling processor, as given by :code:`MPI_WTIME`. The time is
+    !measured from an arbitrary point in the past, so only the difference between two calls is meaningful.
+    !
     real(8) :: time
     time = MPI_WTIME()
   end function Cpu_Time_MPI
@@ -509,9 +592,9 @@ contains
   !****************************************
   !!Bool
   subroutine MPI_Bcast_Bool_0(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm  !MPI communicator
+    logical,intent(in)          :: data  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root  !rank of the root process (default 0)
     logical,dimension(1)        :: data_
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
@@ -521,9 +604,9 @@ contains
   end subroutine MPI_Bcast_Bool_0
   !
   subroutine MPI_Bcast_Bool_1(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data(:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm     !MPI communicator
+    logical,intent(in)          :: data(:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_LOGICAL,root_,comm,ierr)
@@ -531,9 +614,9 @@ contains
   end subroutine MPI_Bcast_Bool_1
   !
   subroutine MPI_Bcast_Bool_2(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data(:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm       !MPI communicator
+    logical,intent(in)          :: data(:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_LOGICAL,root_,comm,ierr)
@@ -541,9 +624,9 @@ contains
   end subroutine MPI_Bcast_Bool_2
   !
   subroutine MPI_Bcast_Bool_3(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data(:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm         !MPI communicator
+    logical,intent(in)          :: data(:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_LOGICAL,root_,comm,ierr)
@@ -551,9 +634,9 @@ contains
   end subroutine MPI_Bcast_Bool_3
   !
   subroutine MPI_Bcast_Bool_4(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data(:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm           !MPI communicator
+    logical,intent(in)          :: data(:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_LOGICAL,root_,comm,ierr)
@@ -561,9 +644,9 @@ contains
   end subroutine MPI_Bcast_Bool_4
   !
   subroutine MPI_Bcast_Bool_5(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data(:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm             !MPI communicator
+    logical,intent(in)          :: data(:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_LOGICAL,root_,comm,ierr)
@@ -571,9 +654,9 @@ contains
   end subroutine MPI_Bcast_Bool_5
   !
   subroutine MPI_Bcast_Bool_6(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data(:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm               !MPI communicator
+    logical,intent(in)          :: data(:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_LOGICAL,root_,comm,ierr)
@@ -581,9 +664,9 @@ contains
   end subroutine MPI_Bcast_Bool_6
   !
   subroutine MPI_Bcast_Bool_7(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data(:,:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm                 !MPI communicator
+    logical,intent(in)          :: data(:,:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_LOGICAL,root_,comm,ierr)
@@ -592,9 +675,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Bcast_Bool_8(comm,data,root)
-    integer,intent(in)          :: comm
-    logical,intent(in)          :: data(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm                   !MPI communicator
+    logical,intent(in)          :: data(:,:,:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_LOGICAL,root_,comm,ierr)
@@ -607,9 +690,9 @@ contains
 
   !! INTEGER
   subroutine MPI_Bcast_Int_0(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm  !MPI communicator
+    integer,intent(in)          :: data  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root  !rank of the root process (default 0)
     integer,dimension(1)        :: data_
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
@@ -619,9 +702,9 @@ contains
   end subroutine MPI_Bcast_Int_0
   !
   subroutine MPI_Bcast_Int_1(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data(:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm     !MPI communicator
+    integer,intent(in)          :: data(:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_INTEGER,root_,comm,ierr)
@@ -629,9 +712,9 @@ contains
   end subroutine MPI_Bcast_Int_1
   !
   subroutine MPI_Bcast_Int_2(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data(:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm       !MPI communicator
+    integer,intent(in)          :: data(:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_INTEGER,root_,comm,ierr)
@@ -639,9 +722,9 @@ contains
   end subroutine MPI_Bcast_Int_2
   !
   subroutine MPI_Bcast_Int_3(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data(:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm         !MPI communicator
+    integer,intent(in)          :: data(:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_INTEGER,root_,comm,ierr)
@@ -649,9 +732,9 @@ contains
   end subroutine MPI_Bcast_Int_3
   !
   subroutine MPI_Bcast_Int_4(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data(:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm           !MPI communicator
+    integer,intent(in)          :: data(:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_INTEGER,root_,comm,ierr)
@@ -659,9 +742,9 @@ contains
   end subroutine MPI_Bcast_Int_4
   !
   subroutine MPI_Bcast_Int_5(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data(:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm             !MPI communicator
+    integer,intent(in)          :: data(:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_INTEGER,root_,comm,ierr)
@@ -669,9 +752,9 @@ contains
   end subroutine MPI_Bcast_Int_5
   !
   subroutine MPI_Bcast_Int_6(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data(:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm               !MPI communicator
+    integer,intent(in)          :: data(:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_INTEGER,root_,comm,ierr)
@@ -679,9 +762,9 @@ contains
   end subroutine MPI_Bcast_Int_6
   !
   subroutine MPI_Bcast_Int_7(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data(:,:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm                 !MPI communicator
+    integer,intent(in)          :: data(:,:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_INTEGER,root_,comm,ierr)
@@ -690,9 +773,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Bcast_Int_8(comm,data,root)
-    integer,intent(in)          :: comm
-    integer,intent(in)          :: data(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm                   !MPI communicator
+    integer,intent(in)          :: data(:,:,:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_INTEGER,root_,comm,ierr)
@@ -704,9 +787,9 @@ contains
 
   !! REAL8
   subroutine MPI_Bcast_Dble_0(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm  !MPI communicator
+    real(8),intent(in)          :: data  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root  !rank of the root process (default 0)
     real(8),dimension(1)        :: data_
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
@@ -716,9 +799,9 @@ contains
   end subroutine MPI_Bcast_Dble_0
   !
   subroutine MPI_Bcast_Dble_1(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data(:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm     !MPI communicator
+    real(8),intent(in)          :: data(:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_PRECISION,root_,comm,ierr)
@@ -726,9 +809,9 @@ contains
   end subroutine MPI_Bcast_Dble_1
   !
   subroutine MPI_Bcast_Dble_2(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data(:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm       !MPI communicator
+    real(8),intent(in)          :: data(:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_PRECISION,root_,comm,ierr)
@@ -736,9 +819,9 @@ contains
   end subroutine MPI_Bcast_Dble_2
   !
   subroutine MPI_Bcast_Dble_3(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data(:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm         !MPI communicator
+    real(8),intent(in)          :: data(:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_PRECISION,root_,comm,ierr)
@@ -746,9 +829,9 @@ contains
   end subroutine MPI_Bcast_Dble_3
   !
   subroutine MPI_Bcast_Dble_4(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data(:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm           !MPI communicator
+    real(8),intent(in)          :: data(:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_PRECISION,root_,comm,ierr)
@@ -756,9 +839,9 @@ contains
   end subroutine MPI_Bcast_Dble_4
   !
   subroutine MPI_Bcast_Dble_5(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data(:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm             !MPI communicator
+    real(8),intent(in)          :: data(:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_PRECISION,root_,comm,ierr)
@@ -766,9 +849,9 @@ contains
   end subroutine MPI_Bcast_Dble_5
   !
   subroutine MPI_Bcast_Dble_6(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data(:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm               !MPI communicator
+    real(8),intent(in)          :: data(:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_PRECISION,root_,comm,ierr)
@@ -776,9 +859,9 @@ contains
   end subroutine MPI_Bcast_Dble_6
   !
   subroutine MPI_Bcast_Dble_7(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data(:,:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm                 !MPI communicator
+    real(8),intent(in)          :: data(:,:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_PRECISION,root_,comm,ierr)
@@ -787,9 +870,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Bcast_Dble_8(comm,data,root)
-    integer,intent(in)          :: comm
-    real(8),intent(in)          :: data(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm                   !MPI communicator
+    real(8),intent(in)          :: data(:,:,:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_PRECISION,root_,comm,ierr)
@@ -802,9 +885,9 @@ contains
 
   !!CMPLX8
   subroutine MPI_Bcast_Cmplx_0(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm  !MPI communicator
+    complex(8),intent(in)       :: data  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root  !rank of the root process (default 0)
     complex(8),dimension(1)        :: data_
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
@@ -814,9 +897,9 @@ contains
   end subroutine MPI_Bcast_Cmplx_0
   !
   subroutine MPI_Bcast_Cmplx_1(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data(:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm     !MPI communicator
+    complex(8),intent(in)       :: data(:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_COMPLEX,root_,comm,ierr)
@@ -824,9 +907,9 @@ contains
   end subroutine MPI_Bcast_Cmplx_1
   !
   subroutine MPI_Bcast_Cmplx_2(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data(:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm       !MPI communicator
+    complex(8),intent(in)       :: data(:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_COMPLEX,root_,comm,ierr)
@@ -834,9 +917,9 @@ contains
   end subroutine MPI_Bcast_Cmplx_2
   !
   subroutine MPI_Bcast_Cmplx_3(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data(:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm         !MPI communicator
+    complex(8),intent(in)       :: data(:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_COMPLEX,root_,comm,ierr)
@@ -844,9 +927,9 @@ contains
   end subroutine MPI_Bcast_Cmplx_3
   !
   subroutine MPI_Bcast_Cmplx_4(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data(:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm           !MPI communicator
+    complex(8),intent(in)       :: data(:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_COMPLEX,root_,comm,ierr)
@@ -854,9 +937,9 @@ contains
   end subroutine MPI_Bcast_Cmplx_4
   !
   subroutine MPI_Bcast_Cmplx_5(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data(:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm             !MPI communicator
+    complex(8),intent(in)       :: data(:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_COMPLEX,root_,comm,ierr)
@@ -864,9 +947,9 @@ contains
   end subroutine MPI_Bcast_Cmplx_5
   !
   subroutine MPI_Bcast_Cmplx_6(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data(:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm               !MPI communicator
+    complex(8),intent(in)       :: data(:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_COMPLEX,root_,comm,ierr)
@@ -874,9 +957,9 @@ contains
   end subroutine MPI_Bcast_Cmplx_6
   !
   subroutine MPI_Bcast_Cmplx_7(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data(:,:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm                 !MPI communicator
+    complex(8),intent(in)       :: data(:,:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_COMPLEX,root_,comm,ierr)
@@ -885,9 +968,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Bcast_Cmplx_8(comm,data,root)
-    integer,intent(in)          :: comm
-    complex(8),intent(in)       :: data(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional :: root
+    integer,intent(in)          :: comm                   !MPI communicator
+    complex(8),intent(in)       :: data(:,:,:,:,:,:,:,:)  !data to broadcast (overwritten except on root)
+    integer,intent(in),optional :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     call MPI_BCAST(data,size(data),MPI_DOUBLE_COMPLEX,root_,comm,ierr)
@@ -914,72 +997,72 @@ contains
   !****************************************
   !!BOOL
   subroutine MPI_Allgather_Bool_0(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data
-    logical,intent(in)          :: send
+    integer,intent(in)          :: comm  !MPI communicator
+    logical,intent(inout)       :: data  !gathered data of all processes, by rank
+    logical,intent(in)          :: send  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,1,MPI_LOGICAL,data,1,MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_0')
   end subroutine MPI_Allgather_Bool_0
   !
   subroutine MPI_Allgather_Bool_1(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:)
-    logical,intent(in)          :: send(:)
+    integer,intent(in)          :: comm     !MPI communicator
+    logical,intent(inout)       :: data(:)  !gathered data of all processes, by rank
+    logical,intent(in)          :: send(:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_LOGICAL,data,size(data),MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_1')
   end subroutine MPI_Allgather_Bool_1
   !
   subroutine MPI_Allgather_Bool_2(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:)
-    logical,intent(in)          :: send(:,:)
+    integer,intent(in)          :: comm       !MPI communicator
+    logical,intent(inout)       :: data(:,:)  !gathered data of all processes, by rank
+    logical,intent(in)          :: send(:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_LOGICAL,data,size(data),MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_2')
   end subroutine MPI_Allgather_Bool_2
   !
   subroutine MPI_Allgather_Bool_3(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:)
-    logical,intent(in)          :: send(:,:,:)
+    integer,intent(in)          :: comm         !MPI communicator
+    logical,intent(inout)       :: data(:,:,:)  !gathered data of all processes, by rank
+    logical,intent(in)          :: send(:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_LOGICAL,data,size(data),MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_3')
   end subroutine MPI_Allgather_Bool_3
   !
   subroutine MPI_Allgather_Bool_4(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:)
+    integer,intent(in)          :: comm           !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:)  !gathered data of all processes, by rank
+    logical,intent(in)          :: send(:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_LOGICAL,data,size(data),MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_4')
   end subroutine MPI_Allgather_Bool_4
   !
   subroutine MPI_Allgather_Bool_5(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:,:)
+    integer,intent(in)          :: comm             !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:,:)  !gathered data of all processes, by rank
+    logical,intent(in)          :: send(:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_LOGICAL,data,size(data),MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_5')
   end subroutine MPI_Allgather_Bool_5
   !
   subroutine MPI_Allgather_Bool_6(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:,:,:)
+    integer,intent(in)          :: comm               !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:,:,:)  !gathered data of all processes, by rank
+    logical,intent(in)          :: send(:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_LOGICAL,data,size(data),MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_6')
   end subroutine MPI_Allgather_Bool_6
   !
   subroutine MPI_Allgather_Bool_7(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                 !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:,:,:,:)  !gathered data of all processes, by rank
+    logical,intent(in)          :: send(:,:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_LOGICAL,data,size(data),MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_7')
@@ -987,9 +1070,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Allgather_Bool_8(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:,:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                   !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:,:,:,:,:)  !gathered data of all processes, by rank
+    logical,intent(in)          :: send(:,:,:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_LOGICAL,data,size(data),MPI_LOGICAL,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Bool_8')
@@ -999,72 +1082,72 @@ contains
 
   !!INTEGER
   subroutine MPI_Allgather_Int_0(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data
-    integer,intent(in)          :: send
+    integer,intent(in)          :: comm  !MPI communicator
+    integer,intent(inout)       :: data  !gathered data of all processes, by rank
+    integer,intent(in)          :: send  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,1,MPI_INTEGER,data,1,MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_0')
   end subroutine MPI_Allgather_Int_0
   !
   subroutine MPI_Allgather_Int_1(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:)
-    integer,intent(in)          :: send(:)
+    integer,intent(in)          :: comm     !MPI communicator
+    integer,intent(inout)       :: data(:)  !gathered data of all processes, by rank
+    integer,intent(in)          :: send(:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_INTEGER,data,size(data),MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_1')
   end subroutine MPI_Allgather_Int_1
   !
   subroutine MPI_Allgather_Int_2(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:)
-    integer,intent(in)          :: send(:,:)
+    integer,intent(in)          :: comm       !MPI communicator
+    integer,intent(inout)       :: data(:,:)  !gathered data of all processes, by rank
+    integer,intent(in)          :: send(:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_INTEGER,data,size(data),MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_2')
   end subroutine MPI_Allgather_Int_2
   !
   subroutine MPI_Allgather_Int_3(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:)
-    integer,intent(in)          :: send(:,:,:)
+    integer,intent(in)          :: comm         !MPI communicator
+    integer,intent(inout)       :: data(:,:,:)  !gathered data of all processes, by rank
+    integer,intent(in)          :: send(:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_INTEGER,data,size(data),MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_3')
   end subroutine MPI_Allgather_Int_3
   !
   subroutine MPI_Allgather_Int_4(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:)
+    integer,intent(in)          :: comm           !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:)  !gathered data of all processes, by rank
+    integer,intent(in)          :: send(:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_INTEGER,data,size(data),MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_4')
   end subroutine MPI_Allgather_Int_4
   !
   subroutine MPI_Allgather_Int_5(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:,:)
+    integer,intent(in)          :: comm             !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:,:)  !gathered data of all processes, by rank
+    integer,intent(in)          :: send(:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_INTEGER,data,size(data),MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_5')
   end subroutine MPI_Allgather_Int_5
   !
   subroutine MPI_Allgather_Int_6(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:,:,:)
+    integer,intent(in)          :: comm               !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:,:,:)  !gathered data of all processes, by rank
+    integer,intent(in)          :: send(:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_INTEGER,data,size(data),MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_6')
   end subroutine MPI_Allgather_Int_6
   !
   subroutine MPI_Allgather_Int_7(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                 !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:,:,:,:)  !gathered data of all processes, by rank
+    integer,intent(in)          :: send(:,:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_INTEGER,data,size(data),MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_7')
@@ -1072,9 +1155,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Allgather_Int_8(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:,:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                   !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:,:,:,:,:)  !gathered data of all processes, by rank
+    integer,intent(in)          :: send(:,:,:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_INTEGER,data,size(data),MPI_INTEGER,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Int_8')
@@ -1086,72 +1169,72 @@ contains
 
   !!REAL8
   subroutine MPI_Allgather_Dble_0(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data
-    real(8),intent(in)          :: send
+    integer,intent(in)          :: comm  !MPI communicator
+    real(8),intent(inout)       :: data  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,1,MPI_DOUBLE_PRECISION,data,1,MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_0')
   end subroutine MPI_Allgather_Dble_0
   !
   subroutine MPI_Allgather_Dble_1(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:)
-    real(8),intent(in)          :: send(:)
+    integer,intent(in)          :: comm     !MPI communicator
+    real(8),intent(inout)       :: data(:)  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send(:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_PRECISION,data,size(data),MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_1')
   end subroutine MPI_Allgather_Dble_1
   !
   subroutine MPI_Allgather_Dble_2(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:)
-    real(8),intent(in)          :: send(:,:)
+    integer,intent(in)          :: comm       !MPI communicator
+    real(8),intent(inout)       :: data(:,:)  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send(:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_PRECISION,data,size(data),MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_2')
   end subroutine MPI_Allgather_Dble_2
   !
   subroutine MPI_Allgather_Dble_3(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:)
-    real(8),intent(in)          :: send(:,:,:)
+    integer,intent(in)          :: comm         !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:)  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send(:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_PRECISION,data,size(data),MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_3')
   end subroutine MPI_Allgather_Dble_3
   !
   subroutine MPI_Allgather_Dble_4(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:)
+    integer,intent(in)          :: comm           !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:)  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send(:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_PRECISION,data,size(data),MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_4')
   end subroutine MPI_Allgather_Dble_4
   !
   subroutine MPI_Allgather_Dble_5(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:,:)
+    integer,intent(in)          :: comm             !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:,:)  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send(:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_PRECISION,data,size(data),MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_5')
   end subroutine MPI_Allgather_Dble_5
   !
   subroutine MPI_Allgather_Dble_6(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:,:,:)
+    integer,intent(in)          :: comm               !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:,:,:)  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send(:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_PRECISION,data,size(data),MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_6')
   end subroutine MPI_Allgather_Dble_6
   !
   subroutine MPI_Allgather_Dble_7(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                 !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:,:,:,:)  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send(:,:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_PRECISION,data,size(data),MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_7')
@@ -1159,9 +1242,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Allgather_Dble_8(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:,:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                   !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:,:,:,:,:)  !gathered data of all processes, by rank
+    real(8),intent(in)          :: send(:,:,:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_PRECISION,data,size(data),MPI_DOUBLE_PRECISION,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Dble_8')
@@ -1171,72 +1254,72 @@ contains
 
   !!CMPLX8
   subroutine MPI_Allgather_Cmplx_0(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data
-    complex(8),intent(in)       :: send
+    integer,intent(in)          :: comm  !MPI communicator
+    complex(8),intent(inout)    :: data  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,1,MPI_DOUBLE_COMPLEX,data,1,MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_0')
   end subroutine MPI_Allgather_Cmplx_0
   !
   subroutine MPI_Allgather_Cmplx_1(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:)
-    complex(8),intent(in)       :: send(:)
+    integer,intent(in)          :: comm     !MPI communicator
+    complex(8),intent(inout)    :: data(:)  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send(:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_COMPLEX,data,size(data),MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_1')
   end subroutine MPI_Allgather_Cmplx_1
   !
   subroutine MPI_Allgather_Cmplx_2(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:)
-    complex(8),intent(in)       :: send(:,:)
+    integer,intent(in)          :: comm       !MPI communicator
+    complex(8),intent(inout)    :: data(:,:)  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send(:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_COMPLEX,data,size(data),MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_2')
   end subroutine MPI_Allgather_Cmplx_2
   !
   subroutine MPI_Allgather_Cmplx_3(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:)
-    complex(8),intent(in)       :: send(:,:,:)
+    integer,intent(in)          :: comm         !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:)  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send(:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_COMPLEX,data,size(data),MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_3')
   end subroutine MPI_Allgather_Cmplx_3
   !
   subroutine MPI_Allgather_Cmplx_4(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:)
+    integer,intent(in)          :: comm           !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:)  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send(:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_COMPLEX,data,size(data),MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_4')
   end subroutine MPI_Allgather_Cmplx_4
   !
   subroutine MPI_Allgather_Cmplx_5(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:,:)
+    integer,intent(in)          :: comm             !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:,:)  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send(:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_COMPLEX,data,size(data),MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_5')
   end subroutine MPI_Allgather_Cmplx_5
   !
   subroutine MPI_Allgather_Cmplx_6(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:,:,:)
+    integer,intent(in)          :: comm               !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:,:,:)  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send(:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_COMPLEX,data,size(data),MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_6')
   end subroutine MPI_Allgather_Cmplx_6
   !
   subroutine MPI_Allgather_Cmplx_7(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                 !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:,:,:,:)  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send(:,:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_COMPLEX,data,size(data),MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_7')
@@ -1244,9 +1327,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Allgather_Cmplx_8(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:,:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                   !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:,:,:,:,:)  !gathered data of all processes, by rank
+    complex(8),intent(in)       :: send(:,:,:,:,:,:,:,:)  !data sent by each process
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLGATHER(send,size(send),MPI_DOUBLE_COMPLEX,data,size(data),MPI_DOUBLE_COMPLEX,comm,ierr)
     call Error_MPI(sub='MPI_Allgather_Cmplx_8')
@@ -1289,72 +1372,72 @@ contains
   !****************************************
   !!BOOL
   subroutine MPI_Allreduce_Bool_0(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data
-    logical,intent(in)          :: send
+    integer,intent(in)          :: comm  !MPI communicator
+    logical,intent(inout)       :: data  !sum of send over the processes
+    logical,intent(in)          :: send  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,1,MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_0')
   end subroutine MPI_Allreduce_Bool_0
   !
   subroutine MPI_Allreduce_Bool_1(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:)
-    logical,intent(in)          :: send(:)
+    integer,intent(in)          :: comm     !MPI communicator
+    logical,intent(inout)       :: data(:)  !sum of send over the processes
+    logical,intent(in)          :: send(:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_1')
   end subroutine MPI_Allreduce_Bool_1
   !
   subroutine MPI_Allreduce_Bool_2(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:)
-    logical,intent(in)          :: send(:,:)
+    integer,intent(in)          :: comm       !MPI communicator
+    logical,intent(inout)       :: data(:,:)  !sum of send over the processes
+    logical,intent(in)          :: send(:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_2')
   end subroutine MPI_Allreduce_Bool_2
   !
   subroutine MPI_Allreduce_Bool_3(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:)
-    logical,intent(in)          :: send(:,:,:)
+    integer,intent(in)          :: comm         !MPI communicator
+    logical,intent(inout)       :: data(:,:,:)  !sum of send over the processes
+    logical,intent(in)          :: send(:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_3')
   end subroutine MPI_Allreduce_Bool_3
   !
   subroutine MPI_Allreduce_Bool_4(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:)
+    integer,intent(in)          :: comm           !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:)  !sum of send over the processes
+    logical,intent(in)          :: send(:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_4')
   end subroutine MPI_Allreduce_Bool_4
   !
   subroutine MPI_Allreduce_Bool_5(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:,:)
+    integer,intent(in)          :: comm             !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:,:)  !sum of send over the processes
+    logical,intent(in)          :: send(:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_5')
   end subroutine MPI_Allreduce_Bool_5
   !
   subroutine MPI_Allreduce_Bool_6(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:,:,:)
+    integer,intent(in)          :: comm               !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:,:,:)  !sum of send over the processes
+    logical,intent(in)          :: send(:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_6')
   end subroutine MPI_Allreduce_Bool_6
   !
   subroutine MPI_Allreduce_Bool_7(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                 !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:,:,:,:)  !sum of send over the processes
+    logical,intent(in)          :: send(:,:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_7')
@@ -1362,9 +1445,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Allreduce_Bool_8(comm,send,data)
-    integer,intent(in)          :: comm
-    logical,intent(inout)       :: data(:,:,:,:,:,:,:,:)
-    logical,intent(in)          :: send(:,:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                   !MPI communicator
+    logical,intent(inout)       :: data(:,:,:,:,:,:,:,:)  !sum of send over the processes
+    logical,intent(in)          :: send(:,:,:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_LOGICAL,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Bool_8')
@@ -1378,72 +1461,72 @@ contains
 
   !!INTEGER
   subroutine MPI_Allreduce_Int_0(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data
-    integer,intent(in)          :: send
+    integer,intent(in)          :: comm  !MPI communicator
+    integer,intent(inout)       :: data  !sum of send over the processes
+    integer,intent(in)          :: send  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,1,MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_0')
   end subroutine MPI_Allreduce_Int_0
   !
   subroutine MPI_Allreduce_Int_1(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:)
-    integer,intent(in)          :: send(:)
+    integer,intent(in)          :: comm     !MPI communicator
+    integer,intent(inout)       :: data(:)  !sum of send over the processes
+    integer,intent(in)          :: send(:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_1')
   end subroutine MPI_Allreduce_Int_1
   !
   subroutine MPI_Allreduce_Int_2(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:)
-    integer,intent(in)          :: send(:,:)
+    integer,intent(in)          :: comm       !MPI communicator
+    integer,intent(inout)       :: data(:,:)  !sum of send over the processes
+    integer,intent(in)          :: send(:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_2')
   end subroutine MPI_Allreduce_Int_2
   !
   subroutine MPI_Allreduce_Int_3(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:)
-    integer,intent(in)          :: send(:,:,:)
+    integer,intent(in)          :: comm         !MPI communicator
+    integer,intent(inout)       :: data(:,:,:)  !sum of send over the processes
+    integer,intent(in)          :: send(:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_3')
   end subroutine MPI_Allreduce_Int_3
   !
   subroutine MPI_Allreduce_Int_4(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:)
+    integer,intent(in)          :: comm           !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:)  !sum of send over the processes
+    integer,intent(in)          :: send(:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_4')
   end subroutine MPI_Allreduce_Int_4
   !
   subroutine MPI_Allreduce_Int_5(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:,:)
+    integer,intent(in)          :: comm             !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:,:)  !sum of send over the processes
+    integer,intent(in)          :: send(:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_5')
   end subroutine MPI_Allreduce_Int_5
   !
   subroutine MPI_Allreduce_Int_6(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:,:,:)
+    integer,intent(in)          :: comm               !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:,:,:)  !sum of send over the processes
+    integer,intent(in)          :: send(:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_6')
   end subroutine MPI_Allreduce_Int_6
   !
   subroutine MPI_Allreduce_Int_7(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                 !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:,:,:,:)  !sum of send over the processes
+    integer,intent(in)          :: send(:,:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_7')
@@ -1451,9 +1534,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Allreduce_Int_8(comm,send,data)
-    integer,intent(in)          :: comm
-    integer,intent(inout)       :: data(:,:,:,:,:,:,:,:)
-    integer,intent(in)          :: send(:,:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                   !MPI communicator
+    integer,intent(inout)       :: data(:,:,:,:,:,:,:,:)  !sum of send over the processes
+    integer,intent(in)          :: send(:,:,:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_INTEGER,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Int_8')
@@ -1465,72 +1548,72 @@ contains
 
   !!REAL8
   subroutine MPI_Allreduce_Dble_0(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data
-    real(8),intent(in)          :: send
+    integer,intent(in)          :: comm  !MPI communicator
+    real(8),intent(inout)       :: data  !sum of send over the processes
+    real(8),intent(in)          :: send  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,1,MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_0')
   end subroutine MPI_Allreduce_Dble_0
   !
   subroutine MPI_Allreduce_Dble_1(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:)
-    real(8),intent(in)          :: send(:)
+    integer,intent(in)          :: comm     !MPI communicator
+    real(8),intent(inout)       :: data(:)  !sum of send over the processes
+    real(8),intent(in)          :: send(:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_1')
   end subroutine MPI_Allreduce_Dble_1
   !
   subroutine MPI_Allreduce_Dble_2(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:)
-    real(8),intent(in)          :: send(:,:)
+    integer,intent(in)          :: comm       !MPI communicator
+    real(8),intent(inout)       :: data(:,:)  !sum of send over the processes
+    real(8),intent(in)          :: send(:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_2')
   end subroutine MPI_Allreduce_Dble_2
   !
   subroutine MPI_Allreduce_Dble_3(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:)
-    real(8),intent(in)          :: send(:,:,:)
+    integer,intent(in)          :: comm         !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:)  !sum of send over the processes
+    real(8),intent(in)          :: send(:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_3')
   end subroutine MPI_Allreduce_Dble_3
   !
   subroutine MPI_Allreduce_Dble_4(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:)
+    integer,intent(in)          :: comm           !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:)  !sum of send over the processes
+    real(8),intent(in)          :: send(:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_4')
   end subroutine MPI_Allreduce_Dble_4
   !
   subroutine MPI_Allreduce_Dble_5(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:,:)
+    integer,intent(in)          :: comm             !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:,:)  !sum of send over the processes
+    real(8),intent(in)          :: send(:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_5')
   end subroutine MPI_Allreduce_Dble_5
   !
   subroutine MPI_Allreduce_Dble_6(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:,:,:)
+    integer,intent(in)          :: comm               !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:,:,:)  !sum of send over the processes
+    real(8),intent(in)          :: send(:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_6')
   end subroutine MPI_Allreduce_Dble_6
   !
   subroutine MPI_Allreduce_Dble_7(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                 !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:,:,:,:)  !sum of send over the processes
+    real(8),intent(in)          :: send(:,:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_7')
@@ -1538,9 +1621,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Allreduce_Dble_8(comm,send,data)
-    integer,intent(in)          :: comm
-    real(8),intent(inout)       :: data(:,:,:,:,:,:,:,:)
-    real(8),intent(in)          :: send(:,:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                   !MPI communicator
+    real(8),intent(inout)       :: data(:,:,:,:,:,:,:,:)  !sum of send over the processes
+    real(8),intent(in)          :: send(:,:,:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_PRECISION,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Dble_8')
@@ -1550,72 +1633,72 @@ contains
 
   !!CMPLX8
   subroutine MPI_Allreduce_Cmplx_0(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data
-    complex(8),intent(in)       :: send
+    integer,intent(in)          :: comm  !MPI communicator
+    complex(8),intent(inout)    :: data  !sum of send over the processes
+    complex(8),intent(in)       :: send  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,1,MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_0')
   end subroutine MPI_Allreduce_Cmplx_0
   !
   subroutine MPI_Allreduce_Cmplx_1(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:)
-    complex(8),intent(in)       :: send(:)
+    integer,intent(in)          :: comm     !MPI communicator
+    complex(8),intent(inout)    :: data(:)  !sum of send over the processes
+    complex(8),intent(in)       :: send(:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_1')
   end subroutine MPI_Allreduce_Cmplx_1
   !
   subroutine MPI_Allreduce_Cmplx_2(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:)
-    complex(8),intent(in)       :: send(:,:)
+    integer,intent(in)          :: comm       !MPI communicator
+    complex(8),intent(inout)    :: data(:,:)  !sum of send over the processes
+    complex(8),intent(in)       :: send(:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_2')
   end subroutine MPI_Allreduce_Cmplx_2
   !
   subroutine MPI_Allreduce_Cmplx_3(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:)
-    complex(8),intent(in)       :: send(:,:,:)
+    integer,intent(in)          :: comm         !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:)  !sum of send over the processes
+    complex(8),intent(in)       :: send(:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_3')
   end subroutine MPI_Allreduce_Cmplx_3
   !
   subroutine MPI_Allreduce_Cmplx_4(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:)
+    integer,intent(in)          :: comm           !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:)  !sum of send over the processes
+    complex(8),intent(in)       :: send(:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_4')
   end subroutine MPI_Allreduce_Cmplx_4
   !
   subroutine MPI_Allreduce_Cmplx_5(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:,:)
+    integer,intent(in)          :: comm             !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:,:)  !sum of send over the processes
+    complex(8),intent(in)       :: send(:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_5')
   end subroutine MPI_Allreduce_Cmplx_5
   !
   subroutine MPI_Allreduce_Cmplx_6(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:,:,:)
+    integer,intent(in)          :: comm               !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:,:,:)  !sum of send over the processes
+    complex(8),intent(in)       :: send(:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_6')
   end subroutine MPI_Allreduce_Cmplx_6
   !
   subroutine MPI_Allreduce_Cmplx_7(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                 !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:,:,:,:)  !sum of send over the processes
+    complex(8),intent(in)       :: send(:,:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_7')
@@ -1623,9 +1706,9 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_Allreduce_Cmplx_8(comm,send,data)
-    integer,intent(in)          :: comm
-    complex(8),intent(inout)    :: data(:,:,:,:,:,:,:,:)
-    complex(8),intent(in)       :: send(:,:,:,:,:,:,:,:)
+    integer,intent(in)          :: comm                   !MPI communicator
+    complex(8),intent(inout)    :: data(:,:,:,:,:,:,:,:)  !sum of send over the processes
+    complex(8),intent(in)       :: send(:,:,:,:,:,:,:,:)  !data to sum over the processes
     if(comm==MPI_COMM_NULL)return
     call MPI_ALLREDUCE(send,data,size(data),MPI_DOUBLE_COMPLEX,MPI_SUM,comm,ierr)
     call Error_MPI(sub='MPI_Allreduce_Cmplx_8')
@@ -1663,10 +1746,10 @@ contains
   !****************************************
   !!BOOL
   subroutine MPI_ReduceSum_Bool_0(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data
-    logical,intent(inout),optional :: recv
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm  !MPI communicator
+    logical,intent(inout)          :: data  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv  !receives the sum on root if present
+    integer,intent(in),optional    :: root  !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm) 
@@ -1683,10 +1766,10 @@ contains
   end subroutine MPI_ReduceSum_Bool_0
   !
   subroutine MPI_ReduceSum_Bool_1(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:)
-    logical,intent(inout),optional :: recv(:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm     !MPI communicator
+    logical,intent(inout)          :: data(:)  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1703,10 +1786,10 @@ contains
   end subroutine MPI_ReduceSum_Bool_1
   !
   subroutine MPI_ReduceSum_Bool_2(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:)
-    logical,intent(inout),optional :: recv(:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm       !MPI communicator
+    logical,intent(inout)          :: data(:,:)  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1723,10 +1806,10 @@ contains
   end subroutine MPI_ReduceSum_Bool_2
   !
   subroutine MPI_ReduceSum_Bool_3(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm         !MPI communicator
+    logical,intent(inout)          :: data(:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1743,10 +1826,10 @@ contains
   end subroutine MPI_ReduceSum_Bool_3
   !
   subroutine MPI_ReduceSum_Bool_4(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm           !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1763,10 +1846,10 @@ contains
   end subroutine MPI_ReduceSum_Bool_4
   !
   subroutine MPI_ReduceSum_Bool_5(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm             !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1783,10 +1866,10 @@ contains
   end subroutine MPI_ReduceSum_Bool_5
   !
   subroutine MPI_ReduceSum_Bool_6(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm               !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1803,10 +1886,10 @@ contains
   end subroutine MPI_ReduceSum_Bool_6
   !
   subroutine MPI_ReduceSum_Bool_7(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                 !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1824,10 +1907,10 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_ReduceSum_Bool_8(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:,:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                   !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1849,10 +1932,10 @@ contains
 
   !INTEGER
   subroutine MPI_ReduceSum_int_0(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data
-    integer,intent(inout),optional :: recv
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm  !MPI communicator
+    integer,intent(inout)          :: data  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv  !receives the sum on root if present
+    integer,intent(in),optional    :: root  !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1870,10 +1953,10 @@ contains
   end subroutine MPI_ReduceSum_int_0
   !
   subroutine MPI_ReduceSum_int_1(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:)
-    integer,intent(inout),optional :: recv(:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm     !MPI communicator
+    integer,intent(inout)          :: data(:)  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1891,10 +1974,10 @@ contains
   end subroutine MPI_ReduceSum_int_1
   !
   subroutine MPI_ReduceSum_int_2(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:)
-    integer,intent(inout),optional :: recv(:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm       !MPI communicator
+    integer,intent(inout)          :: data(:,:)  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1912,10 +1995,10 @@ contains
   end subroutine MPI_ReduceSum_int_2
   !
   subroutine MPI_ReduceSum_int_3(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm         !MPI communicator
+    integer,intent(inout)          :: data(:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1933,10 +2016,10 @@ contains
   end subroutine MPI_ReduceSum_int_3
   !
   subroutine MPI_ReduceSum_int_4(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm           !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1954,10 +2037,10 @@ contains
   end subroutine MPI_ReduceSum_int_4
   !
   subroutine MPI_ReduceSum_int_5(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm             !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1975,10 +2058,10 @@ contains
   end subroutine MPI_ReduceSum_int_5
   !
   subroutine MPI_ReduceSum_int_6(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm               !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -1996,10 +2079,10 @@ contains
   end subroutine MPI_ReduceSum_int_6
   !
   subroutine MPI_ReduceSum_int_7(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                 !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2018,10 +2101,10 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_ReduceSum_int_8(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:,:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                   !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2041,10 +2124,10 @@ contains
 
   !REAL8
   subroutine MPI_ReduceSum_dble_0(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data
-    real(8),intent(inout),optional :: recv
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm  !MPI communicator
+    real(8),intent(inout)          :: data  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv  !receives the sum on root if present
+    integer,intent(in),optional    :: root  !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2062,10 +2145,10 @@ contains
   end subroutine MPI_ReduceSum_dble_0
   !
   subroutine MPI_ReduceSum_dble_1(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:)
-    real(8),intent(inout),optional :: recv(:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm     !MPI communicator
+    real(8),intent(inout)          :: data(:)  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2083,10 +2166,10 @@ contains
   end subroutine MPI_ReduceSum_dble_1
   !
   subroutine MPI_ReduceSum_dble_2(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:)
-    real(8),intent(inout),optional :: recv(:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm       !MPI communicator
+    real(8),intent(inout)          :: data(:,:)  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2104,10 +2187,10 @@ contains
   end subroutine MPI_ReduceSum_dble_2
   !
   subroutine MPI_ReduceSum_dble_3(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm         !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2125,10 +2208,10 @@ contains
   end subroutine MPI_ReduceSum_dble_3
   !
   subroutine MPI_ReduceSum_dble_4(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm           !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2146,10 +2229,10 @@ contains
   end subroutine MPI_ReduceSum_dble_4
   !
   subroutine MPI_ReduceSum_dble_5(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm             !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2167,10 +2250,10 @@ contains
   end subroutine MPI_ReduceSum_dble_5
   !
   subroutine MPI_ReduceSum_dble_6(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm               !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2188,10 +2271,10 @@ contains
   end subroutine MPI_ReduceSum_dble_6
   !
   subroutine MPI_ReduceSum_dble_7(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                 !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2210,10 +2293,10 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_ReduceSum_dble_8(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                   !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional    :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2235,10 +2318,10 @@ contains
 
   !CMPLX8
   subroutine MPI_ReduceSum_cmplx_0(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data
-    complex(8),intent(inout),optional :: recv
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm  !MPI communicator
+    complex(8),intent(inout)          :: data  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv  !receives the sum on root if present
+    integer,intent(in),optional       :: root  !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2256,10 +2339,10 @@ contains
   end subroutine MPI_ReduceSum_cmplx_0
   !
   subroutine MPI_ReduceSum_cmplx_1(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:)
-    complex(8),intent(inout),optional :: recv(:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm     !MPI communicator
+    complex(8),intent(inout)          :: data(:)  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:)  !receives the sum on root if present
+    integer,intent(in),optional       :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2277,10 +2360,10 @@ contains
   end subroutine MPI_ReduceSum_cmplx_1
   !
   subroutine MPI_ReduceSum_cmplx_2(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:)
-    complex(8),intent(inout),optional :: recv(:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm       !MPI communicator
+    complex(8),intent(inout)          :: data(:,:)  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:)  !receives the sum on root if present
+    integer,intent(in),optional       :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2298,10 +2381,10 @@ contains
   end subroutine MPI_ReduceSum_cmplx_2
   !
   subroutine MPI_ReduceSum_cmplx_3(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm         !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional       :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2319,10 +2402,10 @@ contains
   end subroutine MPI_ReduceSum_cmplx_3
   !
   subroutine MPI_ReduceSum_cmplx_4(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm           !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional       :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2340,10 +2423,10 @@ contains
   end subroutine MPI_ReduceSum_cmplx_4
   !
   subroutine MPI_ReduceSum_cmplx_5(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm             !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional       :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2361,10 +2444,10 @@ contains
   end subroutine MPI_ReduceSum_cmplx_5
   !
   subroutine MPI_ReduceSum_cmplx_6(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm               !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional       :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2382,10 +2465,10 @@ contains
   end subroutine MPI_ReduceSum_cmplx_6
   !
   subroutine MPI_ReduceSum_cmplx_7(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm                 !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional       :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2404,10 +2487,10 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_ReduceSum_cmplx_8(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm                   !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)  !data to sum (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)  !receives the sum on root if present
+    integer,intent(in),optional       :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2445,10 +2528,10 @@ contains
   !****************************************
   !!BOOL
   subroutine MPI_ReduceMax_Bool_0(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data
-    logical,intent(inout),optional :: recv
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm  !MPI communicator
+    logical,intent(inout)          :: data  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv  !receives the maximum on root if present
+    integer,intent(in),optional    :: root  !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm) 
@@ -2465,10 +2548,10 @@ contains
   end subroutine MPI_ReduceMax_Bool_0
   !
   subroutine MPI_ReduceMax_Bool_1(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:)
-    logical,intent(inout),optional :: recv(:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm     !MPI communicator
+    logical,intent(inout)          :: data(:)  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2485,10 +2568,10 @@ contains
   end subroutine MPI_ReduceMax_Bool_1
   !
   subroutine MPI_ReduceMax_Bool_2(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:)
-    logical,intent(inout),optional :: recv(:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm       !MPI communicator
+    logical,intent(inout)          :: data(:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2505,10 +2588,10 @@ contains
   end subroutine MPI_ReduceMax_Bool_2
   !
   subroutine MPI_ReduceMax_Bool_3(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm         !MPI communicator
+    logical,intent(inout)          :: data(:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2525,10 +2608,10 @@ contains
   end subroutine MPI_ReduceMax_Bool_3
   !
   subroutine MPI_ReduceMax_Bool_4(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm           !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2545,10 +2628,10 @@ contains
   end subroutine MPI_ReduceMax_Bool_4
   !
   subroutine MPI_ReduceMax_Bool_5(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm             !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2565,10 +2648,10 @@ contains
   end subroutine MPI_ReduceMax_Bool_5
   !
   subroutine MPI_ReduceMax_Bool_6(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm               !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2585,10 +2668,10 @@ contains
   end subroutine MPI_ReduceMax_Bool_6
   !
   subroutine MPI_ReduceMax_Bool_7(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                 !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2606,10 +2689,10 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_ReduceMax_Bool_8(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    logical,intent(inout)          :: data(:,:,:,:,:,:,:,:)
-    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                   !MPI communicator
+    logical,intent(inout)          :: data(:,:,:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    logical,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2631,10 +2714,10 @@ contains
 
   !INTEGER
   subroutine MPI_ReduceMax_int_0(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data
-    integer,intent(inout),optional :: recv
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm  !MPI communicator
+    integer,intent(inout)          :: data  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv  !receives the maximum on root if present
+    integer,intent(in),optional    :: root  !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2652,10 +2735,10 @@ contains
   end subroutine MPI_ReduceMax_int_0
   !
   subroutine MPI_ReduceMax_int_1(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:)
-    integer,intent(inout),optional :: recv(:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm     !MPI communicator
+    integer,intent(inout)          :: data(:)  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2673,10 +2756,10 @@ contains
   end subroutine MPI_ReduceMax_int_1
   !
   subroutine MPI_ReduceMax_int_2(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:)
-    integer,intent(inout),optional :: recv(:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm       !MPI communicator
+    integer,intent(inout)          :: data(:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2694,10 +2777,10 @@ contains
   end subroutine MPI_ReduceMax_int_2
   !
   subroutine MPI_ReduceMax_int_3(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm         !MPI communicator
+    integer,intent(inout)          :: data(:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2715,10 +2798,10 @@ contains
   end subroutine MPI_ReduceMax_int_3
   !
   subroutine MPI_ReduceMax_int_4(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm           !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2736,10 +2819,10 @@ contains
   end subroutine MPI_ReduceMax_int_4
   !
   subroutine MPI_ReduceMax_int_5(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm             !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2757,10 +2840,10 @@ contains
   end subroutine MPI_ReduceMax_int_5
   !
   subroutine MPI_ReduceMax_int_6(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm               !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2778,10 +2861,10 @@ contains
   end subroutine MPI_ReduceMax_int_6
   !
   subroutine MPI_ReduceMax_int_7(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                 !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2800,10 +2883,10 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_ReduceMax_int_8(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    integer,intent(inout)          :: data(:,:,:,:,:,:,:,:)
-    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                   !MPI communicator
+    integer,intent(inout)          :: data(:,:,:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    integer,intent(inout),optional :: recv(:,:,:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2823,10 +2906,10 @@ contains
 
   !REAL8
   subroutine MPI_ReduceMax_dble_0(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data
-    real(8),intent(inout),optional :: recv
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm  !MPI communicator
+    real(8),intent(inout)          :: data  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv  !receives the maximum on root if present
+    integer,intent(in),optional    :: root  !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2844,10 +2927,10 @@ contains
   end subroutine MPI_ReduceMax_dble_0
   !
   subroutine MPI_ReduceMax_dble_1(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:)
-    real(8),intent(inout),optional :: recv(:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm     !MPI communicator
+    real(8),intent(inout)          :: data(:)  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2865,10 +2948,10 @@ contains
   end subroutine MPI_ReduceMax_dble_1
   !
   subroutine MPI_ReduceMax_dble_2(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:)
-    real(8),intent(inout),optional :: recv(:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm       !MPI communicator
+    real(8),intent(inout)          :: data(:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2886,10 +2969,10 @@ contains
   end subroutine MPI_ReduceMax_dble_2
   !
   subroutine MPI_ReduceMax_dble_3(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm         !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2907,10 +2990,10 @@ contains
   end subroutine MPI_ReduceMax_dble_3
   !
   subroutine MPI_ReduceMax_dble_4(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm           !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2928,10 +3011,10 @@ contains
   end subroutine MPI_ReduceMax_dble_4
   !
   subroutine MPI_ReduceMax_dble_5(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm             !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2949,10 +3032,10 @@ contains
   end subroutine MPI_ReduceMax_dble_5
   !
   subroutine MPI_ReduceMax_dble_6(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm               !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2970,10 +3053,10 @@ contains
   end subroutine MPI_ReduceMax_dble_6
   !
   subroutine MPI_ReduceMax_dble_7(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                 !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -2992,10 +3075,10 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_ReduceMax_dble_8(comm,data,recv,root)
-    integer,intent(in)             :: comm
-    real(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)
-    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional    :: root
+    integer,intent(in)             :: comm                   !MPI communicator
+    real(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    real(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional    :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3017,10 +3100,10 @@ contains
 
   !CMPLX8
   subroutine MPI_ReduceMax_cmplx_0(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data
-    complex(8),intent(inout),optional :: recv
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm  !MPI communicator
+    complex(8),intent(inout)          :: data  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv  !receives the maximum on root if present
+    integer,intent(in),optional       :: root  !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3038,10 +3121,10 @@ contains
   end subroutine MPI_ReduceMax_cmplx_0
   !
   subroutine MPI_ReduceMax_cmplx_1(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:)
-    complex(8),intent(inout),optional :: recv(:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm     !MPI communicator
+    complex(8),intent(inout)          :: data(:)  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:)  !receives the maximum on root if present
+    integer,intent(in),optional       :: root     !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3059,10 +3142,10 @@ contains
   end subroutine MPI_ReduceMax_cmplx_1
   !
   subroutine MPI_ReduceMax_cmplx_2(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:)
-    complex(8),intent(inout),optional :: recv(:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm       !MPI communicator
+    complex(8),intent(inout)          :: data(:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:)  !receives the maximum on root if present
+    integer,intent(in),optional       :: root       !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3080,10 +3163,10 @@ contains
   end subroutine MPI_ReduceMax_cmplx_2
   !
   subroutine MPI_ReduceMax_cmplx_3(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm         !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional       :: root         !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3101,10 +3184,10 @@ contains
   end subroutine MPI_ReduceMax_cmplx_3
   !
   subroutine MPI_ReduceMax_cmplx_4(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm           !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional       :: root           !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3122,10 +3205,10 @@ contains
   end subroutine MPI_ReduceMax_cmplx_4
   !
   subroutine MPI_ReduceMax_cmplx_5(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm             !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional       :: root             !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3143,10 +3226,10 @@ contains
   end subroutine MPI_ReduceMax_cmplx_5
   !
   subroutine MPI_ReduceMax_cmplx_6(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm               !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional       :: root               !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3164,10 +3247,10 @@ contains
   end subroutine MPI_ReduceMax_cmplx_6
   !
   subroutine MPI_ReduceMax_cmplx_7(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm                 !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional       :: root                 !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3186,10 +3269,10 @@ contains
   !
 #if defined __GFORTRAN__ &&  __GNUC__ > 8
   subroutine MPI_ReduceMax_cmplx_8(comm,data,recv,root)
-    integer,intent(in)                :: comm
-    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)
-    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)
-    integer,intent(in),optional       :: root
+    integer,intent(in)                :: comm                   !MPI communicator
+    complex(8),intent(inout)          :: data(:,:,:,:,:,:,:,:)  !data to maximize (overwritten on rank 0 if no recv)
+    complex(8),intent(inout),optional :: recv(:,:,:,:,:,:,:,:)  !receives the maximum on root if present
+    integer,intent(in),optional       :: root                   !rank of the root process (default 0)
     root_=0;if(present(root))root_=root
     if(comm==MPI_COMM_NULL)return
     master=Get_master_MPI(comm)
@@ -3238,8 +3321,13 @@ contains
 # define STR_ERR_REQUEST   'illegal mpi_request handle in mpi call.'
 # define STR_ERR_LASTCODE  'last error code in mpi call.'
   subroutine Error_MPI(err,sub)
-    integer,optional,intent(in)          :: err
-    character(len=*),optional,intent(in) :: sub
+    !This subroutine prints on the standard output the message associated to the MPI error code :f:var:`err`, preceded by the
+    !label :f:var:`sub`. The default code is the one stored by the module after the last MPI call, and the default label is
+    !:code:`MPI_Get_Error:`. Nothing is printed for :code:`MPI_SUCCESS` or for an unrecognized code, and the program is never
+    !stopped.
+    !
+    integer,optional,intent(in)          :: err  !MPI error code (default: the last code stored by the module)
+    character(len=*),optional,intent(in) :: sub  !label of the calling routine, printed before the message
     integer                              :: err_
     character(len=128)                   :: sub_
     err_=ierr            ; if(present(err))err_=err
@@ -3342,15 +3430,21 @@ contains
   !              MPI START/STOP
   !****************************************
   subroutine Init_MPI()
+    !This is the serial version, used when compiling without :code:`_MPI`. The subroutine does nothing.
+    !
     return
   end subroutine Init_MPI
 
   subroutine Finalize_MPI()
+    !This is the serial version, used when compiling without :code:`_MPI`. The subroutine does nothing.
+    !
     return
   end subroutine Finalize_MPI
 
   subroutine StartMsg_MPI(comm)
-    integer :: comm
+    !This is the serial version, used when compiling without :code:`_MPI`. The subroutine does nothing.
+    !
+    integer :: comm  !MPI communicator, not used in the serial version
     return
   end subroutine StartMsg_MPI
 
@@ -3360,30 +3454,41 @@ contains
   !              MPI TOOLS
   !****************************************
   function Check_MPI() result(bool)
+    !This is the serial version, used when compiling without :code:`_MPI`. The function always returns :code:`.false.`, as MPI
+    !is never initialized.
+    !
     logical :: bool
     bool=.false.
   end function Check_MPI
 
   function Get_size_MPI(comm) result(size)
-    integer :: comm
+    !This is the serial version, used when compiling without :code:`_MPI`. The function always returns 1.
+    !
+    integer :: comm  !MPI communicator, not used in the serial version
     integer :: size
     size=1
   end function Get_size_MPI
 
   function Get_rank_MPI(comm) result(rank)
-    integer :: comm
+    !This is the serial version, used when compiling without :code:`_MPI`. The function always returns 0.
+    !
+    integer :: comm  !MPI communicator, not used in the serial version
     integer :: rank
     rank=0
   end function Get_rank_MPI
 
   function Get_master_MPI(comm) result(master)
-    integer :: comm
+    !This is the serial version, used when compiling without :code:`_MPI`. The function always returns :code:`.true.`.
+    !
+    integer :: comm  !MPI communicator, not used in the serial version
     logical :: master
     master=.true.
   end function Get_master_MPI
 
   function Get_last_MPI(comm) result(last)
-    integer :: comm
+    !This is the serial version, used when compiling without :code:`_MPI`. The function always returns :code:`.true.`.
+    !
+    integer :: comm  !MPI communicator, not used in the serial version
     logical :: last
     last=.true.
   end function Get_last_MPI

@@ -2,9 +2,13 @@
 ! Initialization subroutine                                     !
 !---------------------------------------------------------------!
 subroutine sgrnd(seed)
+  !This subroutine initializes the state of the Mersenne Twister generator with the congruential generator of Knuth
+  !(multiplier 69069). It is used by :f:func_inline:`grnd` with the default seed 4357 if the generator has not been
+  !initialized.
+  !
   ! Setting initial seeds to mt[N] using the generator Line 25 of Table 1 in
   ! [KNUTH 1981, The Art of Computer Programming Vol. 2 (2nd Ed.), pp102]
-  integer,intent(in) :: seed    
+  integer,intent(in) :: seed  ! seed of the generator
   mt(0) = iand(seed,-1)
   do mti=1,N-1
      mt(mti) = iand(69069 * mt(mti-1),-1)
@@ -16,7 +20,7 @@ subroutine init_genrand(seed)
   ! This initialization is based upon the multiplier given on p.106 of the
   ! 3rd edition of Knuth, The Art of Computer Programming Vol. 2.
   ! This version assumes that integer overflow does NOT cause a crash.
-  integer,intent(in) :: seed !
+  integer,intent(in) :: seed  ! seed of the generator
   integer             :: latest
   mt(0) = seed
   latest = seed
@@ -36,7 +40,7 @@ end subroutine init_genrand
 ! Random number generator: [0,1[                                !
 !---------------------------------------------------------------!
 function grnd()
-  real(8)            :: grnd    
+  real(8)            :: grnd  ! random number in [0,1]
   integer,parameter :: M = 397, MATA  = -1727483681 ! constant vector a
   integer,parameter :: LMASK =  2147483647          ! least significant r bits
   integer,parameter :: UMASK = -LMASK - 1           ! most significant w-r bits
@@ -104,7 +108,7 @@ end function grnd
 
 
 subroutine d_grnd_1(A)
-  real(8),dimension(:) :: A
+  real(8),dimension(:) :: A  ! real(8) array of rank 1, filled with random numbers
   integer              :: i
   do i=1,size(A)
      A(i) = mersenne()
@@ -112,7 +116,7 @@ subroutine d_grnd_1(A)
 end subroutine d_grnd_1
 
 subroutine d_grnd_2(A)
-  real(8),dimension(:,:) :: A
+  real(8),dimension(:,:) :: A  ! real(8) array of rank 2, filled with random numbers
   integer              :: i1,i2
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -122,7 +126,7 @@ subroutine d_grnd_2(A)
 end subroutine d_grnd_2
 
 subroutine d_grnd_3(A)
-  real(8),dimension(:,:,:) :: A
+  real(8),dimension(:,:,:) :: A  ! real(8) array of rank 3, filled with random numbers
   integer                  :: i1,i2,i3
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -134,7 +138,7 @@ subroutine d_grnd_3(A)
 end subroutine d_grnd_3
 
 subroutine d_grnd_4(A)
-  real(8),dimension(:,:,:,:) :: A
+  real(8),dimension(:,:,:,:) :: A  ! real(8) array of rank 4, filled with random numbers
   integer                  :: i1,i2,i3,i4
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -148,7 +152,7 @@ subroutine d_grnd_4(A)
 end subroutine d_grnd_4
 
 subroutine d_grnd_5(A)
-  real(8),dimension(:,:,:,:,:) :: A
+  real(8),dimension(:,:,:,:,:) :: A  ! real(8) array of rank 5, filled with random numbers
   integer                  :: i1,i2,i3,i4,i5
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -164,7 +168,7 @@ subroutine d_grnd_5(A)
 end subroutine d_grnd_5
 
 subroutine d_grnd_6(A)
-  real(8),dimension(:,:,:,:,:,:) :: A
+  real(8),dimension(:,:,:,:,:,:) :: A  ! real(8) array of rank 6, filled with random numbers
   integer                  :: i1,i2,i3,i4,i5,i6
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -183,7 +187,7 @@ end subroutine d_grnd_6
 
 
 subroutine d_grnd_7(A)
-  real(8),dimension(:,:,:,:,:,:,:) :: A
+  real(8),dimension(:,:,:,:,:,:,:) :: A  ! real(8) array of rank 7, filled with random numbers
   integer                  :: i1,i2,i3,i4,i5,i6,i7
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -212,7 +216,7 @@ end subroutine d_grnd_7
 
 
 subroutine c_grnd_1(A)
-  complex(8),dimension(:) :: A
+  complex(8),dimension(:) :: A  ! complex(8) array of rank 1, filled with random numbers
   integer                 :: i
   do i=1,size(A)
      A(i) = dcmplx(mersenne(),mersenne())
@@ -220,7 +224,7 @@ subroutine c_grnd_1(A)
 end subroutine c_grnd_1
 
 subroutine c_grnd_2(A)
-  complex(8),dimension(:,:) :: A
+  complex(8),dimension(:,:) :: A  ! complex(8) array of rank 2, filled with random numbers
   integer                   :: i1,i2
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -230,7 +234,7 @@ subroutine c_grnd_2(A)
 end subroutine c_grnd_2
 
 subroutine c_grnd_3(A)
-  complex(8),dimension(:,:,:) :: A
+  complex(8),dimension(:,:,:) :: A  ! complex(8) array of rank 3, filled with random numbers
   integer                     :: i1,i2,i3
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -242,7 +246,7 @@ subroutine c_grnd_3(A)
 end subroutine c_grnd_3
 
 subroutine c_grnd_4(A)
-  complex(8),dimension(:,:,:,:) :: A
+  complex(8),dimension(:,:,:,:) :: A  ! complex(8) array of rank 4, filled with random numbers
   integer                       :: i1,i2,i3,i4
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -256,7 +260,7 @@ subroutine c_grnd_4(A)
 end subroutine c_grnd_4
 
 subroutine c_grnd_5(A)
-  complex(8),dimension(:,:,:,:,:) :: A
+  complex(8),dimension(:,:,:,:,:) :: A  ! complex(8) array of rank 5, filled with random numbers
   integer                         :: i1,i2,i3,i4,i5
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -272,7 +276,7 @@ subroutine c_grnd_5(A)
 end subroutine c_grnd_5
 
 subroutine c_grnd_6(A)
-  complex(8),dimension(:,:,:,:,:,:) :: A
+  complex(8),dimension(:,:,:,:,:,:) :: A  ! complex(8) array of rank 6, filled with random numbers
   integer                           :: i1,i2,i3,i4,i5,i6
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -291,7 +295,7 @@ end subroutine c_grnd_6
 
 
 subroutine c_grnd_7(A)
-  complex(8),dimension(:,:,:,:,:,:,:) :: A
+  complex(8),dimension(:,:,:,:,:,:,:) :: A  ! complex(8) array of rank 7, filled with random numbers
   integer                             :: i1,i2,i3,i4,i5,i6,i7
   do i1=1,size(A,1)
      do i2=1,size(A,2)
@@ -325,7 +329,8 @@ end subroutine c_grnd_7
 ! A.Kuronen, 2009                                               !
 !---------------------------------------------------------------!
 integer function igrnd(l,h)
-  integer,intent(in) :: l,h
+  integer,intent(in) :: l  ! lower bound, included
+  integer,intent(in) :: h  ! upper bound, included
   real(8)            :: u,r
   u=grnd()
   r=(h-l+1)*u+l
@@ -335,7 +340,9 @@ end function igrnd
 
 
 function dgrnd_uniform(a,b) result(c)
-  real(8) :: a,b,c
+  real(8) :: a  ! lower bound
+  real(8) :: b  ! upper bound
+  real(8) :: c  ! random number in [a,b]
   c = a + (b-a)*mersenne()
 end function dgrnd_uniform
 
@@ -352,7 +359,7 @@ end function dgrnd_uniform
 ! A.Kuronen, 2009                                               !
 !---------------------------------------------------------------!  
 function gaussrnd()
-  real(8)       :: gaussrnd
+  real(8)       :: gaussrnd  ! standard normal deviate
   real(8)       :: fac,v1,v2,r
   real(8),save :: gset
   integer,save :: iset=0
@@ -378,7 +385,10 @@ end function gaussrnd
 ! Random Sample from normal (Gaussian) distribution
 !
 function normalrnd(mean,stdev) result(c)
-  real(8)           :: mean,stdev,c,r,theta
+  real(8)           :: r,theta
+  real(8)           :: mean   ! mean
+  real(8)           :: stdev  ! standard deviation, positive
+  real(8)           :: c      ! normal deviate
   real(8),parameter :: pi=acos(-1d0)
   if(stdev <= 0d0) then
      Write(*,*) "NORMALRND: Standard Deviation must be +ve"
@@ -395,7 +405,8 @@ end function normalrnd
 !  Random smaple from an exponential distribution 
 !
 function exponentialrnd(mean) result(c)
-  real(8) :: mean,c
+  real(8) :: mean  ! mean of the distribution, positive
+  real(8) :: c     ! exponential deviate
   if (mean <= 0d0) then
      write(*,*) "EXPONENTIALRND: mean must be positive"
   else
@@ -408,7 +419,10 @@ end function exponentialrnd
 !  Return a random sample from a gamma distribution
 !
 recursive function gammarnd(shape,scale) result(ans)
-  real(8) ::  shape,scale,u,w,d,c,x,xsq,g,v,ans
+  real(8) :: u,w,d,c,x,xsq,g,v
+  real(8) :: shape  ! shape parameter, positive
+  real(8) :: scale  ! scale parameter, positive
+  real(8) :: ans    ! gamma deviate, mean shape*scale
   if (shape <= 0d0) then
      write(*,*) "GAMMARND: Shape parameter must be positive"
   end if
@@ -451,7 +465,8 @@ end function gammarnd
 ! ## with the specified degrees of freedom
 !
 function chi_squarernd(dof) result(ans)
-  real(8) :: ans,dof
+  real(8) :: ans  ! chi-square deviate
+  real(8) :: dof  ! degrees of freedom
   ans=gammarnd(0.5d0,2d0*dof)
 end function chi_squarernd
 
@@ -460,7 +475,9 @@ end function chi_squarernd
 ! ## return a random sample from an inverse gamma random variable
 !
 function inverse_gammarnd(shape,scale) result(ans)
-  real(8) :: shape,scale,ans
+  real(8) :: shape  ! shape parameter, positive
+  real(8) :: scale  ! scale parameter, positive
+  real(8) :: ans    ! inverse gamma deviate
   ! If X is gamma(shape, scale) then
   ! 1/Y is inverse gamma(shape, 1/scale)
   ans= 1d0/gammarnd(shape,1d0/scale)
@@ -471,7 +488,10 @@ end function inverse_gammarnd
 !## return a sample from a Weibull distribution
 !
 function weibullrnd(shape,scale) result(ans)
-  real(8) :: shape,scale,temp,ans
+  real(8) :: temp
+  real(8) :: shape  ! shape parameter, positive
+  real(8) :: scale  ! scale parameter, positive
+  real(8) :: ans    ! Weibull deviate
   if (shape <= 0d0) then
      write(*,*) "WEIBULLRND: Shape parameter must be positive"
   end if
@@ -484,7 +504,10 @@ end function weibullrnd
 !## return a random sample from a Cauchy distribution
 !
 function cauchyrnd(median,scale) result(ans)
-  real(8) :: ans,median,scale,p
+  real(8) :: p
+  real(8) :: ans     ! Cauchy deviate
+  real(8) :: median  ! median of the distribution
+  real(8) :: scale   ! scale parameter, positive
   if (scale <= 0d0) then
      write(*,*) "CAUCHYRND: Scale parameter must be positive"
   end if
@@ -495,7 +518,9 @@ end function cauchyrnd
 !## return a random sample from a Student t distribution
 !
 function student_trnd(dof) result(ans)
-  real(8) :: ans,dof,y1,y2
+  real(8) :: y1,y2
+  real(8) :: ans  ! Student t deviate
+  real(8) :: dof  ! degrees of freedom, positive
   if (dof <= 0.d0) then
      write(*,*) "STUDENT_TRND: Degrees of freedom must be positive"
   end if
@@ -512,7 +537,10 @@ end function student_trnd
 !## The Laplace distribution is also known as the double exponential distribution.
 !
 function laplacernd(mean,scale)  result(ans)
-  real(8) :: ans,mean,scale,u
+  real(8) :: u
+  real(8) :: ans    ! Laplace deviate
+  real(8) :: mean   ! mean of the distribution
+  real(8) :: scale  ! scale parameter, positive
   if (scale <= 0d0) then
      write(*,*) "LAPLACERND: Scale parameter must be positive"
   end if
@@ -529,7 +557,9 @@ end function laplacernd
 ! ## return a random sample from a log-normal distribution
 !
 function log_normalrnd(mu,sigma) result(ans)
-  real(8) :: ans,mu,sigma
+  real(8) :: ans    ! log-normal deviate
+  real(8) :: mu     ! mean of the logarithm of the variable
+  real(8) :: sigma  ! standard deviation of the logarithm
   ans= exp(normalrnd(mu,sigma))
 end function log_normalrnd
 
@@ -537,7 +567,10 @@ end function log_normalrnd
 ! ## return a random sample from a beta distribution
 !
 function betarnd(a,b) result(ans)
-  real(8) :: a,b,ans,u,v
+  real(8) :: u,v
+  real(8) :: a    ! first shape parameter, positive
+  real(8) :: b    ! second shape parameter, positive
+  real(8) :: ans  ! beta deviate, in [0,1]
   if ((a <= 0d0) .or. (b <= 0d0)) then
      write(*,*) "BETARND: Beta parameters must be positive"
   end if
@@ -563,8 +596,8 @@ end function betarnd
 !---------------------------------------------------------------!
 subroutine mtsavef( fname,forma )
   !NOTE: This subroutine APPENDS to the end of the file "fname".
-  character(*),intent(in) :: fname
-  character,intent(in)    :: forma
+  character(*),intent(in) :: fname  ! name of the file, the state is appended
+  character,intent(in)    :: forma  ! 'u' or 'U': unformatted, otherwise formatted
   select case (forma)
   case('u','U')
      open(unit=10,file=trim(fname),status='UNKNOWN',form='UNFORMATTED',position='APPEND')
@@ -580,8 +613,8 @@ subroutine mtsavef( fname,forma )
 end subroutine mtsavef
 
 subroutine mtsaveu(unum,forma)
-  integer,intent(in)    :: unum
-  character,intent(in)  :: forma
+  integer,intent(in)    :: unum   ! open unit where the state is written
+  character,intent(in)  :: forma  ! 'u' or 'U': unformatted, otherwise formatted
   select case (forma)
   case('u','U')
      write(unum) mti
@@ -605,8 +638,8 @@ end subroutine mtsaveu
 !          be read in formatted form.                           !
 !---------------------------------------------------------------!
 subroutine mtgetf(fname,forma)
-  character(*),intent(in) :: fname
-  character,intent(in)    :: forma
+  character(*),intent(in) :: fname  ! name of the file, must exist
+  character,intent(in)    :: forma  ! 'u' or 'U': unformatted, otherwise formatted
   select case (forma)
   case('u','U')
      open(unit=10,file=trim(fname),status='OLD',form='UNFORMATTED')
@@ -622,8 +655,8 @@ subroutine mtgetf(fname,forma)
 end subroutine mtgetf
 
 subroutine mtgetu(unum,forma)
-  integer,intent(in)    :: unum
-  character,intent(in)  :: forma
+  integer,intent(in)    :: unum   ! open unit from which the state is read
+  character,intent(in)  :: forma  ! 'u' or 'U': unformatted, otherwise formatted
   select case (forma)
   case('u','U')
      read(unum) mti

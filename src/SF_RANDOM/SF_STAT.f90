@@ -125,6 +125,10 @@ MODULE SF_STAT
 
 
   interface pdf_get_sigma
+     !Generic interface, not public, to get the width of the Gaussian kernel stored in a pdf object: the standard deviation in
+     !one dimension (:f:func_inline:`pdf_get_sigma_1d`), the covariance matrix in two dimensions
+     !(:f:func_inline:`pdf_get_sigma_2d`). The program stops if the object is not allocated.
+     !
      module procedure :: pdf_get_sigma_1d
      module procedure :: pdf_get_sigma_2d
   end interface pdf_get_sigma
@@ -190,6 +194,8 @@ MODULE SF_STAT
   end interface pdf_print
 
   interface pdf_write
+     !Generic interface, not public, same as :f:func_inline:`pdf_print`.
+     !
      module procedure :: pdf_print_pfile_1d
      module procedure :: pdf_print_pfile_2d
   end interface pdf_write

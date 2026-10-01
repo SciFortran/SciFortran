@@ -95,8 +95,8 @@ end subroutine pdf_push_sigma_1d
 
 
 subroutine pdf_get_sigma_1d(self,sigma)
-  type(pdf_kernel) :: self    
-  real(8)          :: sigma
+  type(pdf_kernel) :: self   ! pdf object
+  real(8)          :: sigma  ! width of the Gaussian kernel stored in self
   if(.not.self%status)stop "PDF_SET_SIGMA: PDF not allocated"
   sigma = self%sigma
 end subroutine pdf_get_sigma_1d
@@ -172,8 +172,13 @@ end subroutine pdf_accumulate_v_1d
 
 
 elemental function gaussian_kernel_1d(x,mean,sigma) result(gaussian_kernel)
-  real(8),intent(in) :: x,mean,sigma
-  real(8)            :: gaussian_kernel
+  !This function returns the Gaussian kernel :math:`e^{-(x-m)^2/2\sigma^2}/\sqrt{2\pi}\sigma` with mean :f:var:`mean` and
+  !standard deviation :f:var:`sigma`, evaluated at :f:var:`x`. It is elemental.
+  !
+  real(8),intent(in) :: x                ! point where the kernel is evaluated
+  real(8),intent(in) :: mean             ! center of the kernel
+  real(8),intent(in) :: sigma            ! standard deviation of the kernel
+  real(8)            :: gaussian_kernel  ! value of the kernel
   real(8),parameter  :: pi2=2d0*acos(-1d0)
   gaussian_kernel=exp(-0.5d0*((x-mean)/sigma)**2)/sqrt(pi2)/sigma
 end function gaussian_kernel_1d
