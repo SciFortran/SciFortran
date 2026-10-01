@@ -1,6 +1,6 @@
 subroutine pdf_allocate_2d(self,Nvec)
-  type(pdf_kernel_2d) :: self
-  integer             :: Nvec(2)
+  type(pdf_kernel_2d) :: self     ! pdf object, not allocated
+  integer             :: Nvec(2)  ! number of grid points along x and y
   if(self%status)stop "PDF_ALLOCATE: PDF already allocated"
   self%N     = Nvec
   self%Ndata = 0
@@ -13,7 +13,7 @@ subroutine pdf_allocate_2d(self,Nvec)
 end subroutine pdf_allocate_2d
 
 subroutine pdf_deallocate_2d(self)
-  type(pdf_kernel_2d) :: self
+  type(pdf_kernel_2d) :: self  ! pdf object
   if(.not.self%status)stop "PDF_DEALLOCATE: PDF not allocated"
   self%xmin = 0d0
   self%xmax = 0d0
@@ -29,8 +29,8 @@ end subroutine pdf_deallocate_2d
 
 
 subroutine pdf_save_2d(self,pfile)
-  type(pdf_kernel_2d) :: self    
-  character(len=*) :: pfile
+  type(pdf_kernel_2d) :: self  ! pdf object
+  character(len=*) :: pfile    ! name of the output file
   integer          :: i,unit
   if(.not.self%status)stop "PDF_SAVE: PDF not allocated"
   open(free_unit(unit),file=trim(pfile))
@@ -51,8 +51,8 @@ end subroutine pdf_save_2d
 
 
 subroutine pdf_read_2d(self,pfile)
-  type(pdf_kernel_2d) :: self    
-  character(len=*) :: pfile
+  type(pdf_kernel_2d) :: self  ! pdf object, not allocated; allocated and set on output
+  character(len=*) :: pfile    ! name of the file written by pdf_save
   integer          :: i,N1,N2,unit
   if(.not.self%status)then
      print*,"PDF_READ: PDF not allocated"
@@ -77,9 +77,9 @@ end subroutine pdf_read_2d
 
 
 subroutine pdf_set_range_2d(self,a,b)
-  type(pdf_kernel_2d) :: self
-  real(8)             :: a(2)
-  real(8)             :: b(2)
+  type(pdf_kernel_2d) :: self  ! pdf object
+  real(8)             :: a(2)  ! lower bounds of the grid, (x,y)
+  real(8)             :: b(2)  ! upper bounds of the grid, (x,y)
   if(.not.self%status)stop "PDF_SET_RANGE: PDF not allocated"
   self%xmin=a
   self%xmax=b
@@ -91,8 +91,8 @@ end subroutine pdf_set_range_2d
 
 
 subroutine pdf_push_sigma_2d(self,sigma)
-  type(pdf_kernel_2d) :: self    
-  real(8)             :: sigma(2,2)
+  type(pdf_kernel_2d) :: self        ! pdf object
+  real(8)             :: sigma(2,2)  ! covariance matrix of the Gaussian kernel
   if(.not.self%status)stop "PDF_PUSH_SIGMA: PDF not allocated"
   self%sigma = sigma
   self%variance=.true.
@@ -112,9 +112,9 @@ end subroutine pdf_get_sigma_2d
 
 
 subroutine pdf_sigma_data_2d(self,data,h)
-  type(pdf_kernel_2d)    :: self
-  real(8),dimension(:,:) :: data
-  real(8)                :: h(2,2)
+  type(pdf_kernel_2d)    :: self    ! pdf object
+  real(8),dimension(:,:) :: data    ! sample of data, [2,L]
+  real(8)                :: h(2,2)  ! covariance matrix of the kernel, Silverman rule
   integer                :: L
   if(.not.self%status)stop "PDF_=SIGMA: PDF not allocated"
   L = size(data,2)
@@ -127,10 +127,10 @@ subroutine pdf_sigma_data_2d(self,data,h)
 end subroutine pdf_sigma_data_2d
 
 subroutine pdf_sigma_sdev_2d(self,sdev,Nvec,h)
-  type(pdf_kernel_2d) :: self    
-  real(8)             :: sdev(2)
-  integer             :: Nvec(2)
-  real(8)             :: h(2,2)
+  type(pdf_kernel_2d) :: self     ! pdf object
+  real(8)             :: sdev(2)  ! standard deviations of the data, (x,y)
+  integer             :: Nvec(2)  ! number of data, (x,y)
+  real(8)             :: h(2,2)   ! covariance matrix of the kernel, Silverman rule
   if(.not.self%status)stop "PDF_SET_SIGMA: PDF not allocated"
   h      = 0d0
   h(1,1) = (1d0/Nvec(1))**(2/6d0)*sdev(1)**2 !Silverman's rule of thumb.
@@ -141,9 +141,9 @@ end subroutine pdf_sigma_sdev_2d
 
 
 subroutine pdf_accumulate_s_2d(self,data,sigma)
-  type(pdf_kernel_2d) :: self
-  real(8)             :: data(2)
-  real(8),optional    :: sigma(2,2)
+  type(pdf_kernel_2d) :: self        ! pdf object
+  real(8)             :: data(2)     ! data point (x,y)
+  real(8),optional    :: sigma(2,2)  ! optional: kernel covariance matrix, if not stored in self
   real(8)             :: sigma_(2,2)
   integer             :: i,j
   if(.not.self%status)stop "PDF_ACCUMULATE: PDF not allocated"
@@ -195,7 +195,7 @@ end function gaussian_kernel_2d
 
 
 subroutine pdf_normalize_2d(self)
-  type(pdf_kernel_2d) :: self
+  type(pdf_kernel_2d) :: self  ! pdf object
   if(.not.self%status)stop "PDF_NORMALIZE: PDF not allocated"
   if(.not.self%rescale)self%pdf = self%pdf/self%Ndata
   self%rescale = .true.
@@ -205,9 +205,9 @@ end subroutine pdf_normalize_2d
 
 
 subroutine pdf_print_pfile_2d(self,pfile,normalize)
-  type(pdf_kernel_2d) :: self    
-  character(len=*)    :: pfile
-  logical,optional    :: normalize
+  type(pdf_kernel_2d) :: self       ! pdf object
+  character(len=*)    :: pfile      ! name of the output file
+  logical,optional    :: normalize  ! optional: normalize first, default .true.
   logical             :: normalize_
   integer             :: i,unit
   if(.not.self%status)stop "PDF_WRITE: PDF not allocated"
