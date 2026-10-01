@@ -1,24 +1,25 @@
 subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,iverbose,vrandom,iexit,NumOp,Niter)
   !Arguments
-  integer                   :: MpiComm
+  integer                   :: MpiComm           !MPI communicator
   !Interface to Matrix-Vector routine:
   interface
-     subroutine MatVec(nchunk,vin,vout)
+     subroutine MatVec(nchunk,vin,vout)          !vout=H*vin on vectors of size Nloc (local chunk if MPI)
        integer                   :: nchunk
        real(8),dimension(nchunk) :: vin,vout
      end subroutine MatVec
   end interface
   !Arguments
-  real(8)                   :: eval(:)![Neigen]
-  real(8)                   :: evec(:,:)![Ns,Neigen]
-  integer,optional          :: Nblock
-  integer,optional          :: Nitermax
-  ! character(len=2),optional :: which
-  real(8),optional          :: v0(size(evec,1))
-  real(8),optional          :: tol
-  logical,optional          :: iverbose
-  logical,optional          :: vrandom
-  integer,optional          :: iexit,NumOp,Niter
+  real(8)                   :: eval(:)           !lowest eigenvalues in ascending order: [Neigen]
+  real(8)                   :: evec(:,:)         !eigenvectors, evec(:,j) for eval(j): [Ns,Neigen], Ns local chunk if MPI
+  integer,optional          :: Nblock            !number of Lanczos vectors, NCV (default 10*Neigen, at least Neigen+2)
+  integer,optional          :: Nitermax          !maximum number of Arnoldi iterations (default 512)
+  real(8),optional          :: v0(size(evec,1))  !starting vector, local chunk if MPI (default: random)
+  real(8),optional          :: tol               !relative accuracy of the Ritz values (default 0: machine precision)
+  logical,optional          :: iverbose          !if T print ARPACK debug and info messages (default F)
+  logical,optional          :: vrandom           !if T (default) random starting vector, else constant, if v0 is absent
+  integer,optional          :: iexit             !ARPACK exit status (0: success)
+  integer,optional          :: NumOp             !number of matrix-vector products
+  integer,optional          :: Niter             !number of iterations
   !Dimensions:
   integer                   :: Ns,Dim
   integer                   :: Neigen
@@ -39,11 +40,12 @@ subroutine lanczos_parpack_d(MpiComm,MatVec,eval,evec,Nblock,Nitermax,v0,tol,ive
   integer                   :: i
   real(8)                   :: sigma,norm,norm_tmp
   real(8)                   :: tol_
-  character                 :: bmat  
+  character                 :: bmat              !'I' standard (default) or 'G' generalized eigenproblem
   character(len=2)          :: which_
   real(8),external          :: dnrm2
   !MPI
   logical                   :: mpi_master
+  ! character(len=2),optional :: which
   !
   integer ::  logfil, ndigit, mgetv0,&
        msaupd, msaup2, msaitr, mseigt, msapps, msgets, mseupd,&

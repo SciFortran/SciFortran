@@ -14,6 +14,25 @@ module SF_SP_LINALG
   
 
   interface sp_eigh
+  !This subroutine computes the lowest :code:`Neigen=size(eval)` eigenpairs of a large sparse real symmetric
+  !(:f:func_inline:`lanczos_arpack_d`) or complex hermitian (:f:func_inline:`lanczos_arpack_c`) matrix :math:`H`, which is
+  !defined only through its action on a vector, :code:`vout = H*vin`, by the user routine :f:var:`MatVec`. It uses the
+  !implicitly restarted Lanczos method of the ARPACK library, :code:`dsaupd` + :code:`dseupd` (real) and :code:`znaupd` +
+  !:code:`zneupd` (complex), selecting the smallest algebraic eigenvalues (smallest real part in the complex case).
+  !
+  !The eigenvalues are returned in :f:var:`eval` in ascending order, and the eigenvectors in the columns of :f:var:`evec`, which
+  !has shape :code:`[Ns,Neigen]`, :code:`evec(:,j)` being associated to :code:`eval(j)`. The eigenvalues are real also for
+  !complex hermitian matrices. The starting vector is :f:var:`v0` if present, otherwise a random vector (a constant one if
+  !:f:var:`vrandom` is false), and it is normalized. The optional arguments :f:var:`iexit`, :f:var:`NumOp` and :f:var:`Niter`
+  !return the ARPACK exit status, the number of matrix-vector products and the number of iterations. The program stops if
+  !:f:var:`bmat` is neither :code:`'I'` nor :code:`'G'`, or if the post-processing ARPACK routine returns an error code.
+  !
+  !The parallel versions :f:func_inline:`lanczos_parpack_d` and :f:func_inline:`lanczos_parpack_c` use PARPACK (:code:`pdsaupd`,
+  !:code:`pdseupd`, :code:`pznaupd`, :code:`pzneupd`) and are available only when compiling with :code:`_MPI`. They take the MPI
+  !communicator :f:var:`MpiComm` as first argument, and do not have the argument :f:var:`bmat`. The vectors are distributed over
+  !the processes in chunks: :f:var:`MatVec` acts on the local chunk of size :code:`nchunk`, :f:var:`v0` and :f:var:`evec` hold
+  !the local chunk, and the eigenvalues are the same on all the processes. Nothing is done if :f:var:`MpiComm` is
+  !:code:`MPI_COMM_NULL`.
      module procedure :: lanczos_arpack_d
      module procedure :: lanczos_arpack_c
 #ifdef _MPI
@@ -24,6 +43,28 @@ module SF_SP_LINALG
 
 
   interface sp_lanc_eigh
+  !This subroutine computes the lowest eigenvalue :f:var:`Egs` and the corresponding eigenvector :f:var:`Vect` of a large sparse
+  !real symmetric (:f:func_inline:`lanczos_eigh_d`) or complex hermitian (:f:func_inline:`lanczos_eigh_c`) matrix :math:`H`,
+  !defined only through its action on a vector, :code:`vout = H*vin`, by the user routine :f:var:`MatVec`. It uses the plain
+  !Lanczos method, without re-orthogonalization.
+  !
+  !The tridiagonal matrix is diagonalized with :f:func_inline:`eigh` at each iteration, and the iterations stop when the Lanczos
+  !coefficient b falls below :f:var:`threshold`, or when the change of the lowest eigenvalue between two consecutive iterations
+  !falls below :f:var:`threshold`, a test that starts after :f:var:`ncheck` iterations, or at :f:var:`Nitermax` iterations. The
+  !eigenvector is then rebuilt with a second Lanczos pass, so the number of matrix-vector products, returned in :f:var:`NumOp`,
+  !is about twice the number of iterations. On input :f:var:`Vect` is the starting vector: if it is zero a random vector (a
+  !constant one if :f:var:`vrandom` is false) is generated. On output :f:var:`Vect` is the normalized eigenvector and
+  !:f:var:`Nitermax` is the number of iterations done. The eigenvalue is real also for complex hermitian matrices.
+  !
+  !The values of :f:var:`iverbose`, :f:var:`threshold`, :f:var:`ncheck` and :f:var:`vrandom` are stored in module variables and
+  !keep their value in the following calls, also those that do not pass them. The default values are false, :code:`1d-12`, 10
+  !and true.
+  !
+  !The parallel versions :f:func_inline:`mpi_lanczos_eigh_d` and :f:func_inline:`mpi_lanczos_eigh_c` are available only when
+  !compiling with :code:`_MPI`. They take the MPI communicator :f:var:`MpiComm` as first argument. The vectors are distributed
+  !over the processes in chunks: :f:var:`MatVec` acts on the local chunk of size :code:`Nloc` and :f:var:`Vect` holds the local
+  !chunk. The eigenvalue is the same on all the processes. Nothing is done if :f:var:`MpiComm` is :code:`MPI_COMM_NULL`.
+  !
      module procedure :: lanczos_eigh_d
      module procedure :: lanczos_eigh_c
 #ifdef _MPI
@@ -34,6 +75,24 @@ module SF_SP_LINALG
 
 
   interface sp_lanc_tridiag
+  !This subroutine tri-diagonalizes a large sparse real symmetric (:f:func_inline:`lanczos_tridiag_d`) or complex hermitian
+  !(:f:func_inline:`lanczos_tridiag_c`) matrix :math:`H`, defined only through its action on a vector, :code:`vout = H*vin`, by
+  !the user routine :f:var:`MatVec`. It applies the plain Lanczos iteration, without re-orthogonalization, starting from the
+  !non-zero vector :f:var:`vin`.
+  !
+  !The coefficients of the tridiagonal matrix are returned in :f:var:`alanc` (diagonal) and :f:var:`blanc` (off-diagonal), real
+  !also in the complex case, with :code:`blanc(i+1)` connecting the elements :code:`i` and :code:`i+1`, so that :code:`blanc(1)`
+  !is not set. The number of iterations is :code:`size(alanc)`, and the iteration stops earlier if the Lanczos coefficient b
+  !falls below :f:var:`threshold` (default :code:`1d-12`, stored in a module variable that keeps its value in the following
+  !calls), the remaining elements being left unchanged. In the serial versions :f:var:`vin` is overwritten: it is normalized and
+  !then advanced up to the last Lanczos vector. The program stops if the norm of :f:var:`vin` is zero.
+  !
+  !The parallel versions :f:func_inline:`mpi_lanczos_tridiag_d` and :f:func_inline:`mpi_lanczos_tridiag_c` are available only
+  !when compiling with :code:`_MPI`. They take the MPI communicator :f:var:`MpiComm` as first argument. The vectors are
+  !distributed over the processes in chunks: :f:var:`MatVec` acts on the local chunk and :f:var:`vin` holds the local chunk, and
+  !it is NOT modified. The coefficients are the same on all the processes. Nothing is done if :f:var:`MpiComm` is
+  !:code:`MPI_COMM_NULL`.
+  !
      module procedure :: lanczos_tridiag_d
      module procedure :: lanczos_tridiag_c
 #ifdef _MPI
@@ -44,6 +103,18 @@ module SF_SP_LINALG
 
 
   interface sp_dvdson_eigh
+  !This subroutine computes the lowest :code:`Neigen=size(eval)` eigenpairs of a large sparse real symmetric matrix :math:`H`,
+  !defined only through its action on a vector, :code:`vout = H*vin`, by the user routine :f:var:`MatVec`, using the Davidson
+  !method (routine :code:`DVDSON`). The eigenvalues are returned in :f:var:`eval` in ascending order, and the eigenvectors in
+  !the columns of :f:var:`evec`, which has shape :code:`[Ns,Neigen]`. The program stops if :f:var:`evec` does not have the shape
+  !:code:`[Ns,Neigen]`, or if the Davidson routine returns an error code.
+  !
+  !The first column of :f:var:`evec` on input is taken as the diagonal of :math:`H`, used by the method as preconditioner. If it
+  !is identically zero, the diagonal is computed by applying :f:var:`MatVec` to the :code:`Ns` unit vectors, which costs
+  !:code:`Ns` matrix-vector products. The size of the expanding basis is :code:`min(Neigen+40,Ns)`, the convergence thresholds
+  !on the residuals and on the coefficients are fixed at :code:`1d-15`, and :f:var:`Tol` sets the threshold on the eigenvalues.
+  !The method stops after :f:var:`Nitermax` iterations. Only the serial version is available.
+  !
      module procedure :: dvdson_eigh_d
   end interface sp_dvdson_eigh
 

@@ -3,19 +3,20 @@
 !---------------------------------------------------------------------
 subroutine lanczos_eigh_d(MatVec,Egs,Vect,Nitermax,iverbose,threshold,ncheck,vrandom,NumOp)
   interface
-     subroutine MatVec(Nloc,vin,vout)
+     subroutine MatVec(Nloc,vin,vout)                !vout=H*vin on vectors of size Nloc (local chunk if MPI)
        integer                 :: Nloc
        real(8),dimension(Nloc) :: vin
        real(8),dimension(Nloc) :: vout
      end subroutine MatVec
   end interface
-  real(8)                              :: egs
-  real(8),dimension(:)                 :: vect
-  integer                              :: Nitermax
-  real(8),optional                     :: threshold
-  integer,optional                     :: ncheck,NumOp
-  logical,optional                     :: iverbose
-  logical,optional                     :: vrandom
+  real(8)                              :: egs        !lowest eigenvalue
+  real(8),dimension(:)                 :: vect       !starting vector, local chunk if MPI; on output the eigenvector
+  integer                              :: Nitermax   !maximum number of iterations; on output the iterations done
+  real(8),optional                     :: threshold  !convergence threshold on the energy change and on b (default 1d-12)
+  integer,optional                     :: ncheck     !iterations done before the convergence test starts (default 10)
+  integer,optional                     :: NumOp      !number of matrix-vector products
+  logical,optional                     :: iverbose   !if T print the convergence information (default F)
+  logical,optional                     :: vrandom    !if T (default) random start vector when vect is 0, else constant
   !
   real(8),dimension(size(vect))        :: vin,vout
   integer                              :: iter,nlanc,nhxv
@@ -125,20 +126,20 @@ end subroutine lanczos_eigh_d
 !---------------------------------------------------------------------
 subroutine lanczos_tridiag_d(MatVec,vin,alanc,blanc,threshold)
   interface
-     subroutine MatVec(Nloc,vin,vout)
+     subroutine MatVec(Nloc,vin,vout)                        !vout=H*vin on vectors of size Nloc (local chunk if MPI)
        integer                 :: Nloc
-       real(8),dimension(Nloc) :: vin
+       real(8),dimension(Nloc) :: vin                        !starting vector, local chunk if MPI; overwritten in the serial version
        real(8),dimension(Nloc) :: vout
      end subroutine MatVec
   end interface
-  real(8),dimension(:),intent(inout)           :: vin
+  real(8),dimension(:),intent(inout)           :: vin        !starting vector, local chunk if MPI; overwritten in the serial version
   real(8),dimension(size(vin))                 :: vout
-  real(8),dimension(:),intent(inout)           :: alanc
-  real(8),dimension(size(alanc)),intent(inout) :: blanc
+  real(8),dimension(:),intent(inout)           :: alanc      !diagonal of the tridiagonal matrix, size = number of iterations
+  real(8),dimension(size(alanc)),intent(inout) :: blanc      !off-diagonal: blanc(i+1) couples i and i+1, blanc(1) is not set
   integer                                      :: Nitermax
   integer                                      :: iter
   real(8)                                      :: a_,b_
-  real(8),optional                             :: threshold
+  real(8),optional                             :: threshold  !stop if the Lanczos coefficient b is below this value (default 1d-12)
   !
   if(present(threshold))threshold_=threshold
   !

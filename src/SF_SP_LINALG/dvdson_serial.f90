@@ -116,18 +116,18 @@
 subroutine dvdson_eigh_d(MatVec,eval,evec,Nblock,Nitermax,Tol)
   !Interface to Matrix-Vector routine:
   interface
-     subroutine MatVec(Nloc,vin,vout)
+     subroutine MatVec(Nloc,vin,vout)            !vout=H*vin on vectors of size Nloc
        integer                 :: Nloc
        real(8),dimension(Nloc) :: vin
        real(8),dimension(Nloc) :: vout
      end subroutine MatVec
   end interface
   !Arguments
-  real(8),intent(inout)            :: eval(:)![Neigen]
-  real(8),intent(inout)            :: evec(:,:)![Ns,Neigen]
-  integer,optional                 :: Nblock
-  integer,optional                 :: Nitermax
-  real(8),optional                 :: Tol
+  real(8),intent(inout)            :: eval(:)    !lowest eigenvalues in ascending order: [Neigen]
+  real(8),intent(inout)            :: evec(:,:)  !in: 1st column = diagonal of H (computed if 0); out: eigenvectors [Ns,Neigen]
+  integer,optional                 :: Nblock     !number of eigenpairs targeted in each iteration (default Neigen)
+  integer,optional                 :: Nitermax   !maximum number of iterations (default max(200,40*Neigen))
+  real(8),optional                 :: Tol        !convergence threshold on the eigenvalues (default 1d-15)
   !Dimensions:
   integer                          :: Ns
   integer                          :: Neigen
