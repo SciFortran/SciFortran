@@ -1,5 +1,5 @@
 MODULE SF_BLACS
-!SciFortran BLACS module (used and superseded by :f:mod:`SF_MPI`)
+!SciFortran BLACS module (used by :f:mod:`SF_LINALG`)
   implicit none
 
   private
