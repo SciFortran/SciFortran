@@ -1,0 +1,185 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: SciFortran
+Upstream-Contact: https://github.com/SciFortran/SciFortran/issues
+Source: https://github.com/SciFortran/SciFortran
+
+Files: *
+Copyright: 2024-2026 Adriano Amaricci
+           2024-2026 Lorenzo Crippa
+           2024-2026 Samuele Giuli
+           2024-2026 Gabriele Bellomia
+           2024-2026 Giacomo Mazza
+License: LGPL-3+
+
+Files: src/arpack/*
+Copyright: 1996-2008 Rice University
+           2001-2011 Scilab Enterprises
+           2010 Jordi Gutiérrez Hermoso
+           2007 Sébastien Fabbro
+License: BSD-3-clause-Rice
+Comment: Modified copy of ARPACK / P_ARPACK (arpack-ng); see src/arpack/LICENSE.
+
+Files: src/blas/*
+Copyright: The Netlib BLAS authors
+License: CC0-1.0
+Comment: Not compiled in this package (WITH_BLAS_LAPACK=OFF): the system
+ BLAS is used instead. The tree ships a CC0 notice in src/blas/LICENSE.
+
+Files: src/lapack/*
+Copyright: 1992-2017 The University of Tennessee and The University of
+                     Tennessee Research Foundation
+           2000-2017 The University of California Berkeley
+           2006-2017 The University of Colorado Denver
+           2006-2017 NAG Ltd.
+License: BSD-3-clause-LAPACK
+Comment: Not compiled in this package (WITH_BLAS_LAPACK=OFF): the system
+ LAPACK is used instead. See src/lapack/LICENSE.
+
+Files: src/fftpack/*
+Copyright: 1995-2004 Scientific Computing Division, University Corporation
+                     for Atmospheric Research
+License: GPL-2+ or CC0-1.0
+Comment: FIXME(maintainer): FFTPACK 5.1. The Fortran sources state
+ "Licensed under the GNU General Public License (GPL)" while src/fftpack/LICENSE
+ is a CC0 text. Please confirm with upstream which one applies, and whether
+ the version of the GPL is stated; this affects the license of the resulting
+ static library.
+
+Files: src/minpack/*
+Copyright: 1999 University of Chicago
+           John Burkardt (Fortran 90 version)
+License: BSD-3-clause-Chicago and LGPL-3+
+Comment: The Fortran 90 sources state "distributed under the GNU LGPL"; the
+ original MINPACK notice is in src/minpack/LICENSE and DISCLAIMER.
+
+Files: src/quadpack/*
+Copyright: The QUADPACK authors
+License: CC0-1.0
+Comment: FIXME(maintainer): src/quadpack/LICENSE is a CC0 text; please check the
+ per-file headers and add the real copyright holders.
+
+Files: src/SF_OPTIMIZE/lbfgsb.f
+Copyright: 1997-2011 Ciyou Zhu, Richard Byrd, Jorge Nocedal, Jose Luis Morales
+License: BSD-3-clause-LBFGSB
+Comment: L-BFGS-B 3.0, "New BSD License". FIXME(maintainer): the license text
+ file mentioned in the source header is not part of the tree.
+
+Files: src/SF_SPECIAL/special_functions.f90
+Copyright: Shanjie Zhang, Jianming Jin
+           John Burkardt (Fortran 90 translation)
+License: LGPL-3+ and other
+Comment: FIXME(maintainer): several routines carry the notice "copyrighted by
+ Shanjie Zhang and Jianming Jin; permission is given to incorporate this
+ routine into a user program provided that the copyright is acknowledged".
+ That wording does not clearly allow redistribution of modified or
+ standalone copies and is a DFSG concern for the Debian archive. Please
+ clarify with upstream, or remove or replace those routines.
+
+Files: debian/*
+Copyright: 2026 Your Name <you@example.org>
+License: LGPL-3+
+
+License: LGPL-3+
+ This package is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 3 of the License, or (at your
+ option) any later version.
+ .
+ This package is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+ for more details.
+ .
+ On Debian systems, the complete text of the GNU Lesser General Public
+ License version 3 can be found in "/usr/share/common-licenses/LGPL-3", and
+ of the GNU General Public License version 3 in
+ "/usr/share/common-licenses/GPL-3".
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the Free
+ Software Foundation; either version 2 of the License, or (at your option)
+ any later version.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: CC0-1.0
+ To the extent possible under law, the author(s) have dedicated all
+ copyright and related and neighboring rights to this software to the public
+ domain worldwide. This software is distributed without any warranty.
+ .
+ On Debian systems, the complete text of the CC0 1.0 Universal license can be
+ found in "/usr/share/common-licenses/CC0-1.0".
+
+License: BSD-3-clause-Rice
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ .
+ - Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+ - Neither the name of Rice University, nor the names of its contributors may
+   be used to endorse or promote products derived from this software without
+   specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED. IN NO EVENT SHALL RICE UNIVERSITY OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+ DAMAGE.
+
+License: BSD-3-clause-LAPACK
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ .
+ - Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer listed in this
+   license in the documentation and/or other materials provided with the
+   distribution.
+ - Neither the name of the copyright holders nor the names of its
+   contributors may be used to endorse or promote products derived from this
+   software without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+
+License: BSD-3-clause-Chicago
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ .
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. The end-user documentation included with the redistribution, if any,
+    must include the following acknowledgment: "This product includes
+    software developed by the University of Chicago, as Operator of Argonne
+    National Laboratory." Alternately, this acknowledgment may appear in the
+    software itself, if and wherever such third-party acknowledgments
+    normally appear.
+ .
+ See src/minpack/LICENSE for the complete text, including the disclaimer.
+
+License: BSD-3-clause-LBFGSB
+ See the "New BSD License" notice of L-BFGS-B 3.0 (src/SF_OPTIMIZE/lbfgsb.f).

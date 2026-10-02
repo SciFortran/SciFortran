@@ -1,0 +1,3 @@
+# The build copies the tree into obj-src/ and builds in obj-<triplet>/;
+# keep them, and the generated version module, out of the source package.
+extend-diff-ignore = "(^|/)(obj-[^/]*|src/SCIFOR_VERSION\.f90)(/|$)"

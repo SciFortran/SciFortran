@@ -1,0 +1,3 @@
+usr/lib/*/libscifor.a
+usr/lib/*/fortran/*/scifor
+usr/lib/*/pkgconfig/scifor.pc

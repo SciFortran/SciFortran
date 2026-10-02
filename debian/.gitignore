@@ -1,0 +1,6 @@
+files
+*.debhelper*
+*.substvars
+debhelper-build-stamp
+libscifor-dev/
+tmp/

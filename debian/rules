@@ -1,0 +1,74 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+#
+#  * Configuring rewrites tracked files in the source tree (src/SCIFOR_VERSION.f90
+#    gets the git SHA, which is "0" without a .git) and probes for a .git
+#    directory.  We therefore configure/build from a pristine copy of the tree,
+#    so the real source tree stays clean for dpkg-source.
+#  * The version normally comes from "git describe"; we pass it explicitly.
+#  * "make install" is not usable for a package: it installs into $HOME
+#    (~/.pkgconfig.d, ~/.modules.d), uses a non-FHS layout, and ships
+#    environment-modules files.  debian/scifor-install.sh installs the three
+#    artefacts that matter (libscifor.a, *.mod, scifor.pc) instead.
+#  * Intel MKL is non-free: its detection is switched off, and BLAS/LAPACK are
+#    taken from the system's generic libblas.so/liblapack.so (alternatives).
+
+include /usr/share/dpkg/pkg-info.mk
+include /usr/share/dpkg/architecture.mk
+
+# Never let a stray MKL installation influence the build.
+unexport MKLROOT
+unexport INTEL
+
+# Upstream documents FC=mpif90 as the way to get CMake to use the MPI wrapper.
+export FC = mpif90
+
+# Relative to the top of the source tree (what dh's --sourcedirectory and
+# --builddirectory expect) ...
+SRCCOPY_REL := obj-src
+BUILD_REL   := obj-$(DEB_HOST_GNU_TYPE)
+# ... and absolute for our own commands.
+SRCCOPY     := $(CURDIR)/$(SRCCOPY_REL)
+BUILDDIR    := $(CURDIR)/$(BUILD_REL)
+STAGE       := $(CURDIR)/debian/tmp
+
+%:
+	dh $@ --buildsystem=cmake \
+	      --sourcedirectory=$(SRCCOPY_REL) \
+	      --builddirectory=$(BUILD_REL)
+
+override_dh_auto_clean:
+	rm -rf $(SRCCOPY) $(BUILDDIR)
+
+override_dh_auto_configure:
+	rm -rf $(SRCCOPY)
+	mkdir -p $(SRCCOPY)
+	find . -mindepth 1 -maxdepth 1 \
+	    ! -name debian ! -name .git ! -name 'obj-*' \
+	    -exec cp -a {} $(SRCCOPY)/ \;
+	dh_auto_configure -- \
+	    -DVERSION=$(DEB_VERSION_UPSTREAM) \
+	    -DBUILD_TYPE=RELEASE \
+	    -DBUILD_SHARED_LIBS=OFF \
+	    -DUSE_MPI=ON \
+	    -DWITH_SCALAPACK=ON \
+	    -DWITH_BLAS_LAPACK=OFF \
+	    -DBLA_VENDOR=Generic \
+	    -DCMAKE_DISABLE_FIND_PACKAGE_MKL=ON \
+	    -DVERBOSE=ON
+
+override_dh_auto_install:
+	debian/scifor-install.sh $(BUILDDIR) $(STAGE) $(DEB_HOST_MULTIARCH) \
+	    $(DEB_VERSION_UPSTREAM) debian/libscifor-dev.substvars
+
+# Make sure the generated pkg-config file is usable before packaging it.
+execute_after_dh_auto_install:
+	PKG_CONFIG_PATH=$(STAGE)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig \
+	    pkg-config --validate --print-errors scifor
+	PKG_CONFIG_PATH=$(STAGE)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig \
+	    pkg-config --print-errors --modversion --cflags --libs scifor
+
+# Upstream has no test suite that can be run at build time (its test/ directory
+# needs an installed library); the installed package is exercised by autopkgtest.
+override_dh_auto_test:
+	@echo "No build-time tests; see debian/tests."

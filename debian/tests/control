@@ -1,0 +1,11 @@
+Tests: build-and-run
+Depends:
+ @,
+ gfortran,
+ libblas-dev | libblas.so,
+ liblapack-dev | liblapack.so,
+ libscalapack-mpi-dev,
+ mpi-default-bin,
+ mpi-default-dev,
+ pkgconf | pkg-config,
+Restrictions: allow-stderr

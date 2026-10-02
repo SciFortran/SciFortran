@@ -1,0 +1,47 @@
+Source: scifor
+Section: science
+Priority: optional
+Maintainer: Your Name <you@example.org>
+Build-Depends:
+ cmake,
+ debhelper-compat (= 13),
+ gfortran,
+ libblas-dev | libblas.so,
+ liblapack-dev | liblapack.so,
+ libscalapack-mpi-dev,
+ mpi-default-dev,
+ pkgconf | pkg-config,
+Standards-Version: 4.7.2
+Homepage: https://github.com/SciFortran/SciFortran
+Rules-Requires-Root: no
+
+Package: libscifor-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libblas-dev | libblas.so,
+ liblapack-dev | liblapack.so,
+ libscalapack-mpi-dev,
+ mpi-default-dev,
+ ${fortran:Depends},
+ ${misc:Depends},
+Suggests:
+ pkgconf | pkg-config,
+Description: Fortran library for mathematics, science and engineering (development files)
+ SciFortran is a collection of Fortran modules and procedures for scientific
+ calculations, loosely modelled on SciPy: linear algebra (dense and sparse),
+ FFT, integration, interpolation, minimisation and root finding, special
+ functions, random numbers, I/O and plotting helpers, and MPI/ScaLAPACK
+ wrappers.
+ .
+ This package provides the static library (libscifor.a), the Fortran module
+ files and a pkg-config file. Build against it with, for example:
+ .
+   mpif90 $(pkg-config --cflags scifor) prog.f90 $(pkg-config --libs scifor)
+ .
+ The Fortran module files are specific to the gfortran module format they
+ were built with, and the library is built for the default MPI implementation.
+ BLAS and LAPACK are used through the system alternatives, so any
+ implementation (reference, OpenBLAS, ...) can be selected at run time.
+ The non-free Intel MKL is neither required nor used.
