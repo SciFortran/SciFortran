@@ -1,7 +1,7 @@
 # SciFortran
 
-[![Ubuntu](https://img.shields.io/github/actions/workflow/status/QcmPlab/SciFortran/Ubuntu_Scheduled.yml?label=Ubuntu&logo=ubuntu&style=flat-square)](https://github.com/SciFortran/SciFortran/actions/workflows/Scheduled.yml) 
-[![MacOS](https://img.shields.io/github/actions/workflow/status/QcmPlab/SciFortran/MacOS_Scheduled.yml?label=macOS&logo=apple&style=flat-square)](https://github.com/SciFortran/SciFortran/actions/workflows/Scheduled.yml) 
+[![Ubuntu](https://img.shields.io/github/actions/workflow/status/SciFortran/SciFortran/Ubuntu_Scheduled.yml?label=Ubuntu&logo=ubuntu&style=flat-square)](https://github.com/SciFortran/SciFortran/actions/workflows/Scheduled.yml) 
+[![MacOS](https://img.shields.io/github/actions/workflow/status/SciFortran/SciFortran/MacOS_Scheduled.yml?label=macOS&logo=apple&style=flat-square)](https://github.com/SciFortran/SciFortran/actions/workflows/Scheduled.yml) 
 [![api docs](https://img.shields.io/static/v1?label=API&message=documentation&color=734f96&logo=read-the-docs&logoColor=white&style=flat-square)](https://SciFortran.github.io/SciFortran)
 
 
