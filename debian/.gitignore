@@ -1,6 +1,5 @@
-files
-*.debhelper*
-*.substvars
-debhelper-build-stamp
-libscifor-dev/
-tmp/
+/*.substvars
+/.debhelper/
+/debhelper-build-stamp
+/files
+/tmp/

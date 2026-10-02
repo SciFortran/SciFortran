@@ -1,7 +1,6 @@
-Source: scifor
-Section: science
-Priority: optional
-Maintainer: Your Name <you@example.org>
+Source: scifortran
+Section: libs
+Maintainer: Lorenzo Crippa <lorenzo@lorenzo-debian>
 Build-Depends:
  cmake,
  debhelper-compat (= 13),
@@ -11,11 +10,11 @@ Build-Depends:
  libscalapack-mpi-dev,
  mpi-default-dev,
  pkgconf | pkg-config,
+Standards-Version: 4.7.4
 Standards-Version: 4.7.2
 Homepage: https://github.com/SciFortran/SciFortran
-Rules-Requires-Root: no
 
-Package: libscifor-dev
+Package: libscifortran-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
