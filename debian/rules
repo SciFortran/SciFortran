@@ -4,6 +4,9 @@ include /usr/share/dpkg/pkg-info.mk
 include /usr/share/dpkg/architecture.mk
 unexport MKLROOT
 unexport INTEL
+# dpkg-buildpackage inherits the caller's environment (debuild cleans it), so
+# an FC=mpif90 set in the user's shell would reach dh_fortran.
+unexport FC
 # FC is deliberately not exported: dh_fortran reads it and cannot identify the
 # MPI wrapper. The wrapper is passed to CMake explicitly instead.
 
