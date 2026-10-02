@@ -4,6 +4,7 @@ Maintainer: Lorenzo Crippa <temporary@mail.fornow>
 Build-Depends:
  cmake,
  debhelper-compat (= 13),
+ dh-fortran-mod,
  gfortran,
  libblas-dev | libblas.so,
  liblapack-dev | liblapack.so,

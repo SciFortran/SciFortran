@@ -4,7 +4,8 @@ include /usr/share/dpkg/pkg-info.mk
 include /usr/share/dpkg/architecture.mk
 unexport MKLROOT
 unexport INTEL
-export FC = mpif90
+# FC is deliberately not exported: dh_fortran reads it and cannot identify the
+# MPI wrapper. The wrapper is passed to CMake explicitly instead.
 
 SRCCOPY_REL := obj-src
 BUILD_REL   := obj-$(DEB_HOST_GNU_TYPE)
@@ -12,10 +13,21 @@ SRCCOPY     := $(CURDIR)/$(SRCCOPY_REL)
 BUILDDIR    := $(CURDIR)/$(BUILD_REL)
 STAGE       := $(CURDIR)/debian/tmp
 
+# upstream's pkg-config template (adjust the name to match the file in etc/)
+PC_TEMPLATE := etc/scifor.pc.in
+
+LIBDIR      := usr/lib/$(DEB_HOST_MULTIARCH)
+# gfortran module format version, read from the header of a built .mod file
+# (recursive "=" so it is only evaluated after the build has produced them)
+MODVER       = $(shell zcat -f $(firstword $(wildcard $(BUILDDIR)/include/*.mod)) \
+                 | sed -n "1s/^GFORTRAN module version '\([0-9][0-9]*\)'.*/\1/p")
+FMODDIR      = $(LIBDIR)/fortran/gfortran-mod-$(MODVER)/scifor
+
 %:
 	dh $@ --buildsystem=cmake \
 	      --sourcedirectory=$(SRCCOPY_REL) \
-	      --builddirectory=$(BUILD_REL)
+	      --builddirectory=$(BUILD_REL) \
+	      --with fortran_mod
 
 override_dh_auto_clean:
 	rm -rf $(SRCCOPY) $(BUILDDIR)
@@ -28,6 +40,7 @@ override_dh_auto_configure:
 	    -exec cp -a {} $(SRCCOPY)/ \;
 	dh_auto_configure -- \
 	    --no-warn-unused-cli \
+	    -DCMAKE_Fortran_COMPILER=mpif90 \
 	    -DVERSION=$(DEB_VERSION_UPSTREAM) \
 	    -DBUILD_TYPE=RELEASE \
 	    -DBUILD_SHARED_LIBS=OFF \
@@ -39,14 +52,30 @@ override_dh_auto_configure:
 	    -DVERBOSE=ON
 
 override_dh_auto_install:
-	bin/scifor_debian_install.sh $(BUILDDIR) $(STAGE) $(DEB_HOST_MULTIARCH) \
-	    $(DEB_VERSION_UPSTREAM) debian/libscifortran-dev.substvars
+	test -f $(BUILDDIR)/libscifor.a
+	test -n "$(MODVER)"
+	install -d $(STAGE)/$(LIBDIR)/pkgconfig $(STAGE)/$(FMODDIR)
+	install -m 0644 $(BUILDDIR)/libscifor.a $(STAGE)/$(LIBDIR)/
+	install -m 0644 $(BUILDDIR)/include/*.mod $(STAGE)/$(FMODDIR)/
+	sed -e 's|@CMAKE_INSTALL_PREFIX@|/usr|' \
+	    -e 's|@VERSION@|$(DEB_VERSION_UPSTREAM)|' \
+	    -e 's|^libdir=.*|libdir=$${scifor_dir}/lib/$(DEB_HOST_MULTIARCH)|' \
+	    -e 's|^includedir=.*|includedir=$${scifor_dir}/lib/$(DEB_HOST_MULTIARCH)/fortran/gfortran-mod-$(MODVER)/scifor|' \
+	    -e 's|@SF_LIBDIR@|-L$${libdir} -lscifor -lscalapack-openmpi -llapack -lblas|' \
+	    $(PC_TEMPLATE) > $(STAGE)/$(LIBDIR)/pkgconfig/scifor.pc
+	chmod 0644 $(STAGE)/$(LIBDIR)/pkgconfig/scifor.pc
 
 execute_after_dh_auto_install:
-	PKG_CONFIG_PATH=$(STAGE)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig \
+	PKG_CONFIG_PATH=$(STAGE)/$(LIBDIR)/pkgconfig \
 	    pkg-config --validate --print-errors scifor
-	PKG_CONFIG_PATH=$(STAGE)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig \
+	PKG_CONFIG_PATH=$(STAGE)/$(LIBDIR)/pkgconfig \
 	    pkg-config --print-errors --modversion --cflags --libs scifor
+	# fail loudly if a dependency dropped out of the link line
+	for dep in scalapack lapack blas; do \
+	    PKG_CONFIG_PATH=$(STAGE)/$(LIBDIR)/pkgconfig \
+	        pkg-config --libs scifor | grep -q -- "-l$$dep" \
+	        || { echo "-l$$dep missing from scifor.pc" >&2; exit 1; }; \
+	done
 
 override_dh_auto_test:
 	@echo "No build-time tests; see debian/tests."
