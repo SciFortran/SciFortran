@@ -1,19 +1,16 @@
 Welcome
-################
-.. warning::
-    The documentation is under construction
+#########
 
-.. sidebar:: SciFortran 4.25.0
+
+.. sidebar:: SciFortran |PROJECT_VERSION|
 
       .. image:: _static/pictures/logo_github.png
          :width: 75%
          :align: center
          :target: https://github.com/SciFortran/SciFortran
 
-SciFortran: an open-source Fortran library for mathematics and science
-*************************************************************************************************
 
-SciFortran is a unitary collection of fortran modules and procedures for scientific calculations. The library aims to provide a simple and generic environment for any scientific or mathematic computations. The project is largely inspired by `SciPy` for `Python` and tries to closely follow its guidelines and naming convention. 
+**SciFortran** is an open-source Fortran library for mathematics and science. The library aims to provide a simple and generic environment for any scientific or mathematic computations. The project is largely inspired by `SciPy` for `Python` and tries to closely follow its guidelines and naming convention. 
 
 Although the library reached through years a rather advanced
 development stage there are still many important areas which are still

@@ -29,13 +29,13 @@ from sphinx.application import Sphinx
 # -- Project information -----------------------------------------------------
 
 project = u'SciFortran'
-copyright = u'2024, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza'
+copyright = u'2026, Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza'
 author = u'Adriano Amaricci, Lorenzo Crippa, Samuele Giuli, Gabriele Bellomia, Giacomo Mazza'
 
 # The short X.Y version
-version = u'4.14.1'
+version = u'4.25'
 # The full version, including alpha/beta/rc tags
-release = u'beta 4.14.1'
+release = u'4.25.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -140,6 +140,10 @@ exclude_patterns = []
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
+# this makes the current project version available as var in every rst file
+rst_epilog = """
+.. |PROJECT_VERSION| replace:: {version}
+""".format(version=version)
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -147,6 +151,7 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+html_logo = '_static/pictures/scifor_monochrome_banner.svg'
 html_css_files = [
     'css/custom.css',
 ]
@@ -157,7 +162,8 @@ html_css_files = [
 html_theme_options = {
   'collapse_navigation': False,
   'navigation_depth': 4,
-  'prev_next_buttons_location': 'both'
+  'prev_next_buttons_location': 'both',
+  'logo_only': True,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
