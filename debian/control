@@ -1,6 +1,6 @@
 Source: scifortran
 Section: libs
-Maintainer: Lorenzo Crippa <lorenzo@lorenzo-debian>
+Maintainer: Lorenzo Crippa <temporary@mail.fornow>
 Build-Depends:
  cmake,
  debhelper-compat (= 13),
@@ -11,7 +11,6 @@ Build-Depends:
  mpi-default-dev,
  pkgconf | pkg-config,
 Standards-Version: 4.7.4
-Standards-Version: 4.7.2
 Homepage: https://github.com/SciFortran/SciFortran
 
 Package: libscifortran-dev
