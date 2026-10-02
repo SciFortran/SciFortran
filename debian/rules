@@ -47,6 +47,7 @@ override_dh_auto_configure:
 	    ! -name debian ! -name .git ! -name 'obj-*' \
 	    -exec cp -a {} $(SRCCOPY)/ \;
 	dh_auto_configure -- \
+	    --no-warn-unused-cli \
 	    -DVERSION=$(DEB_VERSION_UPSTREAM) \
 	    -DBUILD_TYPE=RELEASE \
 	    -DBUILD_SHARED_LIBS=OFF \
