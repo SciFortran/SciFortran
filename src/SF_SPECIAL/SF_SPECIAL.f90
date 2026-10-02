@@ -16,12 +16,23 @@ module SF_SPECIAL
   !FUNCTIONS:
   public :: heaviside
   interface step
+  !This function returns the step function of a real number or of the comparison of two integers, as a real(8) number. The
+  !specific procedures cover a real argument :f:var:`x` (:f:func_inline:`step_x`), giving 1 for :math:`x>0`, 0 for :math:`x<0`
+  !and, at the origin :math:`x=0`, the value selected by :f:var:`origin`, and two integer arguments :f:var:`i` and :f:var:`j`
+  !(:f:func_inline:`step_ij`), giving 1 for :math:`i>j`, 0 for :math:`i<j` and, at the origin :math:`i=j`, the value selected by
+  !:f:var:`origin`. If :f:var:`origin` is true, which is the default, the step is 1 at the origin, otherwise it is 0. The
+  !functions are elemental (:code:`step_x`) and pure (:code:`step_ij`).
+  !
      module procedure step_x,step_ij
   end interface step
   public :: step
 
   public :: fermi
   interface sgn
+  !This function returns the sign of the integer (:f:func_inline:`i_sgn`) or real(8) (:f:func_inline:`d_sgn`) number :f:var:`x`,
+  !evaluated as :code:`x/abs(x)`, hence -1 or 1. The value is undefined for :math:`x=0`, where it is a division by zero. The
+  !function is elemental.
+  !
      module procedure i_sgn,d_sgn
   end interface sgn
   public :: sgn
@@ -222,7 +233,10 @@ contains
   !PURPOSE  : calculate the Heaviside  function
   !+------------------------------------------------------------------+
   elemental function heaviside(x)
-    real(8),intent(in) :: x
+    !This function returns the Heaviside step function of the real argument :f:var:`x`: 0 for :math:`x<0`, 1/2 for :math:`x=0`
+    !and 1 for :math:`x>0`. The function is elemental.
+    !
+    real(8),intent(in) :: x  !real argument
     real(8)            :: heaviside
     if(x < 0.d0) then
        heaviside = 0.0d0
@@ -238,8 +252,8 @@ contains
   !PURPOSE  : calculate step function
   !+------------------------------------------------------------------+
   elemental function step_x(x,origin) result(step)
-    real(8),intent(in)          :: x
-    logical,optional,intent(in) :: origin
+    real(8),intent(in)          :: x       !real argument
+    logical,optional,intent(in) :: origin  !if T (default) step(0)=1, else step(0)=0
     real(8)                     :: step
     logical                     :: w0
     step=0.d0
@@ -257,8 +271,9 @@ contains
   !PURPOSE  : calculate step function
   !+------------------------------------------------------------------+
   pure function step_ij(i,j,origin)
-    integer,intent(in)          :: i,j
-    logical,optional,intent(in) :: origin
+    integer,intent(in)          :: i       !first integer
+    integer,intent(in)          :: j       !second integer
+    logical,optional,intent(in) :: origin  !if T (default) step=1 for i=j, else 0
     real(8)                     :: step_ij
     logical                     :: w0
     step_ij=0.d0
@@ -281,8 +296,14 @@ contains
   !PURPOSE  : calculate the Fermi-Dirac distribution
   !+-------------------------------------------------------------------+
   elemental function fermi(x,beta,limit)
-    real(8),intent(in)          :: x, beta
-    real(8),optional,intent(in) :: limit
+    !This function returns the Fermi-Dirac distribution :math:`f(x) = 1/(1+e^{\beta x})`, with :f:var:`x` the energy measured
+    !from the chemical potential and :f:var:`beta` the inverse temperature. To avoid overflows it is set to 1 for
+    !:math:`\beta x < -limit` and to 0 for :math:`\beta x > limit`, with :f:var:`limit` equal to 200 by default (the absolute
+    !value of :f:var:`limit` is used). The function is elemental.
+    !
+    real(8),intent(in)          :: x      !energy, measured from the chemical potential
+    real(8),intent(in)          :: beta   !inverse temperature
+    real(8),optional,intent(in) :: limit  !cutoff on :math:`|beta*x|` to avoid overflows (default 200)
     real(8)                     :: fermi,arg,limit_
     limit_ = 200d0 ; if(present(limit))limit_=abs(limit)
     arg = x*beta
@@ -325,12 +346,12 @@ contains
   !PURPOSE:  evaluate the sign of a given number (I,R)
   !+-------------------------------------------------------------------+
   elemental function i_sgn(x) result(sgn)
-    integer,intent(in) :: x
+    integer,intent(in) :: x  !number whose sign is returned
     integer            :: sgn
     sgn=x/abs(x)
   end function i_sgn
   elemental function d_sgn(x) result(sgn)
-    real(8),intent(in) :: x
+    real(8),intent(in) :: x  !number whose sign is returned
     real(8)            :: sgn
     sgn=x/abs(x)
   end function d_sgn
@@ -350,7 +371,12 @@ contains
   ! ANYWAY USE ZERF
   !+------------------------------------------------------------------+
   function wfun(z)
-    complex(8):: z,wfun
+    !This function returns the Faddeeva function :math:`w(z) = e^{-z^2}\,\mathrm{erfc}(-iz)`, i.e. the complex error function,
+    !of the complex argument :f:var:`z`, evaluated with the routine :code:`WOFZ`. The result is built with a default-kind
+    !:code:`cmplx` call, so it is accurate only to single precision: use :f:func_inline:`zerf` instead.
+    !
+    complex(8):: z  !complex argument
+    complex(8):: wfun
     real(8)   :: x,y,u,v
     logical   :: flag
     x=real(z,8)
@@ -381,8 +407,12 @@ contains
   !PURPOSE  : calculate the non-interacting dos for HYPERCUBIC lattice 
   !+-------------------------------------------------------------------+
   pure function dens_hyperc(x,t1)
-    real(8),optional,intent(in) :: t1
-    real(8),intent(in)          :: x
+    !This function returns the density of states of a hypercubic lattice in infinite dimensions, a Gaussian of standard
+    !deviation :f:var:`t1`: :math:`\rho(x) = \frac{1}{t_1\sqrt{2\pi}}\, e^{-x^2/(2 t_1^2)}`, where :f:var:`x` is the energy. The
+    !default is :math:`t_1=\sqrt{2}`. The function is pure.
+    !
+    real(8),optional,intent(in) :: t1  !standard deviation of the Gaussian (default sqrt(2))
+    real(8),intent(in)          :: x   !energy
     REAL(8):: dens_hyperc,t1_,pi2,sqrt2
     pi2=2.d0*acos(-1.d0)
     sqrt2=sqrt(2.d0)
@@ -397,8 +427,13 @@ contains
   !
   !+-------------------------------------------------------------------+
   function dens_2dsquare(x,ts) result(dos)
-    real(8),intent(in)          :: x
-    real(8),intent(in),optional :: ts
+    !This function returns the density of states at the energy :f:var:`x` of the 2-dimensional square lattice with
+    !nearest-neighbour hopping :f:var:`ts` (default 1): :math:`\rho(x) = \frac{2}{\pi^2 W} K\left(\sqrt{1-(x/W)^2}\right)`, with
+    !:math:`W = 4 t_s` the half bandwidth and :math:`K` the complete elliptic integral of the first kind. It is zero outside the
+    !band :math:`|x|>W` and has a logarithmic van Hove singularity at :math:`x=0`.
+    !
+    real(8),intent(in)          :: x   !energy
+    real(8),intent(in),optional :: ts  !nearest-neighbour hopping (default 1)
     real(8)                     :: wband,y,kint,eint,dos
     real(8),parameter           :: pi=acos(-1d0)
     wband=4.d0;if(present(ts))wband=4.d0*ts
@@ -416,8 +451,14 @@ contains
   ! + Horiguchi, Journal of the Physical Society of Japan, Vol.30,N.5 (1971)
   !+-------------------------------------------------------------------+
   function dens_3dcubic(x,ts) result(dos)
-    real(8),intent(in) :: x
-    real(8),optional   :: ts
+    !This function returns the density of states at the energy :f:var:`x` of the 3-dimensional simple cubic lattice with
+    !nearest-neighbour hopping :f:var:`ts` (default 1), following Economou, Green's functions in quantum physics, and Horiguchi,
+    !Journal of the Physical Society of Japan 30 (5), 1971. It is evaluated as a one-dimensional integral of the complete
+    !elliptic integral of the first kind, with the adaptive quadrature :f:func_inline:`quad`. It is zero outside the band
+    !:math:`|x|>W`, with :math:`W = 6 t_s` the half bandwidth.
+    !
+    real(8),intent(in) :: x   !energy
+    real(8),optional   :: ts  !nearest-neighbour hopping (default 1)
     real(8)            :: ts_
     real(8)            :: wband,dos
     real(8)            :: a,b,e0,s

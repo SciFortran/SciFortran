@@ -1,6 +1,12 @@
 ! This is an error function of a complex argument, which uses wpop(z).
 elemental  function zerf( z )
-  complex(8), intent(in) :: z
+  !This function returns the error function :math:`\mathrm{erf}(z)` of the complex argument :f:var:`z`, computed as
+  !:math:`1 - w(iz)\,e^{-z^2}`, with :math:`w` the Faddeeva function. This is evaluated with a modified version of the algorithm
+  !680 of G.P.M. Poppe and C.M.J. Wijers (ACM Trans. Math. Software 16, 1990), rewritten in Fortran 2008. The accuracy of
+  !:math:`w(z)` is 14 significant digits in the first and second quadrants and 13 in the third and fourth ones, outside a
+  !circular region of radius 0.126 around a zero of the function. The function is elemental.
+  !
+  complex(8), intent(in) :: z  !complex argument
   complex(8)             :: zerf
   zerf = one - wpop( cmplxj * z ) * exp( - z**2 )
 end function zerf

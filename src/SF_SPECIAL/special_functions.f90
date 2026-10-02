@@ -1,5 +1,3 @@
-subroutine airya ( x, ai, bi, ad, bd )
-
   !*****************************************************************************80
   !
   !! AIRYA computes Airy functions and their derivatives.
@@ -30,33 +28,45 @@ subroutine airya ( x, ai, bi, ad, bd )
   !       
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument of the Airy function.
+  !    Input, real(8) X, the argument of the Airy function.
   !
-  !    Output, real ( kind = 8 ) AI, BI, AD, BD, the values of Ai(x), Bi(x),
+  !    Output, real(8) AI, BI, AD, BD, the values of Ai(x), Bi(x),
   !    Ai'(x), Bi'(x).
+  !
+subroutine airya ( x, ai, bi, ad, bd )
+  !AIRYA computes Airy functions and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang, Jianming Jin. FORTRAN90 version by John Burkardt.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument of the Airy function
+  !@param ai: out: Ai(x)
+  !@param bi: out: Bi(x)
+  !@param ad: out: Ai'(x)
+  !@param bd: out: Bi'(x)
   !
   implicit none
 
-  real ( kind = 8 ) ad
-  real ( kind = 8 ) ai
-  real ( kind = 8 ) bd
-  real ( kind = 8 ) bi
-  real ( kind = 8 ) c1
-  real ( kind = 8 ) c2
-  real ( kind = 8 ) pir
-  real ( kind = 8 ) sr3
-  real ( kind = 8 ) vi1
-  real ( kind = 8 ) vi2
-  real ( kind = 8 ) vj1
-  real ( kind = 8 ) vj2
-  real ( kind = 8 ) vk1
-  real ( kind = 8 ) vk2
-  real ( kind = 8 ) vy1
-  real ( kind = 8 ) vy2
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xa
-  real ( kind = 8 ) xq
-  real ( kind = 8 ) z
+  real(8) :: ad
+  real(8) :: ai
+  real(8) :: bd
+  real(8) :: bi
+  real(8) :: c1
+  real(8) :: c2
+  real(8) :: pir
+  real(8) :: sr3
+  real(8) :: vi1
+  real(8) :: vi2
+  real(8) :: vj1
+  real(8) :: vj2
+  real(8) :: vk1
+  real(8) :: vk2
+  real(8) :: vy1
+  real(8) :: vy2
+  real(8) :: x
+  real(8) :: xa
+  real(8) :: xq
+  real(8) :: z
 
   xa = abs ( x )
   pir = 0.318309886183891D+00
@@ -87,7 +97,9 @@ subroutine airya ( x, ai, bi, ad, bd )
 
   return
 end subroutine airya
-subroutine airyb ( x, ai, bi, ad, bd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -117,57 +129,69 @@ subroutine airyb ( x, ai, bi, ad, bd )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, argument of Airy function.
+  !    Input, real(8) X, argument of Airy function.
   !
-  !    Output, real ( kind = 8 ) AI, Ai(x).
+  !    Output, real(8) AI, Ai(x).
   !
-  !    Output, real ( kind = 8 ) BI, Bi(x).
+  !    Output, real(8) BI, Bi(x).
   !
-  !    Output, real ( kind = 8 ) AD, Ai'(x).
+  !    Output, real(8) AD, Ai'(x).
   !
-  !    Output, real ( kind = 8 ) BD, Bi'(x).
+  !    Output, real(8) BD, Bi'(x).
+  !
+subroutine airyb ( x, ai, bi, ad, bd )
+  !AIRYB computes Airy functions and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: argument of Airy function
+  !@param ai: out: Ai(x)
+  !@param bi: out: Bi(x)
+  !@param ad: out: Ai'(x)
+  !@param bd: out: Bi'(x)
   !
   implicit none
 
-  real ( kind = 8 ) ad
-  real ( kind = 8 ) ai
-  real ( kind = 8 ) bd
-  real ( kind = 8 ) bi
-  real ( kind = 8 ) c1
-  real ( kind = 8 ) c2
-  real ( kind = 8 ) ck(41)
-  real ( kind = 8 ) df
-  real ( kind = 8 ) dg
-  real ( kind = 8 ) dk(41)
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) fx
-  real ( kind = 8 ) gx
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) rp
-  real ( kind = 8 ) sad
-  real ( kind = 8 ) sai
-  real ( kind = 8 ) sbd
-  real ( kind = 8 ) sbi
-  real ( kind = 8 ) sda
-  real ( kind = 8 ) sdb
-  real ( kind = 8 ) sr3
-  real ( kind = 8 ) ssa
-  real ( kind = 8 ) ssb
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xa
-  real ( kind = 8 ) xar
-  real ( kind = 8 ) xcs
-  real ( kind = 8 ) xe
-  real ( kind = 8 ) xf
-  real ( kind = 8 ) xm
-  real ( kind = 8 ) xp1
-  real ( kind = 8 ) xq
-  real ( kind = 8 ) xr1
-  real ( kind = 8 ) xr2
-  real ( kind = 8 ) xss
+  real(8)    :: ad
+  real(8)    :: ai
+  real(8)    :: bd
+  real(8)    :: bi
+  real(8)    :: c1
+  real(8)    :: c2
+  real(8)    :: ck(41)
+  real(8)    :: df
+  real(8)    :: dg
+  real(8)    :: dk(41)
+  real(8)    :: eps
+  real(8)    :: fx
+  real(8)    :: gx
+  integer(4) :: k
+  integer(4) :: km
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: rp
+  real(8)    :: sad
+  real(8)    :: sai
+  real(8)    :: sbd
+  real(8)    :: sbi
+  real(8)    :: sda
+  real(8)    :: sdb
+  real(8)    :: sr3
+  real(8)    :: ssa
+  real(8)    :: ssb
+  real(8)    :: x
+  real(8)    :: xa
+  real(8)    :: xar
+  real(8)    :: xcs
+  real(8)    :: xe
+  real(8)    :: xf
+  real(8)    :: xm
+  real(8)    :: xp1
+  real(8)    :: xq
+  real(8)    :: xr1
+  real(8)    :: xr2
+  real(8)    :: xss
 
   eps = 1.0D-15
   pi = 3.141592653589793D+00
@@ -316,7 +340,9 @@ subroutine airyb ( x, ai, bi, ad, bd )
 
   return
 end subroutine airyb
-subroutine airyzo ( nt, kf, xa, xb, xc, xd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -353,42 +379,60 @@ subroutine airyzo ( nt, kf, xa, xb, xc, xd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) NT, the number of zeros.
+  !    Input, integer(4) NT, the number of zeros.
   !
-  !    Input, integer ( kind = 4 ) KF, the function code.
+  !    Input, integer(4) KF, the function code.
   !    1 for Ai(x) and Ai'(x);
   !    2 for Bi(x) and Bi'(x).
   !
-  !    Output, real ( kind = 8 ) XA(m), a, the m-th zero of Ai(x) or
+  !    Output, real(8) XA(m), a, the m-th zero of Ai(x) or
   !    b, the m-th zero of Bi(x).
   !
-  !    Output, real ( kind = 8 ) XB(m), a', the m-th zero of Ai'(x) or
+  !    Output, real(8) XB(m), a', the m-th zero of Ai'(x) or
   !    b', the m-th zero of Bi'(x).
   !
-  !    Output, real ( kind = 8 ) XC(m), Ai(a') or Bi(b').
+  !    Output, real(8) XC(m), Ai(a') or Bi(b').
   !
-  !    Output, real ( kind = 8 ) XD(m), Ai'(a) or Bi'(b)
+  !    Output, real(8) XD(m), Ai'(a) or Bi'(b)
+  !
+subroutine airyzo ( nt, kf, xa, xb, xc, xd )
+  !AIRYZO computes the first NT zeros of Ai(x) and Ai'(x).
+  !
+  !Compute the first NT zeros of Airy functions Ai(x) and Ai'(x),
+  !a and a', and the associated values of Ai(a') and Ai'(a); and
+  !the first NT zeros of Airy functions Bi(x) and Bi'(x), b and
+  !b', and the associated values of Bi(b') and Bi'(b).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param nt: in: the number of zeros
+  !@param kf: in: the function code. 1 for Ai(x) and Ai'(x); 2 for Bi(x) and Bi'(x)
+  !@param xa: out: a, the m-th zero of Ai(x) or b, the m-th zero of Bi(x)
+  !@param xb: out: a', the m-th zero of Ai'(x) or b', the m-th zero of Bi'(x)
+  !@param xc: out: Ai(a') or Bi(b')
+  !@param xd: out: Ai'(a) or Bi'(b)
   !
   implicit none
 
-  integer ( kind = 4 ) nt
+  integer(4) :: nt
 
-  real ( kind = 8 ) ad
-  real ( kind = 8 ) ai
-  real ( kind = 8 ) bd
-  real ( kind = 8 ) bi
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) kf
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) rt
-  real ( kind = 8 ) rt0
-  real ( kind = 8 ) u
-  real ( kind = 8 ) u1
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xa(nt)
-  real ( kind = 8 ) xb(nt)
-  real ( kind = 8 ) xc(nt)
-  real ( kind = 8 ) xd(nt)
+  real(8)    :: ad
+  real(8)    :: ai
+  real(8)    :: bd
+  real(8)    :: bi
+  integer(4) :: i
+  integer(4) :: kf
+  real(8)    :: pi
+  real(8)    :: rt
+  real(8)    :: rt0
+  real(8)    :: u
+  real(8)    :: u1
+  real(8)    :: x
+  real(8)    :: xa(nt)
+  real(8)    :: xb(nt)
+  real(8)    :: xc(nt)
+  real(8)    :: xd(nt)
 
   pi = 3.141592653589793D+00
 
@@ -493,7 +537,9 @@ subroutine airyzo ( nt, kf, xa, xb, xc, xd )
 
   return
 end subroutine airyzo
-subroutine ajyik ( x, vj1, vj2, vy1, vy2, vi1, vi2, vk1, vk2 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -528,57 +574,76 @@ subroutine ajyik ( x, vj1, vj2, vy1, vy2, vi1, vi2, vk1, vk2 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.  X should not be zero.
+  !    Input, real(8) X, the argument.  X should not be zero.
   !
-  !    Output, real ( kind = 8 ) VJ1, VJ2, VY1, VY2, VI1, VI2, VK1, VK2,
+  !    Output, real(8) VJ1, VJ2, VY1, VY2, VI1, VI2, VK1, VK2,
   !    the values of J1/3(x), J2/3(x), Y1/3(x), Y2/3(x), I1/3(x), I2/3(x),
   !    K1/3(x), K2/3(x).
   !
+subroutine ajyik ( x, vj1, vj2, vy1, vy2, vi1, vi2, vk1, vk2 )
+  !AJYIK computes Bessel functions Jv(x), Yv(x), Iv(x), Kv(x).
+  !
+  !Compute Bessel functions Jv(x) and Yv(x), and modified Bessel functions
+  !Iv(x) and Kv(x), and their derivatives with v = 1/3, 2/3.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument. X should not be zero
+  !@param vj1: out: J1/3(x)
+  !@param vj2: out: J2/3(x)
+  !@param vy1: out: Y1/3(x)
+  !@param vy2: out: Y2/3(x)
+  !@param vi1: out: I1/3(x)
+  !@param vi2: out: I2/3(x)
+  !@param vk1: out: K1/3(x)
+  !@param vk2: out: K2/3(x)
+  !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) b0
-  real ( kind = 8 ) c0
-  real ( kind = 8 ) ck
-  real ( kind = 8 ) gn
-  real ( kind = 8 ) gn1
-  real ( kind = 8 ) gn2
-  real ( kind = 8 ) gp1
-  real ( kind = 8 ) gp2
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) l
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pv1
-  real ( kind = 8 ) pv2
-  real ( kind = 8 ) px
-  real ( kind = 8 ) qx
-  real ( kind = 8 ) r
-  real ( kind = 8 ) rp
-  real ( kind = 8 ) rp2
-  real ( kind = 8 ) rq
-  real ( kind = 8 ) sk
-  real ( kind = 8 ) sum
-  real ( kind = 8 ) uj1
-  real ( kind = 8 ) uj2
-  real ( kind = 8 ) uu0
-  real ( kind = 8 ) vi1
-  real ( kind = 8 ) vi2
-  real ( kind = 8 ) vil
-  real ( kind = 8 ) vj1
-  real ( kind = 8 ) vj2
-  real ( kind = 8 ) vjl
-  real ( kind = 8 ) vk1
-  real ( kind = 8 ) vk2
-  real ( kind = 8 ) vl
-  real ( kind = 8 ) vsl
-  real ( kind = 8 ) vv
-  real ( kind = 8 ) vv0
-  real ( kind = 8 ) vy1
-  real ( kind = 8 ) vy2
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xk
+  real(8)    :: a0
+  real(8)    :: b0
+  real(8)    :: c0
+  real(8)    :: ck
+  real(8)    :: gn
+  real(8)    :: gn1
+  real(8)    :: gn2
+  real(8)    :: gp1
+  real(8)    :: gp2
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: l
+  real(8)    :: pi
+  real(8)    :: pv1
+  real(8)    :: pv2
+  real(8)    :: px
+  real(8)    :: qx
+  real(8)    :: r
+  real(8)    :: rp
+  real(8)    :: rp2
+  real(8)    :: rq
+  real(8)    :: sk
+  real(8)    :: sum
+  real(8)    :: uj1
+  real(8)    :: uj2
+  real(8)    :: uu0
+  real(8)    :: vi1
+  real(8)    :: vi2
+  real(8)    :: vil
+  real(8)    :: vj1
+  real(8)    :: vj2
+  real(8)    :: vjl
+  real(8)    :: vk1
+  real(8)    :: vk2
+  real(8)    :: vl
+  real(8)    :: vsl
+  real(8)    :: vv
+  real(8)    :: vv0
+  real(8)    :: vy1
+  real(8)    :: vy2
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: xk
 
   if ( x == 0.0D+00 ) then
      vj1 = 0.0D+00
@@ -804,7 +869,9 @@ subroutine ajyik ( x, vj1, vj2, vy1, vy2, vi1, vi2, vk1, vk2 )
 
   return
 end subroutine ajyik
-subroutine aswfa ( m, n, c, x, kd, cv, s1f, s1d )
+
+
+
 
   !*****************************************************************************80
   !
@@ -834,49 +901,64 @@ subroutine aswfa ( m, n, c, x, kd, cv, s1f, s1d )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter.
+  !    Input, integer(4) M, the mode parameter.
   !
-  !    Input, integer ( kind = 4 ) N, the mode parameter, with N = M, M+1, ...
+  !    Input, integer(4) N, the mode parameter, with N = M, M+1, ...
   !
-  !    Input, real ( kind = 8 ) C, the spheroidal parameter.
+  !    Input, real(8) C, the spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument of the angular function.
+  !    Input, real(8) X, the argument of the angular function.
   !    |X| < 1.0.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Output, real ( kind = 8 ) S1F, S1D, the angular function of the first
+  !    Output, real(8) S1F, S1D, the angular function of the first
   !    kind and its derivative.
+  !
+subroutine aswfa ( m, n, c, x, kd, cv, s1f, s1d )
+  !ASWFA: prolate and oblate spheroidal angular functions of the first kind.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter
+  !@param n: in: the mode parameter, with N = M, M+1, ...
+  !@param c: in: the spheroidal parameter
+  !@param x: in: the argument of the angular function. :math:`|X| < 1.0`
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param cv: in: the characteristic value
+  !@param s1f: out: the angular function of the first kind
+  !@param s1d: out: its derivative
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck(200)
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) d0
-  real ( kind = 8 ) d1
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nm2
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s1d
-  real ( kind = 8 ) s1f
-  real ( kind = 8 ) su1
-  real ( kind = 8 ) su2
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) x1
+  real(8)    :: a0
+  real(8)    :: c
+  real(8)    :: ck(200)
+  real(8)    :: cv
+  real(8)    :: d0
+  real(8)    :: d1
+  real(8)    :: df(200)
+  real(8)    :: eps
+  integer(4) :: ip
+  integer(4) :: k
+  integer(4) :: kd
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  integer(4) :: nm2
+  real(8)    :: r
+  real(8)    :: s1d
+  real(8)    :: s1f
+  real(8)    :: su1
+  real(8)    :: su2
+  real(8)    :: x
+  real(8)    :: x0
+  real(8)    :: x1
 
   eps = 1.0D-14
   x0 = x
@@ -952,7 +1034,9 @@ subroutine aswfa ( m, n, c, x, kd, cv, s1f, s1d )
 
   return
 end subroutine aswfa
-subroutine aswfb ( m, n, c, x, kd, cv, s1f, s1d )
+
+
+
 
   !*****************************************************************************80
   !
@@ -982,44 +1066,59 @@ subroutine aswfb ( m, n, c, x, kd, cv, s1f, s1d )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter, m = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter, m = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M+1, M+2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M+1, M+2, ...
   !
-  !    Input, real ( kind = 8 ) C, the spheroidal parameter.
+  !    Input, real(8) C, the spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument, with |X| < 1.0.
+  !    Input, real(8) X, the argument, with |X| < 1.0.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Output, real ( kind = 8 ) S1F, S1D, the angular function of the first
+  !    Output, real(8) S1F, S1D, the angular function of the first
   !    kind and its derivative.
+  !
+subroutine aswfb ( m, n, c, x, kd, cv, s1f, s1d )
+  !ASWFB: prolate and oblate spheroidal angular functions of the first kind.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter, m = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M+1, M+2, ...
+  !@param c: in: the spheroidal parameter
+  !@param x: in: the argument, with :math:`|X| < 1.0`
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param cv: in: the characteristic value
+  !@param s1f: out: the angular function of the first kind
+  !@param s1d: out: its derivative
   !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) mk
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nm2
-  real ( kind = 8 ) pd(0:251)
-  real ( kind = 8 ) pm(0:251)
-  real ( kind = 8 ) s1d
-  real ( kind = 8 ) s1f
-  real ( kind = 8 ) su1
-  real ( kind = 8 ) sw
-  real ( kind = 8 ) x
+  real(8)    :: c
+  real(8)    :: cv
+  real(8)    :: df(200)
+  real(8)    :: eps
+  integer(4) :: ip
+  integer(4) :: k
+  integer(4) :: kd
+  integer(4) :: m
+  integer(4) :: mk
+  integer(4) :: n
+  integer(4) :: nm
+  integer(4) :: nm2
+  real(8)    :: pd(0:251)
+  real(8)    :: pm(0:251)
+  real(8)    :: s1d
+  real(8)    :: s1f
+  real(8)    :: su1
+  real(8)    :: sw
+  real(8)    :: x
 
   eps = 1.0D-14
 
@@ -1059,7 +1158,9 @@ subroutine aswfb ( m, n, c, x, kd, cv, s1f, s1d )
 
   return
 end subroutine aswfb
-subroutine bernoa ( n, bn )
+
+
+
 
   !*****************************************************************************80
   !
@@ -1089,20 +1190,29 @@ subroutine bernoa ( n, bn )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the index.
+  !    Input, integer(4) N, the index.
   !
-  !    Output, real ( kind = 8 ) BN, the value of the N-th Bernoulli number.
+  !    Output, real(8) BN, the value of the N-th Bernoulli number.
+  !
+subroutine bernoa ( n, bn )
+  !BERNOA computes the Bernoulli number Bn.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the index
+  !@param bn: out: the value of the N-th Bernoulli number
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) bn(0:n)
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
+  real(8)    :: bn(0:n)
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: r
+  real(8)    :: s
 
   bn(0) = 1.0D+00
   bn(1) = -0.5D+00
@@ -1125,7 +1235,9 @@ subroutine bernoa ( n, bn )
 
   return
 end subroutine bernoa
-subroutine bernob ( n, bn )
+
+
+
 
   !*****************************************************************************80
   !
@@ -1155,21 +1267,30 @@ subroutine bernob ( n, bn )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the index.
+  !    Input, integer(4) N, the index.
   !
-  !    Output, real ( kind = 8 ) BN, the value of the N-th Bernoulli number.
+  !    Output, real(8) BN, the value of the N-th Bernoulli number.
+  !
+subroutine bernob ( n, bn )
+  !BERNOB computes the Bernoulli number Bn.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the index
+  !@param bn: out: the value of the N-th Bernoulli number
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) bn(0:n)
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) s
-  real ( kind = 8 ) tpi
+  real(8)    :: bn(0:n)
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: s
+  real(8)    :: tpi
 
   tpi = 6.283185307179586D+00
   bn(0) = 1.0D+00
@@ -1197,7 +1318,8 @@ subroutine bernob ( n, bn )
   return
 end subroutine bernob
 
-subroutine betaf ( p, q, bt )
+
+
 
   !*****************************************************************************80
   !
@@ -1229,20 +1351,30 @@ subroutine betaf ( p, q, bt )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) P, Q, the parameters.
+  !    Input, real(8) P, Q, the parameters.
   !    0 < P, 0 < Q.
   !
-  !    Output, real ( kind = 8 ) BT, the value of B(P,Q).
+  !    Output, real(8) BT, the value of B(P,Q).
+  !
+subroutine betaf ( p, q, bt )
+  !BETA computes the Beta function B(p,q).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang, Jianming Jin. FORTRAN90 version by John Burkardt.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param p: in: the parameter P, 0 < P
+  !@param q: in: the parameter Q, 0 < Q
+  !@param bt: out: the value of B(P,Q)
   !
   implicit none
 
-  real ( kind = 8 ) bt
-  real ( kind = 8 ) gp
-  real ( kind = 8 ) gpq
-  real ( kind = 8 ) gq
-  real ( kind = 8 ) p
-  real ( kind = 8 ) ppq
-  real ( kind = 8 ) q
+  real(8) :: bt
+  real(8) :: gp
+  real(8) :: gpq
+  real(8) :: gq
+  real(8) :: p
+  real(8) :: ppq
+  real(8) :: q
 
   call gammaf ( p, gp )
   call gammaf ( q, gq )
@@ -1252,7 +1384,9 @@ subroutine betaf ( p, q, bt )
 
   return
 end subroutine betaf
-subroutine bjndd ( n, x, bj, dj, fj )
+
+
+
 
   !*****************************************************************************80
   !
@@ -1282,29 +1416,41 @@ subroutine bjndd ( n, x, bj, dj, fj )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BJ(N+1), DJ(N+1), FJ(N+1), the values of 
+  !    Output, real(8) BJ(N+1), DJ(N+1), FJ(N+1), the values of 
   !    Jn(x), Jn'(x) and Jn''(x) in the last entries.
+  !
+subroutine bjndd ( n, x, bj, dj, fj )
+  !BJNDD computes Bessel functions Jn(x) and first and second derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param bj: out: Jn(x)
+  !@param dj: out: Jn'(x)
+  !@param fj: out: Jn''(x) in the last entries
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) bj(n+1)
-  real ( kind = 8 ) bs
-  real ( kind = 8 ) dj(n+1)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) fj(n+1)
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) mt
-  integer ( kind = 4 ) nt
-  real ( kind = 8 ) x
+  real(8)    :: bj(n+1)
+  real(8)    :: bs
+  real(8)    :: dj(n+1)
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: fj(n+1)
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: mt
+  integer(4) :: nt
+  real(8)    :: x
 
   do nt = 1, 900
      mt = int ( 0.5D+00 * log10 ( 6.28D+00 * nt ) &
@@ -1343,7 +1489,9 @@ subroutine bjndd ( n, x, bj, dj, fj )
 
   return
 end subroutine bjndd
-subroutine cbk ( m, n, c, cv, qt, ck, bk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -1373,44 +1521,58 @@ subroutine cbk ( m, n, c, cv, qt, ck, bk )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Input, real ( kind = 8 ) QT, ?
+  !    Input, real(8) QT, ?
   !
-  !    Input, real ( kind = 8 ) CK(*), ?
+  !    Input, real(8) CK(*), ?
   !
-  !    Output, real ( kind = 8 ) BK(*), the coefficients.
+  !    Output, real(8) BK(*), the coefficients.
+  !
+subroutine cbk ( m, n, c, cv, qt, ck, bk )
+  !CBK computes coefficients for oblate radial functions with small argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param cv: in: the characteristic value
+  !@param qt: in: not documented in the original header
+  !@param ck: in: not documented in the original header
+  !@param bk: out: the coefficients
   !
   implicit none
 
-  real ( kind = 8 ) bk(200)
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck(200)
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) i1
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) n2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) qt
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) s1
-  real ( kind = 8 ) sw
-  real ( kind = 8 ) t
-  real ( kind = 8 ) u(200)
-  real ( kind = 8 ) v(200)
-  real ( kind = 8 ) w(200)
+  real(8)    :: bk(200)
+  real(8)    :: c
+  real(8)    :: ck(200)
+  real(8)    :: cv
+  real(8)    :: eps
+  integer(4) :: i
+  integer(4) :: i1
+  integer(4) :: ip
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: n2
+  integer(4) :: nm
+  real(8)    :: qt
+  real(8)    :: r1
+  real(8)    :: s1
+  real(8)    :: sw
+  real(8)    :: t
+  real(8)    :: u(200)
+  real(8)    :: v(200)
+  real(8)    :: w(200)
 
   eps = 1.0D-14
   if ( n - m == 2 * int ( ( n - m ) / 2 ) ) then
@@ -1508,7 +1670,9 @@ subroutine cbk ( m, n, c, cv, qt, ck, bk )
 
   return
 end subroutine cbk
-subroutine cchg ( a, b, z, chg )
+
+
+
 
   !*****************************************************************************80
   !
@@ -1543,51 +1707,65 @@ subroutine cchg ( a, b, z, chg )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, parameter values.
+  !    Input, real(8) A, B, parameter values.
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CHG, the value of M(a,b,z).
+  !    Output, complex(8) CHG, the value of M(a,b,z).
+  !
+subroutine cchg ( a, b, z, chg )
+  !CCHG computes the confluent hypergeometric function.
+  !
+  !This function computes the confluent hypergeometric function
+  !M(a,b,z) with real parameters a, b and complex argument z.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param z: in: the argument
+  !@param chg: out: the value of M(a,b,z)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) b
-  real ( kind = 8 ) ba
-  complex ( kind = 8 ) cfac
-  complex ( kind = 8 ) chg
-  complex ( kind = 8 ) chg1
-  complex ( kind = 8 ) chg2
-  complex ( kind = 8 ) chw
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cr1
-  complex ( kind = 8 ) cr2
-  complex ( kind = 8 ) crg
-  complex ( kind = 8 ) cs1
-  complex ( kind = 8 ) cs2
-  complex ( kind = 8 ) cy0
-  complex ( kind = 8 ) cy1
-  real ( kind = 8 ) g1
-  real ( kind = 8 ) g2
-  real ( kind = 8 ) g3
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) la
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nl
-  integer ( kind = 4 ) ns
-  real ( kind = 8 ) phi
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) y
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z0
+  real(8)    :: a
+  real(8)    :: a0
+  real(8)    :: a1
+  real(8)    :: b
+  real(8)    :: ba
+  complex(8) :: cfac
+  complex(8) :: chg
+  complex(8) :: chg1
+  complex(8) :: chg2
+  complex(8) :: chw
+  complex(8) :: ci
+  complex(8) :: cr
+  complex(8) :: cr1
+  complex(8) :: cr2
+  complex(8) :: crg
+  complex(8) :: cs1
+  complex(8) :: cs2
+  complex(8) :: cy0
+  complex(8) :: cy1
+  real(8)    :: g1
+  real(8)    :: g2
+  real(8)    :: g3
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: la
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nl
+  integer(4) :: ns
+  real(8)    :: phi
+  real(8)    :: pi
+  real(8)    :: x
+  real(8)    :: x0
+  real(8)    :: y
+  complex(8) :: z
+  complex(8) :: z0
 
   pi = 3.141592653589793D+00
   ci = cmplx ( 0.0D+00, 1.0D+00 )
@@ -1727,7 +1905,8 @@ subroutine cchg ( a, b, z, chg )
   return
 end subroutine cchg
 
-subroutine cerf ( z, cer, cder )
+
+
 
   !*****************************************************************************80
   !
@@ -1757,37 +1936,47 @@ subroutine cerf ( z, cer, cder )
   ! 
   !  Parameters:
   !
-  !    Input, complex ( kind = 8 ), the argument.
+  !    Input, complex(8), the argument.
   !
-  !    Output, complex ( kind = 8 ) CER, CDER, the values of erf(z) and erf'(z).
+  !    Output, complex(8) CER, CDER, the values of erf(z) and erf'(z).
+  !
+subroutine cerf ( z, cer, cder )
+  !CERF computes the error function and derivative for a complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param z: the argument
+  !@param cer: out: erf(z)
+  !@param cder: out: erf'(z)
   !
   implicit none
 
-  complex ( kind = 8 ) c0
-  complex ( kind = 8 ) cder
-  complex ( kind = 8 ) cer
-  complex ( kind = 8 ) cs
-  real ( kind = 8 ) ei1
-  real ( kind = 8 ) ei2
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) er
-  real ( kind = 8 ) er0
-  real ( kind = 8 ) er1
-  real ( kind = 8 ) er2 
-  real ( kind = 8 ) eri
-  real ( kind = 8 ) err
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) ss
-  real ( kind = 8 ) w
-  real ( kind = 8 ) w1
-  real ( kind = 8 ) w2
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) y
-  complex ( kind = 8 ) z
+  complex(8) :: c0
+  complex(8) :: cder
+  complex(8) :: cer
+  complex(8) :: cs
+  real(8)    :: ei1
+  real(8)    :: ei2
+  real(8)    :: eps
+  real(8)    :: er
+  real(8)    :: er0
+  real(8)    :: er1
+  real(8)    :: er2
+  real(8)    :: eri
+  real(8)    :: err
+  integer(4) :: k
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: ss
+  real(8)    :: w
+  real(8)    :: w1
+  real(8)    :: w2
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: y
+  complex(8) :: z
 
   eps = 1.0D-12
   pi = 3.141592653589793D+00
@@ -1867,7 +2056,8 @@ subroutine cerf ( z, cer, cder )
   return
 end subroutine cerf
 
-subroutine cerror ( z, cer )
+
+
 
   !*****************************************************************************80
   !
@@ -1897,22 +2087,31 @@ subroutine cerror ( z, cer )
   ! 
   !  Parameters:
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CER, the function value.
+  !    Output, complex(8) CER, the function value.
+  !
+subroutine cerror ( z, cer )
+  !CERROR computes the error function for a complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param z: in: the argument
+  !@param cer: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) c0
-  complex ( kind = 8 ) cer
-  complex ( kind = 8 ) cl
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cs
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
+  real(8)    :: a0
+  complex(8) :: c0
+  complex(8) :: cer
+  complex(8) :: cl
+  complex(8) :: cr
+  complex(8) :: cs
+  integer(4) :: k
+  real(8)    :: pi
+  complex(8) :: z
+  complex(8) :: z1
 
   a0 = abs ( z )
   c0 = exp ( - z * z )
@@ -1960,7 +2159,8 @@ subroutine cerror ( z, cer )
   return
 end subroutine cerror
 
-subroutine cerzo ( nt, zo )
+
+
 
   !*****************************************************************************80
   !
@@ -1994,34 +2194,45 @@ subroutine cerzo ( nt, zo )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) NT, the number of zeros.
+  !    Input, integer(4) NT, the number of zeros.
   !
-  !    Output, complex ( kind = 8 ) ZO(NT), the zeros.
+  !    Output, complex(8) ZO(NT), the zeros.
+  !
+subroutine cerzo ( nt, zo )
+  !CERZO evaluates the complex zeros of the error function.
+  !
+  !The modified Newton method is used.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param nt: in: the number of zeros
+  !@param zo: out: the zeros
   !
   implicit none
 
-  integer ( kind = 4 ) nt
+  integer(4) :: nt
 
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) it
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) nr
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pu
-  real ( kind = 8 ) pv
-  real ( kind = 8 ) px
-  real ( kind = 8 ) py
-  real ( kind = 8 ) w
-  real ( kind = 8 ) w0
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) zd
-  complex ( kind = 8 ) zf
-  complex ( kind = 8 ) zfd
-  complex ( kind = 8 ) zgd
-  complex ( kind = 8 ) zo(nt)
-  complex ( kind = 8 ) zp
-  complex ( kind = 8 ) zq
-  complex ( kind = 8 ) zw
+  integer(4) :: i
+  integer(4) :: it
+  integer(4) :: j
+  integer(4) :: nr
+  real(8)    :: pi
+  real(8)    :: pu
+  real(8)    :: pv
+  real(8)    :: px
+  real(8)    :: py
+  real(8)    :: w
+  real(8)    :: w0
+  complex(8) :: z
+  complex(8) :: zd
+  complex(8) :: zf
+  complex(8) :: zfd
+  complex(8) :: zgd
+  complex(8) :: zo(nt)
+  complex(8) :: zp
+  complex(8) :: zq
+  complex(8) :: zw
 
   pi = 3.141592653589793D+00
 
@@ -2072,7 +2283,9 @@ subroutine cerzo ( nt, zo )
 
   return
 end subroutine cerzo
-subroutine cfc ( z, zf, zd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -2102,31 +2315,41 @@ subroutine cfc ( z, zf, zd )
   !
   !  Parameters:
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) ZF, ZD, the values of C(z) and C'(z).
+  !    Output, complex(8) ZF, ZD, the values of C(z) and C'(z).
+  !
+subroutine cfc ( z, zf, zd )
+  !CFC computes the complex Fresnel integral C(z) and C'(z).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param z: in: the argument
+  !@param zf: out: C(z)
+  !@param zd: out: C'(z)
   !
   implicit none
 
-  complex ( kind = 8 ) c
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf0
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cg
-  complex ( kind = 8 ) cr
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) wa
-  real ( kind = 8 ) wa0
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z0
-  complex ( kind = 8 ) zd
-  complex ( kind = 8 ) zf
-  complex ( kind = 8 ) zp
-  complex ( kind = 8 ) zp2
+  complex(8) :: c
+  complex(8) :: cf
+  complex(8) :: cf0
+  complex(8) :: cf1
+  complex(8) :: cg
+  complex(8) :: cr
+  real(8)    :: eps
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: pi
+  real(8)    :: w0
+  real(8)    :: wa
+  real(8)    :: wa0
+  complex(8) :: z
+  complex(8) :: z0
+  complex(8) :: zd
+  complex(8) :: zf
+  complex(8) :: zp
+  complex(8) :: zp2
 
   eps = 1.0D-14
   pi = 3.141592653589793D+00
@@ -2196,7 +2419,9 @@ subroutine cfc ( z, zf, zd )
 
   return
 end subroutine cfc
-subroutine cfs ( z, zf, zd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -2226,31 +2451,41 @@ subroutine cfs ( z, zf, zd )
   !
   !  Parameters:
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) ZF, ZD, the values of S(z) and S'(z).
+  !    Output, complex(8) ZF, ZD, the values of S(z) and S'(z).
+  !
+subroutine cfs ( z, zf, zd )
+  !CFS computes the complex Fresnel integral S(z) and S'(z).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param z: in: the argument
+  !@param zf: out: S(z)
+  !@param zd: out: S'(z)
   !
   implicit none
 
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf0
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cg
-  complex ( kind = 8 ) cr
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) pi
-  complex ( kind = 8 ) s
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) wb
-  real ( kind = 8 ) wb0
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z0
-  complex ( kind = 8 ) zd
-  complex ( kind = 8 ) zf
-  complex ( kind = 8 ) zp
-  complex ( kind = 8 ) zp2
+  complex(8) :: cf
+  complex(8) :: cf0
+  complex(8) :: cf1
+  complex(8) :: cg
+  complex(8) :: cr
+  real(8)    :: eps
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: pi
+  complex(8) :: s
+  real(8)    :: w0
+  real(8)    :: wb
+  real(8)    :: wb0
+  complex(8) :: z
+  complex(8) :: z0
+  complex(8) :: zd
+  complex(8) :: zf
+  complex(8) :: zp
+  complex(8) :: zp2
 
   eps = 1.0D-14
   pi = 3.141592653589793D+00
@@ -2320,7 +2555,9 @@ subroutine cfs ( z, zf, zd )
 
   return
 end subroutine cfs
-subroutine cgama ( x, y, kf, gr, gi )
+
+
+
 
   !*****************************************************************************80
   !
@@ -2355,47 +2592,62 @@ subroutine cgama ( x, y, kf, gr, gi )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, Y, the real and imaginary parts of 
+  !    Input, real(8) X, Y, the real and imaginary parts of 
   !    the argument Z.
   !
-  !    Input, integer ( kind = 4 ) KF, the function code.
+  !    Input, integer(4) KF, the function code.
   !    0 for ln[Γ(z)]
   !    1 for Γ(z)
   !
-  !    Output, real ( kind = 8 ) GR, GI, the real and imaginary parts of
+  !    Output, real(8) GR, GI, the real and imaginary parts of
   !    the selected function.
+  !
+subroutine cgama ( x, y, kf, gr, gi )
+  !CGAMA computes the Gamma function for complex argument.
+  !
+  !This procedure computes the gamma function Gamma(z) or ln[Gamma(z)]
+  !for a complex argument
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the real part of the argument Z
+  !@param y: in: the imaginary part of the argument Z
+  !@param kf: in: the function code. 0 for ln[Gamma(z)] 1 for Gamma(z)
+  !@param gr: out: the real part of the selected function
+  !@param gi: out: the imaginary part of the selected function
   !
   implicit none
 
-  real ( kind = 8 ), save, dimension ( 10 ) :: a = (/ &
+  real(8), save, dimension ( 10 ) :: a = (/ &
        8.333333333333333D-02, -2.777777777777778D-03, &
        7.936507936507937D-04, -5.952380952380952D-04, &
        8.417508417508418D-04, -1.917526917526918D-03, &
        6.410256410256410D-03, -2.955065359477124D-02, &
        1.796443723688307D-01, -1.39243221690590D+00 /)
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) gi
-  real ( kind = 8 ) gi1
-  real ( kind = 8 ) gr
-  real ( kind = 8 ) gr1
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kf
-  integer ( kind = 4 ) na
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) si
-  real ( kind = 8 ) sr
-  real ( kind = 8 ) t
-  real ( kind = 8 ) th
-  real ( kind = 8 ) th1
-  real ( kind = 8 ) th2
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) x1
-  real ( kind = 8 ) y
-  real ( kind = 8 ) y1
-  real ( kind = 8 ) z1
-  real ( kind = 8 ) z2
+  real(8)    :: g0
+  real(8)    :: gi
+  real(8)    :: gi1
+  real(8)    :: gr
+  real(8)    :: gr1
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: kf
+  integer(4) :: na
+  real(8)    :: pi
+  real(8)    :: si
+  real(8)    :: sr
+  real(8)    :: t
+  real(8)    :: th
+  real(8)    :: th1
+  real(8)    :: th2
+  real(8)    :: x
+  real(8)    :: x0
+  real(8)    :: x1
+  real(8)    :: y
+  real(8)    :: y1
+  real(8)    :: z1
+  real(8)    :: z2
 
   pi = 3.141592653589793D+00
 
@@ -2464,7 +2716,9 @@ subroutine cgama ( x, y, kf, gr, gi )
 
   return
 end subroutine cgama
-subroutine ch12n ( n, z, nm, chf1, chd1, chf2, chd2 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -2498,39 +2752,55 @@ subroutine ch12n ( n, z, nm, chf1, chd1, chf2, chd2 )
   ! 
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of the functions.
+  !    Input, integer(4) N, the order of the functions.
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, complex ( kind = 8 ) CHF1(0:n), CHD1(0:n), CHF2(0:n), CHD2(0:n), 
+  !    Output, complex(8) CHF1(0:n), CHD1(0:n), CHF2(0:n), CHD2(0:n), 
   !    the values of Hn(1)(z), Hn(1)'(z), Hn(2)(z), Hn(2)'(z).
+  !
+subroutine ch12n ( n, z, nm, chf1, chd1, chf2, chd2 )
+  !CH12N computes Hankel functions of first and second kinds, complex argument.
+  !
+  !Both the Hankel functions and their derivatives are computed.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of the functions
+  !@param z: in: the argument
+  !@param nm: out: the highest order computed
+  !@param chf1: out: Hn(1)(z)
+  !@param chd1: out: Hn(1)'(z)
+  !@param chf2: out: Hn(2)(z)
+  !@param chd2: out: Hn(2)'(z)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  complex ( kind = 8 ) cbi(0:250)
-  complex ( kind = 8 ) cbj(0:250)
-  complex ( kind = 8 ) cbk(0:250)
-  complex ( kind = 8 ) cby(0:250)
-  complex ( kind = 8 ) cdi(0:250)
-  complex ( kind = 8 ) cdj(0:250)
-  complex ( kind = 8 ) cdk(0:250)
-  complex ( kind = 8 ) cdy(0:250)
-  complex ( kind = 8 ) chd1(0:n)
-  complex ( kind = 8 ) chd2(0:n)
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cfac
-  complex ( kind = 8 ) chf1(0:n)
-  complex ( kind = 8 ) chf2(0:n)
-  complex ( kind = 8 ) ci
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pi
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) zi
+  complex(8) :: cbi(0:250)
+  complex(8) :: cbj(0:250)
+  complex(8) :: cbk(0:250)
+  complex(8) :: cby(0:250)
+  complex(8) :: cdi(0:250)
+  complex(8) :: cdj(0:250)
+  complex(8) :: cdk(0:250)
+  complex(8) :: cdy(0:250)
+  complex(8) :: chd1(0:n)
+  complex(8) :: chd2(0:n)
+  complex(8) :: cf1
+  complex(8) :: cfac
+  complex(8) :: chf1(0:n)
+  complex(8) :: chf2(0:n)
+  complex(8) :: ci
+  integer(4) :: k
+  integer(4) :: nm
+  real(8)    :: pi
+  complex(8) :: z
+  complex(8) :: zi
 
   ci = cmplx ( 0.0D+00, 1.0D+00, kind = 8 )
   pi = 3.141592653589793D+00
@@ -2589,7 +2859,9 @@ subroutine ch12n ( n, z, nm, chf1, chd1, chf2, chd2 )
 
   return
 end subroutine ch12n
-subroutine chgm ( a, b, x, hg )
+
+
+
 
   !*****************************************************************************80
   !
@@ -2619,44 +2891,55 @@ subroutine chgm ( a, b, x, hg )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, parameters.
+  !    Input, real(8) A, B, parameters.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) HG, the value of M(a,b,x).
+  !    Output, real(8) HG, the value of M(a,b,x).
+  !
+subroutine chgm ( a, b, x, hg )
+  !CHGM computes the confluent hypergeometric function M(a,b,x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param x: in: the argument
+  !@param hg: out: the value of M(a,b,x)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) aa
-  real ( kind = 8 ) b
-  real ( kind = 8 ) hg
-  real ( kind = 8 ) hg1
-  real ( kind = 8 ) hg2
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) la
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nl
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) rg
-  real ( kind = 8 ) sum1
-  real ( kind = 8 ) sum2
-  real ( kind = 8 ) ta
-  real ( kind = 8 ) tb
-  real ( kind = 8 ) tba
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) xg
-  real ( kind = 8 ) y0
-  real ( kind = 8 ) y1
+  real(8)    :: a
+  real(8)    :: a0
+  real(8)    :: a1
+  real(8)    :: aa
+  real(8)    :: b
+  real(8)    :: hg
+  real(8)    :: hg1
+  real(8)    :: hg2
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: la
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nl
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: rg
+  real(8)    :: sum1
+  real(8)    :: sum2
+  real(8)    :: ta
+  real(8)    :: tb
+  real(8)    :: tba
+  real(8)    :: x
+  real(8)    :: x0
+  real(8)    :: xg
+  real(8)    :: y0
+  real(8)    :: y1
 
   pi = 3.141592653589793D+00
   a0 = a
@@ -2773,7 +3056,9 @@ subroutine chgm ( a, b, x, hg )
 
   return
 end subroutine chgm
-subroutine chgu ( a, b, x, hu, md )
+
+
+
 
   !*****************************************************************************80
   !
@@ -2803,34 +3088,46 @@ subroutine chgu ( a, b, x, hu, md )
   ! 
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, parameters.
+  !    Input, real(8) A, B, parameters.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) HU, U(a,b,x).
+  !    Output, real(8) HU, U(a,b,x).
   !
-  !    Output, integer ( kind = 4 ) MD, the method code.
+  !    Output, integer(4) MD, the method code.
+  !
+subroutine chgu ( a, b, x, hu, md )
+  !CHGU computes the confluent hypergeometric function U(a,b,x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param x: in: the argument
+  !@param hu: out: U(a,b,x)
+  !@param md: out: the method code
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a00
-  real ( kind = 8 ) aa
-  real ( kind = 8 ) b
-  real ( kind = 8 ) b00
-  logical bl1
-  logical bl2
-  logical bl3
-  logical bn
-  real ( kind = 8 ) hu
-  real ( kind = 8 ) hu1
-  integer ( kind = 4 ) id
-  integer ( kind = 4 ) id1
-  logical il1
-  logical il2
-  logical il3
-  integer ( kind = 4 ) md
-  real ( kind = 8 ) x
+  real(8)    :: a
+  real(8)    :: a00
+  real(8)    :: aa
+  real(8)    :: b
+  real(8)    :: b00
+  logical    :: bl1
+  logical    :: bl2
+  logical    :: bl3
+  logical    :: bn
+  real(8)    :: hu
+  real(8)    :: hu1
+  integer(4) :: id
+  integer(4) :: id1
+  logical    :: il1
+  logical    :: il2
+  logical    :: il3
+  integer(4) :: md
+  real(8)    :: x
 
   aa = a - b + 1.0D+00
   il1 = a == int ( a ) .and. a <= 0.0D+00
@@ -2898,7 +3195,9 @@ subroutine chgu ( a, b, x, hu, md )
 
   return
 end subroutine chgu
-subroutine chgubi ( a, b, x, hu, id )
+
+
+
 
   !*****************************************************************************80
   !
@@ -2907,7 +3206,7 @@ subroutine chgubi ( a, b, x, hu, id )
   !  Discussion:
   !
   !    This procedure computes the confluent hypergeometric function
-  !    U(a,b,x) with integer ( kind = 4 ) b ( b = ±1,±2,... )
+  !    U(a,b,x) with integer(4) b ( b = ±1,±2,... )
   !
   !  Licensing:
   !
@@ -2933,58 +3232,73 @@ subroutine chgubi ( a, b, x, hu, id )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, parameters.
+  !    Input, real(8) A, B, parameters.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) HU, the value of U(a,b,x).
+  !    Output, real(8) HU, the value of U(a,b,x).
   !
-  !    Output, integer ( kind = 4 ) ID, the estimated number of significant
+  !    Output, integer(4) ID, the estimated number of significant
   !    digits.
+  !
+subroutine chgubi ( a, b, x, hu, id )
+  !CHGUBI: confluent hypergeometric function with integer argument B.
+  !
+  !This procedure computes the confluent hypergeometric function
+  !U(a,b,x) with integer(4) b ( b = +/-1,+/-2,... )
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param x: in: the argument
+  !@param hu: out: the value of U(a,b,x)
+  !@param id: out: the estimated number of significant digits
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) a2
-  real ( kind = 8 ) b
-  real ( kind = 8 ) da1
-  real ( kind = 8 ) da2
-  real ( kind = 8 ) db1
-  real ( kind = 8 ) db2
-  real ( kind = 8 ) el
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) ga1
-  real ( kind = 8 ) h0
-  real ( kind = 8 ) hm1
-  real ( kind = 8 ) hm2
-  real ( kind = 8 ) hm3
-  real ( kind = 8 ) hmax
-  real ( kind = 8 ) hmin
-  real ( kind = 8 ) hu
-  real ( kind = 8 ) hu1
-  real ( kind = 8 ) hu2
-  real ( kind = 8 ) hw
-  integer ( kind = 4 ) id
-  integer ( kind = 4 ) id1
-  integer ( kind = 4 ) id2
-  integer ( kind = 4 ) j 
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) ps
-  real ( kind = 8 ) r
-  real ( kind = 8 ) rn
-  real ( kind = 8 ) rn1
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) s1
-  real ( kind = 8 ) s2
-  real ( kind = 8 ) sa
-  real ( kind = 8 ) sb
-  real ( kind = 8 ) ua
-  real ( kind = 8 ) ub
-  real ( kind = 8 ) x
+  real(8)    :: a
+  real(8)    :: a0
+  real(8)    :: a1
+  real(8)    :: a2
+  real(8)    :: b
+  real(8)    :: da1
+  real(8)    :: da2
+  real(8)    :: db1
+  real(8)    :: db2
+  real(8)    :: el
+  real(8)    :: ga
+  real(8)    :: ga1
+  real(8)    :: h0
+  real(8)    :: hm1
+  real(8)    :: hm2
+  real(8)    :: hm3
+  real(8)    :: hmax
+  real(8)    :: hmin
+  real(8)    :: hu
+  real(8)    :: hu1
+  real(8)    :: hu2
+  real(8)    :: hw
+  integer(4) :: id
+  integer(4) :: id1
+  integer(4) :: id2
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: n
+  real(8)    :: ps
+  real(8)    :: r
+  real(8)    :: rn
+  real(8)    :: rn1
+  real(8)    :: s0
+  real(8)    :: s1
+  real(8)    :: s2
+  real(8)    :: sa
+  real(8)    :: sb
+  real(8)    :: ua
+  real(8)    :: ub
+  real(8)    :: x
 
   id = -100
   el = 0.5772156649015329D+00
@@ -3122,7 +3436,9 @@ subroutine chgubi ( a, b, x, hu, id )
 
   return
 end subroutine chgubi
-subroutine chguit ( a, b, x, hu, id )
+
+
+
 
   !*****************************************************************************80
   !
@@ -3165,27 +3481,42 @@ subroutine chguit ( a, b, x, hu, id )
   !
   !    Output, integer ID, the estimated number of significant digits.
   !
+subroutine chguit ( a, b, x, hu, id )
+  !CHGUIT computes the hypergeometric function using Gauss-Legendre integration.
+  !
+  !This procedure computes the hypergeometric function U(a,b,x) by
+  !using Gaussian-Legendre integration (n = 60)
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param x: in: the argument
+  !@param hu: out: U(a,b,z)
+  !@param id: out: the estimated number of significant digits
+  !
   implicit none
 
-  double precision a
-  double precision a1
-  double precision b
-  double precision b1
-  double precision c
-  double precision d
-  double precision f1
-  double precision f2
-  double precision g
-  double precision ga
-  double precision hu
-  double precision hu0
-  double precision hu1
-  double precision hu2
-  integer id
-  integer j
-  integer k
-  integer m
-  double precision s
+  double precision :: a
+  double precision :: a1
+  double precision :: b
+  double precision :: b1
+  double precision :: c
+  double precision :: d
+  double precision :: f1
+  double precision :: f2
+  double precision :: g
+  double precision :: ga
+  double precision :: hu
+  double precision :: hu0
+  double precision :: hu1
+  double precision :: hu2
+  integer          :: id
+  integer          :: j
+  integer          :: k
+  integer          :: m
+  double precision :: s
   double precision, save, dimension ( 30 ) :: t = (/ &
        0.259597723012478D-01, 0.778093339495366D-01, &
        0.129449135396945D+00, 0.180739964873425D+00, &
@@ -3202,10 +3533,10 @@ subroutine chguit ( a, b, x, hu, id )
        0.955722255839996D+00, 0.969701788765053D+00, &
        0.981067201752598D+00, 0.989787895222222D+00, &
        0.995840525118838D+00, 0.999210123227436D+00 /)
-  double precision t1
-  double precision t2
-  double precision t3
-  double precision t4
+  double precision :: t1
+  double precision :: t2
+  double precision :: t3
+  double precision :: t4
   double precision, save, dimension ( 30 ) :: w = (/ &
        0.519078776312206D-01, 0.517679431749102D-01, &
        0.514884515009810D-01, 0.510701560698557D-01, &
@@ -3222,7 +3553,7 @@ subroutine chguit ( a, b, x, hu, id )
        0.152746185967848D-01, 0.126781664768159D-01, &
        0.100475571822880D-01, 0.738993116334531D-02, &
        0.471272992695363D-02, 0.202681196887362D-02 /)
-  double precision x
+  double precision :: x
 
   id = 7
   a1 = a - 1.0D+00
@@ -3291,7 +3622,9 @@ subroutine chguit ( a, b, x, hu, id )
 
   return
 end subroutine chguit
-subroutine chgul ( a, b, x, hu, id )
+
+
+
 
   !*****************************************************************************80
   !
@@ -3321,30 +3654,42 @@ subroutine chgul ( a, b, x, hu, id )
   ! 
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, parameters.
+  !    Input, real(8) A, B, parameters.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) HU, the value of U(a,b,x).
+  !    Output, real(8) HU, the value of U(a,b,x).
   !
-  !    Output, integer ( kind = 4 ) ID, the estimated number of 
+  !    Output, integer(4) ID, the estimated number of 
   !    significant digits.
+  !
+subroutine chgul ( a, b, x, hu, id )
+  !CHGUL: confluent hypergeometric function U(a,b,x) for large argument X.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param x: in: the argument
+  !@param hu: out: the value of U(a,b,x)
+  !@param id: out: the estimated number of significant digits
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) aa
-  real ( kind = 8 ) b
-  real ( kind = 8 ) hu
-  integer ( kind = 4 ) id
-  logical il1
-  logical il2
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) r
-  real ( kind = 8 ) ra
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) x
+  real(8)    :: a
+  real(8)    :: aa
+  real(8)    :: b
+  real(8)    :: hu
+  integer(4) :: id
+  logical    :: il1
+  logical    :: il2
+  integer(4) :: k
+  integer(4) :: nm
+  real(8)    :: r
+  real(8)    :: ra
+  real(8)    :: r0
+  real(8)    :: x
 
   id = -100
   aa = a - b + 1.0D+00
@@ -3391,7 +3736,9 @@ subroutine chgul ( a, b, x, hu, id )
 
   return
 end subroutine chgul
-subroutine chgus ( a, b, x, hu, id )
+
+
+
 
   !*****************************************************************************80
   !
@@ -3421,39 +3768,51 @@ subroutine chgus ( a, b, x, hu, id )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, parameters.
+  !    Input, real(8) A, B, parameters.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) HU, U(a,b,x).
+  !    Output, real(8) HU, U(a,b,x).
   !
-  !    Output, integer ( kind = 4 ) ID, the estimated number of 
+  !    Output, integer(4) ID, the estimated number of 
   !    significant digits.
+  !
+subroutine chgus ( a, b, x, hu, id )
+  !CHGUS: confluent hypergeometric function U(a,b,x) for small argument X.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param x: in: the argument
+  !@param hu: out: U(a,b,x)
+  !@param id: out: the estimated number of significant digits
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) b
-  real ( kind = 8 ) d1
-  real ( kind = 8 ) d2
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gab
-  real ( kind = 8 ) gb
-  real ( kind = 8 ) gb2
-  real ( kind = 8 ) h0
-  real ( kind = 8 ) hmax
-  real ( kind = 8 ) hmin
-  real ( kind = 8 ) hu
-  real ( kind = 8 ) hu0
-  real ( kind = 8 ) hua
-  integer ( kind = 4 ) id
-  integer ( kind = 4 ) j
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xg1
-  real ( kind = 8 ) xg2
+  real(8)    :: a
+  real(8)    :: b
+  real(8)    :: d1
+  real(8)    :: d2
+  real(8)    :: ga
+  real(8)    :: gab
+  real(8)    :: gb
+  real(8)    :: gb2
+  real(8)    :: h0
+  real(8)    :: hmax
+  real(8)    :: hmin
+  real(8)    :: hu
+  real(8)    :: hu0
+  real(8)    :: hua
+  integer(4) :: id
+  integer(4) :: j
+  real(8)    :: pi
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: x
+  real(8)    :: xg1
+  real(8)    :: xg2
 
   id = -100
   pi = 3.141592653589793D+00
@@ -3490,7 +3849,9 @@ subroutine chgus ( a, b, x, hu, id )
 
   return
 end subroutine chgus
-subroutine cik01 ( z, cbi0, cdi0, cbi1, cdi1, cbk0, cdk0, cbk1, cdk1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -3525,59 +3886,78 @@ subroutine cik01 ( z, cbi0, cdi0, cbi1, cdi1, cbk0, cdk0, cbk1, cdk1 )
   ! 
   !  Parameters:
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CBI0, CDI0, CBI1, CDI1, CBK0, CDK0, CBK1, 
+  !    Output, complex(8) CBI0, CDI0, CBI1, CDI1, CBK0, CDK0, CBK1, 
   !    CDK1, the values of I0(z), I0'(z), I1(z), I1'(z), K0(z), K0'(z), K1(z), 
   !    and K1'(z).
   !
+subroutine cik01 ( z, cbi0, cdi0, cbi1, cdi1, cbk0, cdk0, cbk1, cdk1 )
+  !CIK01: modified Bessel I0(z), I1(z), K0(z) and K1(z) for complex argument.
+  !
+  !This procedure computes the modified Bessel functions I0(z), I1(z),
+  !K0(z), K1(z), and their derivatives for a complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param z: in: the argument
+  !@param cbi0: out: I0(z)
+  !@param cdi0: out: I0'(z)
+  !@param cbi1: out: I1(z)
+  !@param cdi1: out: I1'(z)
+  !@param cbk0: out: K0(z)
+  !@param cdk0: out: K0'(z)
+  !@param cbk1: out: K1(z)
+  !@param cdk1: and K1'(z)
+  !
   implicit none
 
-  real ( kind = 8 ), save, dimension ( 12 ) :: a = (/ &
+  real(8), save, dimension ( 12 ) :: a = (/ &
        0.125D+00,           7.03125D-02,&
        7.32421875D-02,      1.1215209960938D-01,&
        2.2710800170898D-01, 5.7250142097473D-01,&
        1.7277275025845D+00, 6.0740420012735D+00,&
        2.4380529699556D+01, 1.1001714026925D+02,&
        5.5133589612202D+02, 3.0380905109224D+03 /)
-  real ( kind = 8 ) a0
-  real ( kind = 8 ), save, dimension ( 10 ) :: a1 = (/ &
+  real(8)    :: a0
+  real(8), save, dimension ( 10 ) :: a1 = (/ &
        0.125D+00,            0.2109375D+00, &
        1.0986328125D+00,     1.1775970458984D+01, &
        2.1461706161499D+002, 5.9511522710323D+03, &
        2.3347645606175D+05,  1.2312234987631D+07, &
        8.401390346421D+08,   7.2031420482627D+10 /)
-  real ( kind = 8 ), save, dimension ( 12 ) :: b = (/ &
+  real(8), save, dimension ( 12 ) :: b = (/ &
        -0.375D+00,           -1.171875D-01, &
        -1.025390625D-01,     -1.4419555664063D-01, &
        -2.7757644653320D-01, -6.7659258842468D-01, &
        -1.9935317337513D+00, -6.8839142681099D+00, &
        -2.7248827311269D+01, -1.2159789187654D+02, &
        -6.0384407670507D+02, -3.3022722944809D+03 /)
-  complex ( kind = 8 ) ca
-  complex ( kind = 8 ) cb
-  complex ( kind = 8 ) cbi0
-  complex ( kind = 8 ) cbi1
-  complex ( kind = 8 ) cbk0
-  complex ( kind = 8 ) cbk1
-  complex ( kind = 8 ) cdi0
-  complex ( kind = 8 ) cdi1
-  complex ( kind = 8 ) cdk0
-  complex ( kind = 8 ) cdk1
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) ct
-  complex ( kind = 8 ) cw
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) w0
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
-  complex ( kind = 8 ) z2
-  complex ( kind = 8 ) zr
-  complex ( kind = 8 ) zr2
+  complex(8) :: ca
+  complex(8) :: cb
+  complex(8) :: cbi0
+  complex(8) :: cbi1
+  complex(8) :: cbk0
+  complex(8) :: cbk1
+  complex(8) :: cdi0
+  complex(8) :: cdi1
+  complex(8) :: cdk0
+  complex(8) :: cdk1
+  complex(8) :: ci
+  complex(8) :: cr
+  complex(8) :: cs
+  complex(8) :: ct
+  complex(8) :: cw
+  integer(4) :: k
+  integer(4) :: k0
+  real(8)    :: pi
+  real(8)    :: w0
+  complex(8) :: z
+  complex(8) :: z1
+  complex(8) :: z2
+  complex(8) :: zr
+  complex(8) :: zr2
 
   pi = 3.141592653589793D+00
   ci = cmplx ( 0.0D+00, 1.0D+00, kind = 8 )
@@ -3703,7 +4083,9 @@ subroutine cik01 ( z, cbi0, cdi0, cbi1, cdi1, cbk0, cdk0, cbk1, cdk1 )
 
   return
 end subroutine cik01
-subroutine ciklv ( v, z, cbiv, cdiv, cbkv, cdkv )
+
+
+
 
   !*****************************************************************************80
   !
@@ -3738,40 +4120,56 @@ subroutine ciklv ( v, z, cbiv, cdiv, cbkv, cdkv )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of Iv(z) and Kv(z).
+  !    Input, real(8) V, the order of Iv(z) and Kv(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, real ( kind = 8 ) CBIV, CDIV, CBKV, CDKV, the values of
+  !    Output, real(8) CBIV, CDIV, CBKV, CDKV, the values of
   !    Iv(z), Iv'(z), Kv(z), Kv'(z).
+  !
+subroutine ciklv ( v, z, cbiv, cdiv, cbkv, cdkv )
+  !CIKLV: modified Bessel functions Iv(z), Kv(z), complex argument, large order.
+  !
+  !This procedure computes modified Bessel functions Iv(z) and
+  !Kv(z) and their derivatives with a complex argument and a large order.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of Iv(z) and Kv(z)
+  !@param z: in: the argument
+  !@param cbiv: out: Iv(z)
+  !@param cdiv: out: Iv'(z)
+  !@param cbkv: out: Kv(z)
+  !@param cdkv: out: Kv'(z)
   !
   implicit none
 
-  real ( kind = 8 ) a(91)
-  complex ( kind = 8 ) cbiv
-  complex ( kind = 8 ) cbkv
-  complex ( kind = 8 ) cdiv
-  complex ( kind = 8 ) cdkv
-  complex ( kind = 8 ) ceta
-  complex ( kind = 8 ) cf(12)
-  complex ( kind = 8 ) cfi
-  complex ( kind = 8 ) cfk
-  complex ( kind = 8 ) csi
-  complex ( kind = 8 ) csk
-  complex ( kind = 8 ) ct
-  complex ( kind = 8 ) ct2
-  complex ( kind = 8 ) cws
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) l0
-  integer ( kind = 4 ) lf
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) vr
-  complex ( kind = 8 ) z
+  real(8)    :: a(91)
+  complex(8) :: cbiv
+  complex(8) :: cbkv
+  complex(8) :: cdiv
+  complex(8) :: cdkv
+  complex(8) :: ceta
+  complex(8) :: cf(12)
+  complex(8) :: cfi
+  complex(8) :: cfk
+  complex(8) :: csi
+  complex(8) :: csk
+  complex(8) :: ct
+  complex(8) :: ct2
+  complex(8) :: cws
+  integer(4) :: i
+  integer(4) :: k
+  integer(4) :: km
+  integer(4) :: l
+  integer(4) :: l0
+  integer(4) :: lf
+  real(8)    :: pi
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: vr
+  complex(8) :: z
 
   pi = 3.141592653589793D+00
   km = 12
@@ -3819,7 +4217,9 @@ subroutine ciklv ( v, z, cbiv, cdiv, cbkv, cdkv )
 
   return
 end subroutine ciklv
-subroutine cikna ( n, z, nm, cbi, cdi, cbk, cdk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -3849,43 +4249,57 @@ subroutine cikna ( n, z, nm, cbi, cdi, cbk, cdk )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of In(z) and Kn(z).
+  !    Input, integer(4) N, the order of In(z) and Kn(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, complex ( kind = 8 ) CBI((0:N), CDI(0:N), CBK(0:N), CDK(0:N), 
+  !    Output, complex(8) CBI((0:N), CDI(0:N), CBK(0:N), CDK(0:N), 
   !    the values of In(z), In'(z), Kn(z), Kn'(z).
+  !
+subroutine cikna ( n, z, nm, cbi, cdi, cbk, cdk )
+  !CIKNA: modified Bessel functions In(z), Kn(z), derivatives, complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of In(z) and Kn(z)
+  !@param z: in: the argument
+  !@param nm: out: the highest order computed
+  !@param cbi: In(z), n=0,...,N
+  !@param cdi: In'(z), n=0,...,N
+  !@param cbk: Kn(z), n=0,...,N
+  !@param cdk: Kn'(z), n=0,...,N
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) cbi(0:n)
-  complex ( kind = 8 ) cbi0
-  complex ( kind = 8 ) cbi1
-  complex ( kind = 8 ) cbk(0:n)
-  complex ( kind = 8 ) cbk0
-  complex ( kind = 8 ) cbk1
-  complex ( kind = 8 ) cdi(0:n)
-  complex ( kind = 8 ) cdi0
-  complex ( kind = 8 ) cdi1
-  complex ( kind = 8 ) cdk(0:n)
-  complex ( kind = 8 ) cdk0
-  complex ( kind = 8 ) cdk1
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cf2
-  complex ( kind = 8 ) ckk
-  complex ( kind = 8 ) cs
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  complex ( kind = 8 ) z
+  real(8)    :: a0
+  complex(8) :: cbi(0:n)
+  complex(8) :: cbi0
+  complex(8) :: cbi1
+  complex(8) :: cbk(0:n)
+  complex(8) :: cbk0
+  complex(8) :: cbk1
+  complex(8) :: cdi(0:n)
+  complex(8) :: cdi0
+  complex(8) :: cdi1
+  complex(8) :: cdk(0:n)
+  complex(8) :: cdk0
+  complex(8) :: cdk1
+  complex(8) :: cf
+  complex(8) :: cf1
+  complex(8) :: cf2
+  complex(8) :: ckk
+  complex(8) :: cs
+  integer(4) :: k
+  integer(4) :: m
+  ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  complex(8) :: z
 
   a0 = abs ( z )
   nm = n
@@ -3958,7 +4372,9 @@ subroutine cikna ( n, z, nm, cbi, cdi, cbk, cdk )
 
   return
 end subroutine cikna
-subroutine ciknb ( n, z, nm, cbi, cdi, cbk, cdk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -3992,51 +4408,67 @@ subroutine ciknb ( n, z, nm, cbi, cdi, cbk, cdk )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of In(z) and Kn(z).
+  !    Input, integer(4) N, the order of In(z) and Kn(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, complex ( kind = 8 ) CB((0:N), CDI(0:N), CBK(0:N), CDK(0:N), 
+  !    Output, complex(8) CB((0:N), CDI(0:N), CBK(0:N), CDK(0:N), 
   !    the values of In(z), In'(z), Kn(z), Kn'(z).
+  !
+subroutine ciknb ( n, z, nm, cbi, cdi, cbk, cdk )
+  !CIKNB computes complex modified Bessel functions In(z) and Kn(z).
+  !
+  !This procedure also evaluates the derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of In(z) and Kn(z)
+  !@param z: in: the argument
+  !@param nm: out: the highest order computed
+  !@param cbi: In(z), n=0,...,N
+  !@param cdi: In'(z), n=0,...,N
+  !@param cbk: Kn(z), n=0,...,N
+  !@param cdk: Kn'(z), n=0,...,N
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) c
-  complex ( kind = 8 ) ca0
-  complex ( kind = 8 ) cbi(0:n)
-  complex ( kind = 8 ) cbkl
-  complex ( kind = 8 ) cbs
-  complex ( kind = 8 ) cdi(0:n)
-  complex ( kind = 8 ) cbk(0:n)
-  complex ( kind = 8 ) cdk(0:n)
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf0
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cg
-  complex ( kind = 8 ) cg0
-  complex ( kind = 8 ) cg1
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cs0
-  complex ( kind = 8 ) csk0
-  real ( kind = 8 ) el
-  real ( kind = 8 ) fac
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) vt
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
+  real(8)    :: a0
+  complex(8) :: c
+  complex(8) :: ca0
+  complex(8) :: cbi(0:n)
+  complex(8) :: cbkl
+  complex(8) :: cbs
+  complex(8) :: cdi(0:n)
+  complex(8) :: cbk(0:n)
+  complex(8) :: cdk(0:n)
+  complex(8) :: cf
+  complex(8) :: cf0
+  complex(8) :: cf1
+  complex(8) :: cg
+  complex(8) :: cg0
+  complex(8) :: cg1
+  complex(8) :: ci
+  complex(8) :: cr
+  complex(8) :: cs0
+  complex(8) :: csk0
+  real(8)    :: el
+  real(8)    :: fac
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: l
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: pi
+  real(8)    :: vt
+  complex(8) :: z
+  complex(8) :: z1
 
   pi = 3.141592653589793D+00
   el = 0.57721566490153D+00
@@ -4162,7 +4594,9 @@ subroutine ciknb ( n, z, nm, cbi, cdi, cbk, cdk )
 
   return
 end subroutine ciknb
-subroutine cikva ( v, z, vm, cbi, cdi, cbk, cdk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -4198,67 +4632,85 @@ subroutine cikva ( v, z, vm, cbi, cdi, cbk, cdk )
   !
   !  Parameters:       
   !
-  !    Input, real ( kind = 8 ) V, the order of the functions.
+  !    Input, real(8) V, the order of the functions.
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, real ( kind = 8 ) VM, the highest order computed.
+  !    Output, real(8) VM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) CBI(0:N), CDI(0:N), CBK(0:N), CDK(0:N),
+  !    Output, real(8) CBI(0:N), CDI(0:N), CBK(0:N), CDK(0:N),
   !    the values of In+v0(z), In+v0'(z), Kn+v0(z), Kn+v0'(z).
+  !
+subroutine cikva ( v, z, vm, cbi, cdi, cbk, cdk )
+  !CIKVA: modified Bessel functions Iv(z), Kv(z), arbitrary order, complex.
+  !
+  !Compute the modified Bessel functions Iv(z), Kv(z)
+  !and their derivatives for an arbitrary order and
+  !complex argument
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of the functions
+  !@param z: in: the argument
+  !@param vm: out: the highest order computed
+  !@param cbi: out: In+v0(z)
+  !@param cdi: out: In+v0'(z)
+  !@param cbk: out: Kn+v0(z)
+  !@param cdk: out: Kn+v0'(z)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) ca
-  complex ( kind = 8 ) ca1
-  complex ( kind = 8 ) ca2
-  complex ( kind = 8 ) cb
-  complex ( kind = 8 ) cbi(0:*)
-  complex ( kind = 8 ) cbi0
-  complex ( kind = 8 ) cdi(0:*)
-  complex ( kind = 8 ) cbk(0:*)
-  complex ( kind = 8 ) cbk0
-  complex ( kind = 8 ) cbk1
-  complex ( kind = 8 ) cdk(0:*)
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cf2
-  complex ( kind = 8 ) cg0
-  complex ( kind = 8 ) cg1
-  complex ( kind = 8 ) cgk
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) ci0
-  complex ( kind = 8 ) cp
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cr1
-  complex ( kind = 8 ) cr2
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) csu
-  complex ( kind = 8 ) ct
-  complex ( kind = 8 ) cvk
-  real ( kind = 8 ) gan
-  real ( kind = 8 ) gap
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) piv
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) v0n
-  real ( kind = 8 ) v0p
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) ws
-  real ( kind = 8 ) ws0
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
-  complex ( kind = 8 ) z2
+  real(8)    :: a0
+  complex(8) :: ca
+  complex(8) :: ca1
+  complex(8) :: ca2
+  complex(8) :: cb
+  complex(8) :: cbi(0:*)
+  complex(8) :: cbi0
+  complex(8) :: cdi(0:*)
+  complex(8) :: cbk(0:*)
+  complex(8) :: cbk0
+  complex(8) :: cbk1
+  complex(8) :: cdk(0:*)
+  complex(8) :: cf
+  complex(8) :: cf1
+  complex(8) :: cf2
+  complex(8) :: cg0
+  complex(8) :: cg1
+  complex(8) :: cgk
+  complex(8) :: ci
+  complex(8) :: ci0
+  complex(8) :: cp
+  complex(8) :: cr
+  complex(8) :: cr1
+  complex(8) :: cr2
+  complex(8) :: cs
+  complex(8) :: csu
+  complex(8) :: ct
+  complex(8) :: cvk
+  real(8)    :: gan
+  real(8)    :: gap
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: piv
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: v0n
+  real(8)    :: v0p
+  real(8)    :: vm
+  real(8)    :: vt
+  real(8)    :: w0
+  real(8)    :: ws
+  real(8)    :: ws0
+  complex(8) :: z
+  complex(8) :: z1
+  complex(8) :: z2
 
   pi = 3.141592653589793D+00
   ci = cmplx ( 0.0D+00, 1.0D+00, kind = 8 )
@@ -4459,7 +4911,9 @@ subroutine cikva ( v, z, vm, cbi, cdi, cbk, cdk )
 
   return
 end subroutine cikva
-subroutine cikvb ( v, z, vm, cbi, cdi, cbk, cdk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -4489,62 +4943,76 @@ subroutine cikvb ( v, z, vm, cbi, cdi, cbk, cdk )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of the functions.
+  !    Input, real(8) V, the order of the functions.
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, real ( kind = 8 ) VM, the highest order computed.
+  !    Output, real(8) VM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) CBI(0:N), CDI(0:N), CBK(0:N), CDK(0:N),
+  !    Output, real(8) CBI(0:N), CDI(0:N), CBK(0:N), CDK(0:N),
   !    the values of In+v0(z), In+v0'(z), Kn+v0(z), Kn+v0'(z).
+  !
+subroutine cikvb ( v, z, vm, cbi, cdi, cbk, cdk )
+  !CIKVB: modified Bessel functions,Iv(z), Kv(z), arbitrary order, complex.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of the functions
+  !@param z: in: the argument
+  !@param vm: out: the highest order computed
+  !@param cbi: out: In+v0(z)
+  !@param cdi: out: In+v0'(z)
+  !@param cbk: out: Kn+v0(z)
+  !@param cdk: out: Kn+v0'(z)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) ca
-  complex ( kind = 8 ) ca1
-  complex ( kind = 8 ) ca2
-  complex ( kind = 8 ) cb
-  complex ( kind = 8 ) cbi(0:*)
-  complex ( kind = 8 ) cbi0
-  complex ( kind = 8 ) cdi(0:*)
-  complex ( kind = 8 ) cbk(0:*)
-  complex ( kind = 8 ) cbk0
-  complex ( kind = 8 ) cdk(0:*)
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cf2
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) ci0
-  complex ( kind = 8 ) ckk
-  complex ( kind = 8 ) cp
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cr1
-  complex ( kind = 8 ) cr2
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) csu
-  complex ( kind = 8 ) ct
-  complex ( kind = 8 ) cvk
-  real ( kind = 8 ) gan
-  real ( kind = 8 ) gap
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) piv
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) v0n
-  real ( kind = 8 ) v0p
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) w0
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
-  complex ( kind = 8 ) z2
+  real(8)    :: a0
+  complex(8) :: ca
+  complex(8) :: ca1
+  complex(8) :: ca2
+  complex(8) :: cb
+  complex(8) :: cbi(0:*)
+  complex(8) :: cbi0
+  complex(8) :: cdi(0:*)
+  complex(8) :: cbk(0:*)
+  complex(8) :: cbk0
+  complex(8) :: cdk(0:*)
+  complex(8) :: cf
+  complex(8) :: cf1
+  complex(8) :: cf2
+  complex(8) :: ci
+  complex(8) :: ci0
+  complex(8) :: ckk
+  complex(8) :: cp
+  complex(8) :: cr
+  complex(8) :: cr1
+  complex(8) :: cr2
+  complex(8) :: cs
+  complex(8) :: csu
+  complex(8) :: ct
+  complex(8) :: cvk
+  real(8)    :: gan
+  real(8)    :: gap
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: piv
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: v0n
+  real(8)    :: v0p
+  real(8)    :: vm
+  real(8)    :: vt
+  real(8)    :: w0
+  complex(8) :: z
+  complex(8) :: z1
+  complex(8) :: z2
 
   z1 = z
   z2 = z * z
@@ -4735,7 +5203,9 @@ subroutine cikvb ( v, z, vm, cbi, cdi, cbk, cdk )
 
   return
 end subroutine cikvb
-subroutine cisia ( x, ci, si )
+
+
+
 
   !*****************************************************************************80
   !
@@ -4765,33 +5235,43 @@ subroutine cisia ( x, ci, si )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument of Ci(x) and Si(x).
+  !    Input, real(8) X, the argument of Ci(x) and Si(x).
   !
-  !    Output, real ( kind = 8 ) CI, SI, the values of Ci(x) and Si(x).
+  !    Output, real(8) CI, SI, the values of Ci(x) and Si(x).
+  !
+subroutine cisia ( x, ci, si )
+  !CISIA computes cosine Ci(x) and sine integrals Si(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument of Ci(x) and Si(x)
+  !@param ci: out: Ci(x)
+  !@param si: out: Si(x)
   !
   implicit none
 
-  real ( kind = 8 ) bj(101)
-  real ( kind = 8 ) ci
-  real ( kind = 8 ) el
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) p2
-  real ( kind = 8 ) si
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xa
-  real ( kind = 8 ) xa0
-  real ( kind = 8 ) xa1
-  real ( kind = 8 ) xcs
-  real ( kind = 8 ) xf
-  real ( kind = 8 ) xg
-  real ( kind = 8 ) xg1
-  real ( kind = 8 ) xg2
-  real ( kind = 8 ) xr
-  real ( kind = 8 ) xs
-  real ( kind = 8 ) xss
+  real(8)    :: bj(101)
+  real(8)    :: ci
+  real(8)    :: el
+  real(8)    :: eps
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: p2
+  real(8)    :: si
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: xa
+  real(8)    :: xa0
+  real(8)    :: xa1
+  real(8)    :: xcs
+  real(8)    :: xf
+  real(8)    :: xg
+  real(8)    :: xg1
+  real(8)    :: xg2
+  real(8)    :: xr
+  real(8)    :: xs
+  real(8)    :: xss
 
   p2 = 1.570796326794897D+00
   el = 0.5772156649015329D+00
@@ -4886,7 +5366,9 @@ subroutine cisia ( x, ci, si )
 
   return
 end subroutine cisia
-subroutine cisib ( x, ci, si )
+
+
+
 
   !*****************************************************************************80
   !
@@ -4916,18 +5398,28 @@ subroutine cisib ( x, ci, si )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument of Ci(x) and Si(x).
+  !    Input, real(8) X, the argument of Ci(x) and Si(x).
   !
-  !    Output, real ( kind = 8 ) CI, SI, the values of Ci(x) and Si(x).
+  !    Output, real(8) CI, SI, the values of Ci(x) and Si(x).
+  !
+subroutine cisib ( x, ci, si )
+  !CISIB computes cosine and sine integrals.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument of Ci(x) and Si(x)
+  !@param ci: out: Ci(x)
+  !@param si: out: Si(x)
   !
   implicit none
 
-  real ( kind = 8 ) ci
-  real ( kind = 8 ) fx
-  real ( kind = 8 ) gx
-  real ( kind = 8 ) si
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
+  real(8) :: ci
+  real(8) :: fx
+  real(8) :: gx
+  real(8) :: si
+  real(8) :: x
+  real(8) :: x2
 
   x2 = x * x
 
@@ -4981,7 +5473,9 @@ subroutine cisib ( x, ci, si )
 
   return
 end subroutine cisib
-subroutine cjk ( km, a )
+
+
+
 
   !*****************************************************************************80
   !
@@ -5011,25 +5505,38 @@ subroutine cjk ( km, a )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KM, the maximum value of K.
+  !    Input, integer(4) KM, the maximum value of K.
   !
-  !    Output, real ( kind = 8 ) A(L), the value of Cj(k) where j and k are 
+  !    Output, real(8) A(L), the value of Cj(k) where j and k are 
   !    related to L by L = j+1+[k*(k+1)]/2; j,k = 0,1,...,Km.
+  !
+subroutine cjk ( km, a )
+  !CJK: asymptotic expansion coefficients for Bessel functions of large order.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* A: the value of Cj(k) where j and k are related to L by L = j+1+[k*(k+1)]/2; j, k = 0, 1, ..., Km
+  !
+  !@param km: in: the maximum value of K
+  !@param a: out: Cj(k), at L = j+1+k(k+1)/2, j,k = 0,1,...,Km
   !
   implicit none
 
-  real ( kind = 8 ) a(*)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) g
-  real ( kind = 8 ) g0
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) l1
-  integer ( kind = 4 ) l2
-  integer ( kind = 4 ) l3
-  integer ( kind = 4 ) l4
+  real(8)    :: a(*)
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: g
+  real(8)    :: g0
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: km
+  integer(4) :: l1
+  integer(4) :: l2
+  integer(4) :: l3
+  integer(4) :: l4
 
   a(1) = 1.0D+00
   f0 = 1.0D+00
@@ -5059,7 +5566,9 @@ subroutine cjk ( km, a )
 
   return
 end subroutine cjk
-subroutine cjy01 ( z, cbj0, cdj0, cbj1, cdj1, cby0, cdy0, cby1, cdy1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -5089,72 +5598,88 @@ subroutine cjy01 ( z, cbj0, cdj0, cbj1, cdj1, cby0, cdy0, cby1, cdy1 )
   ! 
   !  Parameters:
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CBJ0, CDJ0, CBJ1, CDJ1, CBY0, CDY0, CBY1, 
+  !    Output, complex(8) CBJ0, CDJ0, CBJ1, CDJ1, CBY0, CDY0, CBY1, 
   !    CDY1, the values of J0(z), J0'(z), J1(z), J1'(z), Y0(z), Y0'(z), 
   !    Y1(z), Y1'(z).
   !
+subroutine cjy01 ( z, cbj0, cdj0, cbj1, cdj1, cby0, cdy0, cby1, cdy1 )
+  !CJY01: complexBessel functions, derivatives, J0(z), J1(z), Y0(z), Y1(z).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param z: in: the argument
+  !@param cbj0: out: J0(z)
+  !@param cdj0: out: J0'(z)
+  !@param cbj1: out: J1(z)
+  !@param cdj1: out: J1'(z)
+  !@param cby0: out: Y0(z)
+  !@param cdy0: out: Y0'(z)
+  !@param cby1: out: Y1(z)
+  !@param cdy1: Y1'(z)
+  !
   implicit none
 
-  real ( kind = 8 ), save, dimension ( 12 ) :: a = (/ &
+  real(8), save, dimension ( 12 ) :: a = (/ &
        -0.703125D-01,0.112152099609375D+00, &
        -0.5725014209747314D+00,0.6074042001273483D+01, &
        -0.1100171402692467D+03,0.3038090510922384D+04, &
        -0.1188384262567832D+06,0.6252951493434797D+07, &
        -0.4259392165047669D+09,0.3646840080706556D+11, &
        -0.3833534661393944D+13,0.4854014686852901D+15 /)
-  real ( kind = 8 ) a0
-  real ( kind = 8 ), save, dimension ( 12 ) :: a1 = (/ &
+  real(8)    :: a0
+  real(8), save, dimension ( 12 ) :: a1 = (/ &
        0.1171875D+00,-0.144195556640625D+00, &
        0.6765925884246826D+00,-0.6883914268109947D+01, &
        0.1215978918765359D+03,-0.3302272294480852D+04, &
        0.1276412726461746D+06,-0.6656367718817688D+07, &
        0.4502786003050393D+09,-0.3833857520742790D+11, &
        0.4011838599133198D+13,-0.5060568503314727D+15 /)
-  real ( kind = 8 ), save, dimension ( 12 ) :: b = (/ &
+  real(8), save, dimension ( 12 ) :: b = (/ &
        0.732421875D-01,-0.2271080017089844D+00, &
        0.1727727502584457D+01,-0.2438052969955606D+02, &
        0.5513358961220206D+03,-0.1825775547429318D+05, &
        0.8328593040162893D+06,-0.5006958953198893D+08, &
        0.3836255180230433D+10,-0.3649010818849833D+12, &
        0.4218971570284096D+14,-0.5827244631566907D+16 /)
-  real ( kind = 8 ), save, dimension ( 12 ) :: b1 = (/ &
+  real(8), save, dimension ( 12 ) :: b1 = (/ &
        -0.1025390625D+00,0.2775764465332031D+00, &
        -0.1993531733751297D+01,0.2724882731126854D+02, &
        -0.6038440767050702D+03,0.1971837591223663D+05, &
        -0.8902978767070678D+06,0.5310411010968522D+08, &
        -0.4043620325107754D+10,0.3827011346598605D+12, &
        -0.4406481417852278D+14,0.6065091351222699D+16 /)
-  complex ( kind = 8 ) cbj0
-  complex ( kind = 8 ) cbj1
-  complex ( kind = 8 ) cby0
-  complex ( kind = 8 ) cby1
-  complex ( kind = 8 ) cdj0
-  complex ( kind = 8 ) cdj1
-  complex ( kind = 8 ) cdy0
-  complex ( kind = 8 ) cdy1
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) cp
-  complex ( kind = 8 ) cp0
-  complex ( kind = 8 ) cp1
-  complex ( kind = 8 ) cq0
-  complex ( kind = 8 ) cq1
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) ct1
-  complex ( kind = 8 ) ct2
-  complex ( kind = 8 ) cu
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) rp2
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) w1
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
-  complex ( kind = 8 ) z2
+  complex(8) :: cbj0
+  complex(8) :: cbj1
+  complex(8) :: cby0
+  complex(8) :: cby1
+  complex(8) :: cdj0
+  complex(8) :: cdj1
+  complex(8) :: cdy0
+  complex(8) :: cdy1
+  complex(8) :: ci
+  complex(8) :: cp
+  complex(8) :: cp0
+  complex(8) :: cp1
+  complex(8) :: cq0
+  complex(8) :: cq1
+  complex(8) :: cr
+  complex(8) :: cs
+  complex(8) :: ct1
+  complex(8) :: ct2
+  complex(8) :: cu
+  real(8)    :: el
+  integer(4) :: k
+  integer(4) :: k0
+  real(8)    :: pi
+  real(8)    :: rp2
+  real(8)    :: w0
+  real(8)    :: w1
+  complex(8) :: z
+  complex(8) :: z1
+  complex(8) :: z2
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -5287,7 +5812,9 @@ subroutine cjy01 ( z, cbj0, cdj0, cbj1, cdj1, cby0, cdy0, cby1, cdy1 )
 
   return
 end subroutine cjy01
-subroutine cjylv ( v, z, cbjv, cdjv, cbyv, cdyv )
+
+
+
 
   !*****************************************************************************80
   !
@@ -5317,40 +5844,53 @@ subroutine cjylv ( v, z, cbjv, cdjv, cbyv, cdyv )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of Jv(z) and Yv(z).
+  !    Input, real(8) V, the order of Jv(z) and Yv(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CBJV, CDJV, CBYV, CDYV, the values of Jv(z), 
+  !    Output, complex(8) CBJV, CDJV, CBYV, CDYV, the values of Jv(z), 
   !    Jv'(z), Yv(z), Yv'(z).
+  !
+subroutine cjylv ( v, z, cbjv, cdjv, cbyv, cdyv )
+  !CJYLV: Bessel functions Jv(z), Yv(z) of complex argument and large order v.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of Jv(z) and Yv(z)
+  !@param z: in: the argument
+  !@param cbjv: out: Jv(z)
+  !@param cdjv: out: Jv'(z)
+  !@param cbyv: out: Yv(z)
+  !@param cdyv: out: Yv'(z)
   !
   implicit none
 
-  real ( kind = 8 ) a(91)
-  complex ( kind = 8 ) cbjv
-  complex ( kind = 8 ) cbyv
-  complex ( kind = 8 ) cdjv
-  complex ( kind = 8 ) cdyv
-  complex ( kind = 8 ) ceta
-  complex ( kind = 8 ) cf(12)
-  complex ( kind = 8 ) cfj
-  complex ( kind = 8 ) cfy
-  complex ( kind = 8 ) csj
-  complex ( kind = 8 ) csy
-  complex ( kind = 8 ) ct
-  complex ( kind = 8 ) ct2
-  complex ( kind = 8 ) cws
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) l0
-  integer ( kind = 4 ) lf
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) vr
-  complex ( kind = 8 ) z
+  real(8)    :: a(91)
+  complex(8) :: cbjv
+  complex(8) :: cbyv
+  complex(8) :: cdjv
+  complex(8) :: cdyv
+  complex(8) :: ceta
+  complex(8) :: cf(12)
+  complex(8) :: cfj
+  complex(8) :: cfy
+  complex(8) :: csj
+  complex(8) :: csy
+  complex(8) :: ct
+  complex(8) :: ct2
+  complex(8) :: cws
+  integer(4) :: i
+  integer(4) :: k
+  integer(4) :: km
+  integer(4) :: l
+  integer(4) :: l0
+  integer(4) :: lf
+  real(8)    :: pi
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: vr
+  complex(8) :: z
 
   km = 12
   call cjk ( km, a )
@@ -5399,7 +5939,9 @@ subroutine cjylv ( v, z, cbjv, cdjv, cbyv, cdyv )
 
   return
 end subroutine cjylv
-subroutine cjyna ( n, z, nm, cbj, cdj, cby, cdy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -5429,65 +5971,77 @@ subroutine cjyna ( n, z, nm, cbj, cdj, cby, cdy )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of Jn(z) and Yn(z).
+  !    Input, integer(4) N, the order of Jn(z) and Yn(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument of Jn(z) and Yn(z).
+  !    Input, complex(8) Z, the argument of Jn(z) and Yn(z).
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, complex ( kind = 8 ), CBJ(0:N), CDJ(0:N), CBY(0:N), CDY(0:N),
+  !    Output, complex(8), CBJ(0:N), CDJ(0:N), CBY(0:N), CDY(0:N),
   !    the values of Jn(z), Jn'(z), Yn(z), Yn'(z).
   !
+subroutine cjyna ( n, z, nm, cbj, cdj, cby, cdy )
+  !CJYNA: Bessel functions and derivatives, Jn(z) and Yn(z) of complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of Jn(z) and Yn(z)
+  !@param z: in: the argument of Jn(z) and Yn(z)
+  !@param nm: out: the highest order computed
+  !@param cbj: out: Jn(z), n=0,...,N
+  !@param cdj: out: Jn'(z), n=0,...,N
+  !@param cby: out: Yn(z), n=0,...,N
+  !@param cdy: out: Yn'(z), n=0,...,N
+  !
   implicit none
-
-  integer ( kind = 4 ) n
-
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) cbj(0:n)
-  complex ( kind = 8 ) cbj0
-  complex ( kind = 8 ) cbj1
-  complex ( kind = 8 ) cby(0:n)
-  complex ( kind = 8 ) cby0
-  complex ( kind = 8 ) cby1
-  complex ( kind = 8 ) cdj(0:n)
-  complex ( kind = 8 ) cdj0
-  complex ( kind = 8 ) cdj1
-  complex ( kind = 8 ) cdy(0:n)
-  complex ( kind = 8 ) cdy0
-  complex ( kind = 8 ) cdy1
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cf2
-  complex ( kind = 8 ) cg0
-  complex ( kind = 8 ) cg1
-  complex ( kind = 8 ) ch0
-  complex ( kind = 8 ) ch1
-  complex ( kind = 8 ) ch2
-  complex ( kind = 8 ) cj0
-  complex ( kind = 8 ) cj1
-  complex ( kind = 8 ) cjk
-  complex ( kind = 8 ) cp11
-  complex ( kind = 8 ) cp12
-  complex ( kind = 8 ) cp21
-  complex ( kind = 8 ) cp22
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) cyk
-  complex ( kind = 8 ) cyl1
-  complex ( kind = 8 ) cyl2
-  complex ( kind = 8 ) cylk
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) lb
-  integer ( kind = 4 ) lb0
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) wa
-  real ( kind = 8 ) ya0
-  real ( kind = 8 ) ya1
-  real ( kind = 8 ) yak
-  complex ( kind = 8 ) z
+  integer(4) :: n
+  real(8)    :: a0
+  complex(8) :: cbj(0:n)
+  complex(8) :: cbj0
+  complex(8) :: cbj1
+  complex(8) :: cby(0:n)
+  complex(8) :: cby0
+  complex(8) :: cby1
+  complex(8) :: cdj(0:n)
+  complex(8) :: cdj0
+  complex(8) :: cdj1
+  complex(8) :: cdy(0:n)
+  complex(8) :: cdy0
+  complex(8) :: cdy1
+  complex(8) :: cf
+  complex(8) :: cf1
+  complex(8) :: cf2
+  complex(8) :: cg0
+  complex(8) :: cg1
+  complex(8) :: ch0
+  complex(8) :: ch1
+  complex(8) :: ch2
+  complex(8) :: cj0
+  complex(8) :: cj1
+  complex(8) :: cjk
+  complex(8) :: cp11
+  complex(8) :: cp12
+  complex(8) :: cp21
+  complex(8) :: cp22
+  complex(8) :: cs
+  complex(8) :: cyk
+  complex(8) :: cyl1
+  complex(8) :: cyl2
+  complex(8) :: cylk
+  integer(4) :: k
+  integer(4) :: lb
+  integer(4) :: lb0
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: pi
+  real(8)    :: wa
+  real(8)    :: ya0
+  real(8)    :: ya1
+  real(8)    :: yak
+  complex(8) :: z
 
   pi = 3.141592653589793D+00
   a0 = abs ( z )
@@ -5659,7 +6213,9 @@ subroutine cjyna ( n, z, nm, cbj, cdj, cby, cdy )
 
   return
 end subroutine cjyna
-subroutine cjynb ( n, z, nm, cbj, cdj, cby, cdy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -5689,67 +6245,81 @@ subroutine cjynb ( n, z, nm, cbj, cdj, cby, cdy )
   ! 
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of Jn(z) and Yn(z).
+  !    Input, integer(4) N, the order of Jn(z) and Yn(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument of Jn(z) and Yn(z).
+  !    Input, complex(8) Z, the argument of Jn(z) and Yn(z).
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, complex ( kind = 8 ) CBJ(0:N), CDJ(0:N), CBY(0:N), CDY(0:N), 
+  !    Output, complex(8) CBJ(0:N), CDJ(0:N), CBY(0:N), CDY(0:N), 
   !    the values of Jn(z), Jn'(z), Yn(z), Yn'(z).
+  !
+subroutine cjynb ( n, z, nm, cbj, cdj, cby, cdy )
+  !CJYNB: Bessel functions, derivatives, Jn(z) and Yn(z) of complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of Jn(z) and Yn(z)
+  !@param z: in: the argument of Jn(z) and Yn(z)
+  !@param nm: out: the highest order computed
+  !@param cbj: out: Jn(z)
+  !@param cdj: out: Jn'(z)
+  !@param cby: out: Yn(z)
+  !@param cdy: out: Yn'(z)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ), save, dimension ( 4 ) :: a = (/ &
+  real(8), save, dimension ( 4 ) :: a = (/ &
        -0.7031250000000000D-01, 0.1121520996093750D+00, &
        -0.5725014209747314D+00, 0.6074042001273483D+01 /)
-  real ( kind = 8 ) a0
-  real ( kind = 8 ), save, dimension ( 4 ) :: a1 = (/ &
+  real(8)    :: a0
+  real(8), save, dimension ( 4 ) :: a1 = (/ &
        0.1171875000000000D+00,-0.1441955566406250D+00, &
        0.6765925884246826D+00,-0.6883914268109947D+01 /)
-  real ( kind = 8 ), save, dimension ( 4 ) :: b = (/  &
+  real(8), save, dimension ( 4 ) :: b = (/  &
        0.7324218750000000D-01,-0.2271080017089844D+00, &
        0.1727727502584457D+01,-0.2438052969955606D+02 /)
-  real ( kind = 8 ), save, dimension ( 4 ) :: b1 = (/ &
+  real(8), save, dimension ( 4 ) :: b1 = (/ &
        -0.1025390625000000D+00,0.2775764465332031D+00, &
        -0.1993531733751297D+01,0.2724882731126854D+02 /)
-  complex ( kind = 8 ) cbj(0:n)
-  complex ( kind = 8 ) cbj0
-  complex ( kind = 8 ) cbj1
-  complex ( kind = 8 ) cbjk
-  complex ( kind = 8 ) cbs
-  complex ( kind = 8 ) cby(0:n)
-  complex ( kind = 8 ) cby0
-  complex ( kind = 8 ) cby1
-  complex ( kind = 8 ) cdj(0:n)
-  complex ( kind = 8 ) cdy(0:n)
-  complex ( kind = 8 ) ce
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cf2
-  complex ( kind = 8 ) cp0
-  complex ( kind = 8 ) cp1
-  complex ( kind = 8 ) cq0
-  complex ( kind = 8 ) cq1
-  complex ( kind = 8 ) cs0
-  complex ( kind = 8 ) csu
-  complex ( kind = 8 ) csv
-  complex ( kind = 8 ) ct1
-  complex ( kind = 8 ) ct2
-  complex ( kind = 8 ) cu
-  complex ( kind = 8 ) cyy
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r2p
-  real ( kind = 8 ) y0
-  complex ( kind = 8 ) z
+  complex(8) :: cbj(0:n)
+  complex(8) :: cbj0
+  complex(8) :: cbj1
+  complex(8) :: cbjk
+  complex(8) :: cbs
+  complex(8) :: cby(0:n)
+  complex(8) :: cby0
+  complex(8) :: cby1
+  complex(8) :: cdj(0:n)
+  complex(8) :: cdy(0:n)
+  complex(8) :: ce
+  complex(8) :: cf
+  complex(8) :: cf1
+  complex(8) :: cf2
+  complex(8) :: cp0
+  complex(8) :: cp1
+  complex(8) :: cq0
+  complex(8) :: cq1
+  complex(8) :: cs0
+  complex(8) :: csu
+  complex(8) :: csv
+  complex(8) :: ct1
+  complex(8) :: ct2
+  complex(8) :: cu
+  complex(8) :: cyy
+  real(8)    :: el
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: pi
+  real(8)    :: r2p
+  real(8)    :: y0
+  complex(8) :: z
 
   el = 0.5772156649015329D+00
   pi = 3.141592653589793D+00
@@ -5885,7 +6455,9 @@ subroutine cjynb ( n, z, nm, cbj, cdj, cby, cdy )
 
   return
 end subroutine cjynb
-subroutine cjyva ( v, z, vm, cbj, cdj, cby, cdy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -5915,97 +6487,111 @@ subroutine cjyva ( v, z, vm, cbj, cdj, cby, cdy )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of Jv(z) and Yv(z).
+  !    Input, real(8) V, the order of Jv(z) and Yv(z).
   !
-  !    Input, complex ( kind = 8 ), the argument.
+  !    Input, complex(8), the argument.
   !
-  !    Output, real ( kind = 8 ) VM, the highest order computed.
+  !    Output, real(8) VM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) CBJ(0:*), CDJ(0:*), CBY(0:*), CDY(0:*), 
+  !    Output, real(8) CBJ(0:*), CDJ(0:*), CBY(0:*), CDY(0:*), 
   !    the values of Jn+v0(z), Jn+v0'(z), Yn+v0(z), Yn+v0'(z).
+  !
+subroutine cjyva ( v, z, vm, cbj, cdj, cby, cdy )
+  !CJYVA: Bessel functions and derivatives, Jv(z) and Yv(z) of complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of Jv(z) and Yv(z)
+  !@param z: the argument
+  !@param vm: out: the highest order computed
+  !@param cbj: out: Jn+v0(z)
+  !@param cdj: out: Jn+v0'(z)
+  !@param cby: out: Yn+v0(z)
+  !@param cdy: out: Yn+v0'(z)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) ca
-  complex ( kind = 8 ) ca0
-  complex ( kind = 8 ) cb
-  complex ( kind = 8 ) cbj(0:*)
-  complex ( kind = 8 ) cby(0:*)
-  complex ( kind = 8 ) cck
-  complex ( kind = 8 ) cdj(0:*)
-  complex ( kind = 8 ) cdy(0:*)
-  complex ( kind = 8 ) cec
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf0
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cf2
-  complex ( kind = 8 ) cfac0
-  complex ( kind = 8 ) cfac1
-  complex ( kind = 8 ) cg0
-  complex ( kind = 8 ) cg1
-  complex ( kind = 8 ) ch0
-  complex ( kind = 8 ) ch1
-  complex ( kind = 8 ) ch2
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) cju0
-  complex ( kind = 8 ) cju1
-  complex ( kind = 8 ) cjv0
-  complex ( kind = 8 ) cjv1
-  complex ( kind = 8 ) cjvl
-  complex ( kind = 8 ) cp11
-  complex ( kind = 8 ) cp12
-  complex ( kind = 8 ) cp21
-  complex ( kind = 8 ) cp22
-  complex ( kind = 8 ) cpz
-  complex ( kind = 8 ) cqz
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cr0
-  complex ( kind = 8 ) cr1
-  complex ( kind = 8 ) crp
-  complex ( kind = 8 ) crq
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) cs0
-  complex ( kind = 8 ) cs1
-  complex ( kind = 8 ) csk
-  complex ( kind = 8 ) cyk
-  complex ( kind = 8 ) cyl1
-  complex ( kind = 8 ) cyl2
-  complex ( kind = 8 ) cylk
-  complex ( kind = 8 ) cyv0
-  complex ( kind = 8 ) cyv1
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gb
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) lb
-  integer ( kind = 4 ) lb0
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pv0
-  real ( kind = 8 ) pv1
-  real ( kind = 8 ) rp2
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) vg
-  real ( kind = 8 ) vl
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vv
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) w1
-  real ( kind = 8 ) wa
-  real ( kind = 8 ) ya0
-  real ( kind = 8 ) ya1
-  real ( kind = 8 ) yak
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
-  complex ( kind = 8 ) z2
-  complex ( kind = 8 ) zk
+  real(8)    :: a0
+  complex(8) :: ca
+  complex(8) :: ca0
+  complex(8) :: cb
+  complex(8) :: cbj(0:*)
+  complex(8) :: cby(0:*)
+  complex(8) :: cck
+  complex(8) :: cdj(0:*)
+  complex(8) :: cdy(0:*)
+  complex(8) :: cec
+  complex(8) :: cf
+  complex(8) :: cf0
+  complex(8) :: cf1
+  complex(8) :: cf2
+  complex(8) :: cfac0
+  complex(8) :: cfac1
+  complex(8) :: cg0
+  complex(8) :: cg1
+  complex(8) :: ch0
+  complex(8) :: ch1
+  complex(8) :: ch2
+  complex(8) :: ci
+  complex(8) :: cju0
+  complex(8) :: cju1
+  complex(8) :: cjv0
+  complex(8) :: cjv1
+  complex(8) :: cjvl
+  complex(8) :: cp11
+  complex(8) :: cp12
+  complex(8) :: cp21
+  complex(8) :: cp22
+  complex(8) :: cpz
+  complex(8) :: cqz
+  complex(8) :: cr
+  complex(8) :: cr0
+  complex(8) :: cr1
+  complex(8) :: crp
+  complex(8) :: crq
+  complex(8) :: cs
+  complex(8) :: cs0
+  complex(8) :: cs1
+  complex(8) :: csk
+  complex(8) :: cyk
+  complex(8) :: cyl1
+  complex(8) :: cyl2
+  complex(8) :: cylk
+  complex(8) :: cyv0
+  complex(8) :: cyv1
+  real(8)    :: ga
+  real(8)    :: gb
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: l
+  integer(4) :: lb
+  integer(4) :: lb0
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: pv0
+  real(8)    :: pv1
+  real(8)    :: rp2
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: vg
+  real(8)    :: vl
+  real(8)    :: vm
+  real(8)    :: vv
+  real(8)    :: w0
+  real(8)    :: w1
+  real(8)    :: wa
+  real(8)    :: ya0
+  real(8)    :: ya1
+  real(8)    :: yak
+  complex(8) :: z
+  complex(8) :: z1
+  complex(8) :: z2
+  complex(8) :: zk
 
   pi = 3.141592653589793D+00
   rp2 = 0.63661977236758D+00
@@ -6336,7 +6922,9 @@ subroutine cjyva ( v, z, vm, cbj, cdj, cby, cdy )
 
   return
 end subroutine cjyva
-subroutine cjyvb ( v, z, vm, cbj, cdj, cby, cdy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -6366,67 +6954,81 @@ subroutine cjyvb ( v, z, vm, cbj, cdj, cby, cdy )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of Jv(z) and Yv(z).
+  !    Input, real(8) V, the order of Jv(z) and Yv(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, real ( kind = 8 ) VM, the highest order computed.
+  !    Output, real(8) VM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) CBJ(0:*), CDJ(0:*), CBY(0:*), CDY(0:*), 
+  !    Output, real(8) CBJ(0:*), CDJ(0:*), CBY(0:*), CDY(0:*), 
   !    the values of Jn+v0(z), Jn+v0'(z), Yn+v0(z), Yn+v0'(z).
+  !
+subroutine cjyvb ( v, z, vm, cbj, cdj, cby, cdy )
+  !CJYVB: Bessel functions and derivatives, Jv(z) and Yv(z) of complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of Jv(z) and Yv(z)
+  !@param z: in: the argument
+  !@param vm: out: the highest order computed
+  !@param cbj: out: Jn+v0(z)
+  !@param cdj: out: Jn+v0'(z)
+  !@param cby: out: Yn+v0(z)
+  !@param cdy: out: Yn+v0'(z)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) ca
-  complex ( kind = 8 ) ca0
-  complex ( kind = 8 ) cb
-  complex ( kind = 8 ) cbj(0:*)
-  complex ( kind = 8 ) cby(0:*)
-  complex ( kind = 8 ) cck
-  complex ( kind = 8 ) cdj(0:*)
-  complex ( kind = 8 ) cdy(0:*)
-  complex ( kind = 8 ) cec
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cf2
-  complex ( kind = 8 ) cfac0
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) cju0
-  complex ( kind = 8 ) cjv0
-  complex ( kind = 8 ) cjvn
-  complex ( kind = 8 ) cpz
-  complex ( kind = 8 ) cqz
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cr0
-  complex ( kind = 8 ) crp
-  complex ( kind = 8 ) crq
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) cs0
-  complex ( kind = 8 ) csk
-  complex ( kind = 8 ) cyv0
-  complex ( kind = 8 ) cyy
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gb
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pv0
-  real ( kind = 8 ) rp2
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) vg
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vv
-  real ( kind = 8 ) w0
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
-  complex ( kind = 8 ) z2
-  complex ( kind = 8 ) zk
+  real(8)    :: a0
+  complex(8) :: ca
+  complex(8) :: ca0
+  complex(8) :: cb
+  complex(8) :: cbj(0:*)
+  complex(8) :: cby(0:*)
+  complex(8) :: cck
+  complex(8) :: cdj(0:*)
+  complex(8) :: cdy(0:*)
+  complex(8) :: cec
+  complex(8) :: cf
+  complex(8) :: cf1
+  complex(8) :: cf2
+  complex(8) :: cfac0
+  complex(8) :: ci
+  complex(8) :: cju0
+  complex(8) :: cjv0
+  complex(8) :: cjvn
+  complex(8) :: cpz
+  complex(8) :: cqz
+  complex(8) :: cr
+  complex(8) :: cr0
+  complex(8) :: crp
+  complex(8) :: crq
+  complex(8) :: cs
+  complex(8) :: cs0
+  complex(8) :: csk
+  complex(8) :: cyv0
+  complex(8) :: cyy
+  real(8)    :: ga
+  real(8)    :: gb
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: pv0
+  real(8)    :: rp2
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: vg
+  real(8)    :: vm
+  real(8)    :: vv
+  real(8)    :: w0
+  complex(8) :: z
+  complex(8) :: z1
+  complex(8) :: z2
+  complex(8) :: zk
 
   pi = 3.141592653589793D+00
   rp2 = 0.63661977236758D+00
@@ -6624,7 +7226,9 @@ subroutine cjyvb ( v, z, vm, cbj, cdj, cby, cdy )
 
   return
 end subroutine cjyvb
-subroutine clpmn ( mm, m, n, x, y, cpm, cpd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -6659,32 +7263,49 @@ subroutine clpmn ( mm, m, n, x, y, cpm, cpd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) MM, the physical dimension of CPM and CPD.
+  !    Input, integer(4) MM, the physical dimension of CPM and CPD.
   !
-  !    Input, integer ( kind = 4 ) M, N, the order and degree of Pmn(z).
+  !    Input, integer(4) M, N, the order and degree of Pmn(z).
   !
-  !    Input, real ( kind = 8 ) X, Y, the real and imaginary parts of 
+  !    Input, real(8) X, Y, the real and imaginary parts of 
   !    the argument Z.
   !
-  !    Output, complex ( kind = 8 ) CPM(0:MM,0:N), CPD(0:MM,0:N), the values of
+  !    Output, complex(8) CPM(0:MM,0:N), CPD(0:MM,0:N), the values of
   !    Pmn(z) and Pmn'(z).
+  !
+subroutine clpmn ( mm, m, n, x, y, cpm, cpd )
+  !CLPMN: associated Legendre functions and derivatives for complex argument.
+  !
+  !Compute the associated Legendre functions Pmn(z)
+  !and their derivatives Pmn'(z) for a complex argument
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param mm: in: the physical dimension of CPM and CPD
+  !@param m: in: the order of Pmn(z)
+  !@param n: in: the degree of Pmn(z)
+  !@param x: in: the real part of the argument Z
+  !@param y: in: the imaginary part of the argument Z
+  !@param cpm: out: Pmn(z)
+  !@param cpd: out: Pmn'(z)
   !
   implicit none
 
-  integer ( kind = 4 ) mm
+  integer(4) :: mm
 
-  complex ( kind = 8 ) cpd(0:mm,0:n)
-  complex ( kind = 8 ) cpm(0:mm,0:n)
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) ls
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) x
-  real ( kind = 8 ) y
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) zq
-  complex ( kind = 8 ) zs
+  complex(8) :: cpd(0:mm,0:n)
+  complex(8) :: cpm(0:mm,0:n)
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: ls
+  integer(4) :: m
+  integer(4) :: n
+  real(8)    :: x
+  real(8)    :: y
+  complex(8) :: z
+  complex(8) :: zq
+  complex(8) :: zs
 
   z = cmplx ( x, y, kind = 8 )
 
@@ -6755,7 +7376,9 @@ subroutine clpmn ( mm, m, n, x, y, cpm, cpd )
 
   return
 end subroutine clpmn
-subroutine clpn ( n, x, y, cpn, cpd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -6790,27 +7413,42 @@ subroutine clpn ( n, x, y, cpn, cpd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the degree.
+  !    Input, integer(4) N, the degree.
   !
-  !    Input, real ( kind = 8 ) X, Y, the real and imaginary parts 
+  !    Input, real(8) X, Y, the real and imaginary parts 
   !    of the argument.
   !
-  !    Output, complex ( kind = 8 ) CPN(0:N), CPD(0:N), the values of Pn(z)
+  !    Output, complex(8) CPN(0:N), CPD(0:N), the values of Pn(z)
   !    and Pn'(z).
+  !
+subroutine clpn ( n, x, y, cpn, cpd )
+  !CLPN computes Legendre functions and derivatives for complex argument.
+  !
+  !Compute Legendre polynomials Pn(z) and their derivatives Pn'(z) for
+  !a complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the degree
+  !@param x: in: the real part of the argument
+  !@param y: in: the imaginary part of the argument
+  !@param cpn: out: Pn(z)
+  !@param cpd: out: Pn'(z)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  complex ( kind = 8 ) cp0
-  complex ( kind = 8 ) cp1
-  complex ( kind = 8 ) cpd(0:n)
-  complex ( kind = 8 ) cpf
-  complex ( kind = 8 ) cpn(0:n)
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) x
-  real ( kind = 8 ) y
-  complex ( kind = 8 ) z
+  complex(8) :: cp0
+  complex(8) :: cp1
+  complex(8) :: cpd(0:n)
+  complex(8) :: cpf
+  complex(8) :: cpn(0:n)
+  integer(4) :: k
+  real(8)    :: x
+  real(8)    :: y
+  complex(8) :: z
 
   z = cmplx ( x, y, kind = 8 )
 
@@ -6835,7 +7473,9 @@ subroutine clpn ( n, x, y, cpn, cpd )
 
   return
 end subroutine clpn
-subroutine clqmn ( mm, m, n, x, y, cqm, cqd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -6870,42 +7510,59 @@ subroutine clqmn ( mm, m, n, x, y, cqm, cqd )
   ! 
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) MM, the physical dimension of CQM and CQD.
+  !    Input, integer(4) MM, the physical dimension of CQM and CQD.
   !
-  !    Input, integer ( kind = 4 ) M, N, the order and degree of Qmn(z).
+  !    Input, integer(4) M, N, the order and degree of Qmn(z).
   !
-  !    Input, real ( kind = 8 ) X, Y, the real and imaginary parts of the 
+  !    Input, real(8) X, Y, the real and imaginary parts of the 
   !    argument Z.
   !
-  !    Output, complex ( kind = 8 ) CQM(0:MM,0:N), CQD(0:MM,0:N), the values of
+  !    Output, complex(8) CQM(0:MM,0:N), CQD(0:MM,0:N), the values of
   !    Qmn(z) and Qmn'(z).
+  !
+subroutine clqmn ( mm, m, n, x, y, cqm, cqd )
+  !CLQMN: associated Legendre functions and derivatives for complex argument.
+  !
+  !This procedure computes the associated Legendre functions of the second
+  !kind, Qmn(z) and Qmn'(z), for a complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param mm: in: the physical dimension of CQM and CQD
+  !@param m: in: the order of Qmn(z)
+  !@param n: in: the degree of Qmn(z)
+  !@param x: in: the real part of the argument Z
+  !@param y: in: the imaginary part of the argument Z
+  !@param cqm: out: Qmn(z)
+  !@param cqd: out: Qmn'(z)
   !
   implicit none
 
-  integer ( kind = 4 ) mm
-  integer ( kind = 4 ) n 
+  integer(4) :: mm
+  integer(4) :: n
 
-  complex ( kind = 8 ) cq0
-  complex ( kind = 8 ) cq1
-  complex ( kind = 8 ) cq10
-  complex ( kind = 8 ) cqf
-  complex ( kind = 8 ) cqf0
-  complex ( kind = 8 ) cqf1
-  complex ( kind = 8 ) cqf2
-  complex ( kind = 8 ) cqm(0:mm,0:n)
-  complex ( kind = 8 ) cqd(0:mm,0:n)
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) ls
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xc
-  real ( kind = 8 ) y
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) zq
-  complex ( kind = 8 ) zs
+  complex(8) :: cq0
+  complex(8) :: cq1
+  complex(8) :: cq10
+  complex(8) :: cqf
+  complex(8) :: cqf0
+  complex(8) :: cqf1
+  complex(8) :: cqf2
+  complex(8) :: cqm(0:mm,0:n)
+  complex(8) :: cqd(0:mm,0:n)
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: km
+  integer(4) :: ls
+  integer(4) :: m
+  real(8)    :: x
+  real(8)    :: xc
+  real(8)    :: y
+  complex(8) :: z
+  complex(8) :: zq
+  complex(8) :: zs
 
   z = cmplx ( x, y, kind = 8 )
 
@@ -7022,7 +7679,9 @@ subroutine clqmn ( mm, m, n, x, y, cqm, cqd )
 
   return
 end subroutine clqmn
-subroutine clqn ( n, x, y, cqn, cqd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -7052,31 +7711,43 @@ subroutine clqn ( n, x, y, cqn, cqd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the degree of Qn(z).
+  !    Input, integer(4) N, the degree of Qn(z).
   !
-  !    Input, real ( kind = 8 ) X, Y, the real and imaginary parts of the 
+  !    Input, real(8) X, Y, the real and imaginary parts of the 
   !    argument Z.
   !
-  !    Output, complex ( kind = 8 ) CQN(0:N), CQD(0:N), the values of Qn(z) 
+  !    Output, complex(8) CQN(0:N), CQD(0:N), the values of Qn(z) 
   !    and Qn'(z.
+  !
+subroutine clqn ( n, x, y, cqn, cqd )
+  !CLQN: Legendre function Qn(z) and derivative Wn'(z) for complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the degree of Qn(z)
+  !@param x: in: the real part of the argument Z
+  !@param y: in: the imaginary part of the argument Z
+  !@param cqn: out: Qn(z)
+  !@param cqd: out: Qn'(z
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  complex ( kind = 8 ) cq0
-  complex ( kind = 8 ) cq1
-  complex ( kind = 8 ) cqf0
-  complex ( kind = 8 ) cqf1
-  complex ( kind = 8 ) cqf2
-  complex ( kind = 8 ) cqn(0:n)
-  complex ( kind = 8 ) cqd(0:n)
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) ls
-  real ( kind = 8 ) x
-  real ( kind = 8 ) y
-  complex ( kind = 8 ) z
+  complex(8) :: cq0
+  complex(8) :: cq1
+  complex(8) :: cqf0
+  complex(8) :: cqf1
+  complex(8) :: cqf2
+  complex(8) :: cqn(0:n)
+  complex(8) :: cqd(0:n)
+  integer(4) :: k
+  integer(4) :: km
+  integer(4) :: ls
+  real(8)    :: x
+  real(8)    :: y
+  complex(8) :: z
 
   z = cmplx ( x, y, kind = 8 )
 
@@ -7143,7 +7814,9 @@ subroutine clqn ( n, x, y, cqn, cqd )
 
   return
 end subroutine clqn
-subroutine comelp ( hk, ck, ce )
+
+
+
 
   !*****************************************************************************80
   !
@@ -7173,20 +7846,30 @@ subroutine comelp ( hk, ck, ce )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) HK, the modulus.  0 <= HK <= 1.
+  !    Input, real(8) HK, the modulus.  0 <= HK <= 1.
   !
-  !    Output, real ( kind = 8 ) CK, CE, the values of K(HK) and E(HK).
+  !    Output, real(8) CK, CE, the values of K(HK) and E(HK).
+  !
+subroutine comelp ( hk, ck, ce )
+  !COMELP computes complete elliptic integrals K(k) and E(k).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param hk: in: the modulus. 0 <= HK <= 1
+  !@param ck: out: K(HK)
+  !@param ce: out: E(HK)
   !
   implicit none
 
-  real ( kind = 8 ) ae
-  real ( kind = 8 ) ak
-  real ( kind = 8 ) be
-  real ( kind = 8 ) bk
-  real ( kind = 8 ) ce
-  real ( kind = 8 ) ck
-  real ( kind = 8 ) hk
-  real ( kind = 8 ) pk
+  real(8) :: ae
+  real(8) :: ak
+  real(8) :: be
+  real(8) :: bk
+  real(8) :: ce
+  real(8) :: ck
+  real(8) :: hk
+  real(8) :: pk
 
   pk = 1.0D+00 - hk * hk
 
@@ -7232,7 +7915,9 @@ subroutine comelp ( hk, ck, ce )
 
   return
 end subroutine comelp
-subroutine cpbdn ( n, z, cpb, cpd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -7262,37 +7947,48 @@ subroutine cpbdn ( n, z, cpb, cpd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CPB(0:N), CPD(0:N), the values of Dn(z) 
+  !    Output, complex(8) CPB(0:N), CPD(0:N), the values of Dn(z) 
   !    and Dn'(z).
+  !
+subroutine cpbdn ( n, z, cpb, cpd )
+  !CPBDN: parabolic cylinder function Dn(z) and Dn'(z) for complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param z: in: the argument
+  !@param cpb: out: Dn(z)
+  !@param cpd: out: Dn'(z)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) c0
-  complex ( kind = 8 ) ca0
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf0
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cfa
-  complex ( kind = 8 ) cfb
-  complex ( kind = 8 ) cpb(0:n)
-  complex ( kind = 8 ) cpd(0:n)
-  complex ( kind = 8 ) cs0
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n0
-  integer ( kind = 4 ) n1
-  integer ( kind = 4 ) nm1
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) x
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
+  real(8)    :: a0
+  complex(8) :: c0
+  complex(8) :: ca0
+  complex(8) :: cf
+  complex(8) :: cf0
+  complex(8) :: cf1
+  complex(8) :: cfa
+  complex(8) :: cfb
+  complex(8) :: cpb(0:n)
+  complex(8) :: cpd(0:n)
+  complex(8) :: cs0
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: n0
+  integer(4) :: n1
+  integer(4) :: nm1
+  real(8)    :: pi
+  real(8)    :: x
+  complex(8) :: z
+  complex(8) :: z1
 
   pi = 3.141592653589793D+00
   x = real ( z, kind = 8 )
@@ -7391,7 +8087,9 @@ subroutine cpbdn ( n, z, cpb, cpd )
 
   return
 end subroutine cpbdn
-subroutine cpdla ( n, z, cdn )
+
+
+
 
   !****************************************************************************80
   !
@@ -7423,18 +8121,28 @@ subroutine cpdla ( n, z, cdn )
   !
   !    Input, integer N, the order.
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CDN, the function value.
+  !    Output, complex(8) CDN, the function value.
+  !
+subroutine cpdla ( n, z, cdn )
+  !CPDLA computes complex parabolic cylinder function Dn(z) for large argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param z: in: the argument
+  !@param cdn: out: the function value
   !
   implicit none
 
-  complex ( kind = 8 ) cb0
-  complex ( kind = 8 ) cdn
-  complex ( kind = 8 ) cr
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) n
-  complex ( kind = 8 ) z
+  complex(8) :: cb0
+  complex(8) :: cdn
+  complex(8) :: cr
+  integer(4) :: k
+  integer(4) :: n
+  complex(8) :: z
 
   cb0 = z ** n * exp ( -0.25D+00 * z * z )
   cr = cmplx ( 1.0D+00, 0.0D+00, kind = 8 )
@@ -7457,7 +8165,9 @@ subroutine cpdla ( n, z, cdn )
 
   return
 end subroutine cpdla
-subroutine cpdsa ( n, z, cdn )
+
+
+
 
   !*****************************************************************************80
   !
@@ -7487,34 +8197,44 @@ subroutine cpdsa ( n, z, cdn )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CDN, the value of DN(z).
+  !    Output, complex(8) CDN, the value of DN(z).
+  !
+subroutine cpdsa ( n, z, cdn )
+  !CPDSA computes complex parabolic cylinder function Dn(z) for small argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param z: in: the argument
+  !@param cdn: out: the value of DN(z)
   !
   implicit none
 
-  complex ( kind = 8 ) ca0
-  complex ( kind = 8 ) cb0
-  complex ( kind = 8 ) cdn
-  complex ( kind = 8 ) cdw
-  complex ( kind = 8 ) cr
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) g1
-  real ( kind = 8 ) ga0
-  real ( kind = 8 ) gm
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pd
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) sq2
-  real ( kind = 8 ) va0
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) xn
-  complex ( kind = 8 ) z
+  complex(8) :: ca0
+  complex(8) :: cb0
+  complex(8) :: cdn
+  complex(8) :: cdw
+  complex(8) :: cr
+  real(8)    :: eps
+  real(8)    :: g0
+  real(8)    :: g1
+  real(8)    :: ga0
+  real(8)    :: gm
+  integer(4) :: m
+  integer(4) :: n
+  real(8)    :: pd
+  real(8)    :: pi
+  real(8)    :: sq2
+  real(8)    :: va0
+  real(8)    :: vm
+  real(8)    :: vt
+  real(8)    :: xn
+  complex(8) :: z
 
   eps = 1.0D-15
   pi = 3.141592653589793D+00
@@ -7567,7 +8287,9 @@ subroutine cpdsa ( n, z, cdn )
 
   return
 end subroutine cpdsa
-subroutine cpsi ( x, y, psr, psi )
+
+
+
 
   !*****************************************************************************80
   !
@@ -7597,37 +8319,48 @@ subroutine cpsi ( x, y, psr, psi )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, Y, the real and imaginary parts 
+  !    Input, real(8) X, Y, the real and imaginary parts 
   !    of the argument.
   !
-  !    Output, real ( kind = 8 ) PSR, PSI, the real and imaginary parts
+  !    Output, real(8) PSR, PSI, the real and imaginary parts
   !    of the function value.
+  !
+subroutine cpsi ( x, y, psr, psi )
+  !CPSI computes the psi function for a complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the real part of the argument
+  !@param y: in: the imaginary part of the argument
+  !@param psr: out: the real part of the function value
+  !@param psi: out: the imaginary part of the function value
   !
   implicit none
 
-  real ( kind = 8 ), save, dimension ( 8 ) :: a = (/ &
+  real(8), save, dimension ( 8 ) :: a = (/ &
        -0.8333333333333D-01, 0.83333333333333333D-02, &
        -0.39682539682539683D-02, 0.41666666666666667D-02, &
        -0.75757575757575758D-02, 0.21092796092796093D-01, &
        -0.83333333333333333D-01, 0.4432598039215686D+00 /)
-  real ( kind = 8 ) ct2
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) psi
-  real ( kind = 8 ) psr
-  real ( kind = 8 ) ri
-  real ( kind = 8 ) rr
-  real ( kind = 8 ) th
-  real ( kind = 8 ) tm
-  real ( kind = 8 ) tn
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) x1
-  real ( kind = 8 ) y
-  real ( kind = 8 ) y1
-  real ( kind = 8 ) z0
-  real ( kind = 8 ) z2
+  real(8)    :: ct2
+  integer(4) :: k
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: psi
+  real(8)    :: psr
+  real(8)    :: ri
+  real(8)    :: rr
+  real(8)    :: th
+  real(8)    :: tm
+  real(8)    :: tn
+  real(8)    :: x
+  real(8)    :: x0
+  real(8)    :: x1
+  real(8)    :: y
+  real(8)    :: y1
+  real(8)    :: z0
+  real(8)    :: z2
 
   pi = 3.141592653589793D+00
 
@@ -7696,7 +8429,9 @@ subroutine cpsi ( x, y, psr, psi )
 
   return
 end subroutine cpsi
-subroutine csphik ( n, z, nm, csi, cdi, csk, cdk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -7726,40 +8461,54 @@ subroutine csphik ( n, z, nm, csi, cdi, csk, cdk )
   ! 
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of in(z) and kn(z).
+  !    Input, integer(4) N, the order of in(z) and kn(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, complex ( kind = 8 ) CSI(0:N), CDI(0:N), CSK(0:N), CDK(0:N),
+  !    Output, complex(8) CSI(0:N), CDI(0:N), CSK(0:N), CDK(0:N),
   !    the values of in(z), in'(z), kn(z), kn'(z).
+  !
+subroutine csphik ( n, z, nm, csi, cdi, csk, cdk )
+  !CSPHIK: complex modified spherical Bessel functions and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of in(z) and kn(z)
+  !@param z: in: the argument
+  !@param nm: out: the highest order computed
+  !@param csi: out: in(z)
+  !@param cdi: out: in'(z)
+  !@param csk: out: kn(z)
+  !@param cdk: out: kn'(z)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) ccosh1
-  complex ( kind = 8 ) cdi(0:n)
-  complex ( kind = 8 ) cdk(0:n)
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf0
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) csi(0:n)
-  complex ( kind = 8 ) csi0
-  complex ( kind = 8 ) csi1
-  complex ( kind = 8 ) csinh1
-  complex ( kind = 8 ) csk(0:n)
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pi
-  complex ( kind = 8 ) z
+  real(8)    :: a0
+  complex(8) :: ccosh1
+  complex(8) :: cdi(0:n)
+  complex(8) :: cdk(0:n)
+  complex(8) :: cf
+  complex(8) :: cf0
+  complex(8) :: cf1
+  complex(8) :: ci
+  complex(8) :: cs
+  complex(8) :: csi(0:n)
+  complex(8) :: csi0
+  complex(8) :: csi1
+  complex(8) :: csinh1
+  complex(8) :: csk(0:n)
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: pi
+  complex(8) :: z
 
   pi = 3.141592653589793D+00
   a0 = abs ( z )    
@@ -7839,7 +8588,9 @@ subroutine csphik ( n, z, nm, csi, cdi, csk, cdk )
 
   return
 end subroutine csphik
-subroutine csphjy ( n, z, nm, csj, cdj, csy, cdy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -7874,36 +8625,53 @@ subroutine csphjy ( n, z, nm, csj, cdj, csy, cdy )
   ! 
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of jn(z) and yn(z).
+  !    Input, integer(4) N, the order of jn(z) and yn(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, complex ( kind = 8 ) CSJ(0:N0, CDJ(0:N), CSY(0:N), CDY(0:N),
+  !    Output, complex(8) CSJ(0:N0, CDJ(0:N), CSY(0:N), CDY(0:N),
   !    the values of jn(z), jn'(z), yn(z), yn'(z).
+  !
+subroutine csphjy ( n, z, nm, csj, cdj, csy, cdy )
+  !CSPHJY: spherical Bessel functions jn(z) and yn(z) for complex argument.
+  !
+  !This procedure computes spherical Bessel functions jn(z) and yn(z)
+  !and their derivatives for a complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of jn(z) and yn(z)
+  !@param z: in: the argument
+  !@param nm: out: the highest order computed
+  !@param csj: jn(z), n=0,...,N
+  !@param cdj: jn'(z), n=0,...,N
+  !@param csy: yn(z), n=0,...,N
+  !@param cdy: yn'(z), n=0,...,N
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) csj(0:n)
-  complex ( kind = 8 ) cdj(0:n)
-  complex ( kind = 8 ) csy(0:n)
-  complex ( kind = 8 ) cdy(0:n)
-  complex ( kind = 8 ) cf
-  complex ( kind = 8 ) cf0
-  complex ( kind = 8 ) cf1
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) csa
-  complex ( kind = 8 ) csb
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  complex ( kind = 8 ) z
+  real(8)    :: a0
+  complex(8) :: csj(0:n)
+  complex(8) :: cdj(0:n)
+  complex(8) :: csy(0:n)
+  complex(8) :: cdy(0:n)
+  complex(8) :: cf
+  complex(8) :: cf0
+  complex(8) :: cf1
+  complex(8) :: cs
+  complex(8) :: csa
+  complex(8) :: csb
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  complex(8) :: z
 
   a0 = abs ( z )
   nm = n
@@ -7979,7 +8747,9 @@ subroutine csphjy ( n, z, nm, csj, cdj, csy, cdy )
 
   return
 end subroutine csphjy
-subroutine cv0 ( kd, m, q, a0 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -8014,25 +8784,44 @@ subroutine cv0 ( kd, m, q, a0 )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KD, the case code:
+  !    Input, integer(4) KD, the case code:
   !    1, for cem(x,q)  ( m = 0,2,4,...)
   !    2, for cem(x,q)  ( m = 1,3,5,...)
   !    3, for sem(x,q)  ( m = 1,3,5,...)
   !    4, for sem(x,q)  ( m = 2,4,6,...)
   !
-  !    Input, integer ( kind = 4 ) M, the order of the functions.
+  !    Input, integer(4) M, the order of the functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter of the functions.
+  !    Input, real(8) Q, the parameter of the functions.
   !
-  !    Output, real ( kind = 8 ) A0, the characteristic value.
+  !    Output, real(8) A0, the characteristic value.
+  !
+subroutine cv0 ( kd, m, q, a0 )
+  !CV0 computes the initial characteristic value of Mathieu functions.
+  !
+  !This procedure computes the initial characteristic value of Mathieu
+  !functions for m <= 12 or q <= 300 or q <= m*m.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KD: the case code: 1, for cem(x,q) ( m = 0,2,4,...) 2, for cem(x,q) ( m = 1,3,5,...) 3, for sem(x,q) ( m =
+  !  1,3,5,...) 4, for sem(x,q) ( m = 2,4,6,...)
+  !
+  !@param kd: in: case code: 1 cem (m=0,2,4,..), 2 cem (m=1,3,5,..), 3 sem (m=1,3,5,..), 4 sem (m=2,4,6,..)
+  !@param m: in: the order of the functions
+  !@param q: in: the parameter of the functions
+  !@param a0: out: the characteristic value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) q
-  real ( kind = 8 ) q2
+  real(8)    :: a0
+  integer(4) :: kd
+  integer(4) :: m
+  real(8)    :: q
+  real(8)    :: q2
 
   q2 = q * q
 
@@ -8356,7 +9145,9 @@ subroutine cv0 ( kd, m, q, a0 )
 
   return
 end subroutine cv0
-subroutine cva1 ( kd, m, q, cv )
+
+
+
 
   !*****************************************************************************80
   !
@@ -8386,17 +9177,17 @@ subroutine cva1 ( kd, m, q, cv )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KD, the case code.
+  !    Input, integer(4) KD, the case code.
   !    1, for cem(x,q)  ( m = 0,2,4,... )
   !    2, for cem(x,q)  ( m = 1,3,5,... )
   !    3, for sem(x,q)  ( m = 1,3,5,... )
   !    4, for sem(x,q)  ( m = 2,4,6,... )
   !
-  !    Input, integer ( kind = 4 ) M, the maximum order of the Mathieu functions.
+  !    Input, integer(4) M, the maximum order of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter of the Mathieu functions.
+  !    Input, real(8) Q, the parameter of the Mathieu functions.
   !
-  !    Output, real ( kind = 8 ) CV(*), characteristic values.
+  !    Output, real(8) CV(*), characteristic values.
   !    For KD = 1, CV(1), CV(2), CV(3),..., correspond to
   !    the characteristic values of cem for m = 0,2,4,...
   !    For KD = 2, CV(1), CV(2), CV(3),..., correspond to
@@ -8406,32 +9197,52 @@ subroutine cva1 ( kd, m, q, cv )
   !    For KD = 4, CV(1), CV(2), CV(3),..., correspond to
   !    the characteristic values of sem for m = 0,2,4,...
   !       
+subroutine cva1 ( kd, m, q, cv )
+  !CVA1 computes a sequence of characteristic values of Mathieu functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KD: the case code. 1, for cem(x,q) ( m = 0,2,4,... ) 2, for cem(x,q) ( m = 1,3,5,... ) 3, for sem(x,q) ( m =
+  !  1,3,5,... ) 4, for sem(x,q) ( m = 2,4,6,... )
+  !* CV: characteristic values. For KD = 1, CV(1), CV(2), CV(3), ..., correspond to the characteristic values of cem for
+  !  m = 0, 2, 4, ... For KD = 2, CV(1), CV(2), CV(3), ..., correspond to the characteristic values of cem for m = 1, 3,
+  !  5, ... For KD = 3, CV(1), CV(2), CV(3), ..., correspond to the characteristic values of sem for m = 1, 3, 5, ...
+  !  For KD = 4, CV(1), CV(2), CV(3), ..., correspond to the characteristic values of sem for m = 0, 2, 4, ...
+  !
+  !@param kd: in: case code: 1 cem (m=0,2,4,..), 2 cem (m=1,3,5,..), 3 sem (m=1,3,5,..), 4 sem (m=2,4,6,..)
+  !@param m: in: the maximum order of the Mathieu functions
+  !@param q: in: the parameter of the Mathieu functions
+  !@param cv: out: characteristic values: for KD=1,2,3,4 the cem (m even, odd) and sem (m odd, even) series
+  !
   implicit none
 
-  real ( kind = 8 ) cv(200)
-  real ( kind = 8 ) d(500)
-  real ( kind = 8 ) e(500)
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) f(500)
-  real ( kind = 8 ) g(200)
-  real ( kind = 8 ) h(200)
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) ic
-  integer ( kind = 4 ) icm
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k1
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nm1
-  real ( kind = 8 ) q
-  real ( kind = 8 ) s
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) x1
-  real ( kind = 8 ) xa
-  real ( kind = 8 ) xb
+  real(8)    :: cv(200)
+  real(8)    :: d(500)
+  real(8)    :: e(500)
+  real(8)    :: eps
+  real(8)    :: f(500)
+  real(8)    :: g(200)
+  real(8)    :: h(200)
+  integer(4) :: i
+  integer(4) :: ic
+  integer(4) :: icm
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: k1
+  integer(4) :: kd
+  integer(4) :: m
+  integer(4) :: nm
+  integer(4) :: nm1
+  real(8)    :: q
+  real(8)    :: s
+  real(8)    :: t
+  real(8)    :: t1
+  real(8)    :: x1
+  real(8)    :: xa
+  real(8)    :: xb
 
   eps = 1.0D-14
 
@@ -8568,7 +9379,9 @@ subroutine cva1 ( kd, m, q, cv )
 
   return
 end subroutine cva1
-subroutine cva2 ( kd, m, q, a )
+
+
+
 
   !*****************************************************************************80
   !
@@ -8598,34 +9411,50 @@ subroutine cva2 ( kd, m, q, a )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KD, the case code:
+  !    Input, integer(4) KD, the case code:
   !    1, for cem(x,q)  ( m = 0,2,4,...)
   !    2, for cem(x,q)  ( m = 1,3,5,...)
   !    3, for sem(x,q)  ( m = 1,3,5,...)
   !    4, for sem(x,q)  ( m = 2,4,6,...)
   !
-  !    Input, integer ( kind = 4 ) M, the order of the Mathieu functions.
+  !    Input, integer(4) M, the order of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter of the Mathieu functions.
+  !    Input, real(8) Q, the parameter of the Mathieu functions.
   !
-  !    Output, real ( kind = 8 ) A, the characteristic value.
+  !    Output, real(8) A, the characteristic value.
+  !
+subroutine cva2 ( kd, m, q, a )
+  !CVA2 computes a specific characteristic value of Mathieu functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KD: the case code: 1, for cem(x,q) ( m = 0,2,4,...) 2, for cem(x,q) ( m = 1,3,5,...) 3, for sem(x,q) ( m =
+  !  1,3,5,...) 4, for sem(x,q) ( m = 2,4,6,...)
+  !
+  !@param kd: in: case code: 1 cem (m=0,2,4,..), 2 cem (m=1,3,5,..), 3 sem (m=1,3,5,..), 4 sem (m=2,4,6,..)
+  !@param m: in: the order of the Mathieu functions
+  !@param q: in: the parameter of the Mathieu functions
+  !@param a: out: the characteristic value
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) a2
-  real ( kind = 8 ) delta
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) iflag
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) ndiv
-  integer ( kind = 4 ) nn
-  real ( kind = 8 ) q
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) q2
-  real ( kind = 8 ) qq
+  real(8)    :: a
+  real(8)    :: a1
+  real(8)    :: a2
+  real(8)    :: delta
+  integer(4) :: i
+  integer(4) :: iflag
+  integer(4) :: kd
+  integer(4) :: m
+  integer(4) :: ndiv
+  integer(4) :: nn
+  real(8)    :: q
+  real(8)    :: q1
+  real(8)    :: q2
+  real(8)    :: qq
 
   if ( m <= 12 .or. q <= 3.0D+00 * m .or. m * m < q ) then
 
@@ -8726,7 +9555,9 @@ subroutine cva2 ( kd, m, q, a )
 
   return
 end subroutine cva2
-subroutine cvf ( kd, m, q, a, mj, f )
+
+
+
 
   !*****************************************************************************80
   !
@@ -8756,41 +9587,59 @@ subroutine cvf ( kd, m, q, a, mj, f )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KD, the case code:
+  !    Input, integer(4) KD, the case code:
   !    1, for cem(x,q)  ( m = 0,2,4,...)
   !    2, for cem(x,q)  ( m = 1,3,5,...)
   !    3, for sem(x,q)  ( m = 1,3,5,...)
   !    4, for sem(x,q)  ( m = 2,4,6,...)
   !
-  !    Input, integer ( kind = 4 ) M, the order of the Mathieu functions.
+  !    Input, integer(4) M, the order of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter of the Mathieu functions.
+  !    Input, real(8) Q, the parameter of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) A, the characteristic value.
+  !    Input, real(8) A, the characteristic value.
   !
-  !    Input, integer ( kind = 4 ) MJ, ?
+  !    Input, integer(4) MJ, ?
   !
-  !    Output, real ( kind = 8 ) F, the value of the function for the
+  !    Output, real(8) F, the value of the function for the
   !    characteristic equation.
+  !
+subroutine cvf ( kd, m, q, a, mj, f )
+  !CVF computes F for the characteristic equation of Mathieu functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KD: the case code: 1, for cem(x,q) ( m = 0,2,4,...) 2, for cem(x,q) ( m = 1,3,5,...) 3, for sem(x,q) ( m =
+  !  1,3,5,...) 4, for sem(x,q) ( m = 2,4,6,...)
+  !
+  !@param kd: in: case code: 1 cem (m=0,2,4,..), 2 cem (m=1,3,5,..), 3 sem (m=1,3,5,..), 4 sem (m=2,4,6,..)
+  !@param m: in: the order of the Mathieu functions
+  !@param q: in: the parameter of the Mathieu functions
+  !@param a: in: the characteristic value
+  !@param mj: in: not documented in the original header
+  !@param f: out: the value of the function for the characteristic equation
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) b
-  real ( kind = 8 ) f
-  integer ( kind = 4 ) ic
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) j0
-  integer ( kind = 4 ) jf
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) l0
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) mj
-  real ( kind = 8 ) q
-  real ( kind = 8 ) t0
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) t2
+  real(8)    :: a
+  real(8)    :: b
+  real(8)    :: f
+  integer(4) :: ic
+  integer(4) :: j
+  integer(4) :: j0
+  integer(4) :: jf
+  integer(4) :: kd
+  integer(4) :: l
+  integer(4) :: l0
+  integer(4) :: m
+  integer(4) :: mj
+  real(8)    :: q
+  real(8)    :: t0
+  real(8)    :: t1
+  real(8)    :: t2
 
   b = a
   ic = int ( m / 2 )
@@ -8856,7 +9705,9 @@ subroutine cvf ( kd, m, q, a, mj, f )
 
   return
 end subroutine cvf
-subroutine cvql ( kd, m, q, a0 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -8886,38 +9737,54 @@ subroutine cvql ( kd, m, q, a0 )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KD, the case code:
+  !    Input, integer(4) KD, the case code:
   !    1, for cem(x,q)  ( m = 0,2,4,...)
   !    2, for cem(x,q)  ( m = 1,3,5,...)
   !    3, for sem(x,q)  ( m = 1,3,5,...)
   !    4, for sem(x,q)  ( m = 2,4,6,...)
   !
-  !    Input, integer ( kind = 4 ) M, the order of the Mathieu functions.
+  !    Input, integer(4) M, the order of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter value.
+  !    Input, real(8) Q, the parameter value.
   !
-  !    Output, real ( kind = 8 ) A0, the initial characteristic value.
+  !    Output, real(8) A0, the initial characteristic value.
+  !
+subroutine cvql ( kd, m, q, a0 )
+  !CVQL computes the characteristic value of Mathieu functions for q <= 3*m.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KD: the case code: 1, for cem(x,q) ( m = 0,2,4,...) 2, for cem(x,q) ( m = 1,3,5,...) 3, for sem(x,q) ( m =
+  !  1,3,5,...) 4, for sem(x,q) ( m = 2,4,6,...)
+  !
+  !@param kd: in: case code: 1 cem (m=0,2,4,..), 2 cem (m=1,3,5,..), 3 sem (m=1,3,5,..), 4 sem (m=2,4,6,..)
+  !@param m: in: the order of the Mathieu functions
+  !@param q: in: the parameter value
+  !@param a0: out: the initial characteristic value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) c1
-  real ( kind = 8 ) cv1
-  real ( kind = 8 ) cv2
-  real ( kind = 8 ) d1
-  real ( kind = 8 ) d2
-  real ( kind = 8 ) d3
-  real ( kind = 8 ) d4
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) p1
-  real ( kind = 8 ) p2
-  real ( kind = 8 ) q
-  real ( kind = 8 ) w
-  real ( kind = 8 ) w2
-  real ( kind = 8 ) w3
-  real ( kind = 8 ) w4
-  real ( kind = 8 ) w6
+  real(8)    :: a0
+  real(8)    :: c1
+  real(8)    :: cv1
+  real(8)    :: cv2
+  real(8)    :: d1
+  real(8)    :: d2
+  real(8)    :: d3
+  real(8)    :: d4
+  integer(4) :: kd
+  integer(4) :: m
+  real(8)    :: p1
+  real(8)    :: p2
+  real(8)    :: q
+  real(8)    :: w
+  real(8)    :: w2
+  real(8)    :: w3
+  real(8)    :: w4
+  real(8)    :: w6
 
   if ( kd == 1 .or. kd == 2 ) then
      w = 2.0D+00 * m + 1.0D+00
@@ -8947,7 +9814,9 @@ subroutine cvql ( kd, m, q, a0 )
 
   return
 end subroutine cvql
-subroutine cvqm ( m, q, a0 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -8977,20 +9846,30 @@ subroutine cvqm ( m, q, a0 )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the order of the Mathieu functions.
+  !    Input, integer(4) M, the order of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter value.
+  !    Input, real(8) Q, the parameter value.
   !
-  !    Output, real ( kind = 8 ) A0, the initial characteristic value.
+  !    Output, real(8) A0, the initial characteristic value.
+  !
+subroutine cvqm ( m, q, a0 )
+  !CVQM computes the characteristic value of Mathieu functions for q <= m*m.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the order of the Mathieu functions
+  !@param q: in: the parameter value
+  !@param a0: out: the initial characteristic value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) hm1
-  real ( kind = 8 ) hm3
-  real ( kind = 8 ) hm5
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) q
+  real(8)    :: a0
+  real(8)    :: hm1
+  real(8)    :: hm3
+  real(8)    :: hm5
+  integer(4) :: m
+  real(8)    :: q
 
   hm1 = 0.5D+00 * q / ( m * m - 1.0D+00 )
   hm3 = 0.25D+00 * hm1 ** 3 / ( m * m - 4.0D+00 )
@@ -9000,7 +9879,9 @@ subroutine cvqm ( m, q, a0 )
 
   return
 end subroutine cvqm
-subroutine cy01 ( kf, z, zf, zd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9035,72 +9916,88 @@ subroutine cy01 ( kf, z, zf, zd )
   !    1 for ZF = Y1(z) and ZD = Y1'(z);
   !    2 for ZF = Y1'(z) and ZD = Y1''(z).
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) ZF, ZD, the values of the requested function 
+  !    Output, complex(8) ZF, ZD, the values of the requested function 
   !    and derivative.
+  !
+subroutine cy01 ( kf, z, zf, zd )
+  !CY01 computes complex Bessel functions Y0(z) and Y1(z) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KF: the function choice. 0 for ZF = Y0(z) and ZD = Y0'(z); 1 for ZF = Y1(z) and ZD = Y1'(z); 2 for ZF = Y1'(z) and
+  !  ZD = Y1''(z)
+  !
+  !@param kf: in: function choice: 0 for Y0, 1 for Y1, 2 for Y1' (ZF the function, ZD its derivative)
+  !@param z: in: the argument
+  !@param zf: out: the requested function
+  !@param zd: out: derivative
   !
   implicit none
 
-  real ( kind = 8 ), save, dimension(12) :: a = (/ &
+  real(8), save, dimension(12) :: a = (/ &
        -0.703125D-01, 0.112152099609375D+00, &
        -0.5725014209747314D+00, 0.6074042001273483D+01, &
        -0.1100171402692467D+03, 0.3038090510922384D+04, &
        -0.1188384262567832D+06, 0.6252951493434797D+07, &
        -0.4259392165047669D+09, 0.3646840080706556D+11, &
        -0.3833534661393944D+13, 0.4854014686852901D+15 /)
-  real ( kind = 8 ) a0
-  real ( kind = 8 ), save, dimension(12) :: a1 = (/ &
+  real(8)    :: a0
+  real(8), save, dimension(12) :: a1 = (/ &
        0.1171875D+00, -0.144195556640625D+00, &
        0.6765925884246826D+00, -0.6883914268109947D+01, &
        0.1215978918765359D+03, -0.3302272294480852D+04, &
        0.1276412726461746D+06, -0.6656367718817688D+07, &
        0.4502786003050393D+09, -0.3833857520742790D+11, &
        0.4011838599133198D+13, -0.5060568503314727D+15 /)
-  real ( kind = 8 ), save, dimension(12) :: b = (/ &
+  real(8), save, dimension(12) :: b = (/ &
        0.732421875D-01, -0.2271080017089844D+00, &
        0.1727727502584457D+01, -0.2438052969955606D+02, &
        0.5513358961220206D+03, -0.1825775547429318D+05, &
        0.8328593040162893D+06, -0.5006958953198893D+08, &
        0.3836255180230433D+10, -0.3649010818849833D+12, &
        0.4218971570284096D+14, -0.5827244631566907D+16 /)
-  real ( kind = 8 ), save, dimension(12) :: b1 = (/ &
+  real(8), save, dimension(12) :: b1 = (/ &
        -0.1025390625D+00, 0.2775764465332031D+00, &
        -0.1993531733751297D+01, 0.2724882731126854D+02, &
        -0.6038440767050702D+03, 0.1971837591223663D+05, &
        -0.8902978767070678D+06, 0.5310411010968522D+08, &
        -0.4043620325107754D+10, 0.3827011346598605D+12, &
        -0.4406481417852278D+14, 0.6065091351222699D+16 /)
-  complex ( kind = 8 ) cbj0
-  complex ( kind = 8 ) cbj1
-  complex ( kind = 8 ) cby0
-  complex ( kind = 8 ) cby1
-  complex ( kind = 8 ) cdy0
-  complex ( kind = 8 ) cdy1
-  complex ( kind = 8 ) ci
-  complex ( kind = 8 ) cp
-  complex ( kind = 8 ) cp0
-  complex ( kind = 8 ) cp1
-  complex ( kind = 8 ) cq0
-  complex ( kind = 8 ) cq1
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) cs
-  complex ( kind = 8 ) ct1
-  complex ( kind = 8 ) ct2
-  complex ( kind = 8 ) cu
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) kf
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) rp2
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) w1
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z1
-  complex ( kind = 8 ) z2
-  complex ( kind = 8 ) zd
-  complex ( kind = 8 ) zf
+  complex(8) :: cbj0
+  complex(8) :: cbj1
+  complex(8) :: cby0
+  complex(8) :: cby1
+  complex(8) :: cdy0
+  complex(8) :: cdy1
+  complex(8) :: ci
+  complex(8) :: cp
+  complex(8) :: cp0
+  complex(8) :: cp1
+  complex(8) :: cq0
+  complex(8) :: cq1
+  complex(8) :: cr
+  complex(8) :: cs
+  complex(8) :: ct1
+  complex(8) :: ct2
+  complex(8) :: cu
+  real(8)    :: el
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: kf
+  real(8)    :: pi
+  real(8)    :: rp2
+  real(8)    :: w0
+  real(8)    :: w1
+  complex(8) :: z
+  complex(8) :: z1
+  complex(8) :: z2
+  complex(8) :: zd
+  complex(8) :: zf
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -9249,7 +10146,9 @@ subroutine cy01 ( kf, z, zf, zd )
 
   return
 end subroutine cy01
-subroutine cyzo ( nt, kf, kc, zo, zv )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9285,46 +10184,63 @@ subroutine cyzo ( nt, kf, kc, zo, zv )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) NT, the number of zeros.
+  !    Input, integer(4) NT, the number of zeros.
   !
-  !    Input, integer ( kind = 4 ) KF, the function choice.
+  !    Input, integer(4) KF, the function choice.
   !    0 for Y0(z) and Y1(z0);
   !    1 for Y1(z) and Y0(z1);
   !    2 for Y1'(z) and Y1(z1').
   !
-  !    Input, integer ( kind = 4 ) KC, complex/real choice.
+  !    Input, integer(4) KC, complex/real choice.
   !    0, for complex roots;
   !    1, for real roots.
   !
-  !    Output, real ( kind = 8 ) ZO(NT), ZV(NT), the zeros of Y0(z) or Y1(z) 
+  !    Output, real(8) ZO(NT), ZV(NT), the zeros of Y0(z) or Y1(z) 
   !    or Y1'(z), and the value of Y0'(z) or Y1'(z) or Y1(z) at the L-th zero.
+  !
+subroutine cyzo ( nt, kf, kc, zo, zv )
+  !CYZO computes zeros of complex Bessel functions Y0(z) and Y1(z) and Y1'(z).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KF: the function choice. 0 for Y0(z) and Y1(z0); 1 for Y1(z) and Y0(z1); 2 for Y1'(z) and Y1(z1')
+  !* ZO, ZV: the zeros of Y0(z) or Y1(z) or Y1'(z), and the value of Y0'(z) or Y1'(z) or Y1(z) at the L-th zero
+  !
+  !@param nt: in: the number of zeros
+  !@param kf: in: function choice: 0 for Y0(z) and Y1(z0), 1 for Y1(z) and Y0(z1), 2 for Y1'(z) and Y1(z1')
+  !@param kc: in: complex/real choice. 0, for complex roots; 1, for real roots
+  !@param zo: out: the zeros of Y0(z), Y1(z) or Y1'(z)
+  !@param zv: out: the value of Y0'(z), Y1'(z) or Y1(z) at the L-th zero
   !
   implicit none
 
-  integer ( kind = 4 ) nt
+  integer(4) :: nt
 
-  real ( kind = 8 ) h
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) it
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) kc
-  integer ( kind = 4 ) kf
-  integer ( kind = 4 ) nr
-  real ( kind = 8 ) w
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) x
-  real ( kind = 8 ) y
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) zd
-  complex ( kind = 8 ) zero
-  complex ( kind = 8 ) zf
-  complex ( kind = 8 ) zfd
-  complex ( kind = 8 ) zgd
-  complex ( kind = 8 ) zo(nt)
-  complex ( kind = 8 ) zp
-  complex ( kind = 8 ) zq
-  complex ( kind = 8 ) zv(nt)
-  complex ( kind = 8 ) zw
+  real(8)    :: h
+  integer(4) :: i
+  integer(4) :: it
+  integer(4) :: j
+  integer(4) :: kc
+  integer(4) :: kf
+  integer(4) :: nr
+  real(8)    :: w
+  real(8)    :: w0
+  real(8)    :: x
+  real(8)    :: y
+  complex(8) :: z
+  complex(8) :: zd
+  complex(8) :: zero
+  complex(8) :: zf
+  complex(8) :: zfd
+  complex(8) :: zgd
+  complex(8) :: zo(nt)
+  complex(8) :: zp
+  complex(8) :: zq
+  complex(8) :: zv(nt)
+  complex(8) :: zw
 
   if ( kc == 0 ) then
      x = -2.4D+00
@@ -9405,7 +10321,9 @@ subroutine cyzo ( nt, kf, kc, zo, zv )
 
   return
 end subroutine cyzo
-subroutine dvla ( va, x, pd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9435,26 +10353,36 @@ subroutine dvla ( va, x, pd )
   ! 
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) VA, the order.
+  !    Input, real(8) VA, the order.
   !
-  !    Output, real ( kind = 8 ) PD, the function value.
+  !    Output, real(8) PD, the function value.
+  !
+subroutine dvla ( va, x, pd )
+  !DVLA computes parabolic cylinder functions Dv(x) for large argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param va: in: the order
+  !@param x: in: the argument
+  !@param pd: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) ep
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) gl
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pd
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) va
-  real ( kind = 8 ) vl
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x1
+  real(8)    :: a0
+  real(8)    :: ep
+  real(8)    :: eps
+  real(8)    :: gl
+  integer(4) :: k
+  real(8)    :: pd
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: va
+  real(8)    :: vl
+  real(8)    :: x
+  real(8)    :: x1
 
   pi = 3.141592653589793D+00
   eps = 1.0D-12
@@ -9482,7 +10410,9 @@ subroutine dvla ( va, x, pd )
 
   return
 end subroutine dvla
-subroutine dvsa ( va, x, pd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9512,32 +10442,42 @@ subroutine dvsa ( va, x, pd )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) VA, the order.
+  !    Input, real(8) VA, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) PD, the function value.
+  !    Output, real(8) PD, the function value.
+  !
+subroutine dvsa ( va, x, pd )
+  !DVSA computes parabolic cylinder functions Dv(x) for small argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param va: in: the order
+  !@param x: in: the argument
+  !@param pd: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) ep
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) g1
-  real ( kind = 8 ) ga0
-  real ( kind = 8 ) gm
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) pd
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) sq2
-  real ( kind = 8 ) va
-  real ( kind = 8 ) va0
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: ep
+  real(8)    :: eps
+  real(8)    :: g0
+  real(8)    :: g1
+  real(8)    :: ga0
+  real(8)    :: gm
+  integer(4) :: m
+  real(8)    :: pd
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: sq2
+  real(8)    :: va
+  real(8)    :: va0
+  real(8)    :: vm
+  real(8)    :: vt
+  real(8)    :: x
 
   eps = 1.0D-15
   pi = 3.141592653589793D+00
@@ -9586,7 +10526,9 @@ subroutine dvsa ( va, x, pd )
 
   return
 end subroutine dvsa
-subroutine e1xa ( x, e1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9616,16 +10558,25 @@ subroutine e1xa ( x, e1 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) E1, the function value.
+  !    Output, real(8) E1, the function value.
+  !
+subroutine e1xa ( x, e1 )
+  !E1XA computes the exponential integral E1(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param e1: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) e1
-  real ( kind = 8 ) es1
-  real ( kind = 8 ) es2
-  real ( kind = 8 ) x
+  real(8) :: e1
+  real(8) :: es1
+  real(8) :: es2
+  real(8) :: x
 
   if ( x == 0.0D+00 ) then
 
@@ -9661,7 +10612,9 @@ subroutine e1xa ( x, e1 )
 
   return
 end subroutine e1xa
-subroutine e1xb ( x, e1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9691,20 +10644,29 @@ subroutine e1xb ( x, e1 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) E1, the function value.
+  !    Output, real(8) E1, the function value.
+  !
+subroutine e1xb ( x, e1 )
+  !E1XB computes the exponential integral E1(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param e1: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) e1
-  real ( kind = 8 ) ga
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) r
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t0
-  real ( kind = 8 ) x
+  real(8)    :: e1
+  real(8)    :: ga
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: r
+  real(8)    :: t
+  real(8)    :: t0
+  real(8)    :: x
 
   if ( x == 0.0D+00 ) then
 
@@ -9740,7 +10702,9 @@ subroutine e1xb ( x, e1 )
 
   return
 end subroutine e1xb
-subroutine e1z ( z, ce1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9770,22 +10734,31 @@ subroutine e1z ( z, ce1 )
   ! 
   !  Parameters:
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) CE1, the function value.
+  !    Output, complex(8) CE1, the function value.
+  !
+subroutine e1z ( z, ce1 )
+  !E1Z computes the complex exponential integral E1(z).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param z: in: the argument
+  !@param ce1: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  complex ( kind = 8 ) ce1
-  complex ( kind = 8 ) cr
-  complex ( kind = 8 ) ct
-  complex ( kind = 8 ) ct0
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) x
-  complex ( kind = 8 ) z
+  real(8)    :: a0
+  complex(8) :: ce1
+  complex(8) :: cr
+  complex(8) :: ct
+  complex(8) :: ct0
+  real(8)    :: el
+  integer(4) :: k
+  real(8)    :: pi
+  real(8)    :: x
+  complex(8) :: z
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015328D+00
@@ -9825,7 +10798,9 @@ subroutine e1z ( z, ce1 )
 
   return
 end subroutine e1z
-subroutine eix ( x, ei )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9855,17 +10830,26 @@ subroutine eix ( x, ei )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) EI, the function value.
+  !    Output, real(8) EI, the function value.
+  !
+subroutine eix ( x, ei )
+  !EIX computes the exponential integral Ei(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param ei: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) ei
-  real ( kind = 8 ) ga
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) r
-  real ( kind = 8 ) x
+  real(8)    :: ei
+  real(8)    :: ga
+  integer(4) :: k
+  real(8)    :: r
+  real(8)    :: x
 
   if ( x == 0.0D+00 ) then
 
@@ -9900,7 +10884,9 @@ subroutine eix ( x, ei )
 
   return
 end subroutine eix
-subroutine elit ( hk, phi, fe, ee )
+
+
+
 
   !*****************************************************************************80
   !
@@ -9930,32 +10916,43 @@ subroutine elit ( hk, phi, fe, ee )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) HK, the modulus, between 0 and 1.
+  !    Input, real(8) HK, the modulus, between 0 and 1.
   !
-  !    Input, real ( kind = 8 ) PHI, the argument in degrees.
+  !    Input, real(8) PHI, the argument in degrees.
   !
-  !    Output, real ( kind = 8 ) FE, EE, the values of F(k,phi) and E(k,phi).
+  !    Output, real(8) FE, EE, the values of F(k,phi) and E(k,phi).
+  !
+subroutine elit ( hk, phi, fe, ee )
+  !ELIT: complete and incomplete elliptic integrals F(k,phi) and E(k,phi).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param hk: in: the modulus, between 0 and 1
+  !@param phi: in: the argument in degrees
+  !@param fe: out: F(k,phi)
+  !@param ee: out: E(k,phi)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) b
-  real ( kind = 8 ) b0
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ce
-  real ( kind = 8 ) ck
-  real ( kind = 8 ) d
-  real ( kind = 8 ) d0
-  real ( kind = 8 ) ee
-  real ( kind = 8 ) fac
-  real ( kind = 8 ) fe
-  real ( kind = 8 ) g
-  real ( kind = 8 ) hk
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) phi
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
+  real(8)    :: a
+  real(8)    :: a0
+  real(8)    :: b
+  real(8)    :: b0
+  real(8)    :: c
+  real(8)    :: ce
+  real(8)    :: ck
+  real(8)    :: d
+  real(8)    :: d0
+  real(8)    :: ee
+  real(8)    :: fac
+  real(8)    :: fe
+  real(8)    :: g
+  real(8)    :: hk
+  integer(4) :: n
+  real(8)    :: phi
+  real(8)    :: pi
+  real(8)    :: r
 
   g = 0.0D+00
   pi = 3.14159265358979D+00
@@ -10009,7 +11006,9 @@ subroutine elit ( hk, phi, fe, ee )
 
   return
 end subroutine elit
-subroutine elit3 ( phi, hk, c, el3 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -10043,38 +11042,51 @@ subroutine elit3 ( phi, hk, c, el3 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) PHI, the argument in degrees.
+  !    Input, real(8) PHI, the argument in degrees.
   !
-  !    Input, real ( kind = 8 ) HK, the modulus, between 0 and 1.
+  !    Input, real(8) HK, the modulus, between 0 and 1.
   !
-  !    Input, real ( kind = 8 ) C, the parameter, between 0 and 1.
+  !    Input, real(8) C, the parameter, between 0 and 1.
   !
-  !    Output, real ( kind = 8 ) EL3, the value of the elliptic integral
+  !    Output, real(8) EL3, the value of the elliptic integral
   !    of the third kind.
+  !
+subroutine elit3 ( phi, hk, c, el3 )
+  !ELIT3 computes the elliptic integral of the third kind.
+  !
+  !Gauss-Legendre quadrature is used.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param phi: in: the argument in degrees
+  !@param hk: in: the modulus, between 0 and 1
+  !@param c: in: the parameter, between 0 and 1
+  !@param el3: out: the value of the elliptic integral of the third kind
   !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) c0
-  real ( kind = 8 ) c1
-  real ( kind = 8 ) c2
-  real ( kind = 8 ) el3
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  real ( kind = 8 ) hk
-  integer ( kind = 4 ) i 
-  logical lb1
-  logical lb2
-  real ( kind = 8 ) phi
-  real ( kind = 8 ), dimension ( 10 ), save :: t = (/ &
+  real(8)    :: c
+  real(8)    :: c0
+  real(8)    :: c1
+  real(8)    :: c2
+  real(8)    :: el3
+  real(8)    :: f1
+  real(8)    :: f2
+  real(8)    :: hk
+  integer(4) :: i
+  logical    :: lb1
+  logical    :: lb2
+  real(8)    :: phi
+  real(8), dimension ( 10 ), save :: t = (/ &
        0.9931285991850949D+00, 0.9639719272779138D+00, &
        0.9122344282513259D+00, 0.8391169718222188D+00, &
        0.7463319064601508D+00, 0.6360536807265150D+00, &
        0.5108670019508271D+00, 0.3737060887154195D+00, &
        0.2277858511416451D+00, 0.7652652113349734D-01 /)
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) t2
-  real ( kind = 8 ), dimension ( 10 ), save :: w = (/ &
+  real(8)    :: t1
+  real(8)    :: t2
+  real(8), dimension ( 10 ), save :: w = (/ &
        0.1761400713915212D-01, 0.4060142980038694D-01, &
        0.6267204833410907D-01, 0.8327674157670475D-01, &
        0.1019301198172404D+00, 0.1181945319615184D+00, &
@@ -10110,7 +11122,8 @@ subroutine elit3 ( phi, hk, c, el3 )
   return
 end subroutine elit3
 
-function envj ( n, x )
+
+
 
   !*****************************************************************************80
   !
@@ -10140,24 +11153,35 @@ function envj ( n, x )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, ?
+  !    Input, integer(4) N, ?
   !
-  !    Input, real ( kind = 8 ) X, ?
+  !    Input, real(8) X, ?
   !
-  !    Output, real ( kind = 8 ) ENVJ, ?
+  !    Output, real(8) ENVJ, ?
+  !
+function envj ( n, x )
+  !ENVJ is a utility function used by MSTA1 and MSTA2.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param envj: out: the value of the function
   !
   implicit none
 
-  real ( kind = 8 ) envj
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) x
+  real(8)    :: envj
+  integer(4) :: n
+  real(8)    :: x
 
   envj = 0.5D+00 * log10 ( 6.28D+00 * n ) - n * log10 ( 1.36D+00 * x / n )
 
   return
 end function envj
 
-subroutine enxa ( n, x, en )
+
+
 
   !*****************************************************************************80
   !
@@ -10187,21 +11211,31 @@ subroutine enxa ( n, x, en )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) EN(0:N), the function values.
+  !    Output, real(8) EN(0:N), the function values.
+  !
+subroutine enxa ( n, x, en )
+  !ENXA computes the exponential integral En(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param en: out: the function values
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) e1
-  real ( kind = 8 ) ek
-  real ( kind = 8 ) en(0:n)
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) x
+  real(8)    :: e1
+  real(8)    :: ek
+  real(8)    :: en(0:n)
+  integer(4) :: k
+  real(8)    :: x
 
   en(0) = exp ( - x ) / x 
   call e1xb ( x, e1 )
@@ -10215,7 +11249,9 @@ subroutine enxa ( n, x, en )
 
   return
 end subroutine enxa
-subroutine enxb ( n, x, en )
+
+
+
 
   !*****************************************************************************80
   !
@@ -10245,30 +11281,40 @@ subroutine enxb ( n, x, en )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) EN(0:N), the function values.
+  !    Output, real(8) EN(0:N), the function values.
+  !
+subroutine enxb ( n, x, en )
+  !ENXB computes the exponential integral En(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param en: out: the function values
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) en(0:n)
-  real ( kind = 8 ) ens
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) ps
-  real ( kind = 8 ) r
-  real ( kind = 8 ) rp
-  real ( kind = 8 ) s
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t0
-  real ( kind = 8 ) x
+  real(8)    :: en(0:n)
+  real(8)    :: ens
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: l
+  integer(4) :: m
+  real(8)    :: ps
+  real(8)    :: r
+  real(8)    :: rp
+  real(8)    :: s
+  real(8)    :: s0
+  real(8)    :: t
+  real(8)    :: t0
+  real(8)    :: x
 
   if ( x == 0.0D+00 ) then
 
@@ -10329,7 +11375,8 @@ subroutine enxb ( n, x, en )
   return
 end subroutine enxb
 
-subroutine werror ( x, err )
+
+
 
   !*****************************************************************************80
   !
@@ -10359,21 +11406,30 @@ subroutine werror ( x, err )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) ERR, the function value.
+  !    Output, real(8) ERR, the function value.
+  !
+subroutine werror ( x, err )
+  !WERROR evaluates the error function.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param err: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) c0
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) er
-  real ( kind = 8 ) err
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
+  real(8)    :: c0
+  real(8)    :: eps
+  real(8)    :: er
+  real(8)    :: err
+  integer(4) :: k
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: x
+  real(8)    :: x2
 
   eps = 1.0D-15
   pi = 3.141592653589793D+00
@@ -10416,7 +11472,8 @@ subroutine werror ( x, err )
   return
 end subroutine werror
 
-subroutine eulera ( n, en )
+
+
 
   !*****************************************************************************80
   !
@@ -10446,20 +11503,29 @@ subroutine eulera ( n, en )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the index of the highest value to compute.
+  !    Input, integer(4) N, the index of the highest value to compute.
   !
-  !    Output, real ( kind = 8 ) EN(0:N), the Euler numbers up to the N-th value.
+  !    Output, real(8) EN(0:N), the Euler numbers up to the N-th value.
+  !
+subroutine eulera ( n, en )
+  !EULERA computes the Euler number En.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the index of the highest value to compute
+  !@param en: out: the Euler numbers up to the N-th value
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) en(0:n)
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
+  real(8)    :: en(0:n)
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: r
+  real(8)    :: s
 
   en(0) = 1.0D+00
 
@@ -10477,7 +11543,9 @@ subroutine eulera ( n, en )
 
   return
 end subroutine eulera
-subroutine eulerb ( n, en )
+
+
+
 
   !*****************************************************************************80
   !
@@ -10507,22 +11575,31 @@ subroutine eulerb ( n, en )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the index of the highest value to compute.
+  !    Input, integer(4) N, the index of the highest value to compute.
   !
-  !    Output, real ( kind = 8 ) EN(0:N), the Euler numbers up to the N-th value.
+  !    Output, real(8) EN(0:N), the Euler numbers up to the N-th value.
+  !
+subroutine eulerb ( n, en )
+  !EULERB computes the Euler number En.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the index of the highest value to compute
+  !@param en: out: the Euler numbers up to the N-th value
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) en(0:n)
-  real ( kind = 8 ) hpi
-  real ( kind = 8 ) isgn
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) s
+  real(8)    :: en(0:n)
+  real(8)    :: hpi
+  real(8)    :: isgn
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: s
 
   hpi = 2.0D+00 / 3.141592653589793D+00
   en(0) = 1.0D+00
@@ -10548,7 +11625,9 @@ subroutine eulerb ( n, en )
 
   return
 end subroutine eulerb
-subroutine fcoef ( kd, m, q, a, fc )
+
+
+
 
   !*****************************************************************************80
   !
@@ -10578,50 +11657,70 @@ subroutine fcoef ( kd, m, q, a, fc )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KD, the case code.
+  !    Input, integer(4) KD, the case code.
   !    1, for cem(x,q)  ( m = 0,2,4,...)
   !    2, for cem(x,q)  ( m = 1,3,5,...)
   !    3, for sem(x,q)  ( m = 1,3,5,...)
   !    4, for sem(x,q)  ( m = 2,4,6,...)
   !
-  !    Input, integer ( kind = 4 ) M, the order of the Mathieu function.
+  !    Input, integer(4) M, the order of the Mathieu function.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter of the Mathieu functions.
+  !    Input, real(8) Q, the parameter of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) A, the characteristic value of the Mathieu
+  !    Input, real(8) A, the characteristic value of the Mathieu
   !    functions for given m and q.
   !
-  !    Output, real ( kind = 8 ) FC(*), the expansion coefficients of Mathieu
+  !    Output, real(8) FC(*), the expansion coefficients of Mathieu
   !    functions ( k =  1,2,...,KM ).  FC(1),FC(2),FC(3),... correspond to
   !    A0,A2,A4,... for KD = 1 case, 
   !    A1,A3,A5,... for KD = 2 case,
   !    B1,B3,B5,... for KD = 3 case,
   !    B2,B4,B6,... for KD = 4 case.
   !
+subroutine fcoef ( kd, m, q, a, fc )
+  !FCOEF: expansion coefficients for Mathieu and modified Mathieu functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KD: the case code. 1, for cem(x,q) ( m = 0,2,4,...) 2, for cem(x,q) ( m = 1,3,5,...) 3, for sem(x,q) ( m =
+  !  1,3,5,...) 4, for sem(x,q) ( m = 2,4,6,...)
+  !* FC: the expansion coefficients of Mathieu functions ( k = 1,2,...,KM ). FC(1), FC(2), FC(3), ... correspond to A0,
+  !  A2, A4, ... for KD = 1 case, A1, A3, A5, ... for KD = 2 case, B1, B3, B5, ... for KD = 3 case, B2, B4, B6, ... for
+  !  KD = 4 case
+  !
+  !@param kd: in: case code: 1 cem (m=0,2,4,..), 2 cem (m=1,3,5,..), 3 sem (m=1,3,5,..), 4 sem (m=2,4,6,..)
+  !@param m: in: the order of the Mathieu function
+  !@param q: in: the parameter of the Mathieu functions
+  !@param a: in: the characteristic value of the Mathieu functions for given m and q
+  !@param fc: out: expansion coefficients of the Mathieu functions, k=1,...,KM
+  !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  real ( kind = 8 ) f3
-  real ( kind = 8 ) fc(251)
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kb
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) q
-  real ( kind = 8 ) qm
-  real ( kind = 8 ) s
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) sp
-  real ( kind = 8 ) ss
-  real ( kind = 8 ) u
-  real ( kind = 8 ) v
+  real(8)    :: a
+  real(8)    :: f
+  real(8)    :: f1
+  real(8)    :: f2
+  real(8)    :: f3
+  real(8)    :: fc(251)
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: kb
+  integer(4) :: kd
+  integer(4) :: km
+  integer(4) :: l
+  integer(4) :: m
+  real(8)    :: q
+  real(8)    :: qm
+  real(8)    :: s
+  real(8)    :: s0
+  real(8)    :: sp
+  real(8)    :: ss
+  real(8)    :: u
+  real(8)    :: v
 
   if ( q <= 1.0D+00 ) then
      qm = 7.5D+00 + 56.1D+00 * sqrt ( q ) - 134.7D+00 * q &
@@ -10857,7 +11956,9 @@ subroutine fcoef ( kd, m, q, a, fc )
 
   return
 end subroutine fcoef
-subroutine fcs ( x, c, s )
+
+
+
 
   !*****************************************************************************80
   !
@@ -10887,31 +11988,41 @@ subroutine fcs ( x, c, s )
   ! 
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) C, S, the function values.
+  !    Output, real(8) C, S, the function values.
+  !
+subroutine fcs ( x, c, s )
+  !FCS computes Fresnel integrals C(x) and S(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param c: out: the Fresnel integral C(x)
+  !@param s: out: the Fresnel integral S(x)
   !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) g
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) px
-  real ( kind = 8 ) q
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
-  real ( kind = 8 ) su
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t0
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xa
+  real(8)    :: c
+  real(8)    :: eps
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: g
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: pi
+  real(8)    :: px
+  real(8)    :: q
+  real(8)    :: r
+  real(8)    :: s
+  real(8)    :: su
+  real(8)    :: t
+  real(8)    :: t0
+  real(8)    :: t2
+  real(8)    :: x
+  real(8)    :: xa
 
   eps = 1.0D-15
   pi = 3.141592653589793D+00
@@ -11008,7 +12119,9 @@ subroutine fcs ( x, c, s )
 
   return
 end subroutine fcs
-subroutine fcszo ( kf, nt, zo )
+
+
+
 
   !*****************************************************************************80
   !
@@ -11038,38 +12151,48 @@ subroutine fcszo ( kf, nt, zo )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KF, the function code.
+  !    Input, integer(4) KF, the function code.
   !    1 for C(z);
   !    2 for S(z)
   !
-  !    Input, integer ( kind = 4 ) NT, the total number of zeros desired.
+  !    Input, integer(4) NT, the total number of zeros desired.
   !
-  !    Output, complex ( kind = 8 ) Z0(NT), the zeros.
+  !    Output, complex(8) Z0(NT), the zeros.
+  !
+subroutine fcszo ( kf, nt, zo )
+  !FCSZO computes complex zeros of Fresnel integrals C(x) or S(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param kf: in: the function code. 1 for C(z); 2 for S(z)
+  !@param nt: in: the total number of zeros desired
+  !@param zo: the zeros
   !
   implicit none
 
-  integer ( kind = 4 ) nt
+  integer(4) :: nt
 
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) it
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) kf
-  integer ( kind = 4 ) nr
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) psq
-  real ( kind = 8 ) px
-  real ( kind = 8 ) py
-  real ( kind = 8 ) w
-  real ( kind = 8 ) w0
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) zd
-  complex ( kind = 8 ) zf
-  complex ( kind = 8 ) zfd
-  complex ( kind = 8 ) zgd
-  complex ( kind = 8 ) zo(nt)
-  complex ( kind = 8 ) zp
-  complex ( kind = 8 ) zq
-  complex ( kind = 8 ) zw
+  integer(4) :: i
+  integer(4) :: it
+  integer(4) :: j
+  integer(4) :: kf
+  integer(4) :: nr
+  real(8)    :: pi
+  real(8)    :: psq
+  real(8)    :: px
+  real(8)    :: py
+  real(8)    :: w
+  real(8)    :: w0
+  complex(8) :: z
+  complex(8) :: zd
+  complex(8) :: zf
+  complex(8) :: zfd
+  complex(8) :: zgd
+  complex(8) :: zo(nt)
+  complex(8) :: zp
+  complex(8) :: zq
+  complex(8) :: zw
 
   pi = 3.141592653589793D+00
 
@@ -11145,7 +12268,9 @@ subroutine fcszo ( kf, nt, zo )
 
   return
 end subroutine fcszo
-subroutine ffk ( ks, x, fr, fi, fm, fa, gr, gi, gm, ga )
+
+
+
 
   !*****************************************************************************80
   !
@@ -11175,57 +12300,74 @@ subroutine ffk ( ks, x, fr, fi, fm, fa, gr, gi, gm, ga )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KS, the sign code.
+  !    Input, integer(4) KS, the sign code.
   !    0, to calculate F+(x) and K+(x);
   !    1, to calculate F_(x) and K_(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) FR, FI, FM, FA, the values of
+  !    Output, real(8) FR, FI, FM, FA, the values of
   !    Re[F+/-(x)], Im[F+/-(x)], |F+/-(x)|, Arg[F+/-(x)]  (Degs.).
   !
-  !    Output, real ( kind = 8 ) GR, GI, GM, GA, the values of
+  !    Output, real(8) GR, GI, GM, GA, the values of
   !    Re[K+/-(x)], Im[K+/-(x)], |K+/-(x)|, Arg[K+/-(x)]  (Degs.).
   !       
+subroutine ffk ( ks, x, fr, fi, fm, fa, gr, gi, gm, ga )
+  !FFK computes modified Fresnel integrals F+/-(x) and K+/-(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param ks: in: the sign code. 0, to calculate F+(x) and K+(x); 1, to calculate F_(x) and K_(x)
+  !@param x: in: the argument
+  !@param fr: out: :math:`Re[F\pm(x)]`
+  !@param fi: out: :math:`Im[F\pm(x)]`
+  !@param fm: out: :math:`|F\pm(x)|`
+  !@param fa: out: :math:`Arg[F\pm(x)]` (Degs.)
+  !@param gr: out: :math:`Re[K\pm(x)]`
+  !@param gi: out: :math:`Im[K\pm(x)]`
+  !@param gm: out: :math:`|K\pm(x)|`
+  !@param ga: out: :math:`Arg[K\pm(x)]` (Degs.)
+  !
   implicit none
 
-  real ( kind = 8 ) c1
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) fa
-  real ( kind = 8 ) fi
-  real ( kind = 8 ) fi0
-  real ( kind = 8 ) fm
-  real ( kind = 8 ) fr
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gi
-  real ( kind = 8 ) gm
-  real ( kind = 8 ) gr
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) ks
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) p2p
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pp2
-  real ( kind = 8 ) s1
-  real ( kind = 8 ) srd
-  real ( kind = 8 ) ss
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) x4
-  real ( kind = 8 ) xa
-  real ( kind = 8 ) xc
-  real ( kind = 8 ) xf
-  real ( kind = 8 ) xf0
-  real ( kind = 8 ) xf1
-  real ( kind = 8 ) xg
-  real ( kind = 8 ) xp
-  real ( kind = 8 ) xq
-  real ( kind = 8 ) xq2
-  real ( kind = 8 ) xr
-  real ( kind = 8 ) xs
-  real ( kind = 8 ) xsu
-  real ( kind = 8 ) xw
+  real(8)    :: c1
+  real(8)    :: cs
+  real(8)    :: eps
+  real(8)    :: fa
+  real(8)    :: fi
+  real(8)    :: fi0
+  real(8)    :: fm
+  real(8)    :: fr
+  real(8)    :: ga
+  real(8)    :: gi
+  real(8)    :: gm
+  real(8)    :: gr
+  integer(4) :: k
+  integer(4) :: ks
+  integer(4) :: m
+  real(8)    :: p2p
+  real(8)    :: pi
+  real(8)    :: pp2
+  real(8)    :: s1
+  real(8)    :: srd
+  real(8)    :: ss
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: x4
+  real(8)    :: xa
+  real(8)    :: xc
+  real(8)    :: xf
+  real(8)    :: xf0
+  real(8)    :: xf1
+  real(8)    :: xg
+  real(8)    :: xp
+  real(8)    :: xq
+  real(8)    :: xq2
+  real(8)    :: xr
+  real(8)    :: xs
+  real(8)    :: xsu
+  real(8)    :: xw
 
   srd = 57.29577951308233D+00
   eps = 1.0D-15
@@ -11366,7 +12508,9 @@ subroutine ffk ( ks, x, fr, fi, fm, fa, gr, gi, gm, ga )
 
   return
 end subroutine ffk
-subroutine gaih ( x, ga )
+
+
+
 
   !*****************************************************************************80
   !
@@ -11396,18 +12540,27 @@ subroutine gaih ( x, ga )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) GA, the function value.
+  !    Output, real(8) GA, the function value.
+  !
+subroutine gaih ( x, ga )
+  !GAIH computes the GammaH function.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param ga: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) ga
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) m1
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) x
+  real(8)    :: ga
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: m1
+  real(8)    :: pi
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
 
@@ -11427,7 +12580,9 @@ subroutine gaih ( x, ga )
 
   return
 end subroutine gaih
-subroutine gam0 ( x, ga )
+
+
+
 
   !*****************************************************************************80
   !
@@ -11457,13 +12612,22 @@ subroutine gam0 ( x, ga )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) GA, the function value.
+  !    Output, real(8) GA, the function value.
   !   
+subroutine gam0 ( x, ga )
+  !GAM0 computes the Gamma function for the LAMV function.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param ga: out: the function value
+  !
   implicit none
 
-  real ( kind = 8 ), dimension ( 25 ) :: g = (/ &
+  real(8), dimension ( 25 ) :: g = (/ &
        1.0D+00, &
        0.5772156649015329D+00, &
        -0.6558780715202538D+00, &
@@ -11489,10 +12653,10 @@ subroutine gam0 ( x, ga )
        -0.206D-13, &
        -0.54D-14, &
        0.14D-14 /)
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gr
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) x
+  real(8)    :: ga
+  real(8)    :: gr
+  integer(4) :: k
+  real(8)    :: x
 
   gr = g(25)
   do k = 24, 1, -1
@@ -11504,7 +12668,8 @@ subroutine gam0 ( x, ga )
   return
 end subroutine gam0
 
-subroutine gammaf ( x, ga )
+
+
 
   !*****************************************************************************80
   !
@@ -11536,14 +12701,23 @@ subroutine gammaf ( x, ga )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !    X must not be 0, or any negative integer.
   !
-  !    Output, real ( kind = 8 ) GA, the value of the Gamma function.
+  !    Output, real(8) GA, the value of the Gamma function.
+  !
+subroutine gammaf ( x, ga )
+  !GAMMA evaluates the Gamma function.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang, Jianming Jin. FORTRAN90 version by John Burkardt.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument, which must not be 0, or any negative integer
+  !@param ga: out: the value of the Gamma function
   !
   implicit none
 
-  real ( kind = 8 ), dimension ( 26 ) :: g = (/ &
+  real(8), dimension ( 26 ) :: g = (/ &
        1.0D+00, &
        0.5772156649015329D+00, &
        -0.6558780715202538D+00, &
@@ -11570,15 +12744,15 @@ subroutine gammaf ( x, ga )
        -0.54D-14, &
        0.14D-14, &
        0.1D-15 /)
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gr
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) m1
-  real ( kind = 8 ), parameter :: pi = 3.141592653589793D+00
-  real ( kind = 8 ) r
-  real ( kind = 8 ) x
-  real ( kind = 8 ) z
+  real(8)             :: ga
+  real(8)             :: gr
+  integer(4)          :: k
+  integer(4)          :: m
+  integer(4)          :: m1
+  real(8), parameter  :: pi = 3.141592653589793D+00
+  real(8)             :: r
+  real(8)             :: x
+  real(8)             :: z
 
   if ( x == aint ( x ) ) then
 
@@ -11624,7 +12798,9 @@ subroutine gammaf ( x, ga )
 
   return
 end subroutine gammaf
-subroutine gmn ( m, n, c, x, bk, gf, gd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -11659,36 +12835,53 @@ subroutine gmn ( m, n, c, x, bk, gf, gd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) BK(*), coefficients.
+  !    Input, real(8) BK(*), coefficients.
   !
-  !    Output, real ( kind = 8 ) GF, GD, the value of Gmn(-C,X) and Gmn'(-C,X).
+  !    Output, real(8) GF, GD, the value of Gmn(-C,X) and Gmn'(-C,X).
+  !
+subroutine gmn ( m, n, c, x, bk, gf, gd )
+  !GMN computes quantities for oblate radial functions with small argument.
+  !
+  !This procedure computes Gmn(-ic,ix) and its derivative for oblate
+  !radial functions with a small argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param x: in: the argument
+  !@param bk: in: coefficients
+  !@param gf: out: :math:`Gmn(-C,X)`
+  !@param gd: out: :math:`Gmn'(-C,X)`
   !
   implicit none
 
-  real ( kind = 8 ) bk(200)
-  real ( kind = 8 ) c
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) gd
-  real ( kind = 8 ) gd0
-  real ( kind = 8 ) gd1
-  real ( kind = 8 ) gf
-  real ( kind = 8 ) gf0
-  real ( kind = 8 ) gw
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xm
+  real(8)    :: bk(200)
+  real(8)    :: c
+  real(8)    :: eps
+  real(8)    :: gd
+  real(8)    :: gd0
+  real(8)    :: gd1
+  real(8)    :: gf
+  real(8)    :: gf0
+  real(8)    :: gw
+  integer(4) :: ip
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  real(8)    :: x
+  real(8)    :: xm
 
   eps = 1.0D-14
 
@@ -11735,7 +12928,9 @@ subroutine gmn ( m, n, c, x, bk, gf, gd )
 
   return
 end subroutine gmn
-subroutine herzo ( n, x, w )
+
+
+
 
   !*****************************************************************************80
   !
@@ -11771,40 +12966,54 @@ subroutine herzo ( n, x, w )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of the polynomial.
+  !    Input, integer(4) N, the order of the polynomial.
   !
-  !    Output, real ( kind = 8 ) X(N), the zeros.
+  !    Output, real(8) X(N), the zeros.
   !
-  !    Output, real ( kind = 8 ) W(N), the corresponding weights.
+  !    Output, real(8) W(N), the corresponding weights.
+  !
+subroutine herzo ( n, x, w )
+  !HERZO computes the zeros the Hermite polynomial Hn(x).
+  !
+  !This procedure computes the zeros of Hermite polynomial Ln(x)
+  !in the interval [-1,+1], and the corresponding
+  !weighting coefficients for Gauss-Hermite integration.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of the polynomial
+  !@param x: out: the zeros
+  !@param w: out: the corresponding weights
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) fd
-  real ( kind = 8 ) gd
-  real ( kind = 8 ) hd
-  real ( kind = 8 ) hf
-  real ( kind = 8 ) hn
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) it
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) nr
-  real ( kind = 8 ) p
-  real ( kind = 8 ) q
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) w(n)
-  real ( kind = 8 ) wp
-  real ( kind = 8 ) x(n)
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) z
-  real ( kind = 8 ) z0
-  real ( kind = 8 ) zl
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: fd
+  real(8)    :: gd
+  real(8)    :: hd
+  real(8)    :: hf
+  real(8)    :: hn
+  integer(4) :: i
+  integer(4) :: it
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: nr
+  real(8)    :: p
+  real(8)    :: q
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: w(n)
+  real(8)    :: wp
+  real(8)    :: x(n)
+  real(8)    :: x0
+  real(8)    :: z
+  real(8)    :: z0
+  real(8)    :: zl
 
   hn = 1.0D+00 / n
   zl = -1.1611D+00 + 1.46D+00 * sqrt ( real ( n, kind = 8 ) )
@@ -11884,7 +13093,9 @@ subroutine herzo ( n, x, w )
 
   return
 end subroutine herzo
-subroutine hygfx ( a, b, c, x, hf )
+
+
+
 
   !*****************************************************************************80
   !
@@ -11916,65 +13127,77 @@ subroutine hygfx ( a, b, c, x, hf )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, C, X, the arguments of the function.
+  !    Input, real(8) A, B, C, X, the arguments of the function.
   !    C must not be equal to a nonpositive integer.
   !    X < 1.
   !
   !    Output, real HF, the value of the function.
   !
+subroutine hygfx ( a, b, c, x, hf )
+  !HYGFX evaluates the hypergeometric function F(A,B,C,X).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang, Jianming Jin. FORTRAN90 version by John Burkardt.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: the argument A of the function
+  !@param b: in: the argument B of the function
+  !@param c: in: the argument C of the function, not a nonpositive integer
+  !@param x: in: the argument :math:'X' of the function, :math:'X'  < 1
+  !@param hf: out: the value of the function
+  !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) aa
-  real ( kind = 8 ) b
-  real ( kind = 8 ) bb
-  real ( kind = 8 ) c
-  real ( kind = 8 ) c0
-  real ( kind = 8 ) c1
-  real ( kind = 8 ), parameter :: el = 0.5772156649015329D+00
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) g1
-  real ( kind = 8 ) g2
-  real ( kind = 8 ) g3
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gabc
-  real ( kind = 8 ) gam
-  real ( kind = 8 ) gb
-  real ( kind = 8 ) gbm
-  real ( kind = 8 ) gc
-  real ( kind = 8 ) gca
-  real ( kind = 8 ) gcab
-  real ( kind = 8 ) gcb
-  real ( kind = 8 ) gm
-  real ( kind = 8 ) hf
-  real ( kind = 8 ) hw
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  logical l0
-  logical l1
-  logical l2
-  logical l3
-  logical l4
-  logical l5
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pa
-  real ( kind = 8 ) pb
-  real ( kind = 8 ), parameter :: pi = 3.141592653589793D+00
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) rm
-  real ( kind = 8 ) rp
-  real ( kind = 8 ) sm
-  real ( kind = 8 ) sp
-  real ( kind = 8 ) sp0
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x1
+  real(8)             :: a
+  real(8)             :: a0
+  real(8)             :: aa
+  real(8)             :: b
+  real(8)             :: bb
+  real(8)             :: c
+  real(8)             :: c0
+  real(8)             :: c1
+  real(8), parameter  :: el = 0.5772156649015329D+00
+  real(8)             :: eps
+  real(8)             :: f0
+  real(8)             :: f1
+  real(8)             :: g0
+  real(8)             :: g1
+  real(8)             :: g2
+  real(8)             :: g3
+  real(8)             :: ga
+  real(8)             :: gabc
+  real(8)             :: gam
+  real(8)             :: gb
+  real(8)             :: gbm
+  real(8)             :: gc
+  real(8)             :: gca
+  real(8)             :: gcab
+  real(8)             :: gcb
+  real(8)             :: gm
+  real(8)             :: hf
+  real(8)             :: hw
+  integer(4)          :: j
+  integer(4)          :: k
+  logical             :: l0
+  logical             :: l1
+  logical             :: l2
+  logical             :: l3
+  logical             :: l4
+  logical             :: l5
+  integer(4)          :: m
+  integer(4)          :: nm
+  real(8)             :: pa
+  real(8)             :: pb
+  real(8), parameter  :: pi = 3.141592653589793D+00
+  real(8)             :: r
+  real(8)             :: r0
+  real(8)             :: r1
+  real(8)             :: rm
+  real(8)             :: rp
+  real(8)             :: sm
+  real(8)             :: sp
+  real(8)             :: sp0
+  real(8)             :: x
+  real(8)             :: x1
 
   l0 = ( c == aint ( c ) ) .and. ( c < 0.0D+00 )
   l1 = ( 1.0D+00 - x < 1.0D-15 ) .and. ( c - a - b <= 0.0D+00 )
@@ -12296,7 +13519,9 @@ subroutine hygfx ( a, b, c, x, hf )
 
   return
 end subroutine hygfx
-subroutine hygfz ( a, b, c, z, zhf )
+
+
+
 
   !*****************************************************************************80
   !
@@ -12326,89 +13551,101 @@ subroutine hygfz ( a, b, c, z, zhf )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, C, parameters.
+  !    Input, real(8) A, B, C, parameters.
   !
-  !    Input, complex ( kind = 8 ) Z, the argument.
+  !    Input, complex(8) Z, the argument.
   !
-  !    Output, complex ( kind = 8 ) ZHF, the value of F(a,b,c,z).
+  !    Output, complex(8) ZHF, the value of F(a,b,c,z).
+  !
+subroutine hygfz ( a, b, c, z, zhf )
+  !HYGFZ computes the hypergeometric function F(a,b,c,x) for complex argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param c: in: parameter C
+  !@param z: in: the argument
+  !@param zhf: out: the value of F(a,b,c,z)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) aa
-  real ( kind = 8 ) b
-  real ( kind = 8 ) bb
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ca
-  real ( kind = 8 ) cb
-  real ( kind = 8 ) el
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) g1
-  real ( kind = 8 ) g2
-  real ( kind = 8 ) g3
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gab
-  real ( kind = 8 ) gabc
-  real ( kind = 8 ) gam
-  real ( kind = 8 ) gb
-  real ( kind = 8 ) gba
-  real ( kind = 8 ) gbm
-  real ( kind = 8 ) gc
-  real ( kind = 8 ) gca
-  real ( kind = 8 ) gcab
-  real ( kind = 8 ) gcb
-  real ( kind = 8 ) gcbk
-  real ( kind = 8 ) gm
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  logical l0
-  logical l1
-  logical l2
-  logical l3
-  logical l4
-  logical l5
-  logical l6
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) mab
-  integer ( kind = 4 ) mcab
-  integer ( kind = 4 ) nca
-  integer ( kind = 4 ) ncb
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pa
-  real ( kind = 8 ) pac
-  real ( kind = 8 ) pb
-  real ( kind = 8 ) pca
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) rk1
-  real ( kind = 8 ) rk2
-  real ( kind = 8 ) rm
-  real ( kind = 8 ) sj1
-  real ( kind = 8 ) sj2
-  real ( kind = 8 ) sm
-  real ( kind = 8 ) sp
-  real ( kind = 8 ) sp0
-  real ( kind = 8 ) sq
-  real ( kind = 8 ) t0
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) ws
-  real ( kind = 8 ) x
-  real ( kind = 8 ) y
-  complex ( kind = 8 ) z
-  complex ( kind = 8 ) z00
-  complex ( kind = 8 ) z1
-  complex ( kind = 8 ) zc0
-  complex ( kind = 8 ) zc1
-  complex ( kind = 8 ) zf0
-  complex ( kind = 8 ) zf1
-  complex ( kind = 8 ) zhf
-  complex ( kind = 8 ) zp
-  complex ( kind = 8 ) zp0
-  complex ( kind = 8 ) zr
-  complex ( kind = 8 ) zr0
-  complex ( kind = 8 ) zr1
-  complex ( kind = 8 ) zw
+  real(8)    :: a
+  real(8)    :: a0
+  real(8)    :: aa
+  real(8)    :: b
+  real(8)    :: bb
+  real(8)    :: c
+  real(8)    :: ca
+  real(8)    :: cb
+  real(8)    :: el
+  real(8)    :: eps
+  real(8)    :: g0
+  real(8)    :: g1
+  real(8)    :: g2
+  real(8)    :: g3
+  real(8)    :: ga
+  real(8)    :: gab
+  real(8)    :: gabc
+  real(8)    :: gam
+  real(8)    :: gb
+  real(8)    :: gba
+  real(8)    :: gbm
+  real(8)    :: gc
+  real(8)    :: gca
+  real(8)    :: gcab
+  real(8)    :: gcb
+  real(8)    :: gcbk
+  real(8)    :: gm
+  integer(4) :: j
+  integer(4) :: k
+  logical    :: l0
+  logical    :: l1
+  logical    :: l2
+  logical    :: l3
+  logical    :: l4
+  logical    :: l5
+  logical    :: l6
+  integer(4) :: m
+  integer(4) :: mab
+  integer(4) :: mcab
+  integer(4) :: nca
+  integer(4) :: ncb
+  integer(4) :: nm
+  real(8)    :: pa
+  real(8)    :: pac
+  real(8)    :: pb
+  real(8)    :: pca
+  real(8)    :: pi
+  real(8)    :: rk1
+  real(8)    :: rk2
+  real(8)    :: rm
+  real(8)    :: sj1
+  real(8)    :: sj2
+  real(8)    :: sm
+  real(8)    :: sp
+  real(8)    :: sp0
+  real(8)    :: sq
+  real(8)    :: t0
+  real(8)    :: w0
+  real(8)    :: ws
+  real(8)    :: x
+  real(8)    :: y
+  complex(8) :: z
+  complex(8) :: z00
+  complex(8) :: z1
+  complex(8) :: zc0
+  complex(8) :: zc1
+  complex(8) :: zf0
+  complex(8) :: zf1
+  complex(8) :: zhf
+  complex(8) :: zp
+  complex(8) :: zp0
+  complex(8) :: zr
+  complex(8) :: zr0
+  complex(8) :: zr1
+  complex(8) :: zw
 
   x = real ( z, kind = 8 )
   y = imag ( z )
@@ -12815,7 +14052,9 @@ subroutine hygfz ( a, b, c, z, zhf )
 
   return
 end subroutine hygfz
-subroutine ik01a ( x, bi0, di0, bi1, di1, bk0, dk0, bk1, dk1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -12850,54 +14089,73 @@ subroutine ik01a ( x, bi0, di0, bi1, di1, bk0, dk0, bk1, dk1 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BI0, DI0, BI1, DI1, BK0, DK0, BK1, DK1, the
+  !    Output, real(8) BI0, DI0, BI1, DI1, BK0, DK0, BK1, DK1, the
   !    values of I0(x), I0'(x), I1(x), I1'(x), K0(x), K0'(x), K1(x), K1'(x).
+  !
+subroutine ik01a ( x, bi0, di0, bi1, di1, bk0, dk0, bk1, dk1 )
+  !IK01A compute Bessel function I0(x), I1(x), K0(x), and K1(x).
+  !
+  !This procedure computes modified Bessel functions I0(x), I1(x),
+  !K0(x) and K1(x), and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param bi0: out: I0(x)
+  !@param di0: out: I0'(x)
+  !@param bi1: out: I1(x)
+  !@param di1: out: I1'(x)
+  !@param bk0: out: K0(x)
+  !@param dk0: out: K0'(x)
+  !@param bk1: out: K1(x)
+  !@param dk1: out: K1'(x)
   !
   implicit none
 
-  real ( kind = 8 ), save, dimension ( 12 ) :: a = (/ &
+  real(8), save, dimension ( 12 ) :: a = (/ &
        0.125D+00, 7.03125D-02, &
        7.32421875D-02, 1.1215209960938D-01, &
        2.2710800170898D-01, 5.7250142097473D-01, &
        1.7277275025845D+00, 6.0740420012735D+00, &
        2.4380529699556D+01, 1.1001714026925D+02, &
        5.5133589612202D+02, 3.0380905109224D+03 /)
-  real ( kind = 8 ), save, dimension ( 8 ) :: a1 = (/ &
+  real(8), save, dimension ( 8 ) :: a1 = (/ &
        0.125D+00, 0.2109375D+00, &
        1.0986328125D+00, 1.1775970458984D+01, &
        2.1461706161499D+02, 5.9511522710323D+03, &
        2.3347645606175D+05, 1.2312234987631D+07 /)
-  real ( kind = 8 ), save, dimension ( 12 ) :: b = (/ &
+  real(8), save, dimension ( 12 ) :: b = (/ &
        -0.375D+00, -1.171875D-01, &
        -1.025390625D-01, -1.4419555664063D-01, &
        -2.7757644653320D-01, -6.7659258842468D-01, &
        -1.9935317337513D+00, -6.8839142681099D+00, &
        -2.7248827311269D+01, -1.2159789187654D+02, &
        -6.0384407670507D+02, -3.3022722944809D+03 /)
-  real ( kind = 8 ) bi0
-  real ( kind = 8 ) bi1
-  real ( kind = 8 ) bk0
-  real ( kind = 8 ) bk1
-  real ( kind = 8 ) ca
-  real ( kind = 8 ) cb
-  real ( kind = 8 ) ct
-  real ( kind = 8 ) di0
-  real ( kind = 8 ) di1
-  real ( kind = 8 ) dk0
-  real ( kind = 8 ) dk1
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) ww
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xr
-  real ( kind = 8 ) xr2
+  real(8)    :: bi0
+  real(8)    :: bi1
+  real(8)    :: bk0
+  real(8)    :: bk1
+  real(8)    :: ca
+  real(8)    :: cb
+  real(8)    :: ct
+  real(8)    :: di0
+  real(8)    :: di1
+  real(8)    :: dk0
+  real(8)    :: dk1
+  real(8)    :: el
+  integer(4) :: k
+  integer(4) :: k0
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: w0
+  real(8)    :: ww
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: xr
+  real(8)    :: xr2
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -13002,7 +14260,9 @@ subroutine ik01a ( x, bi0, di0, bi1, di1, bk0, dk0, bk1, dk1 )
 
   return
 end subroutine ik01a
-subroutine ik01b ( x, bi0, di0, bi1, di1, bk0, dk0, bk1, dk1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -13032,24 +14292,40 @@ subroutine ik01b ( x, bi0, di0, bi1, di1, bk0, dk0, bk1, dk1 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BI0, DI0, BI1, DI1, BK0, DK0, BK1, DK1, the
+  !    Output, real(8) BI0, DI0, BI1, DI1, BK0, DK0, BK1, DK1, the
   !    values of I0(x), I0'(x), I1(x), I1'(x), K0(x), K0'(x), K1(x), K1'(x).
+  !
+subroutine ik01b ( x, bi0, di0, bi1, di1, bk0, dk0, bk1, dk1 )
+  !IK01B: Bessel functions I0(x), I1(x), K0(x), and K1(x) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param bi0: out: I0(x)
+  !@param di0: out: I0'(x)
+  !@param bi1: out: I1(x)
+  !@param di1: out: I1'(x)
+  !@param bk0: out: K0(x)
+  !@param dk0: out: K0'(x)
+  !@param bk1: out: K1(x)
+  !@param dk1: out: K1'(x)
   !
   implicit none
 
-  real ( kind = 8 ) bi0
-  real ( kind = 8 ) bi1
-  real ( kind = 8 ) bk0
-  real ( kind = 8 ) bk1
-  real ( kind = 8 ) di0
-  real ( kind = 8 ) di1
-  real ( kind = 8 ) dk0
-  real ( kind = 8 ) dk1
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) x
+  real(8) :: bi0
+  real(8) :: bi1
+  real(8) :: bk0
+  real(8) :: bk1
+  real(8) :: di0
+  real(8) :: di1
+  real(8) :: dk0
+  real(8) :: dk1
+  real(8) :: t
+  real(8) :: t2
+  real(8) :: x
 
   if ( x == 0.0D+00 ) then
 
@@ -13169,7 +14445,9 @@ subroutine ik01b ( x, bi0, di0, bi1, di1, bk0, dk0, bk1, dk1 )
 
   return
 end subroutine ik01b
-subroutine ikna ( n, x, nm, bi, di, bk, dk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -13199,47 +14477,61 @@ subroutine ikna ( n, x, nm, bi, di, bk, dk )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of In(x) and Kn(x).
+  !    Input, integer(4) N, the order of In(x) and Kn(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) BI(0:N), DI(0:N), BK(0:N), DK(0:N),
+  !    Output, real(8) BI(0:N), DI(0:N), BK(0:N), DK(0:N),
   !    the values of In(x), In'(x), Kn(x), Kn'(x).
+  !
+subroutine ikna ( n, x, nm, bi, di, bk, dk )
+  !IKNA compute Bessel function In(x) and Kn(x), and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of In(x) and Kn(x)
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param bi: out: In(x)
+  !@param di: out: In'(x)
+  !@param bk: out: Kn(x)
+  !@param dk: out: Kn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) bi(0:n)
-  real ( kind = 8 ) bi0
-  real ( kind = 8 ) bi1
-  real ( kind = 8 ) bk(0:n)
-  real ( kind = 8 ) bk0
-  real ( kind = 8 ) bk1
-  real ( kind = 8 ) di(0:n)
-  real ( kind = 8 ) di0
-  real ( kind = 8 ) di1
-  real ( kind = 8 ) dk(0:n)
-  real ( kind = 8 ) dk0
-  real ( kind = 8 ) dk1
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) g
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) g1
-  real ( kind = 8 ) h
-  real ( kind = 8 ) h0
-  real ( kind = 8 ) h1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) x
+  real(8)    :: bi(0:n)
+  real(8)    :: bi0
+  real(8)    :: bi1
+  real(8)    :: bk(0:n)
+  real(8)    :: bk0
+  real(8)    :: bk1
+  real(8)    :: di(0:n)
+  real(8)    :: di0
+  real(8)    :: di1
+  real(8)    :: dk(0:n)
+  real(8)    :: dk0
+  real(8)    :: dk1
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: g
+  real(8)    :: g0
+  real(8)    :: g1
+  real(8)    :: h
+  real(8)    :: h0
+  real(8)    :: h1
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: s0
+  real(8)    :: x
 
   nm = n
 
@@ -13322,7 +14614,9 @@ subroutine ikna ( n, x, nm, bi, di, bk, dk )
 
   return
 end subroutine ikna
-subroutine iknb ( n, x, nm, bi, di, bk, dk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -13357,46 +14651,63 @@ subroutine iknb ( n, x, nm, bi, di, bk, dk )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of In(x) and Kn(x).
+  !    Input, integer(4) N, the order of In(x) and Kn(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) BI(0:N), DI(0:N), BK(0:N), DK(0:N),
+  !    Output, real(8) BI(0:N), DI(0:N), BK(0:N), DK(0:N),
   !    the values of In(x), In'(x), Kn(x), Kn'(x).
+  !
+subroutine iknb ( n, x, nm, bi, di, bk, dk )
+  !IKNB compute Bessel function In(x) and Kn(x).
+  !
+  !Compute modified Bessel functions In(x) and Kn(x),
+  !and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of In(x) and Kn(x)
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param bi: out: In(x)
+  !@param di: out: In'(x)
+  !@param bk: out: Kn(x)
+  !@param dk: out: Kn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) bi(0:n)
-  real ( kind = 8 ) bk(0:n)
-  real ( kind = 8 ) bkl
-  real ( kind = 8 ) bs
-  real ( kind = 8 ) di(0:n)
-  real ( kind = 8 ) dk(0:n)
-  real ( kind = 8 ) el
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) g
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) g1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) sk0
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: bi(0:n)
+  real(8)    :: bk(0:n)
+  real(8)    :: bkl
+  real(8)    :: bs
+  real(8)    :: di(0:n)
+  real(8)    :: dk(0:n)
+  real(8)    :: el
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: g
+  real(8)    :: g0
+  real(8)    :: g1
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: l
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: s0
+  real(8)    :: sk0
+  real(8)    :: vt
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329d0
@@ -13493,7 +14804,9 @@ subroutine iknb ( n, x, nm, bi, di, bk, dk )
 
   return
 end subroutine iknb
-subroutine ikv ( v, x, vm, bi, di, bk, dk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -13523,60 +14836,74 @@ subroutine ikv ( v, x, vm, bi, di, bk, dk )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of Iv(x) and Kv(x).
+  !    Input, real(8) V, the order of Iv(x) and Kv(x).
   !    V = N + V0.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) VM, the highest order computed.
+  !    Output, real(8) VM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) BI(0:N), DI(0:N), BK(0:N), DK(0:N), the
+  !    Output, real(8) BI(0:N), DI(0:N), BK(0:N), DK(0:N), the
   !    values of In+v0(x), In+v0'(x), Kn+v0(x), Kn+v0'(x).
+  !
+subroutine ikv ( v, x, vm, bi, di, bk, dk )
+  !IKV compute modified Bessel function Iv(x) and Kv(x) and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of Iv(x) and Kv(x). V = N + V0
+  !@param x: in: the argument
+  !@param vm: out: the highest order computed
+  !@param bi: out: In+v0(x)
+  !@param di: out: In+v0'(x)
+  !@param bk: out: Kn+v0(x)
+  !@param dk: out: Kn+v0'(x)
   !
   implicit none
 
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) a2
-  real ( kind = 8 ) bi(0:*)
-  real ( kind = 8 ) bi0
-  real ( kind = 8 ) bk(0:*)
-  real ( kind = 8 ) bk0
-  real ( kind = 8 ) bk1
-  real ( kind = 8 ) bk2
-  real ( kind = 8 ) ca
-  real ( kind = 8 ) cb
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) ct
-  real ( kind = 8 ) di(0:*)
-  real ( kind = 8 ) dk(0:*)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  real ( kind = 8 ) gan
-  real ( kind = 8 ) gap
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) piv
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) sum
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) v0n
-  real ( kind = 8 ) v0p
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) wa
-  real ( kind = 8 ) ww
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
+  real(8)    :: a1
+  real(8)    :: a2
+  real(8)    :: bi(0:*)
+  real(8)    :: bi0
+  real(8)    :: bk(0:*)
+  real(8)    :: bk0
+  real(8)    :: bk1
+  real(8)    :: bk2
+  real(8)    :: ca
+  real(8)    :: cb
+  real(8)    :: cs
+  real(8)    :: ct
+  real(8)    :: di(0:*)
+  real(8)    :: dk(0:*)
+  real(8)    :: f
+  real(8)    :: f1
+  real(8)    :: f2
+  real(8)    :: gan
+  real(8)    :: gap
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: piv
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: sum
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: v0n
+  real(8)    :: v0p
+  real(8)    :: vm
+  real(8)    :: vt
+  real(8)    :: w0
+  real(8)    :: wa
+  real(8)    :: ww
+  real(8)    :: x
+  real(8)    :: x2
 
   pi = 3.141592653589793D+00
   x2 = x * x
@@ -13757,7 +15084,9 @@ subroutine ikv ( v, x, vm, bi, di, bk, dk )
 
   return
 end subroutine ikv
-subroutine incob ( a, b, x, bix )
+
+
+
 
   !*****************************************************************************80
   !
@@ -13787,27 +15116,38 @@ subroutine incob ( a, b, x, bix )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, B, parameters.
+  !    Input, real(8) A, B, parameters.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BIX, the function value.
+  !    Output, real(8) BIX, the function value.
+  !
+subroutine incob ( a, b, x, bix )
+  !INCOB computes the incomplete beta function Ix(a,b).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: parameter A
+  !@param b: in: parameter B
+  !@param x: in: the argument
+  !@param bix: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) b
-  real ( kind = 8 ) bix
-  real ( kind = 8 ) bt
-  real ( kind = 8 ) dk(51)
-  real ( kind = 8 ) fk(51)
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) ta
-  real ( kind = 8 ) tb
-  real ( kind = 8 ) x
+  real(8)    :: a
+  real(8)    :: b
+  real(8)    :: bix
+  real(8)    :: bt
+  real(8)    :: dk(51)
+  real(8)    :: fk(51)
+  integer(4) :: k
+  real(8)    :: s0
+  real(8)    :: t1
+  real(8)    :: t2
+  real(8)    :: ta
+  real(8)    :: tb
+  real(8)    :: x
 
   s0 = ( a + 1.0D+00 ) / ( a + b + 2.0D+00 )
   call betaf ( a, b, bt )
@@ -13854,7 +15194,9 @@ subroutine incob ( a, b, x, bix )
 
   return
 end subroutine incob
-subroutine incog ( a, x, gin, gim, gip )
+
+
+
 
   !*****************************************************************************80
   !
@@ -13884,26 +15226,38 @@ subroutine incog ( a, x, gin, gim, gip )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, the parameter.
+  !    Input, real(8) A, the parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) GIN, GIM, GIP, the values of
+  !    Output, real(8) GIN, GIM, GIP, the values of
   !    r(a,x), Γ(a,x), P(a,x).
+  !
+subroutine incog ( a, x, gin, gim, gip )
+  !INCOG computes the incomplete gamma function r(a,x), Gamma(a,x), P(a,x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: the parameter
+  !@param x: in: the argument
+  !@param gin: out: r(a,x)
+  !@param gim: out: Gamma(a,x)
+  !@param gip: out: P(a,x)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gim
-  real ( kind = 8 ) gin
-  real ( kind = 8 ) gip
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
-  real ( kind = 8 ) t0
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xam
+  real(8)    :: a
+  real(8)    :: ga
+  real(8)    :: gim
+  real(8)    :: gin
+  real(8)    :: gip
+  integer(4) :: k
+  real(8)    :: r
+  real(8)    :: s
+  real(8)    :: t0
+  real(8)    :: x
+  real(8)    :: xam
 
   xam = -  x + a * log ( x )
 
@@ -13953,7 +15307,9 @@ subroutine incog ( a, x, gin, gim, gip )
 
   return
 end subroutine incog
-subroutine itairy ( x, apt, bpt, ant, bnt )
+
+
+
 
   !****************************************************************************80
   !
@@ -13988,14 +15344,29 @@ subroutine itairy ( x, apt, bpt, ant, bnt )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the upper limit of the integral.
+  !    Input, real(8) X, the upper limit of the integral.
   !
-  !    Output, real ( kind = 8 ) APT, BPT, ANT, BNT, the integrals, from 0 to x,
+  !    Output, real(8) APT, BPT, ANT, BNT, the integrals, from 0 to x,
   !    of Ai(t), Bi(t), Ai(-t), and Bi(-t).
   !       
+subroutine itairy ( x, apt, bpt, ant, bnt )
+  !ITAIRY computes the integrals of Airy functions.
+  !
+  !Compute the integrals of Airy functions with respect to t,
+  !from 0 and x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the upper limit of the integral
+  !@param apt: out: the integral from 0 to x of Ai(t)
+  !@param bpt: out: the integral from 0 to x of Bi(t)
+  !@param ant: out: the integral from 0 to x of Ai(-t)
+  !@param bnt: out: the integral from 0 to x of Bi(-t)
+  !
   implicit none
 
-  real ( kind = 8 ), save, dimension ( 16 ) :: a = (/ &
+  real(8), save, dimension ( 16 ) :: a = (/ &
        0.569444444444444D+00, 0.891300154320988D+00, &
        0.226624344493027D+01, 0.798950124766861D+01, &
        0.360688546785343D+02, 0.198670292131169D+03, &
@@ -14004,34 +15375,34 @@ subroutine itairy ( x, apt, bpt, ant, bnt )
        0.822210493622814D+07, 0.945557399360556D+08, &
        0.118195595640730D+10, 0.159564653040121D+11, &
        0.231369166433050D+12, 0.358622522796969D+13 /)
-  real ( kind = 8 ) ant
-  real ( kind = 8 ) apt
-  real ( kind = 8 ) bnt
-  real ( kind = 8 ) bpt
-  real ( kind = 8 ) c1
-  real ( kind = 8 ) c2
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) fx
-  real ( kind = 8 ) gx
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) q2
-  real ( kind = 8 ) r
-  real ( kind = 8 ) sr3
-  real ( kind = 8 ) su1
-  real ( kind = 8 ) su2
-  real ( kind = 8 ) su3
-  real ( kind = 8 ) su4
-  real ( kind = 8 ) su5
-  real ( kind = 8 ) su6
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xe
-  real ( kind = 8 ) xp6
-  real ( kind = 8 ) xr1
-  real ( kind = 8 ) xr2
+  real(8)    :: ant
+  real(8)    :: apt
+  real(8)    :: bnt
+  real(8)    :: bpt
+  real(8)    :: c1
+  real(8)    :: c2
+  real(8)    :: eps
+  real(8)    :: fx
+  real(8)    :: gx
+  integer(4) :: k
+  integer(4) :: l
+  real(8)    :: pi
+  real(8)    :: q0
+  real(8)    :: q1
+  real(8)    :: q2
+  real(8)    :: r
+  real(8)    :: sr3
+  real(8)    :: su1
+  real(8)    :: su2
+  real(8)    :: su3
+  real(8)    :: su4
+  real(8)    :: su5
+  real(8)    :: su6
+  real(8)    :: x
+  real(8)    :: xe
+  real(8)    :: xp6
+  real(8)    :: xr1
+  real(8)    :: xr2
 
   eps = 1.0D-15
   pi = 3.141592653589793D+00
@@ -14140,7 +15511,9 @@ subroutine itairy ( x, apt, bpt, ant, bnt )
 
   return
 end subroutine itairy
-subroutine itika ( x, ti, tk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -14175,34 +15548,47 @@ subroutine itika ( x, ti, tk )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the upper limit of the integral.
+  !    Input, real(8) X, the upper limit of the integral.
   !
-  !    Output, real ( kind = 8 ) TI, TK, the integrals of I0(t) and K0(t)
+  !    Output, real(8) TI, TK, the integrals of I0(t) and K0(t)
   !    from 0 to X.
+  !
+subroutine itika ( x, ti, tk )
+  !ITIKA computes the integral of the modified Bessel functions I0(t) and K0(t).
+  !
+  !This procedure integrates modified Bessel functions I0(t) and
+  !K0(t) with respect to t from 0 to x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the upper limit of the integral
+  !@param ti: out: the integral of I0(t) from 0 to :math:`X`
+  !@param tk: out: the integral of K0(t) from 0 to :math:`X`
   !
   implicit none
 
-  real ( kind = 8 ), save, dimension ( 10 ) :: a = (/ &
+  real(8), save, dimension ( 10 ) :: a = (/ &
        0.625D+00,           1.0078125D+00, &
        2.5927734375D+00,    9.1868591308594D+00, &
        4.1567974090576D+01, 2.2919635891914D+02, &
        1.491504060477D+03,  1.1192354495579D+04, &
        9.515939374212D+04,  9.0412425769041D+05 /)
-  real ( kind = 8 ) b1
-  real ( kind = 8 ) b2
-  real ( kind = 8 ) e0
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) rc1
-  real ( kind = 8 ) rc2
-  real ( kind = 8 ) rs
-  real ( kind = 8 ) ti
-  real ( kind = 8 ) tk
-  real ( kind = 8 ) tw
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
+  real(8)    :: b1
+  real(8)    :: b2
+  real(8)    :: e0
+  real(8)    :: el
+  integer(4) :: k
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: rc1
+  real(8)    :: rc2
+  real(8)    :: rs
+  real(8)    :: ti
+  real(8)    :: tk
+  real(8)    :: tw
+  real(8)    :: x
+  real(8)    :: x2
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -14279,7 +15665,9 @@ subroutine itika ( x, ti, tk )
 
   return
 end subroutine itika
-subroutine itikb ( x, ti, tk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -14314,19 +15702,32 @@ subroutine itikb ( x, ti, tk )
   ! 
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the upper limit of the integral.
+  !    Input, real(8) X, the upper limit of the integral.
   !
-  !    Output, real ( kind = 8 ) TI, TK, the integral of I0(t) and K0(t)
+  !    Output, real(8) TI, TK, the integral of I0(t) and K0(t)
   !    from 0 to X.
+  !
+subroutine itikb ( x, ti, tk )
+  !ITIKB computes the integral of the Bessel functions I0(t) and K0(t).
+  !
+  !This procedure integrates Bessel functions I0(t) and K0(t)
+  !with respect to t from 0 to x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the upper limit of the integral
+  !@param ti: out: the integral of I0(t) from 0 to X
+  !@param tk: out: the integral of K0(t) from 0 to X
   !
   implicit none
 
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) ti
-  real ( kind = 8 ) tk
-  real ( kind = 8 ) x
+  real(8) :: pi
+  real(8) :: t
+  real(8) :: t1
+  real(8) :: ti
+  real(8) :: tk
+  real(8) :: x
 
   pi = 3.141592653589793D+00
 
@@ -14434,7 +15835,9 @@ subroutine itikb ( x, ti, tk )
 
   return
 end subroutine itikb
-subroutine itjya ( x, tj, ty )
+
+
+
 
   !*****************************************************************************80
   !
@@ -14469,34 +15872,47 @@ subroutine itjya ( x, tj, ty )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the upper limit of the integral.
+  !    Input, real(8) X, the upper limit of the integral.
   !
-  !    Output, real ( kind = 8 ) TJ, TY, the integrals of J0(t) and Y0(t) 
+  !    Output, real(8) TJ, TY, the integrals of J0(t) and Y0(t) 
   !    from 0 to x.
+  !
+subroutine itjya ( x, tj, ty )
+  !ITJYA computes integrals of Bessel functions J0(t) and Y0(t).
+  !
+  !This procedure integrates Bessel functions J0(t) and Y0(t) with
+  !respect to t from 0 to x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the upper limit of the integral
+  !@param tj: out: the integral of J0(t) from 0 to x
+  !@param ty: out: the integral of Y0(t) from 0 to x
   !
   implicit none
 
-  real ( kind = 8 ) a(18)
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) af
-  real ( kind = 8 ) bf
-  real ( kind = 8 ) bg
-  real ( kind = 8 ) el
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) rc
-  real ( kind = 8 ) rs
-  real ( kind = 8 ) tj
-  real ( kind = 8 ) ty
-  real ( kind = 8 ) ty1
-  real ( kind = 8 ) ty2
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xp
+  real(8)    :: a(18)
+  real(8)    :: a0
+  real(8)    :: a1
+  real(8)    :: af
+  real(8)    :: bf
+  real(8)    :: bg
+  real(8)    :: el
+  real(8)    :: eps
+  integer(4) :: k
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: r2
+  real(8)    :: rc
+  real(8)    :: rs
+  real(8)    :: tj
+  real(8)    :: ty
+  real(8)    :: ty1
+  real(8)    :: ty2
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: xp
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -14575,7 +15991,9 @@ subroutine itjya ( x, tj, ty )
 
   return
 end subroutine itjya
-subroutine itjyb ( x, tj, ty )
+
+
+
 
   !*****************************************************************************80
   !
@@ -14610,22 +16028,35 @@ subroutine itjyb ( x, tj, ty )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the upper limit of the integral.
+  !    Input, real(8) X, the upper limit of the integral.
   !
-  !    Output, real ( kind = 8 ) TJ, TY, the integrals of J0(t) and Y0(t) 
+  !    Output, real(8) TJ, TY, the integrals of J0(t) and Y0(t) 
   !    from 0 to x.
+  !
+subroutine itjyb ( x, tj, ty )
+  !ITJYB computes integrals of Bessel functions J0(t) and Y0(t).
+  !
+  !This procedure integrates Bessel functions J0(t) and Y0(t)
+  !with respect to t from 0 to x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the upper limit of the integral
+  !@param tj: out: the integral of J0(t) from 0 to x
+  !@param ty: out: the integral of Y0(t) from 0 to x
   !
   implicit none
 
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) t
-  real ( kind = 8 ) tj
-  real ( kind = 8 ) ty
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x1
-  real ( kind = 8 ) xt
+  real(8) :: f0
+  real(8) :: g0
+  real(8) :: pi
+  real(8) :: t
+  real(8) :: tj
+  real(8) :: ty
+  real(8) :: x
+  real(8) :: x1
+  real(8) :: xt
 
   pi = 3.141592653589793D+00
 
@@ -14722,7 +16153,9 @@ subroutine itjyb ( x, tj, ty )
 
   return
 end subroutine itjyb
-subroutine itsh0 ( x, th0 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -14757,29 +16190,41 @@ subroutine itsh0 ( x, th0 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the upper limit of the integral.
+  !    Input, real(8) X, the upper limit of the integral.
   !
-  !    Output, real ( kind = 8 ) TH0, the integral of H0(t) from 0 to x.
+  !    Output, real(8) TH0, the integral of H0(t) from 0 to x.
+  !
+subroutine itsh0 ( x, th0 )
+  !ITSH0 integrates the Struve function H0(t) from 0 to x.
+  !
+  !This procedure evaluates the integral of Struve function
+  !H0(t) with respect to t from 0 and x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the upper limit of the integral
+  !@param th0: out: the integral of H0(t) from 0 to x
   !
   implicit none
 
-  real ( kind = 8 ) a(25)
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) af
-  real ( kind = 8 ) bf
-  real ( kind = 8 ) bg
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) rd
-  real ( kind = 8 ) s
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) th0
-  real ( kind = 8 ) ty
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xp
+  real(8)    :: a(25)
+  real(8)    :: a0
+  real(8)    :: a1
+  real(8)    :: af
+  real(8)    :: bf
+  real(8)    :: bg
+  real(8)    :: el
+  integer(4) :: k
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: rd
+  real(8)    :: s
+  real(8)    :: s0
+  real(8)    :: th0
+  real(8)    :: ty
+  real(8)    :: x
+  real(8)    :: xp
 
   pi = 3.141592653589793D+00
   r = 1.0D+00            
@@ -14857,7 +16302,9 @@ subroutine itsh0 ( x, th0 )
 
   return
 end subroutine itsh0
-subroutine itsl0 ( x, tl0 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -14892,26 +16339,38 @@ subroutine itsl0 ( x, tl0 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the upper limit of the integral.
+  !    Input, real(8) X, the upper limit of the integral.
   !
-  !    Output, real ( kind = 8 ) TL0, the integral of L0(t) from 0 to x.
+  !    Output, real(8) TL0, the integral of L0(t) from 0 to x.
+  !
+subroutine itsl0 ( x, tl0 )
+  !ITSL0 integrates the Struve function L0(t) from 0 to x.
+  !
+  !This procedure evaluates the integral of modified Struve function
+  !L0(t) with respect to t from 0 to x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the upper limit of the integral
+  !@param tl0: out: the integral of L0(t) from 0 to x
   !
   implicit none
 
-  real ( kind = 8 ) a(18)
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) af
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) rd
-  real ( kind = 8 ) s
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) ti
-  real ( kind = 8 ) tl0
-  real ( kind = 8 ) x
+  real(8)    :: a(18)
+  real(8)    :: a0
+  real(8)    :: a1
+  real(8)    :: af
+  real(8)    :: el
+  integer(4) :: k
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: rd
+  real(8)    :: s
+  real(8)    :: s0
+  real(8)    :: ti
+  real(8)    :: tl0
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   r = 1.0D+00
@@ -14976,7 +16435,9 @@ subroutine itsl0 ( x, tl0 )
 
   return
 end subroutine itsl0
-subroutine itth0 ( x, tth )
+
+
+
 
   !*****************************************************************************80
   !
@@ -15006,23 +16467,32 @@ subroutine itth0 ( x, tth )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the lower limit of the integral.
+  !    Input, real(8) X, the lower limit of the integral.
   !
-  !    Output, real ( kind = 8 ) TTH, the integral of H0(t)/t from x to oo.
+  !    Output, real(8) TTH, the integral of H0(t)/t from x to oo.
+  !
+subroutine itth0 ( x, tth )
+  !ITTH0 integrates H0(t)/t from x to oo.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the lower limit of the integral
+  !@param tth: out: the integral of H0(t)/t from x to oo
   !
   implicit none
 
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) g0
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
-  real ( kind = 8 ) t
-  real ( kind = 8 ) tth
-  real ( kind = 8 ) tty
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xt
+  real(8)    :: f0
+  real(8)    :: g0
+  integer(4) :: k
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: s
+  real(8)    :: t
+  real(8)    :: tth
+  real(8)    :: tty
+  real(8)    :: x
+  real(8)    :: xt
 
   pi = 3.141592653589793D+00
   s = 1.0D+00
@@ -15077,7 +16547,9 @@ subroutine itth0 ( x, tth )
 
   return
 end subroutine itth0
-subroutine ittika ( x, tti, ttk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -15107,30 +16579,40 @@ subroutine ittika ( x, tti, ttk )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the integral limit.
+  !    Input, real(8) X, the integral limit.
   !
-  !    Output, real ( kind = 8 ) TTI, TTK, the integrals of [I0(t)-1]/t 
+  !    Output, real(8) TTI, TTK, the integrals of [I0(t)-1]/t 
   !    from 0 to x, and of K0(t)/t from x to oo.
+  !
+subroutine ittika ( x, tti, ttk )
+  !ITTIKA integrates (I0(t)-1)/t from 0 to x, K0(t)/t from x to infinity.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the integral limit
+  !@param tti: out: the integral of [I0(t)-1]/t from 0 to x
+  !@param ttk: out: the integral of K0(t)/t from x to oo
   !
   implicit none
 
-  real ( kind = 8 ) b1
-  real ( kind = 8 ), save, dimension ( 8 ) :: c = (/ &
+  real(8)    :: b1
+  real(8), save, dimension ( 8 ) :: c = (/ &
        1.625D+00, 4.1328125D+00, &
        1.45380859375D+01, 6.553353881835D+01, &
        3.6066157150269D+02, 2.3448727161884D+03, &
        1.7588273098916D+04, 1.4950639538279D+05 /)
-  real ( kind = 8 ) e0
-  real ( kind = 8 ) el
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) rc
-  real ( kind = 8 ) rs
-  real ( kind = 8 ) tti
-  real ( kind = 8 ) ttk
-  real ( kind = 8 ) x
+  real(8)    :: e0
+  real(8)    :: el
+  integer(4) :: k
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: r2
+  real(8)    :: rc
+  real(8)    :: rs
+  real(8)    :: tti
+  real(8)    :: ttk
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -15202,7 +16684,9 @@ subroutine ittika ( x, tti, ttk )
 
   return
 end subroutine ittika
-subroutine ittikb ( x, tti, ttk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -15232,22 +16716,32 @@ subroutine ittikb ( x, tti, ttk )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the integral limit.
+  !    Input, real(8) X, the integral limit.
   !
-  !    Output, real ( kind = 8 ) TTI, TTK, the integrals of
+  !    Output, real(8) TTI, TTK, the integrals of
   !    [I0(t)-1]/t from 0 to x, and K0(t)/t from x to oo.
+  !
+subroutine ittikb ( x, tti, ttk )
+  !ITTIKB integrates (I0(t)-1)/t from 0 to x, K0(t)/t from x to infinity.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the integral limit
+  !@param tti: out: the integral of [I0(t)-1]/t from 0 to x
+  !@param ttk: out: the integral of K0(t)/t from x to oo
   !
   implicit none
 
-  real ( kind = 8 ) e0
-  real ( kind = 8 ) el
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) tti
-  real ( kind = 8 ) ttk
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x1
+  real(8) :: e0
+  real(8) :: el
+  real(8) :: pi
+  real(8) :: t
+  real(8) :: t1
+  real(8) :: tti
+  real(8) :: ttk
+  real(8) :: x
+  real(8) :: x1
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -15335,7 +16829,9 @@ subroutine ittikb ( x, tti, ttk )
 
   return
 end subroutine ittikb
-subroutine ittjya ( x, ttj, tty )
+
+
+
 
   !*****************************************************************************80
   !
@@ -15365,39 +16861,49 @@ subroutine ittjya ( x, ttj, tty )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the integral limit.
+  !    Input, real(8) X, the integral limit.
   !
-  !    Output, real ( kind = 8 ) TTJ, TTY, the integrals of [1-J0(t)]/t 
+  !    Output, real(8) TTJ, TTY, the integrals of [1-J0(t)]/t 
   !    from 0 to x and of Y0(t)/t from x to oo.
+  !
+subroutine ittjya ( x, ttj, tty )
+  !ITTJYA integrates (1-J0(t))/t from 0 to x, and Y0(t)/t from x to infinity.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the integral limit
+  !@param ttj: out: the integral of [1-J0(t)]/t from 0 to x
+  !@param tty: out: the integral of Y0(t)/t from x to oo
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) b1
-  real ( kind = 8 ) bj0
-  real ( kind = 8 ) bj1
-  real ( kind = 8 ) by0
-  real ( kind = 8 ) by1
-  real ( kind = 8 ) e0
-  real ( kind = 8 ) el
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) g1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) px
-  real ( kind = 8 ) qx
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) rs
-  real ( kind = 8 ) t
-  real ( kind = 8 ) ttj
-  real ( kind = 8 ) tty
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xk
+  real(8)    :: a0
+  real(8)    :: b1
+  real(8)    :: bj0
+  real(8)    :: bj1
+  real(8)    :: by0
+  real(8)    :: by1
+  real(8)    :: e0
+  real(8)    :: el
+  real(8)    :: g0
+  real(8)    :: g1
+  integer(4) :: k
+  integer(4) :: l
+  real(8)    :: pi
+  real(8)    :: px
+  real(8)    :: qx
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: rs
+  real(8)    :: t
+  real(8)    :: ttj
+  real(8)    :: tty
+  real(8)    :: vt
+  real(8)    :: x
+  real(8)    :: xk
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -15506,7 +17012,9 @@ subroutine ittjya ( x, ttj, tty )
 
   return
 end subroutine ittjya
-subroutine ittjyb ( x, ttj, tty )
+
+
+
 
   !*****************************************************************************80
   !
@@ -15536,25 +17044,35 @@ subroutine ittjyb ( x, ttj, tty )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the integral limit.
+  !    Input, real(8) X, the integral limit.
   !
-  !    Output, real ( kind = 8 ) TTJ, TTY, the integrals of [1-J0(t)]/t 
+  !    Output, real(8) TTJ, TTY, the integrals of [1-J0(t)]/t 
   !    from 0 to x and of Y0(t)/t from x to oo.
+  !
+subroutine ittjyb ( x, ttj, tty )
+  !ITTJYB integrates (1-J0(t))/t from 0 to x, and Y0(t)/t from x to infinity.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the integral limit
+  !@param ttj: out: the integral of [1-J0(t)]/t from 0 to x
+  !@param tty: out: the integral of Y0(t)/t from x to oo
   !
   implicit none
 
-  real ( kind = 8 ) e0
-  real ( kind = 8 ) el
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) ttj
-  real ( kind = 8 ) tty
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x1
-  real ( kind = 8 ) xt
+  real(8) :: e0
+  real(8) :: el
+  real(8) :: f0
+  real(8) :: g0
+  real(8) :: pi
+  real(8) :: t
+  real(8) :: t1
+  real(8) :: ttj
+  real(8) :: tty
+  real(8) :: x
+  real(8) :: x1
+  real(8) :: xt
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -15650,7 +17168,9 @@ subroutine ittjyb ( x, ttj, tty )
 
   return
 end subroutine ittjyb
-subroutine jdzo ( nt, n, m, p, zo )
+
+
+
 
   !*****************************************************************************80
   !
@@ -15685,12 +17205,12 @@ subroutine jdzo ( nt, n, m, p, zo )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) NT, the number of zeros.
+  !    Input, integer(4) NT, the number of zeros.
   !
-  !    Output, integer ( kind = 4 ) N(*), the  order of Jn(x) or Jn'(x) associated
+  !    Output, integer(4) N(*), the  order of Jn(x) or Jn'(x) associated
   !    with the L-th zero.
   !
-  !    Output, integer ( kind = 4 ) M(*), the serial number of the zeros of Jn(x)
+  !    Output, integer(4) M(*), the serial number of the zeros of Jn(x)
   !    or Jn'(x) associated with the L-th zero ( L is the serial number of all the
   !    zeros of Jn(x) and Jn'(x) ).
   !
@@ -15698,36 +17218,58 @@ subroutine jdzo ( nt, n, m, p, zo )
   !    the zeros of Jn(x)  or Jn'(x).  In the waveguide applications, the zeros
   !    of Jn(x) correspond to TM modes and those of Jn'(x) correspond to TE modes.
   !
-  !    Output, real ( kind = 8 ) ZO(*), the zeros of Jn(x) and Jn'(x).
+  !    Output, real(8) ZO(*), the zeros of Jn(x) and Jn'(x).
+  !
+subroutine jdzo ( nt, n, m, p, zo )
+  !JDZO computes the zeros of Bessel functions Jn(x) and Jn'(x).
+  !
+  !This procedure computes the zeros of Bessel functions Jn(x) and
+  !Jn'(x), and arrange them in the order of their magnitudes.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* M: the serial number of the zeros of Jn(x) or Jn'(x) associated with the L-th zero ( L is the serial number of all
+  !  the zeros of Jn(x) and Jn'(x) )
+  !* P: 'TM' or 'TE', a code for designating the zeros of Jn(x) or Jn'(x). In the waveguide applications, the zeros of
+  !  Jn(x) correspond to TM modes and those of Jn'(x) correspond to TE modes
+  !
+  !@param nt: in: the number of zeros
+  !@param n: out: the order of Jn(x) or Jn'(x) associated with the L-th zero
+  !@param m: out: serial number of the zeros of Jn(x) or Jn'(x) associated with the L-th zero
+  !@param p: out: code, 'TM' for the zeros of Jn(x) or 'TE' for those of Jn'(x)
+  !@param zo: out: the zeros of Jn(x) and Jn'(x)
   !
   implicit none
 
-  real ( kind = 8 ) bj(101)
-  real ( kind = 8 ) dj(101)
-  real ( kind = 8 ) fj(101)
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) l0
-  integer ( kind = 4 ) l1
-  integer ( kind = 4 ) l2
-  integer ( kind = 4 ) m(1400)
-  integer ( kind = 4 ) m1(70)
-  integer ( kind = 4 ) mm
-  integer ( kind = 4 ) n(1400)
-  integer ( kind = 4 ) n1(70)
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nt
-  character ( len = 4 ) p(1400)
-  character ( len = 4 ) p1(70)
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) x1
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xm
-  real ( kind = 8 ) zo(1400)
-  real ( kind = 8 ) zoc(70)
+  real(8)               :: bj(101)
+  real(8)               :: dj(101)
+  real(8)               :: fj(101)
+  integer(4)            :: i
+  integer(4)            :: j
+  integer(4)            :: k
+  integer(4)            :: l
+  integer(4)            :: l0
+  integer(4)            :: l1
+  integer(4)            :: l2
+  integer(4)            :: m(1400)
+  integer(4)            :: m1(70)
+  integer(4)            :: mm
+  integer(4)            :: n(1400)
+  integer(4)            :: n1(70)
+  integer(4)            :: nm
+  integer(4)            :: nt
+  character ( len = 4 ) :: p(1400)
+  character ( len = 4 ) :: p1(70)
+  real(8)               :: x
+  real(8)               :: x0
+  real(8)               :: x1
+  real(8)               :: x2
+  real(8)               :: xm
+  real(8)               :: zo(1400)
+  real(8)               :: zoc(70)
 
   if ( nt < 600 ) then
      xm = -1.0D+00 + 2.248485D+00 * real ( nt, kind = 8 ) ** 0.5D+00 &
@@ -15889,7 +17431,9 @@ subroutine jdzo ( nt, n, m, p, zo )
 
   return
 end subroutine jdzo
-subroutine jelp ( u, hk, esn, ecn, edn, eph )
+
+
+
 
   !*****************************************************************************80
   !
@@ -15919,34 +17463,47 @@ subroutine jelp ( u, hk, esn, ecn, edn, eph )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) U, the argument.
+  !    Input, real(8) U, the argument.
   !
-  !    Input, real ( kind = 8 ) HK, the modulus, between 0 and 1.
+  !    Input, real(8) HK, the modulus, between 0 and 1.
   !
-  !    Output, real ( kind = 8 ) ESN, ECN, EDN, EPH, the values of
+  !    Output, real(8) ESN, ECN, EDN, EPH, the values of
   !    sn(u), cn(u), dn(u), and phi (in degrees).
+  !
+subroutine jelp ( u, hk, esn, ecn, edn, eph )
+  !JELP computes Jacobian elliptic functions SN(u), CN(u), DN(u).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param u: in: the argument
+  !@param hk: in: the modulus, between 0 and 1
+  !@param esn: out: sn(u)
+  !@param ecn: out: cn(u)
+  !@param edn: out: dn(u)
+  !@param eph: out: and phi (in degrees)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) b
-  real ( kind = 8 ) b0
-  real ( kind = 8 ) c
-  real ( kind = 8 ) d
-  real ( kind = 8 ) dn
-  real ( kind = 8 ) ecn
-  real ( kind = 8 ) edn
-  real ( kind = 8 ) eph
-  real ( kind = 8 ) esn
-  real ( kind = 8 ) hk
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) n 
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r(40)
-  real ( kind = 8 ) sa
-  real ( kind = 8 ) t
-  real ( kind = 8 ) u
+  real(8)    :: a
+  real(8)    :: a0
+  real(8)    :: b
+  real(8)    :: b0
+  real(8)    :: c
+  real(8)    :: d
+  real(8)    :: dn
+  real(8)    :: ecn
+  real(8)    :: edn
+  real(8)    :: eph
+  real(8)    :: esn
+  real(8)    :: hk
+  integer(4) :: j
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: r(40)
+  real(8)    :: sa
+  real(8)    :: t
+  real(8)    :: u
 
   pi = 3.14159265358979D+00
   a0 = 1.0D+00
@@ -15984,7 +17541,9 @@ subroutine jelp ( u, hk, esn, ecn, edn, eph )
 
   return
 end subroutine jelp
-subroutine jy01a ( x, bj0, dj0, bj1, dj1, by0, dy0, by1, dy1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -16014,70 +17573,86 @@ subroutine jy01a ( x, bj0, dj0, bj1, dj1, by0, dy0, by1, dy1 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BJ0, DJ0, BJ1, DJ1, BY0, DY0, BY1, DY1,
+  !    Output, real(8) BJ0, DJ0, BJ1, DJ1, BY0, DY0, BY1, DY1,
   !    the values of J0(x), J0'(x), J1(x), J1'(x), Y0(x), Y0'(x), Y1(x), Y1'(x).
+  !
+subroutine jy01a ( x, bj0, dj0, bj1, dj1, by0, dy0, by1, dy1 )
+  !JY01A computes Bessel functions J0(x), J1(x), Y0(x), Y1(x) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param bj0: out: J0(x)
+  !@param dj0: out: J0'(x)
+  !@param bj1: out: J1(x)
+  !@param dj1: out: J1'(x)
+  !@param by0: out: Y0(x)
+  !@param dy0: out: Y0'(x)
+  !@param by1: out: Y1(x)
+  !@param dy1: out: Y1'(x)
   !
   implicit none
 
-  real ( kind = 8 ), save, dimension(12) :: a = (/ &
+  real(8), save, dimension(12) :: a = (/ &
        -0.7031250000000000D-01, 0.1121520996093750D+00, &
        -0.5725014209747314D+00, 0.6074042001273483D+01, &
        -0.1100171402692467D+03, 0.3038090510922384D+04, &
        -0.1188384262567832D+06, 0.6252951493434797D+07, &
        -0.4259392165047669D+09, 0.3646840080706556D+11, &
        -0.3833534661393944D+13, 0.4854014686852901D+15 /)
-  real ( kind = 8 ), save, dimension(12) :: a1 = (/ &
+  real(8), save, dimension(12) :: a1 = (/ &
        0.1171875000000000D+00, -0.1441955566406250D+00, &
        0.6765925884246826D+00, -0.6883914268109947D+01, &
        0.1215978918765359D+03, -0.3302272294480852D+04, &
        0.1276412726461746D+06, -0.6656367718817688D+07, &
        0.4502786003050393D+09, -0.3833857520742790D+11, &
        0.4011838599133198D+13, -0.5060568503314727D+15 /)
-  real ( kind = 8 ), save, dimension(12) :: b = (/ &
+  real(8), save, dimension(12) :: b = (/ &
        0.7324218750000000D-01, -0.2271080017089844D+00, &
        0.1727727502584457D+01, -0.2438052969955606D+02, &
        0.5513358961220206D+03, -0.1825775547429318D+05, &
        0.8328593040162893D+06, -0.5006958953198893D+08, &
        0.3836255180230433D+10, -0.3649010818849833D+12, &
        0.4218971570284096D+14, -0.5827244631566907D+16 /)
-  real ( kind = 8 ), save, dimension(12) :: b1 = (/ &
+  real(8), save, dimension(12) :: b1 = (/ &
        -0.1025390625000000D+00, 0.2775764465332031D+00, &
        -0.1993531733751297D+01, 0.2724882731126854D+02, &
        -0.6038440767050702D+03, 0.1971837591223663D+05, &
        -0.8902978767070678D+06, 0.5310411010968522D+08, &
        -0.4043620325107754D+10, 0.3827011346598605D+12, &
        -0.4406481417852278D+14, 0.6065091351222699D+16 /)
-  real ( kind = 8 ) bj0
-  real ( kind = 8 ) bj1
-  real ( kind = 8 ) by0
-  real ( kind = 8 ) by1
-  real ( kind = 8 ) cs0
-  real ( kind = 8 ) cs1
-  real ( kind = 8 ) cu
-  real ( kind = 8 ) dj0
-  real ( kind = 8 ) dj1
-  real ( kind = 8 ) dy0
-  real ( kind = 8 ) dy1
-  real ( kind = 8 ) ec
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  real ( kind = 8 ) p0
-  real ( kind = 8 ) p1
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) rp2
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) w1
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
+  real(8)    :: bj0
+  real(8)    :: bj1
+  real(8)    :: by0
+  real(8)    :: by1
+  real(8)    :: cs0
+  real(8)    :: cs1
+  real(8)    :: cu
+  real(8)    :: dj0
+  real(8)    :: dj1
+  real(8)    :: dy0
+  real(8)    :: dy1
+  real(8)    :: ec
+  integer(4) :: k
+  integer(4) :: k0
+  real(8)    :: p0
+  real(8)    :: p1
+  real(8)    :: pi
+  real(8)    :: q0
+  real(8)    :: q1
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: r1
+  real(8)    :: rp2
+  real(8)    :: t1
+  real(8)    :: t2
+  real(8)    :: w0
+  real(8)    :: w1
+  real(8)    :: x
+  real(8)    :: x2
 
   pi = 3.141592653589793D+00
   rp2 = 0.63661977236758D+00
@@ -16188,7 +17763,9 @@ subroutine jy01a ( x, bj0, dj0, bj1, dj1, by0, dy0, by1, dy1 )
 
   return
 end subroutine jy01a
-subroutine jy01b ( x, bj0, dj0, bj1, dj1, by0, dy0, by1, dy1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -16218,32 +17795,48 @@ subroutine jy01b ( x, bj0, dj0, bj1, dj1, by0, dy0, by1, dy1 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BJ0, DJ0, BJ1, DJ1, BY0, DY0, BY1, DY1,
+  !    Output, real(8) BJ0, DJ0, BJ1, DJ1, BY0, DY0, BY1, DY1,
   !    the values of J0(x), J0'(x), J1(x), J1'(x), Y0(x), Y0'(x), Y1(x), Y1'(x).
+  !
+subroutine jy01b ( x, bj0, dj0, bj1, dj1, by0, dy0, by1, dy1 )
+  !JY01B computes Bessel functions J0(x), J1(x), Y0(x), Y1(x) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param bj0: out: J0(x)
+  !@param dj0: out: J0'(x)
+  !@param bj1: out: J1(x)
+  !@param dj1: out: J1'(x)
+  !@param by0: out: Y0(x)
+  !@param dy0: out: Y0'(x)
+  !@param by1: out: Y1(x)
+  !@param dy1: out: Y1'(x)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) bj0
-  real ( kind = 8 ) bj1
-  real ( kind = 8 ) by0
-  real ( kind = 8 ) by1
-  real ( kind = 8 ) dj0
-  real ( kind = 8 ) dj1
-  real ( kind = 8 ) dy0
-  real ( kind = 8 ) dy1
-  real ( kind = 8 ) p0
-  real ( kind = 8 ) p1
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) ta0
-  real ( kind = 8 ) ta1
-  real ( kind = 8 ) x
+  real(8) :: a0
+  real(8) :: bj0
+  real(8) :: bj1
+  real(8) :: by0
+  real(8) :: by1
+  real(8) :: dj0
+  real(8) :: dj1
+  real(8) :: dy0
+  real(8) :: dy1
+  real(8) :: p0
+  real(8) :: p1
+  real(8) :: pi
+  real(8) :: q0
+  real(8) :: q1
+  real(8) :: t
+  real(8) :: t2
+  real(8) :: ta0
+  real(8) :: ta1
+  real(8) :: x
 
   pi = 3.141592653589793D+00
 
@@ -16365,7 +17958,9 @@ subroutine jy01b ( x, bj0, dj0, bj1, dj1, by0, dy0, by1, dy1 )
 
   return
 end subroutine jy01b
-subroutine jyna ( n, x, nm, bj, dj, by, dy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -16395,43 +17990,57 @@ subroutine jyna ( n, x, nm, bj, dj, by, dy )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) BJ(0:N), DJ(0:N), BY(0:N), DY(0:N), the values
+  !    Output, real(8) BJ(0:N), DJ(0:N), BY(0:N), DY(0:N), the values
   !    of Jn(x), Jn'(x), Yn(x), Yn'(x).
+  !
+subroutine jyna ( n, x, nm, bj, dj, by, dy )
+  !JYNA computes Bessel functions Jn(x) and Yn(x) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param bj: out: Jn(x)
+  !@param dj: out: Jn'(x)
+  !@param by: out: Yn(x)
+  !@param dy: out: Yn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) bj(0:n)
-  real ( kind = 8 ) bj0
-  real ( kind = 8 ) bj1
-  real ( kind = 8 ) bjk
-  real ( kind = 8 ) by(0:n)
-  real ( kind = 8 ) by0
-  real ( kind = 8 ) by1
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) dj(0:n)
-  real ( kind = 8 ) dj0
-  real ( kind = 8 ) dj1
-  real ( kind = 8 ) dy(0:n)
-  real ( kind = 8 ) dy0
-  real ( kind = 8 ) dy1
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) x
+  real(8)    :: bj(0:n)
+  real(8)    :: bj0
+  real(8)    :: bj1
+  real(8)    :: bjk
+  real(8)    :: by(0:n)
+  real(8)    :: by0
+  real(8)    :: by1
+  real(8)    :: cs
+  real(8)    :: dj(0:n)
+  real(8)    :: dj0
+  real(8)    :: dj1
+  real(8)    :: dy(0:n)
+  real(8)    :: dy0
+  real(8)    :: dy1
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: f2
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: x
 
   nm = n
 
@@ -16524,7 +18133,9 @@ subroutine jyna ( n, x, nm, bj, dj, by, dy )
 
   return
 end subroutine jyna
-subroutine jynb ( n, x, nm, bj, dj, by, dy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -16554,64 +18165,78 @@ subroutine jynb ( n, x, nm, bj, dj, by, dy )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) BJ(0:N), DJ(0:N), BY(0:N), DY(0:N), the values
+  !    Output, real(8) BJ(0:N), DJ(0:N), BY(0:N), DY(0:N), the values
   !    of Jn(x), Jn'(x), Yn(x), Yn'(x).
+  !
+subroutine jynb ( n, x, nm, bj, dj, by, dy )
+  !JYNB computes Bessel functions Jn(x) and Yn(x) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param bj: out: Jn(x)
+  !@param dj: out: Jn'(x)
+  !@param by: out: Yn(x)
+  !@param dy: out: Yn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ), save, dimension ( 4 ) :: a = (/ &
+  real(8), save, dimension ( 4 ) :: a = (/ &
        -0.7031250000000000D-01, 0.1121520996093750D+00, &
        -0.5725014209747314D+00, 0.6074042001273483D+01 /)
-  real ( kind = 8 ), save, dimension ( 4 ) :: a1 = (/ &
+  real(8), save, dimension ( 4 ) :: a1 = (/ &
        0.1171875000000000D+00, -0.1441955566406250D+00, &
        0.6765925884246826D+00, -0.6883914268109947D+01 /)
-  real ( kind = 8 ), save, dimension ( 4 ) :: b = (/ &
+  real(8), save, dimension ( 4 ) :: b = (/ &
        0.7324218750000000D-01, -0.2271080017089844D+00, &
        0.1727727502584457D+01, -0.2438052969955606D+02 /)
-  real ( kind = 8 ), save, dimension ( 4 ) :: b1 = (/ &
+  real(8), save, dimension ( 4 ) :: b1 = (/ &
        -0.1025390625000000D+00, 0.2775764465332031D+00, &
        -0.1993531733751297D+01, 0.2724882731126854D+02 /)
-  real ( kind = 8 ) bj(0:n)
-  real ( kind = 8 ) bj0
-  real ( kind = 8 ) bj1
-  real ( kind = 8 ) bjk
-  real ( kind = 8 ) bs
-  real ( kind = 8 ) by(0:n)
-  real ( kind = 8 ) by0
-  real ( kind = 8 ) by1
-  real ( kind = 8 ) byk
-  real ( kind = 8 ) cu
-  real ( kind = 8 ) dj(0:n)
-  real ( kind = 8 ) dy(0:n)
-  real ( kind = 8 ) ec
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) p0
-  real ( kind = 8 ) p1
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) r2p
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) su
-  real ( kind = 8 ) sv
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) x
+  real(8)    :: bj(0:n)
+  real(8)    :: bj0
+  real(8)    :: bj1
+  real(8)    :: bjk
+  real(8)    :: bs
+  real(8)    :: by(0:n)
+  real(8)    :: by0
+  real(8)    :: by1
+  real(8)    :: byk
+  real(8)    :: cu
+  real(8)    :: dj(0:n)
+  real(8)    :: dy(0:n)
+  real(8)    :: ec
+  real(8)    :: f
+  real(8)    :: f1
+  real(8)    :: f2
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: p0
+  real(8)    :: p1
+  real(8)    :: pi
+  real(8)    :: q0
+  real(8)    :: q1
+  real(8)    :: r2p
+  real(8)    :: s0
+  real(8)    :: su
+  real(8)    :: sv
+  real(8)    :: t1
+  real(8)    :: t2
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   r2p = 0.63661977236758D+00
@@ -16727,7 +18352,9 @@ subroutine jynb ( n, x, nm, bj, dj, by, dy )
 
   return
 end subroutine jynb
-subroutine jyndd ( n, x, bjn, djn, fjn, byn, dyn, fyn )
+
+
+
 
   !*****************************************************************************80
   !
@@ -16757,37 +18384,52 @@ subroutine jyndd ( n, x, bjn, djn, fjn, byn, dyn, fyn )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BJN, DJN, FJN, BYN, DYN, FYN, the values of
+  !    Output, real(8) BJN, DJN, FJN, BYN, DYN, FYN, the values of
   !    Jn(x), Jn'(x), Jn"(x), Yn(x), Yn'(x), Yn"(x).
+  !
+subroutine jyndd ( n, x, bjn, djn, fjn, byn, dyn, fyn )
+  !JYNDD: Bessel functions Jn(x) and Yn(x), first and second derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param bjn: out: Jn(x)
+  !@param djn: out: Jn'(x)
+  !@param fjn: out: Jn"(x)
+  !@param byn: out: Yn(x)
+  !@param dyn: out: Yn'(x)
+  !@param fyn: out: Yn"(x)
   !
   implicit none
 
-  real ( kind = 8 ) bj(102)
-  real ( kind = 8 ) bjn
-  real ( kind = 8 ) byn
-  real ( kind = 8 ) bs
-  real ( kind = 8 ) by(102)
-  real ( kind = 8 ) djn
-  real ( kind = 8 ) dyn
-  real ( kind = 8 ) e0
-  real ( kind = 8 ) ec
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) fjn
-  real ( kind = 8 ) fyn
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) mt
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nt
-  real ( kind = 8 ) s1
-  real ( kind = 8 ) su
-  real ( kind = 8 ) x
+  real(8)    :: bj(102)
+  real(8)    :: bjn
+  real(8)    :: byn
+  real(8)    :: bs
+  real(8)    :: by(102)
+  real(8)    :: djn
+  real(8)    :: dyn
+  real(8)    :: e0
+  real(8)    :: ec
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: fjn
+  real(8)    :: fyn
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: mt
+  integer(4) :: n
+  integer(4) :: nt
+  real(8)    :: s1
+  real(8)    :: su
+  real(8)    :: x
 
   do nt = 1, 900
      mt = int ( 0.5D+00 * log10 ( 6.28D+00 * nt ) &
@@ -16845,7 +18487,9 @@ subroutine jyndd ( n, x, bjn, djn, fjn, byn, dyn, fyn )
 
   return
 end subroutine jyndd
-subroutine jyv ( v, x, vm, bj, dj, by, dy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -16875,75 +18519,89 @@ subroutine jyv ( v, x, vm, bj, dj, by, dy )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of Jv(x) and Yv(x).
+  !    Input, real(8) V, the order of Jv(x) and Yv(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument of Jv(x) and Yv(x).
+  !    Input, real(8) X, the argument of Jv(x) and Yv(x).
   !
-  !    Output, real ( kind = 8 ) VM, the highest order computed.
+  !    Output, real(8) VM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) BJ(0:N), DJ(0:N), BY(0:N), DY(0:N),
+  !    Output, real(8) BJ(0:N), DJ(0:N), BY(0:N), DY(0:N),
   !    the values of Jn+v0(x), Jn+v0'(x), Yn+v0(x), Yn+v0'(x).
+  !
+subroutine jyv ( v, x, vm, bj, dj, by, dy )
+  !JYV computes Bessel functions Jv(x) and Yv(x) and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of Jv(x) and Yv(x)
+  !@param x: in: the argument of Jv(x) and Yv(x)
+  !@param vm: out: the highest order computed
+  !@param bj: out: Jn+v0(x)
+  !@param dj: out: Jn+v0'(x)
+  !@param by: out: Yn+v0(x)
+  !@param dy: out: Yn+v0'(x)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) b
-  real ( kind = 8 ) bj(0:*)
-  real ( kind = 8 ) bju0
-  real ( kind = 8 ) bju1
-  real ( kind = 8 ) bjv0
-  real ( kind = 8 ) bjv1
-  real ( kind = 8 ) bjvl
-  real ( kind = 8 ) by(0:*)
-  real ( kind = 8 ) byv0
-  real ( kind = 8 ) byv1
-  real ( kind = 8 ) byvk
-  real ( kind = 8 ) ck
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) cs0
-  real ( kind = 8 ) cs1
-  real ( kind = 8 ) dj(0:*)
-  real ( kind = 8 ) dy(0:*)
-  real ( kind = 8 ) ec
-  real ( kind = 8 ) el
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gb
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pv0
-  real ( kind = 8 ) pv1
-  real ( kind = 8 ) px
-  real ( kind = 8 ) qx
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) rp
-  real ( kind = 8 ) rp2
-  real ( kind = 8 ) rq
-  real ( kind = 8 ) sk
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) vg
-  real ( kind = 8 ) vl
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vv
-  real ( kind = 8 ) w0
-  real ( kind = 8 ) w1
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xk
+  real(8)    :: a
+  real(8)    :: a0
+  real(8)    :: b
+  real(8)    :: bj(0:*)
+  real(8)    :: bju0
+  real(8)    :: bju1
+  real(8)    :: bjv0
+  real(8)    :: bjv1
+  real(8)    :: bjvl
+  real(8)    :: by(0:*)
+  real(8)    :: byv0
+  real(8)    :: byv1
+  real(8)    :: byvk
+  real(8)    :: ck
+  real(8)    :: cs
+  real(8)    :: cs0
+  real(8)    :: cs1
+  real(8)    :: dj(0:*)
+  real(8)    :: dy(0:*)
+  real(8)    :: ec
+  real(8)    :: el
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: f2
+  real(8)    :: ga
+  real(8)    :: gb
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: l
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: pv0
+  real(8)    :: pv1
+  real(8)    :: px
+  real(8)    :: qx
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: r1
+  real(8)    :: rp
+  real(8)    :: rp2
+  real(8)    :: rq
+  real(8)    :: sk
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: vg
+  real(8)    :: vl
+  real(8)    :: vm
+  real(8)    :: vv
+  real(8)    :: w0
+  real(8)    :: w1
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: xk
 
   el = 0.5772156649015329D+00
   pi = 3.141592653589793D+00
@@ -17170,7 +18828,9 @@ subroutine jyv ( v, x, vm, bj, dj, by, dy )
 
   return
 end subroutine jyv
-subroutine jyzo ( n, nt, rj0, rj1, ry0, ry1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -17200,32 +18860,45 @@ subroutine jyzo ( n, nt, rj0, rj1, ry0, ry1 )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of the Bessel functions.
+  !    Input, integer(4) N, the order of the Bessel functions.
   !
-  !    Input, integer ( kind = 4 ) NT, the number of zeros.
+  !    Input, integer(4) NT, the number of zeros.
   !
-  !    Output, real ( kind = 8 ) RJ0(NT), RJ1(NT), RY0(NT), RY1(NT), the zeros 
+  !    Output, real(8) RJ0(NT), RJ1(NT), RY0(NT), RY1(NT), the zeros 
   !    of Jn(x), Jn'(x), Yn(x), Yn'(x).
+  !
+subroutine jyzo ( n, nt, rj0, rj1, ry0, ry1 )
+  !JYZO computes the zeros of Bessel functions Jn(x), Yn(x) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of the Bessel functions
+  !@param nt: in: the number of zeros
+  !@param rj0: out: Jn(x)
+  !@param rj1: out: Jn'(x)
+  !@param ry0: out: Yn(x)
+  !@param ry1: out: Yn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) nt
+  integer(4) :: nt
 
-  real ( kind = 8 ) bjn
-  real ( kind = 8 ) byn
-  real ( kind = 8 ) djn
-  real ( kind = 8 ) dyn
-  real ( kind = 8 ) fjn
-  real ( kind = 8 ) fyn
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) n_r8
-  real ( kind = 8 ) rj0(nt)
-  real ( kind = 8 ) rj1(nt)
-  real ( kind = 8 ) ry0(nt)
-  real ( kind = 8 ) ry1(nt)
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
+  real(8)    :: bjn
+  real(8)    :: byn
+  real(8)    :: djn
+  real(8)    :: dyn
+  real(8)    :: fjn
+  real(8)    :: fyn
+  integer(4) :: l
+  integer(4) :: n
+  real(8)    :: n_r8
+  real(8)    :: rj0(nt)
+  real(8)    :: rj1(nt)
+  real(8)    :: ry0(nt)
+  real(8)    :: ry1(nt)
+  real(8)    :: x
+  real(8)    :: x0
 
   n_r8 = real ( n, kind = 8 )
 
@@ -17353,7 +19026,9 @@ subroutine jyzo ( n, nt, rj0, rj1, ry0, ry1 )
 
   return
 end subroutine jyzo
-subroutine klvna ( x, ber, bei, ger, gei, der, dei, her, hei )
+
+
+
 
   !*****************************************************************************80
   !
@@ -17383,57 +19058,73 @@ subroutine klvna ( x, ber, bei, ger, gei, der, dei, her, hei )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BER, BEI, GER, GEI, DER, DEI, HER, HEI, 
+  !    Output, real(8) BER, BEI, GER, GEI, DER, DEI, HER, HEI, 
   !    the values of ber x, bei x, ker x, kei x, ber'x, bei'x, ker'x, kei'x.
+  !
+subroutine klvna ( x, ber, bei, ger, gei, der, dei, her, hei )
+  !KLVNA: Kelvin functions ber(x), bei(x), ker(x), and kei(x), and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param ber: out: :code:`ber(x)`
+  !@param bei: out: :code:`bei(x)`
+  !@param ger: out: :code:`ker(x)`
+  !@param gei: out: :code:`kei(x)`
+  !@param der: out: derivative of :code:`ber(x)`
+  !@param dei: out: derivative of :code:`bei(x)`
+  !@param her: out: derivative of :code:`ker(x)`
+  !@param hei: out: derivative of :code:`kei(x)`
   !
   implicit none
 
-  real ( kind = 8 ) bei
-  real ( kind = 8 ) ber
-  real ( kind = 8 ) cn0
-  real ( kind = 8 ) cp0
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) dei
-  real ( kind = 8 ) der
-  real ( kind = 8 ) el
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) fac
-  real ( kind = 8 ) gei
-  real ( kind = 8 ) ger
-  real ( kind = 8 ) gs
-  real ( kind = 8 ) hei
-  real ( kind = 8 ) her
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pn0
-  real ( kind = 8 ) pn1
-  real ( kind = 8 ) pp0
-  real ( kind = 8 ) pp1
-  real ( kind = 8 ) qn0
-  real ( kind = 8 ) qn1
-  real ( kind = 8 ) qp0
-  real ( kind = 8 ) qp1
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) rc
-  real ( kind = 8 ) rs
-  real ( kind = 8 ) sn0
-  real ( kind = 8 ) sp0
-  real ( kind = 8 ) ss
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) x4
-  real ( kind = 8 ) xc1
-  real ( kind = 8 ) xc2
-  real ( kind = 8 ) xd
-  real ( kind = 8 ) xe1
-  real ( kind = 8 ) xe2
-  real ( kind = 8 ) xt
+  real(8)    :: bei
+  real(8)    :: ber
+  real(8)    :: cn0
+  real(8)    :: cp0
+  real(8)    :: cs
+  real(8)    :: dei
+  real(8)    :: der
+  real(8)    :: el
+  real(8)    :: eps
+  real(8)    :: fac
+  real(8)    :: gei
+  real(8)    :: ger
+  real(8)    :: gs
+  real(8)    :: hei
+  real(8)    :: her
+  integer(4) :: k
+  integer(4) :: km
+  integer(4) :: m
+  real(8)    :: pi
+  real(8)    :: pn0
+  real(8)    :: pn1
+  real(8)    :: pp0
+  real(8)    :: pp1
+  real(8)    :: qn0
+  real(8)    :: qn1
+  real(8)    :: qp0
+  real(8)    :: qp1
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: r1
+  real(8)    :: rc
+  real(8)    :: rs
+  real(8)    :: sn0
+  real(8)    :: sp0
+  real(8)    :: ss
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: x4
+  real(8)    :: xc1
+  real(8)    :: xc2
+  real(8)    :: xd
+  real(8)    :: xe1
+  real(8)    :: xe2
+  real(8)    :: xt
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -17625,7 +19316,9 @@ subroutine klvna ( x, ber, bei, ger, gei, der, dei, her, hei )
 
   return
 end subroutine klvna
-subroutine klvnb ( x, ber, bei, ger, gei, der, dei, her, hei )
+
+
+
 
   !*****************************************************************************80
   !
@@ -17655,49 +19348,65 @@ subroutine klvnb ( x, ber, bei, ger, gei, der, dei, her, hei )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) BER, BEI, GER, GEI, DER, DEI, HER, HEI, 
+  !    Output, real(8) BER, BEI, GER, GEI, DER, DEI, HER, HEI, 
   !    the values of ber x, bei x, ker x, kei x, ber'x, bei'x, ker'x, kei'x.
+  !
+subroutine klvnb ( x, ber, bei, ger, gei, der, dei, her, hei )
+  !KLVNB: Kelvin functions ber(x), bei(x), ker(x), and kei(x), and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param ber: out: :code:`ber(x)`
+  !@param bei: out: :code:`bei(x)`
+  !@param ger: out: :code:`ker(x)`
+  !@param gei: out: :code:`kei(x)`
+  !@param der: out: derivative of :code:`ber(x)`
+  !@param dei: out: derivative of :code:`bei(x)`
+  !@param her: out: derivative of :code:`ker(x)`
+  !@param hei: out: derivative of :code:`kei(x)`
   !
   implicit none
 
-  real ( kind = 8 ) bei
-  real ( kind = 8 ) ber
-  real ( kind = 8 ) csn
-  real ( kind = 8 ) csp
-  real ( kind = 8 ) dei
-  real ( kind = 8 ) der
-  real ( kind = 8 ) fxi
-  real ( kind = 8 ) fxr
-  real ( kind = 8 ) gei
-  real ( kind = 8 ) ger
-  real ( kind = 8 ) hei
-  real ( kind = 8 ) her
-  integer ( kind = 4 ) l
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pni
-  real ( kind = 8 ) pnr
-  real ( kind = 8 ) ppi
-  real ( kind = 8 ) ppr
-  real ( kind = 8 ) ssn
-  real ( kind = 8 ) ssp
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) tni
-  real ( kind = 8 ) tnr
-  real ( kind = 8 ) tpi
-  real ( kind = 8 ) tpr
-  real ( kind = 8 ) u
-  real ( kind = 8 ) v
-  real ( kind = 8 ) x
-  real ( kind = 8 ) yc1
-  real ( kind = 8 ) yc2
-  real ( kind = 8 ) yci
-  real ( kind = 8 ) ye1
-  real ( kind = 8 ) ye2
-  real ( kind = 8 ) yei
-  real ( kind = 8 ) yd
+  real(8)    :: bei
+  real(8)    :: ber
+  real(8)    :: csn
+  real(8)    :: csp
+  real(8)    :: dei
+  real(8)    :: der
+  real(8)    :: fxi
+  real(8)    :: fxr
+  real(8)    :: gei
+  real(8)    :: ger
+  real(8)    :: hei
+  real(8)    :: her
+  integer(4) :: l
+  real(8)    :: pi
+  real(8)    :: pni
+  real(8)    :: pnr
+  real(8)    :: ppi
+  real(8)    :: ppr
+  real(8)    :: ssn
+  real(8)    :: ssp
+  real(8)    :: t
+  real(8)    :: t2
+  real(8)    :: tni
+  real(8)    :: tnr
+  real(8)    :: tpi
+  real(8)    :: tpr
+  real(8)    :: u
+  real(8)    :: v
+  real(8)    :: x
+  real(8)    :: yc1
+  real(8)    :: yc2
+  real(8)    :: yci
+  real(8)    :: ye1
+  real(8)    :: ye2
+  real(8)    :: yei
+  real(8)    :: yd
 
   pi = 3.141592653589793D+00
 
@@ -17886,7 +19595,9 @@ subroutine klvnb ( x, ber, bei, ger, gei, der, dei, her, hei )
 
   return
 end subroutine klvnb
-subroutine klvnzo ( nt, kd, zo )
+
+
+
 
   !*****************************************************************************80
   !
@@ -17916,9 +19627,9 @@ subroutine klvnzo ( nt, kd, zo )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) NT, the number of zeros.
+  !    Input, integer(4) NT, the number of zeros.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1 for ber x, 
   !    2 for bei x,
   !    3 for ker x, 
@@ -17928,29 +19639,50 @@ subroutine klvnzo ( nt, kd, zo )
   !    7 for ker' x, 
   !    8 for kei' x.
   !
-  !    Output, real ( kind = 8 ) ZO(NT), the zeros of the given Kelvin function.
+  !    Output, real(8) ZO(NT), the zeros of the given Kelvin function.
+  !
+subroutine klvnzo ( nt, kd, zo )
+  !KLVNZO computes zeros of the Kelvin functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Possible values of the function code :f:var:`kd`:
+  !
+  !* :code:`1`: :code:`ber(x)`
+  !* :code:`2`: :code:`bei(x)`
+  !* :code:`3`: :code:`ker(x)`
+  !* :code:`4`: :code:`kei(x)`
+  !* :code:`5`: derivative of :code:`ber(x)`
+  !* :code:`6`: derivative of :code:`bei(x)`
+  !* :code:`7`: derivative of :code:`ker(x)`
+  !* :code:`8`: derivative of :code:`kei(x)`
+  !
+  !@param nt: in: the number of zeros
+  !@param kd: in: function code
+  !@param zo: out: the zeros of the given Kelvin function
   !
   implicit none
 
-  integer ( kind = 4 ) nt
+  integer(4) :: nt
 
-  real ( kind = 8 ) bei
-  real ( kind = 8 ) ber
-  real ( kind = 8 ) ddi
-  real ( kind = 8 ) ddr
-  real ( kind = 8 ) dei
-  real ( kind = 8 ) der
-  real ( kind = 8 ) gdi
-  real ( kind = 8 ) gdr
-  real ( kind = 8 ) gei
-  real ( kind = 8 ) ger
-  real ( kind = 8 ) hei
-  real ( kind = 8 ) her
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) rt
-  real ( kind = 8 ) rt0(8)
-  real ( kind = 8 ) zo(nt)
+  real(8)    :: bei
+  real(8)    :: ber
+  real(8)    :: ddi
+  real(8)    :: ddr
+  real(8)    :: dei
+  real(8)    :: der
+  real(8)    :: gdi
+  real(8)    :: gdr
+  real(8)    :: gei
+  real(8)    :: ger
+  real(8)    :: hei
+  real(8)    :: her
+  integer(4) :: kd
+  integer(4) :: m
+  real(8)    :: rt
+  real(8)    :: rt0(8)
+  real(8)    :: zo(nt)
 
   rt0(1) = 2.84891D+00
   rt0(2) = 5.02622D+00
@@ -18006,7 +19738,9 @@ subroutine klvnzo ( nt, kd, zo )
 
   return
 end subroutine klvnzo
-subroutine kmn ( m, n, c, cv, kd, df, dn, ck1, ck2 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -18036,62 +19770,78 @@ subroutine kmn ( m, n, c, cv, kd, df, dn, ck1, ck2 )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Input, real ( kind = 8 ) DF(*), the expansion coefficients.
+  !    Input, real(8) DF(*), the expansion coefficients.
+  !
+subroutine kmn ( m, n, c, cv, kd, df, dn, ck1, ck2 )
+  !KMN: expansion coefficients of prolate or oblate spheroidal functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param cv: in: the characteristic value
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param df: in: the expansion coefficients
+  !@param dn: expansion coefficients
+  !@param ck1: joining factor
+  !@param ck2: joining factor
   !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck1
-  real ( kind = 8 ) ck2
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) dn(200)
-  real ( kind = 8 ) dnp
-  real ( kind = 8 ) g0
-  real ( kind = 8 ) gk0
-  real ( kind = 8 ) gk1
-  real ( kind = 8 ) gk2
-  real ( kind = 8 ) gk3
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nm1
-  integer ( kind = 4 ) nn
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) r3
-  real ( kind = 8 ) r4
-  real ( kind = 8 ) r5
-  real ( kind = 8 ) rk(200)
-  real ( kind = 8 ) sa0
-  real ( kind = 8 ) sb0
-  real ( kind = 8 ) su0
-  real ( kind = 8 ) sw
-  real ( kind = 8 ) t
-  real ( kind = 8 ) tp(200)
-  real ( kind = 8 ) u(200)
-  real ( kind = 8 ) v(200)
-  real ( kind = 8 ) w(200)
+  real(8)    :: c
+  real(8)    :: ck1
+  real(8)    :: ck2
+  real(8)    :: cs
+  real(8)    :: cv
+  real(8)    :: df(200)
+  real(8)    :: dn(200)
+  real(8)    :: dnp
+  real(8)    :: g0
+  real(8)    :: gk0
+  real(8)    :: gk1
+  real(8)    :: gk2
+  real(8)    :: gk3
+  integer(4) :: i
+  integer(4) :: ip
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: kd
+  integer(4) :: l
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  integer(4) :: nm1
+  integer(4) :: nn
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: r3
+  real(8)    :: r4
+  real(8)    :: r5
+  real(8)    :: rk(200)
+  real(8)    :: sa0
+  real(8)    :: sb0
+  real(8)    :: su0
+  real(8)    :: sw
+  real(8)    :: t
+  real(8)    :: tp(200)
+  real(8)    :: u(200)
+  real(8)    :: v(200)
+  real(8)    :: w(200)
 
   nm = 25 + int ( 0.5D+00 * ( n - m ) + c )
   nn = nm + m
@@ -18222,7 +19972,9 @@ subroutine kmn ( m, n, c, cv, kd, df, dn, ck1, ck2 )
 
   return
 end subroutine kmn
-subroutine lagzo ( n, x, w )
+
+
+
 
   !*****************************************************************************80
   !
@@ -18258,35 +20010,49 @@ subroutine lagzo ( n, x, w )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of the Laguerre polynomial.
+  !    Input, integer(4) N, the order of the Laguerre polynomial.
   !
-  !    Output, real ( kind = 8 ) X(N), the zeros of the Laguerre polynomial.
+  !    Output, real(8) X(N), the zeros of the Laguerre polynomial.
   !
-  !    Output, real ( kind = 8 ) W(N), the weighting coefficients.
+  !    Output, real(8) W(N), the weighting coefficients.
+  !
+subroutine lagzo ( n, x, w )
+  !LAGZO computes zeros of the Laguerre polynomial, and integration weights.
+  !
+  !This procedure computes the zeros of Laguerre polynomial Ln(x) in the
+  !interval [0,infinity], and the corresponding weighting coefficients for
+  !Gauss-Laguerre integration.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of the Laguerre polynomial
+  !@param x: out: the zeros of the Laguerre polynomial
+  !@param w: out: the weighting coefficients
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) fd
-  real ( kind = 8 ) gd
-  real ( kind = 8 ) hn
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) it
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) nr
-  real ( kind = 8 ) p
-  real ( kind = 8 ) pd
-  real ( kind = 8 ) pf
-  real ( kind = 8 ) q
-  real ( kind = 8 ) w(n)
-  real ( kind = 8 ) wp
-  real ( kind = 8 ) x(n)
-  real ( kind = 8 ) z
-  real ( kind = 8 ) z0
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: fd
+  real(8)    :: gd
+  real(8)    :: hn
+  integer(4) :: i
+  integer(4) :: it
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: nr
+  real(8)    :: p
+  real(8)    :: pd
+  real(8)    :: pf
+  real(8)    :: q
+  real(8)    :: w(n)
+  real(8)    :: wp
+  real(8)    :: x(n)
+  real(8)    :: z
+  real(8)    :: z0
 
   hn = 1.0D+00 / real ( n, kind = 8 )
 
@@ -18348,7 +20114,9 @@ subroutine lagzo ( n, x, w )
 
   return
 end subroutine lagzo
-subroutine lamn ( n, x, nm, bl, dl )
+
+
+
 
   !*****************************************************************************80
   !
@@ -18378,38 +20146,50 @@ subroutine lamn ( n, x, nm, bl, dl )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) BL(0:N), DL(0:N), the
+  !    Output, real(8) BL(0:N), DL(0:N), the
   !    value of the lambda function and its derivative of orders 0 through N.
+  !
+subroutine lamn ( n, x, nm, bl, dl )
+  !LAMN computes lambda functions and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param bl: out: the lambda function
+  !@param dl: out: its derivative of orders 0 through N
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) bg
-  real ( kind = 8 ) bk
-  real ( kind = 8 ) bl(0:n)
-  real ( kind = 8 ) bs
-  real ( kind = 8 ) dl(0:n)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) uk
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
+  real(8)    :: bg
+  real(8)    :: bk
+  real(8)    :: bl(0:n)
+  real(8)    :: bs
+  real(8)    :: dl(0:n)
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: i
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: uk
+  real(8)    :: x
+  real(8)    :: x2
 
   nm = n
 
@@ -18505,7 +20285,9 @@ subroutine lamn ( n, x, nm, bl, dl )
 
   return
 end subroutine lamn
-subroutine lamv ( v, x, vm, vl, dl )
+
+
+
 
   !*****************************************************************************80
   !
@@ -18535,59 +20317,71 @@ subroutine lamv ( v, x, vm, vl, dl )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order.
+  !    Input, real(8) V, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) VM, the highest order computed.
+  !    Output, real(8) VM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) VL(0:*), DL(0:*), the Lambda function and 
+  !    Output, real(8) VL(0:*), DL(0:*), the Lambda function and 
   !    derivative, of orders N+V0.
+  !
+subroutine lamv ( v, x, vm, vl, dl )
+  !LAMV computes lambda functions and derivatives of arbitrary order.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order
+  !@param x: in: the argument
+  !@param vm: out: the highest order computed
+  !@param vl: out: the Lambda function, of orders N+V0
+  !@param dl: out: the derivative of the Lambda function, of orders N+V0
   !
   implicit none
 
-  real ( kind = 8 ) v
+  real(8)    :: v
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) bjv0
-  real ( kind = 8 ) bjv1
-  real ( kind = 8 ) bk
-  real ( kind = 8 ) ck
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) dl(0:int(v))
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  real ( kind = 8 ) fac
-  real ( kind = 8 ) ga
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k0
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) px
-  real ( kind = 8 ) qx
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) rc
-  real ( kind = 8 ) rp
-  real ( kind = 8 ) rp2
-  real ( kind = 8 ) rq
-  real ( kind = 8 ) sk
-  real ( kind = 8 ) uk
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) vk
-  real ( kind = 8 ) vl(0:int(v))
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) vv
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xk
+  real(8)    :: a0
+  real(8)    :: bjv0
+  real(8)    :: bjv1
+  real(8)    :: bk
+  real(8)    :: ck
+  real(8)    :: cs
+  real(8)    :: dl(0:int(v))
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: f2
+  real(8)    :: fac
+  real(8)    :: ga
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: k0
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: px
+  real(8)    :: qx
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: rc
+  real(8)    :: rp
+  real(8)    :: rp2
+  real(8)    :: rq
+  real(8)    :: sk
+  real(8)    :: uk
+  real(8)    :: v0
+  real(8)    :: vk
+  real(8)    :: vl(0:int(v))
+  real(8)    :: vm
+  real(8)    :: vv
+  real(8)    :: x
+  real(8)    :: x2
+  real(8)    :: xk
 
   pi = 3.141592653589793D+00
   rp2 = 0.63661977236758D+00
@@ -18746,7 +20540,9 @@ subroutine lamv ( v, x, vm, vl, dl )
 
   return
 end subroutine lamv
-subroutine legzo ( n, x, w )
+
+
+
 
   !*****************************************************************************80
   !
@@ -18782,33 +20578,47 @@ subroutine legzo ( n, x, w )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of the polynomial.
+  !    Input, integer(4) N, the order of the polynomial.
   !
-  !    Output, real ( kind = 8 ) X(N), W(N), the zeros of the polynomial,
+  !    Output, real(8) X(N), W(N), the zeros of the polynomial,
   !    and the corresponding weights.
+  !
+subroutine legzo ( n, x, w )
+  !LEGZO computes the zeros of Legendre polynomials, and integration weights.
+  !
+  !This procedure computes the zeros of Legendre polynomial Pn(x) in the
+  !interval [-1,1], and the corresponding weighting coefficients for
+  !Gauss-Legendre integration.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of the polynomial
+  !@param x: out: the polynomial
+  !@param w: out: and the corresponding weights
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) fd
-  real ( kind = 8 ) gd
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) n0
-  integer ( kind = 4 ) nr
-  real ( kind = 8 ) p
-  real ( kind = 8 ) pd
-  real ( kind = 8 ) pf
-  real ( kind = 8 ) q
-  real ( kind = 8 ) w(n)
-  real ( kind = 8 ) wp
-  real ( kind = 8 ) x(n)
-  real ( kind = 8 ) z
-  real ( kind = 8 ) z0
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: fd
+  real(8)    :: gd
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: n0
+  integer(4) :: nr
+  real(8)    :: p
+  real(8)    :: pd
+  real(8)    :: pf
+  real(8)    :: q
+  real(8)    :: w(n)
+  real(8)    :: wp
+  real(8)    :: x(n)
+  real(8)    :: z
+  real(8)    :: z0
 
   n0 = ( n + 1 ) / 2
 
@@ -18869,7 +20679,9 @@ subroutine legzo ( n, x, w )
 
   return
 end subroutine legzo
-subroutine lgama ( kf, x, gl )
+
+
+
 
   !*****************************************************************************80
   !
@@ -18899,17 +20711,27 @@ subroutine lgama ( kf, x, gl )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KF, the argument code.
+  !    Input, integer(4) KF, the argument code.
   !    1, for gamma(x);
   !    2, for ln(gamma(x)).
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) GL, the function value.
+  !    Output, real(8) GL, the function value.
+  !
+subroutine lgama ( kf, x, gl )
+  !LGAMA computes the gamma function or its logarithm.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param kf: in: the argument code. 1, for gamma(x); 2, for ln(gamma(x))
+  !@param x: in: the argument
+  !@param gl: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ), save, dimension ( 10 ) :: a = (/ &
+  real(8), save, dimension ( 10 ) :: a = (/ &
        8.333333333333333D-02, &
        -2.777777777777778D-03, &
        7.936507936507937D-04, &
@@ -18920,15 +20742,15 @@ subroutine lgama ( kf, x, gl )
        -2.955065359477124D-02, &
        1.796443723688307D-01, &
        -1.39243221690590D+00 /)
-  real ( kind = 8 ) gl
-  real ( kind = 8 ) gl0
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kf
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xp
+  real(8)    :: gl
+  real(8)    :: gl0
+  integer(4) :: k
+  integer(4) :: kf
+  integer(4) :: n
+  real(8)    :: x
+  real(8)    :: x0
+  real(8)    :: x2
+  real(8)    :: xp
 
   x0 = x
 
@@ -18966,7 +20788,9 @@ subroutine lgama ( kf, x, gl )
 
   return
 end subroutine lgama
-subroutine lpmn ( mm, m, n, x, pm, pd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -18996,31 +20820,44 @@ subroutine lpmn ( mm, m, n, x, pm, pd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) MM, the leading dimension of PM and PD.
+  !    Input, integer(4) MM, the leading dimension of PM and PD.
   !
-  !    Input, integer ( kind = 4 ) M, the order of Pmn(x).
+  !    Input, integer(4) M, the order of Pmn(x).
   !
-  !    Input, integer ( kind = 4 ) N, the degree of Pmn(x).
+  !    Input, integer(4) N, the degree of Pmn(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument of Pmn(x).
+  !    Input, real(8) X, the argument of Pmn(x).
   !
-  !    Output, real ( kind = 8 ) PM(0:MM,0:N), PD(0:MM,0:N), the
+  !    Output, real(8) PM(0:MM,0:N), PD(0:MM,0:N), the
   !    values of Pmn(x) and Pmn'(x).
+  !
+subroutine lpmn ( mm, m, n, x, pm, pd )
+  !LPMN computes associated Legendre functions Pmn(X) and derivatives P'mn(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param mm: in: the leading dimension of PM and PD
+  !@param m: in: the order of Pmn(x)
+  !@param n: in: the degree of Pmn(x)
+  !@param x: in: the argument of Pmn(x)
+  !@param pm: out: Pmn(x)
+  !@param pd: out: Pmn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) mm
-  integer ( kind = 4 ) n
+  integer(4) :: mm
+  integer(4) :: n
 
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) ls
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) pd(0:mm,0:n)
-  real ( kind = 8 ) pm(0:mm,0:n)
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xq
-  real ( kind = 8 ) xs
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: ls
+  integer(4) :: m
+  real(8)    :: pd(0:mm,0:n)
+  real(8)    :: pm(0:mm,0:n)
+  real(8)    :: x
+  real(8)    :: xq
+  real(8)    :: xs
 
   do i = 0, n
      do j = 0, m
@@ -19090,7 +20927,9 @@ subroutine lpmn ( mm, m, n, x, pm, pd )
 
   return
 end subroutine lpmn
-subroutine lpmns ( m, n, x, pm, pd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -19120,29 +20959,41 @@ subroutine lpmns ( m, n, x, pm, pd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the order of Pmn(x).
+  !    Input, integer(4) M, the order of Pmn(x).
   !
-  !    Input, integer ( kind = 4 ) N, the degree of Pmn(x).
+  !    Input, integer(4) N, the degree of Pmn(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) PM(0:N), PD(0:N), the values and derivatives
+  !    Output, real(8) PM(0:N), PD(0:N), the values and derivatives
   !    of the function from degree 0 to N.
+  !
+subroutine lpmns ( m, n, x, pm, pd )
+  !LPMNS computes associated Legendre functions Pmn(X) and derivatives P'mn(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the order of Pmn(x)
+  !@param n: in: the degree of Pmn(x)
+  !@param x: in: the argument
+  !@param pm: out: the values of the function from degree 0 to N
+  !@param pd: out: the derivatives of the function from degree 0 to N
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) pm(0:n)
-  real ( kind = 8 ) pm0
-  real ( kind = 8 ) pm1
-  real ( kind = 8 ) pm2
-  real ( kind = 8 ) pmk
-  real ( kind = 8 ) pd(0:n)
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
+  integer(4) :: k
+  integer(4) :: m
+  real(8)    :: pm(0:n)
+  real(8)    :: pm0
+  real(8)    :: pm1
+  real(8)    :: pm2
+  real(8)    :: pmk
+  real(8)    :: pd(0:n)
+  real(8)    :: x
+  real(8)    :: x0
 
   do k = 0, n
      pm(k) = 0.0D+00
@@ -19199,7 +21050,9 @@ subroutine lpmns ( m, n, x, pm, pd )
 
   return
 end subroutine lpmns
-subroutine lpmv ( v, m, x, pmv )
+
+
+
 
   !*****************************************************************************80
   !
@@ -19234,44 +21087,58 @@ subroutine lpmv ( v, m, x, pmv )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the degree of Pmv(x).
+  !    Input, real(8) V, the degree of Pmv(x).
   !
-  !    Input, integer ( kind = 4 ) M, the order of Pmv(x).
+  !    Input, integer(4) M, the order of Pmv(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument of Pm(x).
+  !    Input, real(8) X, the argument of Pm(x).
   !
-  !    Output, real ( kind = 8 ) PMV, the value of Pm(x).
+  !    Output, real(8) PMV, the value of Pm(x).
+  !
+subroutine lpmv ( v, m, x, pmv )
+  !LPMV computes associated Legendre functions Pmv(X) with arbitrary degree.
+  !
+  !Compute the associated Legendre function Pmv(x) with an integer order
+  !and an arbitrary nonnegative degree v.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the degree of Pmv(x)
+  !@param m: in: the order of Pmv(x)
+  !@param x: in: the argument of Pm(x)
+  !@param pmv: out: the value of Pm(x)
   !
   implicit none
 
-  real ( kind = 8 ) c0
-  real ( kind = 8 ) el
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) nv
-  real ( kind = 8 ) pa
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pmv
-  real ( kind = 8 ) pss
-  real ( kind = 8 ) psv
-  real ( kind = 8 ) pv0
-  real ( kind = 8 ) qr
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) rg
-  real ( kind = 8 ) s
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) s1
-  real ( kind = 8 ) s2
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) vs
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xq
+  real(8)    :: c0
+  real(8)    :: el
+  real(8)    :: eps
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: nv
+  real(8)    :: pa
+  real(8)    :: pi
+  real(8)    :: pmv
+  real(8)    :: pss
+  real(8)    :: psv
+  real(8)    :: pv0
+  real(8)    :: qr
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: rg
+  real(8)    :: s
+  real(8)    :: s0
+  real(8)    :: s1
+  real(8)    :: s2
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: vs
+  real(8)    :: x
+  real(8)    :: xq
 
   pi = 3.141592653589793D+00
   el = 0.5772156649015329D+00
@@ -19398,7 +21265,9 @@ subroutine lpmv ( v, m, x, pmv )
 
   return
 end subroutine lpmv
-subroutine lpn ( n, x, pn, pd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -19428,24 +21297,35 @@ subroutine lpn ( n, x, pn, pd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the maximum degree.
+  !    Input, integer(4) N, the maximum degree.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) PN(0:N), PD(0:N), the values and derivatives
+  !    Output, real(8) PN(0:N), PD(0:N), the values and derivatives
   !    of the polyomials of degrees 0 to N at X.
+  !
+subroutine lpn ( n, x, pn, pd )
+  !LPN computes Legendre polynomials Pn(x) and derivatives Pn'(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the maximum degree
+  !@param x: in: the argument
+  !@param pn: out: the values of the polynomials of degrees 0 to N at X
+  !@param pd: out: the derivatives of the polynomials of degrees 0 to N at X
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) p0
-  real ( kind = 8 ) p1
-  real ( kind = 8 ) pd(0:n)
-  real ( kind = 8 ) pf
-  real ( kind = 8 ) pn(0:n)
-  real ( kind = 8 ) x
+  integer(4) :: k
+  real(8)    :: p0
+  real(8)    :: p1
+  real(8)    :: pd(0:n)
+  real(8)    :: pf
+  real(8)    :: pn(0:n)
+  real(8)    :: x
 
   pn(0) = 1.0D+00
   pn(1) = x
@@ -19473,7 +21353,9 @@ subroutine lpn ( n, x, pn, pd )
 
   return
 end subroutine lpn
-subroutine lpni ( n, x, pn, pd, pl )
+
+
+
 
   !*****************************************************************************80
   !
@@ -19508,28 +21390,43 @@ subroutine lpni ( n, x, pn, pd, pl )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the maximum degree.
+  !    Input, integer(4) N, the maximum degree.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) PN(0:N), PD(0:N), PL(0:N), the values, 
+  !    Output, real(8) PN(0:N), PD(0:N), PL(0:N), the values, 
   !    derivatives and integrals of the polyomials of degrees 0 to N at X.
+  !
+subroutine lpni ( n, x, pn, pd, pl )
+  !LPNI computes Legendre polynomials Pn(x), derivatives, and integrals.
+  !
+  !This routine computes Legendre polynomials Pn(x), Pn'(x)
+  !and the integral of Pn(t) from 0 to x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the maximum degree
+  !@param x: in: the argument
+  !@param pn: out: the values of the polynomials of degrees 0 to N at X
+  !@param pd: out: the derivatives of the polynomials of degrees 0 to N at X
+  !@param pl: out: the integrals of the polynomials of degrees 0 to N at X
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) n1
-  real ( kind = 8 ) p0
-  real ( kind = 8 ) p1
-  real ( kind = 8 ) pd(0:n)
-  real ( kind = 8 ) pf
-  real ( kind = 8 ) pl(0:n)
-  real ( kind = 8 ) pn(0:n)
-  real ( kind = 8 ) r
-  real ( kind = 8 ) x
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: n1
+  real(8)    :: p0
+  real(8)    :: p1
+  real(8)    :: pd(0:n)
+  real(8)    :: pf
+  real(8)    :: pl(0:n)
+  real(8)    :: pn(0:n)
+  real(8)    :: r
+  real(8)    :: x
 
   pn(0) = 1.0D+00
   pn(1) = x
@@ -19570,7 +21467,9 @@ subroutine lpni ( n, x, pn, pd, pl )
 
   return
 end subroutine lpni
-subroutine lqmn ( mm, m, n, x, qm, qd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -19605,39 +21504,55 @@ subroutine lqmn ( mm, m, n, x, qm, qd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) MM, determines the leading dimension 
+  !    Input, integer(4) MM, determines the leading dimension 
   !    of QM and QD.
   !
-  !    Input, integer ( kind = 4 ) M, the order of Qmn(x).
+  !    Input, integer(4) M, the order of Qmn(x).
   !
-  !    Input, integer ( kind = 4 ) N, the degree of Qmn(x).
+  !    Input, integer(4) N, the degree of Qmn(x).
   !
-  !    Output, real ( kind = 8 ) QM(0:MM,0:N), QD(0:MM,0:N), contains the values
+  !    Output, real(8) QM(0:MM,0:N), QD(0:MM,0:N), contains the values
   !    of Qmn(x) and Qmn'(x).
+  !
+subroutine lqmn ( mm, m, n, x, qm, qd )
+  !LQMN computes associated Legendre functions Qmn(x) and derivatives.
+  !
+  !This routine computes the associated Legendre functions of the
+  !second kind, Qmn(x) and Qmn'(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param mm: in: determines the leading dimension of QM and QD
+  !@param m: in: the order of Qmn(x)
+  !@param n: in: the degree of Qmn(x)
+  !@param x: the argument
+  !@param qm: out: the values of Qmn(x)
+  !@param qd: out: the values of Qmn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) mm
-  integer ( kind = 4 ) n
+  integer(4) :: mm
+  integer(4) :: n
 
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) ls
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) q10
-  real ( kind = 8 ) qd(0:mm,0:n)
-  real ( kind = 8 ) qf
-  real ( kind = 8 ) qf0
-  real ( kind = 8 ) qf1
-  real ( kind = 8 ) qf2
-  real ( kind = 8 ) qm(0:mm,0:n)
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xq
-  real ( kind = 8 ) xs
+  integer(4) :: i
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: km
+  integer(4) :: ls
+  integer(4) :: m
+  real(8)    :: q0
+  real(8)    :: q1
+  real(8)    :: q10
+  real(8)    :: qd(0:mm,0:n)
+  real(8)    :: qf
+  real(8)    :: qf0
+  real(8)    :: qf1
+  real(8)    :: qf2
+  real(8)    :: qm(0:mm,0:n)
+  real(8)    :: x
+  real(8)    :: xq
+  real(8)    :: xs
 
   if ( abs ( x ) == 1.0D+00 ) then
      do i = 0, m
@@ -19748,7 +21663,9 @@ subroutine lqmn ( mm, m, n, x, qm, qd )
 
   return
 end subroutine lqmn
-subroutine lqmns ( m, n, x, qm, qd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -19778,46 +21695,58 @@ subroutine lqmns ( m, n, x, qm, qd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the order.
+  !    Input, integer(4) M, the order.
   !
-  !    Input, integer ( kind = 4 ) N, the degree.
+  !    Input, integer(4) N, the degree.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) QM(0:N), QD(0:N), the values of Qmn(x) 
+  !    Output, real(8) QM(0:N), QD(0:N), the values of Qmn(x) 
   !    and Qmn'(x).
+  !
+subroutine lqmns ( m, n, x, qm, qd )
+  !LQMNS computes associated Legendre functions Qmn(x) and derivatives Qmn'(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the order
+  !@param n: in: the degree
+  !@param x: in: the argument
+  !@param qm: out: Qmn(x)
+  !@param qd: out: Qmn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) ls
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) q00
-  real ( kind = 8 ) q01
-  real ( kind = 8 ) q0l
-  real ( kind = 8 ) q10
-  real ( kind = 8 ) q11
-  real ( kind = 8 ) q1l
-  real ( kind = 8 ) qd(0:n)
-  real ( kind = 8 ) qf0
-  real ( kind = 8 ) qf1
-  real ( kind = 8 ) qf2
-  real ( kind = 8 ) qg0
-  real ( kind = 8 ) qg1
-  real ( kind = 8 ) qh0
-  real ( kind = 8 ) qh1
-  real ( kind = 8 ) qh2
-  real ( kind = 8 ) qm(0:n)
-  real ( kind = 8 ) qm0
-  real ( kind = 8 ) qm1
-  real ( kind = 8 ) qmk
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xq
+  integer(4) :: k
+  integer(4) :: km
+  integer(4) :: l
+  integer(4) :: ls
+  integer(4) :: m
+  real(8)    :: q0
+  real(8)    :: q00
+  real(8)    :: q01
+  real(8)    :: q0l
+  real(8)    :: q10
+  real(8)    :: q11
+  real(8)    :: q1l
+  real(8)    :: qd(0:n)
+  real(8)    :: qf0
+  real(8)    :: qf1
+  real(8)    :: qf2
+  real(8)    :: qg0
+  real(8)    :: qg1
+  real(8)    :: qh0
+  real(8)    :: qh1
+  real(8)    :: qh2
+  real(8)    :: qm(0:n)
+  real(8)    :: qm0
+  real(8)    :: qm1
+  real(8)    :: qmk
+  real(8)    :: x
+  real(8)    :: xq
 
   do k = 0, n
      qm(k) = 0.0D+00
@@ -19972,7 +21901,9 @@ subroutine lqmns ( m, n, x, qm, qd )
 
   return
 end subroutine lqmns
-subroutine lqna ( n, x, qn, qd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -20002,24 +21933,35 @@ subroutine lqna ( n, x, qn, qd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the degree of Qn(x).
+  !    Input, integer(4) N, the degree of Qn(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument of Qn(x).
+  !    Input, real(8) X, the argument of Qn(x).
   !
-  !    Output, real ( kind = 8 ) QN(0:N), QD(0:N), the values of
+  !    Output, real(8) QN(0:N), QD(0:N), the values of
   !    Qn(x) and Qn'(x).
+  !
+subroutine lqna ( n, x, qn, qd )
+  !LQNA computes Legendre function Qn(x) and derivatives Qn'(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the degree of Qn(x)
+  !@param x: in: the argument of Qn(x)
+  !@param qn: out: Qn(x)
+  !@param qd: out: Qn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) qd(0:n)
-  real ( kind = 8 ) qf
-  real ( kind = 8 ) qn(0:n)
-  real ( kind = 8 ) x
+  integer(4) :: k
+  real(8)    :: q0
+  real(8)    :: q1
+  real(8)    :: qd(0:n)
+  real(8)    :: qf
+  real(8)    :: qn(0:n)
+  real(8)    :: x
 
   if ( abs ( x ) == 1.0D+00 ) then
 
@@ -20048,7 +21990,9 @@ subroutine lqna ( n, x, qn, qd )
 
   return
 end subroutine lqna
-subroutine lqnb ( n, x, qn, qd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -20078,35 +22022,46 @@ subroutine lqnb ( n, x, qn, qd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the degree of Qn(x).
+  !    Input, integer(4) N, the degree of Qn(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument of Qn(x).
+  !    Input, real(8) X, the argument of Qn(x).
   !
-  !    Output, real ( kind = 8 ) QN(0:N), QD(0:N), the values of
+  !    Output, real(8) QN(0:N), QD(0:N), the values of
   !    Qn(x) and Qn'(x).
+  !
+subroutine lqnb ( n, x, qn, qd )
+  !LQNB computes Legendre function Qn(x) and derivatives Qn'(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the degree of Qn(x)
+  !@param x: in: the argument of Qn(x)
+  !@param qn: out: Qn(x)
+  !@param qd: out: Qn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) nl
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) qc1
-  real ( kind = 8 ) qc2
-  real ( kind = 8 ) qd(0:n)
-  real ( kind = 8 ) qf
-  real ( kind = 8 ) qf0
-  real ( kind = 8 ) qf1
-  real ( kind = 8 ) qf2
-  real ( kind = 8 ) qn(0:n)
-  real ( kind = 8 ) qr
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
+  real(8)    :: eps
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: l
+  integer(4) :: nl
+  real(8)    :: q0
+  real(8)    :: q1
+  real(8)    :: qc1
+  real(8)    :: qc2
+  real(8)    :: qd(0:n)
+  real(8)    :: qf
+  real(8)    :: qf0
+  real(8)    :: qf1
+  real(8)    :: qf2
+  real(8)    :: qn(0:n)
+  real(8)    :: qr
+  real(8)    :: x
+  real(8)    :: x2
 
   eps = 1.0D-14
 
@@ -20187,7 +22142,9 @@ subroutine lqnb ( n, x, qn, qd )
 
   return
 end subroutine lqnb
-function msta1 ( x, mp )
+
+
+
 
   !*****************************************************************************80
   !
@@ -20223,27 +22180,41 @@ function msta1 ( x, mp )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, integer ( kind = 4 ) MP, the negative logarithm of the 
+  !    Input, integer(4) MP, the negative logarithm of the 
   !    desired magnitude.
   !
-  !    Output, integer ( kind = 4 ) MSTA1, the starting point.
+  !    Output, integer(4) MSTA1, the starting point.
+  !
+function msta1 ( x, mp )
+  !MSTA1 determines a backward recurrence starting point for Jn(x).
+  !
+  !This procedure determines the starting point for backward
+  !recurrence such that the magnitude of
+  !Jn(x) at that point is about 10^(-MP).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param mp: in: the negative logarithm of the desired magnitude
+  !@param msta1: out: the starting point
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  ! real ( kind = 8 ) envj
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) it
-  integer ( kind = 4 ) mp
-  integer ( kind = 4 ) msta1
-  integer ( kind = 4 ) n0
-  integer ( kind = 4 ) n1
-  integer ( kind = 4 ) nn
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  ! real(8) envj
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: it
+  integer(4) :: mp
+  integer(4) :: msta1
+  integer(4) :: n0
+  integer(4) :: n1
+  integer(4) :: nn
+  real(8)    :: x
 
   a0 = abs ( x )
   n0 = int ( 1.1D+00 * a0 ) + 1
@@ -20267,7 +22238,8 @@ function msta1 ( x, mp )
   return
 end function msta1
 
-function msta2 ( x, n, mp )
+
+
 
   !*****************************************************************************80
   !
@@ -20302,32 +22274,46 @@ function msta2 ( x, n, mp )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument of Jn(x).
+  !    Input, real(8) X, the argument of Jn(x).
   !
-  !    Input, integer ( kind = 4 ) N, the order of Jn(x).
+  !    Input, integer(4) N, the order of Jn(x).
   !
-  !    Input, integer ( kind = 4 ) MP, the number of significant digits.
+  !    Input, integer(4) MP, the number of significant digits.
   !
-  !    Output, integer ( kind = 4 ) MSTA2, the starting point.
+  !    Output, integer(4) MSTA2, the starting point.
+  !
+function msta2 ( x, n, mp )
+  !MSTA2 determines a backward recurrence starting point for Jn(x).
+  !
+  !This procedure determines the starting point for a backward
+  !recurrence such that all Jn(x) has MP significant digits.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument of Jn(x)
+  !@param n: in: the order of Jn(x)
+  !@param mp: in: the number of significant digits
+  !@param msta2: out: the starting point
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) ejn
-  ! real ( kind = 8 ) envj
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) hmp
-  integer ( kind = 4 ) it
-  integer ( kind = 4 ) mp
-  integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) n0
-  integer ( kind = 4 ) n1
-  integer ( kind = 4 ) nn
-  real ( kind = 8 ) obj
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: ejn
+  ! real(8) envj
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: hmp
+  integer(4) :: it
+  integer(4) :: mp
+  integer(4) :: msta2
+  integer(4) :: n
+  integer(4) :: n0
+  integer(4) :: n1
+  integer(4) :: nn
+  real(8)    :: obj
+  real(8)    :: x
 
   a0 = abs ( x )
   hmp = 0.5D+00 * mp
@@ -20361,7 +22347,9 @@ function msta2 ( x, n, mp )
 
   return
 end function msta2
-subroutine mtu0 ( kf, m, q, x, csf, csd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -20391,38 +22379,55 @@ subroutine mtu0 ( kf, m, q, x, csf, csd )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KF, the function code.
+  !    Input, integer(4) KF, the function code.
   !    1 for computing cem(x,q) and cem'(x,q)
   !    2 for computing sem(x,q) and sem'(x,q).
   !
-  !    Input, integer ( kind = 4 ) M, the order of the Mathieu functions.
+  !    Input, integer(4) M, the order of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter of the Mathieu functions.
+  !    Input, real(8) Q, the parameter of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) X, the argument of the Mathieu functions,
+  !    Input, real(8) X, the argument of the Mathieu functions,
   !    in degrees.
   !
-  !    Output, real ( kind = 8 ) CSF, CSD, the values of cem(x,q) and cem'(x,q),
+  !    Output, real(8) CSF, CSD, the values of cem(x,q) and cem'(x,q),
   !    or of sem(x,q) and sem'(x,q).
+  !
+subroutine mtu0 ( kf, m, q, x, csf, csd )
+  !MTU0 computes Mathieu functions CEM(x,q) and SEM(x,q) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KF: the function code. 1 for computing cem(x,q) and cem'(x,q) 2 for computing sem(x,q) and sem'(x,q)
+  !
+  !@param kf: in: function code: 1 for cem(x,q) and cem'(x,q), 2 for sem(x,q) and sem'(x,q)
+  !@param m: in: the order of the Mathieu functions
+  !@param q: in: the parameter of the Mathieu functions
+  !@param x: in: the argument of the Mathieu functions, in degrees
+  !@param csf: out: cem(x,q) or sem(x,q)
+  !@param csd: out: cem'(x,q) or sem'(x,q)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) csd
-  real ( kind = 8 ) csf
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) fg(251)
-  integer ( kind = 4 ) ic
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) kf
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) q
-  real ( kind = 8 ) qm
-  real ( kind = 8 ) rd
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xr
+  real(8)    :: a
+  real(8)    :: csd
+  real(8)    :: csf
+  real(8)    :: eps
+  real(8)    :: fg(251)
+  integer(4) :: ic
+  integer(4) :: k
+  integer(4) :: kd
+  integer(4) :: kf
+  integer(4) :: km
+  integer(4) :: m
+  real(8)    :: q
+  real(8)    :: qm
+  real(8)    :: rd
+  real(8)    :: x
+  real(8)    :: xr
 
   eps = 1.0D-14
 
@@ -20502,7 +22507,9 @@ subroutine mtu0 ( kf, m, q, x, csf, csd )
 
   return
 end subroutine mtu0
-subroutine mtu12 ( kf, kc, m, q, x, f1r, d1r, f2r, d2r )
+
+
+
 
   !*****************************************************************************80
   !
@@ -20538,59 +22545,86 @@ subroutine mtu12 ( kf, kc, m, q, x, f1r, d1r, f2r, d2r )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KF, the function code.
+  !    Input, integer(4) KF, the function code.
   !    1 for computing Mcm(x,q);
   !    2 for computing Msm(x,q).
   !
-  !    Input, integer ( kind = 4 ) KC, the function code.
+  !    Input, integer(4) KC, the function code.
   !    1, for computing the first kind
   !    2, for computing the second kind or Msm(2)(x,q) and Msm(2)'(x,q)
   !    3, for computing both the first and second kinds.
   !
-  !    Input, integer ( kind = 4 ) M, the order of the Mathieu functions.
+  !    Input, integer(4) M, the order of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter of the Mathieu functions.
+  !    Input, real(8) Q, the parameter of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) X, the argument of the Mathieu functions.
+  !    Input, real(8) X, the argument of the Mathieu functions.
   !
-  !    Output, real ( kind = 8 ) F1R, D1R, F2R, D2R, the values of 
+  !    Output, real(8) F1R, D1R, F2R, D2R, the values of 
   !    Mcm(1)(x,q) or Msm(1)(x,q), Derivative of Mcm(1)(x,q) or Msm(1)(x,q),
   !    Mcm(2)(x,q) or Msm(2)(x,q), Derivative of Mcm(2)(x,q) or Msm(2)(x,q).
   !
+subroutine mtu12 ( kf, kc, m, q, x, f1r, d1r, f2r, d2r )
+  !MTU12 computes modified Mathieu functions of the first and second kind.
+  !
+  !This procedure computes modified Mathieu functions of the first and
+  !second kinds, Mcm(1)(2)(x,q) and Msm(1)(2)(x,q),
+  !and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KC: the function code. 1, for computing the first kind 2, for computing the second kind or Msm(2)(x,q) and
+  !  Msm(2)'(x,q) 3, for computing both the first and second kinds
+  !* F1R, D1R, F2R, D2R: the values of Mcm(1)(x,q) or Msm(1)(x,q), Derivative of Mcm(1)(x,q) or Msm(1)(x,q), Mcm(2)(x,q)
+  !  or Msm(2)(x,q), Derivative of Mcm(2)(x,q) or Msm(2)(x,q)
+  !
+  !@param kf: in: the function code. 1 for computing Mcm(x,q); 2 for computing Msm(x,q)
+  !@param kc: in: function code: 1 first kind, 2 second kind, 3 both
+  !@param m: in: the order of the Mathieu functions
+  !@param q: in: the parameter of the Mathieu functions
+  !@param x: in: the argument of the Mathieu functions
+  !@param f1r: out: Mcm(1)(x,q) or Msm(1)(x,q)
+  !@param d1r: out: derivative of Mcm(1)(x,q) or Msm(1)(x,q)
+  !@param f2r: out: Mcm(2)(x,q) or Msm(2)(x,q)
+  !@param d2r: out: derivative of Mcm(2)(x,q) or Msm(2)(x,q)
+  !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) bj1(0:251)
-  real ( kind = 8 ) bj2(0:251)
-  real ( kind = 8 ) by1(0:251)
-  real ( kind = 8 ) by2(0:251)
-  real ( kind = 8 ) c1
-  real ( kind = 8 ) c2
-  real ( kind = 8 ) d1r
-  real ( kind = 8 ) d2r
-  real ( kind = 8 ) dj1(0:251)
-  real ( kind = 8 ) dj2(0:251)
-  real ( kind = 8 ) dy1(0:251)
-  real ( kind = 8 ) dy2(0:251)
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) f1r
-  real ( kind = 8 ) f2r
-  real ( kind = 8 ) fg(251)
-  integer ( kind = 4 ) ic
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kc
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) kf
-  integer ( kind = 4 ) km
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) q
-  real ( kind = 8 ) qm
-  real ( kind = 8 ) u1
-  real ( kind = 8 ) u2
-  real ( kind = 8 ) w1
-  real ( kind = 8 ) w2
-  real ( kind = 8 ) x
+  real(8)    :: a
+  real(8)    :: bj1(0:251)
+  real(8)    :: bj2(0:251)
+  real(8)    :: by1(0:251)
+  real(8)    :: by2(0:251)
+  real(8)    :: c1
+  real(8)    :: c2
+  real(8)    :: d1r
+  real(8)    :: d2r
+  real(8)    :: dj1(0:251)
+  real(8)    :: dj2(0:251)
+  real(8)    :: dy1(0:251)
+  real(8)    :: dy2(0:251)
+  real(8)    :: eps
+  real(8)    :: f1r
+  real(8)    :: f2r
+  real(8)    :: fg(251)
+  integer(4) :: ic
+  integer(4) :: k
+  integer(4) :: kc
+  integer(4) :: kd
+  integer(4) :: kf
+  integer(4) :: km
+  integer(4) :: m
+  integer(4) :: nm
+  real(8)    :: q
+  real(8)    :: qm
+  real(8)    :: u1
+  real(8)    :: u2
+  real(8)    :: w1
+  real(8)    :: w2
+  real(8)    :: x
 
   eps = 1.0D-14
 
@@ -20738,7 +22772,9 @@ subroutine mtu12 ( kf, kc, m, q, x, f1r, d1r, f2r, d2r )
 
   return
 end subroutine mtu12
-subroutine othpl ( kf, n, x, pl, dpl )
+
+
+
 
   !*****************************************************************************80
   !
@@ -20773,37 +22809,52 @@ subroutine othpl ( kf, n, x, pl, dpl )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KT, the function code:
+  !    Input, integer(4) KT, the function code:
   !    1 for Chebyshev polynomial Tn(x)
   !    2 for Chebyshev polynomial Un(x)
   !    3 for Laguerre polynomial Ln(x)
   !    4 for Hermite polynomial Hn(x)
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) PL(0:N), DPL(0:N), the value and derivative of
+  !    Output, real(8) PL(0:N), DPL(0:N), the value and derivative of
   !    the polynomials of order 0 through N at X.
+  !
+subroutine othpl ( kf, n, x, pl, dpl )
+  !OTHPL computes orthogonal polynomials Tn(x), Un(x), Ln(x) or Hn(x).
+  !
+  !This procedure computes orthogonal polynomials: Tn(x) or Un(x),
+  !or Ln(x) or Hn(x), and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param kf: function code: 1 Chebyshev Tn(x), 2 Chebyshev Un(x), 3 Laguerre Ln(x), 4 Hermite Hn(x)
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param pl: out: the value of the polynomials of order 0 through N at X
+  !@param dpl: out: the derivative of the polynomials of order 0 through N at X
   !
   implicit none
 
-  integer n
+  integer    :: n
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) b
-  real ( kind = 8 ) c
-  real ( kind = 8 ) dpl(0:n)
-  real ( kind = 8 ) dy0
-  real ( kind = 8 ) dy1
-  real ( kind = 8 ) dyn
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kf
-  real ( kind = 8 ) pl(0:n)
-  real ( kind = 8 ) x
-  real ( kind = 8 ) y0
-  real ( kind = 8 ) y1
-  real ( kind = 8 ) yn
+  real(8)    :: a
+  real(8)    :: b
+  real(8)    :: c
+  real(8)    :: dpl(0:n)
+  real(8)    :: dy0
+  real(8)    :: dy1
+  real(8)    :: dyn
+  integer(4) :: k
+  integer(4) :: kf
+  real(8)    :: pl(0:n)
+  real(8)    :: x
+  real(8)    :: y0
+  real(8)    :: y1
+  real(8)    :: yn
 
   a = 2.0D+00
   b = 0.0D+00
@@ -20852,7 +22903,9 @@ subroutine othpl ( kf, n, x, pl, dpl )
 
   return
 end subroutine othpl
-subroutine pbdv ( v, x, dv, dp, pdf, pdd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -20882,43 +22935,56 @@ subroutine pbdv ( v, x, dv, dp, pdf, pdd )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order.
+  !    Input, real(8) V, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) DV(0:*), DP(0:*), the values of
+  !    Output, real(8) DV(0:*), DP(0:*), the values of
   !    Dn+v0(x), Dn+v0'(x).
   !
-  !    Output, real ( kind = 8 ) PDF, PDD, the values of Dv(x) and Dv'(x).
+  !    Output, real(8) PDF, PDD, the values of Dv(x) and Dv'(x).
+  !
+subroutine pbdv ( v, x, dv, dp, pdf, pdd )
+  !PBDV computes parabolic cylinder functions Dv(x) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order
+  !@param x: in: the argument
+  !@param dv: out: Dn+v0(x)
+  !@param dp: out: Dn+v0'(x)
+  !@param pdf: out: Dv(x)
+  !@param pdd: out: Dv'(x)
   !
   implicit none
 
-  real ( kind = 8 ) dp(0:*)
-  real ( kind = 8 ) dv(0:*)
-  real ( kind = 8 ) ep
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) ja
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) na
-  integer ( kind = 4 ) nk
-  integer ( kind = 4 ) nv
-  real ( kind = 8 ) pd
-  real ( kind = 8 ) pd0
-  real ( kind = 8 ) pd1
-  real ( kind = 8 ) pdd
-  real ( kind = 8 ) pdf
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) v1
-  real ( kind = 8 ) v2
-  real ( kind = 8 ) vh
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xa
+  real(8)    :: dp(0:*)
+  real(8)    :: dv(0:*)
+  real(8)    :: ep
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: ja
+  integer(4) :: k
+  integer(4) :: l
+  integer(4) :: m
+  integer(4) :: na
+  integer(4) :: nk
+  integer(4) :: nv
+  real(8)    :: pd
+  real(8)    :: pd0
+  real(8)    :: pd1
+  real(8)    :: pdd
+  real(8)    :: pdf
+  real(8)    :: s0
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: v1
+  real(8)    :: v2
+  real(8)    :: vh
+  real(8)    :: x
+  real(8)    :: xa
 
   xa = abs ( x )
   vh = v
@@ -21046,7 +23112,9 @@ subroutine pbdv ( v, x, dv, dp, pdf, pdd )
 
   return
 end subroutine pbdv
-subroutine pbvv ( v, x, vv, vp, pvf, pvd )
+
+
+
 
   !*****************************************************************************80
   !
@@ -21076,42 +23144,55 @@ subroutine pbvv ( v, x, vv, vp, pvf, pvd )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order.
+  !    Input, real(8) V, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) VV(0:*), VP(0:*), the values of Vv(x), Vv'(x).
+  !    Output, real(8) VV(0:*), VP(0:*), the values of Vv(x), Vv'(x).
   !
-  !    Output, real ( kind = 8 ) PVF, PVD, the values of Vv(x) and Vv'(x).
+  !    Output, real(8) PVF, PVD, the values of Vv(x) and Vv'(x).
+  !
+subroutine pbvv ( v, x, vv, vp, pvf, pvd )
+  !PBVV computes parabolic cylinder functions Vv(x) and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order
+  !@param x: in: the argument
+  !@param vv: out: Vv(x)
+  !@param vp: out: Vv'(x)
+  !@param pvf: out: Vv(x)
+  !@param pvd: out: Vv'(x)
   !
   implicit none
 
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) ja
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kv
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) na
-  integer ( kind = 4 ) nv
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pv0
-  real ( kind = 8 ) pvd
-  real ( kind = 8 ) pvf
-  real ( kind = 8 ) q2p
-  real ( kind = 8 ) qe
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) v1
-  real ( kind = 8 ) v2
-  real ( kind = 8 ) vh
-  real ( kind = 8 ) vp(0:*)
-  real ( kind = 8 ) vv(0:*)
-  real ( kind = 8 ) x
-  real ( kind = 8 ) xa
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: ja
+  integer(4) :: k
+  integer(4) :: kv
+  integer(4) :: l
+  integer(4) :: m
+  integer(4) :: na
+  integer(4) :: nv
+  real(8)    :: pi
+  real(8)    :: pv0
+  real(8)    :: pvd
+  real(8)    :: pvf
+  real(8)    :: q2p
+  real(8)    :: qe
+  real(8)    :: s0
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: v1
+  real(8)    :: v2
+  real(8)    :: vh
+  real(8)    :: vp(0:*)
+  real(8)    :: vv(0:*)
+  real(8)    :: x
+  real(8)    :: xa
 
   pi = 3.141592653589793D+00
   xa = abs ( x )
@@ -21259,7 +23340,9 @@ subroutine pbvv ( v, x, vv, vp, pvf, pvd )
 
   return
 end subroutine pbvv
-subroutine pbwa ( a, x, w1f, w1d, w2f, w2d )
+
+
+
 
   !*****************************************************************************80
   !
@@ -21289,52 +23372,65 @@ subroutine pbwa ( a, x, w1f, w1d, w2f, w2d )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) A, the parameter.
+  !    Input, real(8) A, the parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) W1F, W1D, W2F, W2D, the values of
+  !    Output, real(8) W1F, W1D, W2F, W2D, the values of
   !    W(a,x), W'(a,x), W(a,-x), W'(a,-x).
+  !
+subroutine pbwa ( a, x, w1f, w1d, w2f, w2d )
+  !PBWA computes parabolic cylinder functions W(a,x) and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param a: in: the parameter
+  !@param x: in: the argument
+  !@param w1f: out: W(a,x)
+  !@param w1d: out: W'(a,x)
+  !@param w2f: out: W(a,-x)
+  !@param w2d: out: W'(a,-x)
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) d(100)
-  real ( kind = 8 ) d1
-  real ( kind = 8 ) d2
-  real ( kind = 8 ) dl
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  real ( kind = 8 ) g1
-  real ( kind = 8 ) g2
-  real ( kind = 8 ) h(100)
-  real ( kind = 8 ) h0
-  real ( kind = 8 ) h1
-  real ( kind = 8 ) hl
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l1
-  integer ( kind = 4 ) l2
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) p0
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) ugi
-  real ( kind = 8 ) ugr
-  real ( kind = 8 ) vgi
-  real ( kind = 8 ) vgr
-  real ( kind = 8 ) w1d
-  real ( kind = 8 ) w1f
-  real ( kind = 8 ) w2d
-  real ( kind = 8 ) w2f
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x1
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) y1
-  real ( kind = 8 ) y1d
-  real ( kind = 8 ) y1f
-  real ( kind = 8 ) y2d
-  real ( kind = 8 ) y2f
+  real(8)    :: a
+  real(8)    :: d(100)
+  real(8)    :: d1
+  real(8)    :: d2
+  real(8)    :: dl
+  real(8)    :: eps
+  real(8)    :: f1
+  real(8)    :: f2
+  real(8)    :: g1
+  real(8)    :: g2
+  real(8)    :: h(100)
+  real(8)    :: h0
+  real(8)    :: h1
+  real(8)    :: hl
+  integer(4) :: k
+  integer(4) :: l1
+  integer(4) :: l2
+  integer(4) :: m
+  real(8)    :: p0
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: ugi
+  real(8)    :: ugr
+  real(8)    :: vgi
+  real(8)    :: vgr
+  real(8)    :: w1d
+  real(8)    :: w1f
+  real(8)    :: w2d
+  real(8)    :: w2f
+  real(8)    :: x
+  real(8)    :: x1
+  real(8)    :: x2
+  real(8)    :: y1
+  real(8)    :: y1d
+  real(8)    :: y1f
+  real(8)    :: y2d
+  real(8)    :: y2f
 
   eps = 1.0D-15
   p0 = 0.59460355750136D+00
@@ -21429,7 +23525,9 @@ subroutine pbwa ( a, x, w1f, w1d, w2f, w2d )
 
   return
 end subroutine pbwa
-subroutine psi ( x, ps )
+
+
+
 
   !*****************************************************************************80
   !
@@ -21461,29 +23559,38 @@ subroutine psi ( x, ps )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) PS, the value of the PSI function.
+  !    Output, real(8) PS, the value of the PSI function.
+  !
+subroutine psi ( x, ps )
+  !PSI computes the PSI function.
+  !
+  !Original FORTRAN77 by Shanjie Zhang, Jianming Jin. FORTRAN90 version by John Burkardt.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param ps: out: the value of the PSI function
   !
   implicit none
 
-  real ( kind = 8 ), parameter :: a1 = -0.83333333333333333D-01
-  real ( kind = 8 ), parameter :: a2 =  0.83333333333333333D-02
-  real ( kind = 8 ), parameter :: a3 = -0.39682539682539683D-02
-  real ( kind = 8 ), parameter :: a4 =  0.41666666666666667D-02
-  real ( kind = 8 ), parameter :: a5 = -0.75757575757575758D-02
-  real ( kind = 8 ), parameter :: a6 =  0.21092796092796093D-01
-  real ( kind = 8 ), parameter :: a7 = -0.83333333333333333D-01
-  real ( kind = 8 ), parameter :: a8 =  0.4432598039215686D+00
-  real ( kind = 8 ), parameter :: el = 0.5772156649015329D+00
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) n
-  real ( kind = 8 ), parameter :: pi = 3.141592653589793D+00
-  real ( kind = 8 ) ps
-  real ( kind = 8 ) s
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x2
-  real ( kind = 8 ) xa
+  real(8), parameter  :: a1 = -0.83333333333333333D-01
+  real(8), parameter  :: a2 =  0.83333333333333333D-02
+  real(8), parameter  :: a3 = -0.39682539682539683D-02
+  real(8), parameter  :: a4 =  0.41666666666666667D-02
+  real(8), parameter  :: a5 = -0.75757575757575758D-02
+  real(8), parameter  :: a6 =  0.21092796092796093D-01
+  real(8), parameter  :: a7 = -0.83333333333333333D-01
+  real(8), parameter  :: a8 =  0.4432598039215686D+00
+  real(8), parameter  :: el = 0.5772156649015329D+00
+  integer(4)          :: k
+  integer(4)          :: n
+  real(8), parameter  :: pi = 3.141592653589793D+00
+  real(8)             :: ps
+  real(8)             :: s
+  real(8)             :: x
+  real(8)             :: x2
+  real(8)             :: xa
 
   xa = abs ( x )
   s = 0.0D+00
@@ -21547,7 +23654,9 @@ subroutine psi ( x, ps )
 
   return
 end subroutine psi
-subroutine qstar ( m, n, c, ck, ck1, qs, qt )
+
+
+
 
   !*****************************************************************************80
   !
@@ -21577,38 +23686,52 @@ subroutine qstar ( m, n, c, ck, ck1, qs, qt )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) CK(*), ?
+  !    Input, real(8) CK(*), ?
   !
-  !    Input, real ( kind = 8 ) CK1, ?
+  !    Input, real(8) CK1, ?
   !
-  !    Output, real ( kind = 8 ) QS, ?
+  !    Output, real(8) QS, ?
   !
-  !    Output, real ( kind = 8 ) QT, ?
+  !    Output, real(8) QT, ?
+  !
+subroutine qstar ( m, n, c, ck, ck1, qs, qt )
+  !QSTAR computes Q*mn(-ic) for oblate radial functions with a small argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param ck: in: not documented in the original header
+  !@param ck1: in: not documented in the original header
+  !@param qs: out: not documented in the original header
+  !@param qt: out: not documented in the original header
   !
   implicit none
 
-  real ( kind = 8 ) ap(200)
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck(200)
-  real ( kind = 8 ) ck1
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) qs
-  real ( kind = 8 ) qs0
-  real ( kind = 8 ) qt
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
-  real ( kind = 8 ) sk
+  real(8)    :: ap(200)
+  real(8)    :: c
+  real(8)    :: ck(200)
+  real(8)    :: ck1
+  integer(4) :: i
+  integer(4) :: ip
+  integer(4) :: k
+  integer(4) :: l
+  integer(4) :: m
+  integer(4) :: n
+  real(8)    :: qs
+  real(8)    :: qs0
+  real(8)    :: qt
+  real(8)    :: r
+  real(8)    :: s
+  real(8)    :: sk
 
   if ( n - m == 2 * int ( ( n - m ) / 2 ) ) then
      ip = 0
@@ -21645,7 +23768,9 @@ subroutine qstar ( m, n, c, ck, ck1, qs, qt )
 
   return
 end subroutine qstar
-subroutine rctj ( n, x, nm, rj, dj )
+
+
+
 
   !*****************************************************************************80
   !
@@ -21675,34 +23800,46 @@ subroutine rctj ( n, x, nm, rj, dj )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of jn(x).
+  !    Input, integer(4) N, the order of jn(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) RJ(0:N), the values of x jn(x).
+  !    Output, real(8) RJ(0:N), the values of x jn(x).
   !
-  !    Output, real ( kind = 8 ) DJ(0:N), the values of [x jn(x)]'.
+  !    Output, real(8) DJ(0:N), the values of [x jn(x)]'.
+  !
+subroutine rctj ( n, x, nm, rj, dj )
+  !RCTJ computes Riccati-Bessel function of the first kind, and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of jn(x)
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param rj: out: the values of x jn(x)
+  !@param dj: out: the values of [x jn(x)]'
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) dj(0:n)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) rj(0:n)
-  real ( kind = 8 ) rj0
-  real ( kind = 8 ) rj1
-  real ( kind = 8 ) x
+  real(8)    :: cs
+  real(8)    :: dj(0:n)
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: rj(0:n)
+  real(8)    :: rj0
+  real(8)    :: rj1
+  real(8)    :: x
 
   nm = n
 
@@ -21760,7 +23897,9 @@ subroutine rctj ( n, x, nm, rj, dj )
 
   return
 end subroutine rctj
-subroutine rcty ( n, x, nm, ry, dy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -21790,28 +23929,40 @@ subroutine rcty ( n, x, nm, ry, dy )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of yn(x).
+  !    Input, integer(4) N, the order of yn(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) RY(0:N), the values of x yn(x).
+  !    Output, real(8) RY(0:N), the values of x yn(x).
   !
-  !    Output, real ( kind = 8 ) DY(0:N), the values of [x yn(x)]'.
+  !    Output, real(8) DY(0:N), the values of [x yn(x)]'.
+  !
+subroutine rcty ( n, x, nm, ry, dy )
+  !RCTY computes Riccati-Bessel function of the second kind, and derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of yn(x)
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param ry: out: the values of x yn(x)
+  !@param dy: out: the values of [x yn(x)]'
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) dy(0:n)
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) rf0
-  real ( kind = 8 ) rf1
-  real ( kind = 8 ) rf2
-  real ( kind = 8 ) ry(0:n)
-  real ( kind = 8 ) x
+  real(8)    :: dy(0:n)
+  integer(4) :: k
+  integer(4) :: nm
+  real(8)    :: rf0
+  real(8)    :: rf1
+  real(8)    :: rf2
+  real(8)    :: ry(0:n)
+  real(8)    :: x
 
   nm = n
 
@@ -21847,7 +23998,9 @@ subroutine rcty ( n, x, nm, ry, dy )
 
   return
 end subroutine rcty
-subroutine refine ( kd, m, q, a, iflag )
+
+
+
 
   !*****************************************************************************80
   !
@@ -21882,37 +24035,57 @@ subroutine refine ( kd, m, q, a, iflag )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) KD, the case code:
+  !    Input, integer(4) KD, the case code:
   !    1, for cem(x,q)  ( m = 0,2,4,...)
   !    2, for cem(x,q)  ( m = 1,3,5,...)
   !    3, for sem(x,q)  ( m = 1,3,5,...)
   !    4, for sem(x,q)  ( m = 2,4,6,...)
   !
-  !    Input, integer ( kind = 4 ) M, the order of the Mathieu functions.
+  !    Input, integer(4) M, the order of the Mathieu functions.
   !
-  !    Input, real ( kind = 8 ) Q, the parameter of the Mathieu functions.
+  !    Input, real(8) Q, the parameter of the Mathieu functions.
   !
-  !    Input/output, real ( kind = 8 ) A, the characteristic value, which
+  !    Input/output, real(8) A, the characteristic value, which
   !    should have been refined on output.
+  !
+subroutine refine ( kd, m, q, a, iflag )
+  !REFINE refines an estimate of the characteristic value of Mathieu functions.
+  !
+  !This procedure calculates the accurate characteristic value
+  !by the secant method.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KD: the case code: 1, for cem(x,q) ( m = 0,2,4,...) 2, for cem(x,q) ( m = 1,3,5,...) 3, for sem(x,q) ( m =
+  !  1,3,5,...) 4, for sem(x,q) ( m = 2,4,6,...)
+  !
+  !@param kd: in: case code: 1 cem (m=0,2,4,..), 2 cem (m=1,3,5,..), 3 sem (m=1,3,5,..), 4 sem (m=2,4,6,..)
+  !@param m: in: the order of the Mathieu functions
+  !@param q: in: the parameter of the Mathieu functions
+  !@param a: in/out: the characteristic value, which should have been refined on output
+  !@param iflag: set to -10 on output if the refinement failed
   !
   implicit none
 
-  real ( kind = 8 ) a
-  real ( kind = 8 ) ca
-  real ( kind = 8 ) delta
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) it
-  integer ( kind = 4 ) iflag
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) mj
-  real ( kind = 8 ) q
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x0
-  real ( kind = 8 ) x1
+  real(8)    :: a
+  real(8)    :: ca
+  real(8)    :: delta
+  real(8)    :: eps
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: it
+  integer(4) :: iflag
+  integer(4) :: kd
+  integer(4) :: m
+  integer(4) :: mj
+  real(8)    :: q
+  real(8)    :: x
+  real(8)    :: x0
+  real(8)    :: x1
 
   eps = 1.0D-14
   mj = 10 + m
@@ -21962,7 +24135,9 @@ subroutine refine ( kd, m, q, a, iflag )
 
   return
 end subroutine refine
-subroutine rmn1 ( m, n, c, x, df, kd, r1f, r1d )
+
+
+
 
   !*****************************************************************************80
   !
@@ -21997,60 +24172,78 @@ subroutine rmn1 ( m, n, c, x, df, kd, r1f, r1d )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) DF(*), the expansion coefficients.
+  !    Input, real(8) DF(*), the expansion coefficients.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Output, real ( kind = 8 ) R1F, R1D, the function and derivative.
+  !    Output, real(8) R1F, R1D, the function and derivative.
+  !
+subroutine rmn1 ( m, n, c, x, df, kd, r1f, r1d )
+  !RMN1 computes prolate and oblate spheroidal functions of the first kind.
+  !
+  !This procedure computes prolate and oblate spheroidal radial
+  !functions of the first kind for given m, n, c and x.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param x: in: the argument
+  !@param df: in: the expansion coefficients
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param r1f: out: the function value
+  !@param r1d: out: the derivative value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) b0
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck(200)
-  real ( kind = 8 ) cx
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) dj(0:251)
-  real ( kind = 8 ) eps
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) lg
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nm1
-  integer ( kind = 4 ) nm2
-  integer ( kind = 4 ) np
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r1d
-  real ( kind = 8 ) r1f
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) r3
-  real ( kind = 8 ) reg
-  real ( kind = 8 ) sa0
-  real ( kind = 8 ) sj(0:251)
-  real ( kind = 8 ) suc
-  real ( kind = 8 ) sud
-  real ( kind = 8 ) sum
-  real ( kind = 8 ) sw
-  real ( kind = 8 ) sw1
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: b0
+  real(8)    :: c
+  real(8)    :: ck(200)
+  real(8)    :: cx
+  real(8)    :: df(200)
+  real(8)    :: dj(0:251)
+  real(8)    :: eps
+  integer(4) :: ip
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: kd
+  integer(4) :: l
+  integer(4) :: lg
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  integer(4) :: nm1
+  integer(4) :: nm2
+  integer(4) :: np
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: r1
+  real(8)    :: r1d
+  real(8)    :: r1f
+  real(8)    :: r2
+  real(8)    :: r3
+  real(8)    :: reg
+  real(8)    :: sa0
+  real(8)    :: sj(0:251)
+  real(8)    :: suc
+  real(8)    :: sud
+  real(8)    :: sum
+  real(8)    :: sw
+  real(8)    :: sw1
+  real(8)    :: x
 
   eps = 1.0D-14
   nm1 = int ( ( n - m ) / 2 )
@@ -22184,7 +24377,9 @@ subroutine rmn1 ( m, n, c, x, df, kd, r1f, r1d )
 
   return
 end subroutine rmn1
-subroutine rmn2l ( m, n, c, x, df, kd, r2f, r2d, id )
+
+
+
 
   !*****************************************************************************80
   !
@@ -22219,58 +24414,77 @@ subroutine rmn2l ( m, n, c, x, df, kd, r2f, r2d, id )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) DF(*), the expansion coefficients.
+  !    Input, real(8) DF(*), the expansion coefficients.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Output, real ( kind = 8 ) R2F, R2D, the function and derivative values.
+  !    Output, real(8) R2F, R2D, the function and derivative values.
+  !
+subroutine rmn2l ( m, n, c, x, df, kd, r2f, r2d, id )
+  !RMN2L: prolate and oblate spheroidal functions, second kind, large CX.
+  !
+  !This procedure computes prolate and oblate spheroidal radial functions
+  !of the second kind for given m, n, c and a large cx.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param x: in: the argument
+  !@param df: in: the expansion coefficients
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param r2f: out: the function value
+  !@param r2d: out: the derivative value
+  !@param id: estimated accuracy, number of digits
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) b0
-  real ( kind = 8 ) c
-  real ( kind = 8 ) cx
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) dy(0:251)
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) eps1
-  real ( kind = 8 ) eps2
-  integer ( kind = 4 ) id
-  integer ( kind = 4 ) id1
-  integer ( kind = 4 ) id2
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) lg
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nm1
-  integer ( kind = 4 ) nm2
-  integer ( kind = 4 ) np
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r0
-  real ( kind = 8 ) r2d
-  real ( kind = 8 ) r2f
-  real ( kind = 8 ) reg
-  real ( kind = 8 ) sw
-  real ( kind = 8 ) suc
-  real ( kind = 8 ) sud
-  real ( kind = 8 ) sy(0:251)
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: b0
+  real(8)    :: c
+  real(8)    :: cx
+  real(8)    :: df(200)
+  real(8)    :: dy(0:251)
+  real(8)    :: eps
+  real(8)    :: eps1
+  real(8)    :: eps2
+  integer(4) :: id
+  integer(4) :: id1
+  integer(4) :: id2
+  integer(4) :: ip
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: kd
+  integer(4) :: l
+  integer(4) :: lg
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  integer(4) :: nm1
+  integer(4) :: nm2
+  integer(4) :: np
+  real(8)    :: r
+  real(8)    :: r0
+  real(8)    :: r2d
+  real(8)    :: r2f
+  real(8)    :: reg
+  real(8)    :: sw
+  real(8)    :: suc
+  real(8)    :: sud
+  real(8)    :: sy(0:251)
+  real(8)    :: x
 
   eps = 1.0D-14
 
@@ -22371,7 +24585,9 @@ subroutine rmn2l ( m, n, c, x, df, kd, r2f, r2d, id )
 
   return
 end subroutine rmn2l
-subroutine rmn2so ( m, n, c, x, cv, df, kd, r2f, r2d )
+
+
+
 
   !*****************************************************************************80
   !
@@ -22406,55 +24622,74 @@ subroutine rmn2so ( m, n, c, x, cv, df, kd, r2f, r2d )
   ! 
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Input, real ( kind = 8 ) DF(*), the expansion coefficients.
+  !    Input, real(8) DF(*), the expansion coefficients.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Output, real ( kind = 8 ) R2F, R2D, the values of Rmn(-ic,ix) 
+  !    Output, real(8) R2F, R2D, the values of Rmn(-ic,ix) 
   !    and Rmn'(-ic,ix).
+  !
+subroutine rmn2so ( m, n, c, x, cv, df, kd, r2f, r2d )
+  !RMN2SO: oblate radial functions of the second kind with small argument.
+  !
+  !This procedure computes oblate radial functions of the second kind
+  !with a small argument, Rmn(-ic,ix) and Rmn'(-ic,ix).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param x: in: the argument
+  !@param cv: in: the characteristic value
+  !@param df: in: the expansion coefficients
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param r2f: out: Rmn(-ic,ix)
+  !@param r2d: out: Rmn'(-ic,ix)
   !
   implicit none
 
-  real ( kind = 8 ) bk(200)
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck(200)
-  real ( kind = 8 ) ck1
-  real ( kind = 8 ) ck2
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) dn(200)
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) gd
-  real ( kind = 8 ) gf
-  real ( kind = 8 ) h0
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) qs
-  real ( kind = 8 ) qt
-  real ( kind = 8 ) r1d
-  real ( kind = 8 ) r1f
-  real ( kind = 8 ) r2d
-  real ( kind = 8 ) r2f
-  real ( kind = 8 ) sum
-  real ( kind = 8 ) sw
-  real ( kind = 8 ) x
+  real(8)    :: bk(200)
+  real(8)    :: c
+  real(8)    :: ck(200)
+  real(8)    :: ck1
+  real(8)    :: ck2
+  real(8)    :: cv
+  real(8)    :: df(200)
+  real(8)    :: dn(200)
+  real(8)    :: eps
+  real(8)    :: gd
+  real(8)    :: gf
+  real(8)    :: h0
+  integer(4) :: ip
+  integer(4) :: j
+  integer(4) :: kd
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  real(8)    :: pi
+  real(8)    :: qs
+  real(8)    :: qt
+  real(8)    :: r1d
+  real(8)    :: r1f
+  real(8)    :: r2d
+  real(8)    :: r2f
+  real(8)    :: sum
+  real(8)    :: sw
+  real(8)    :: x
 
   if ( abs ( df(1) ) <= 1.0D-280 ) then
      r2f = 1.0D+300
@@ -22511,7 +24746,9 @@ subroutine rmn2so ( m, n, c, x, cv, df, kd, r2f, r2d )
 
   return
 end subroutine rmn2so
-subroutine rmn2sp ( m, n, c, x, cv, df, kd, r2f, r2d )
+
+
+
 
   !*****************************************************************************80
   !
@@ -22541,76 +24778,92 @@ subroutine rmn2sp ( m, n, c, x, cv, df, kd, r2f, r2d )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Input, real ( kind = 8 ) DF(*), the expansion coefficients.
+  !    Input, real(8) DF(*), the expansion coefficients.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Output, real ( kind = 8 ) R2F, R2D, the values of the function and 
+  !    Output, real(8) R2F, R2D, the values of the function and 
   !    its derivative.
+  !
+subroutine rmn2sp ( m, n, c, x, cv, df, kd, r2f, r2d )
+  !RMN2SP: prolate, oblate spheroidal radial functions, kind 2, small argument.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param x: in: the argument
+  !@param cv: in: the characteristic value
+  !@param df: in: the expansion coefficients
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param r2f: out: the values of the function
+  !@param r2d: out: its derivative
   !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck1
-  real ( kind = 8 ) ck2
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) dn(200)
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gb
-  real ( kind = 8 ) gc
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) j1
-  integer ( kind = 4 ) j2
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) ki
-  integer ( kind = 4 ) l1
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nm1
-  integer ( kind = 4 ) nm2
-  integer ( kind = 4 ) nm3
-  real ( kind = 8 ) pd(0:251)
-  real ( kind = 8 ) pm(0:251)
-  real ( kind = 8 ) qd(0:251)
-  real ( kind = 8 ) qm(0:251)
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) r2d
-  real ( kind = 8 ) r2f
-  real ( kind = 8 ) r3
-  real ( kind = 8 ) r4
-  real ( kind = 8 ) sd
-  real ( kind = 8 ) sd0
-  real ( kind = 8 ) sd1
-  real ( kind = 8 ) sd2
-  real ( kind = 8 ) sdm
-  real ( kind = 8 ) sf
-  real ( kind = 8 ) spd1
-  real ( kind = 8 ) spd2
-  real ( kind = 8 ) spl
-  real ( kind = 8 ) su0
-  real ( kind = 8 ) su1
-  real ( kind = 8 ) su2
-  real ( kind = 8 ) sum
-  real ( kind = 8 ) sw
-  real ( kind = 8 ) x
+  real(8)    :: c
+  real(8)    :: ck1
+  real(8)    :: ck2
+  real(8)    :: cv
+  real(8)    :: df(200)
+  real(8)    :: dn(200)
+  real(8)    :: eps
+  real(8)    :: ga
+  real(8)    :: gb
+  real(8)    :: gc
+  integer(4) :: ip
+  integer(4) :: j
+  integer(4) :: j1
+  integer(4) :: j2
+  integer(4) :: k
+  integer(4) :: kd
+  integer(4) :: ki
+  integer(4) :: l1
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  integer(4) :: nm1
+  integer(4) :: nm2
+  integer(4) :: nm3
+  real(8)    :: pd(0:251)
+  real(8)    :: pm(0:251)
+  real(8)    :: qd(0:251)
+  real(8)    :: qm(0:251)
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: r2d
+  real(8)    :: r2f
+  real(8)    :: r3
+  real(8)    :: r4
+  real(8)    :: sd
+  real(8)    :: sd0
+  real(8)    :: sd1
+  real(8)    :: sd2
+  real(8)    :: sdm
+  real(8)    :: sf
+  real(8)    :: spd1
+  real(8)    :: spd2
+  real(8)    :: spl
+  real(8)    :: su0
+  real(8)    :: su1
+  real(8)    :: su2
+  real(8)    :: sum
+  real(8)    :: sw
+  real(8)    :: x
 
   if ( abs ( df(1) ) < 1.0D-280 ) then
      r2f = 1.0D+300
@@ -22750,7 +25003,9 @@ subroutine rmn2sp ( m, n, c, x, cv, df, kd, r2f, r2d )
 
   return
 end subroutine rmn2sp
-subroutine rswfo ( m, n, c, x, cv, kf, r1f, r1d, r2f, r2d )
+
+
+
 
   !*****************************************************************************80
   !
@@ -22785,46 +25040,70 @@ subroutine rswfo ( m, n, c, x, cv, kf, r1f, r1d, r2f, r2d )
   ! 
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Input, integer ( kind = 4 ) KF, the function code.
+  !    Input, integer(4) KF, the function code.
   !    1, for the first kind
   !    2, for the second kind
   !    3, for both the first and second kinds.
   !
-  !    Output, real ( kind = 8 ) R1F, the radial function of the first kind;
+  !    Output, real(8) R1F, the radial function of the first kind;
   !
-  !    Output, real ( kind = 8 ) R1D, the derivative of the radial function of
+  !    Output, real(8) R1D, the derivative of the radial function of
   !    the first kind;
   !
-  !    Output, real ( kind = 8 ) R2F, the radial function of the second kind;
+  !    Output, real(8) R2F, the radial function of the second kind;
   !
-  !    Output, real ( kind = 8 ) R2D, the derivative of the radial function of
+  !    Output, real(8) R2D, the derivative of the radial function of
   !    the second kind;
+  !
+subroutine rswfo ( m, n, c, x, cv, kf, r1f, r1d, r2f, r2d )
+  !RSWFO computes prolate spheroidal radial function of first and second kinds.
+  !
+  !This procedure computes oblate radial functions of the first
+  !and second kinds, and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KF: the function code. 1, for the first kind 2, for the second kind 3, for both the first and second kinds
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param x: in: the argument
+  !@param cv: in: the characteristic value
+  !@param kf: in: function code: 1 first kind, 2 second kind, 3 both
+  !@param r1f: out: the radial function of the first kind;
+  !@param r1d: out: the derivative of the radial function of the first kind;
+  !@param r2f: out: the radial function of the second kind;
+  !@param r2d: out: the derivative of the radial function of the second kind;
   !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) df(200)
-  integer ( kind = 4 ) id
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) kf
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) r1d
-  real ( kind = 8 ) r1f
-  real ( kind = 8 ) r2d
-  real ( kind = 8 ) r2f
-  real ( kind = 8 ) x
+  real(8)    :: c
+  real(8)    :: cv
+  real(8)    :: df(200)
+  integer(4) :: id
+  integer(4) :: kd
+  integer(4) :: kf
+  integer(4) :: m
+  integer(4) :: n
+  real(8)    :: r1d
+  real(8)    :: r1f
+  real(8)    :: r2d
+  real(8)    :: r2f
+  real(8)    :: x
 
   kd = -1
   call sdmn ( m, n, c, cv, kd, df )
@@ -22845,7 +25124,9 @@ subroutine rswfo ( m, n, c, x, cv, kf, r1f, r1d, r2f, r2d )
 
   return
 end subroutine rswfo
-subroutine rswfp ( m, n, c, x, cv, kf, r1f, r1d, r2f, r2d )
+
+
+
 
   !*****************************************************************************80
   !
@@ -22880,46 +25161,70 @@ subroutine rswfp ( m, n, c, x, cv, kf, r1f, r1d, r2f, r2d )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter;  M = 0, 1, 2, ...
+  !    Input, integer(4) M, the mode parameter;  M = 0, 1, 2, ...
   !
-  !    Input, integer ( kind = 4 ) N, mode parameter, N = M, M + 1, M + 2, ...
+  !    Input, integer(4) N, mode parameter, N = M, M + 1, M + 2, ...
   !
-  !    Input, real ( kind = 8 ) C, spheroidal parameter.
+  !    Input, real(8) C, spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) X, the argument of the radial function, 1 < X.
+  !    Input, real(8) X, the argument of the radial function, 1 < X.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Input, integer ( kind = 4 ) KF, the function code.
+  !    Input, integer(4) KF, the function code.
   !    1, for the first kind
   !    2, for the second kind
   !    3, for both the first and second kinds.
   !
-  !    Output, real ( kind = 8 ) R1F, the radial function of the first kind;
+  !    Output, real(8) R1F, the radial function of the first kind;
   !
-  !    Output, real ( kind = 8 ) R1D, the derivative of the radial function of
+  !    Output, real(8) R1D, the derivative of the radial function of
   !    the first kind;
   !
-  !    Output, real ( kind = 8 ) R2F, the radial function of the second kind;
+  !    Output, real(8) R2F, the radial function of the second kind;
   !
-  !    Output, real ( kind = 8 ) R2D, the derivative of the radial function of
+  !    Output, real(8) R2D, the derivative of the radial function of
   !    the second kind;
+  !
+subroutine rswfp ( m, n, c, x, cv, kf, r1f, r1d, r2f, r2d )
+  !RSWFP computes prolate spheroidal radial function of first and second kinds.
+  !
+  !This procedure computes prolate spheriodal radial functions of the
+  !first and second kinds, and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* KF: the function code. 1, for the first kind 2, for the second kind 3, for both the first and second kinds
+  !
+  !@param m: in: the mode parameter; M = 0, 1, 2, ...
+  !@param n: in: mode parameter, N = M, M + 1, M + 2, ...
+  !@param c: in: spheroidal parameter
+  !@param x: in: the argument of the radial function, 1 < X
+  !@param cv: in: the characteristic value
+  !@param kf: in: function code: 1 first kind, 2 second kind, 3 both
+  !@param r1f: out: the radial function of the first kind;
+  !@param r1d: out: the derivative of the radial function of the first kind;
+  !@param r2f: out: the radial function of the second kind;
+  !@param r2d: out: the derivative of the radial function of the second kind;
   !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) df(200)
-  integer ( kind = 4 ) id
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) kf
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) r1d
-  real ( kind = 8 ) r1f
-  real ( kind = 8 ) r2d
-  real ( kind = 8 ) r2f
-  real ( kind = 8 ) x
+  real(8)    :: c
+  real(8)    :: cv
+  real(8)    :: df(200)
+  integer(4) :: id
+  integer(4) :: kd
+  integer(4) :: kf
+  integer(4) :: m
+  integer(4) :: n
+  real(8)    :: r1d
+  real(8)    :: r1f
+  real(8)    :: r2d
+  real(8)    :: r2f
+  real(8)    :: x
 
   kd = 1
   call sdmn ( m, n, c, cv, kd, df )
@@ -22937,7 +25242,9 @@ subroutine rswfp ( m, n, c, x, cv, kf, r1f, r1d, r2f, r2d )
 
   return
 end subroutine rswfp
-subroutine scka ( m, n, c, cv, kd, ck )
+
+
+
 
   !*****************************************************************************80
   !
@@ -22967,47 +25274,60 @@ subroutine scka ( m, n, c, cv, kd, ck )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter.
+  !    Input, integer(4) M, the mode parameter.
   !
-  !    Input, integer ( kind = 4 ) N, the mode parameter.
+  !    Input, integer(4) N, the mode parameter.
   !
-  !    Input, real ( kind = 8 ) C, the spheroidal parameter.
+  !    Input, real(8) C, the spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Output, real ( kind = 8 ) CK(*), the expansion coefficients.
+  !    Output, real(8) CK(*), the expansion coefficients.
   !    CK(1), CK(2),... correspond to c0, c2,..., and so on.
   !       
+subroutine scka ( m, n, c, cv, kd, ck )
+  !SCKA: expansion coefficients for prolate and oblate spheroidal functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter
+  !@param n: in: the mode parameter
+  !@param c: in: the spheroidal parameter
+  !@param cv: in: the characteristic value
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param ck: out: the expansion coefficients. CK(1), CK(2), ... correspond to c0, c2, ..., and so on
+  !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck(200)
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  real ( kind = 8 ) fl
-  real ( kind = 8 ) fs
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k1
-  integer ( kind = 4 ) kb
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) su1
-  real ( kind = 8 ) su2
+  real(8)    :: c
+  real(8)    :: ck(200)
+  real(8)    :: cs
+  real(8)    :: cv
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: f2
+  real(8)    :: fl
+  real(8)    :: fs
+  integer(4) :: ip
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: k1
+  integer(4) :: kb
+  integer(4) :: kd
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: s0
+  real(8)    :: su1
+  real(8)    :: su2
 
   if ( c <= 1.0D-10 ) then
      c = 1.0D-10
@@ -23121,7 +25441,9 @@ subroutine scka ( m, n, c, cv, kd, ck )
 
   return
 end subroutine scka
-subroutine sckb ( m, n, c, df, ck )
+
+
+
 
   !*****************************************************************************80
   !
@@ -23151,38 +25473,50 @@ subroutine sckb ( m, n, c, df, ck )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter.
+  !    Input, integer(4) M, the mode parameter.
   !
-  !    Input, integer ( kind = 4 ) N, the mode parameter.
+  !    Input, integer(4) N, the mode parameter.
   !
-  !    Input, real ( kind = 8 ) C, the spheroidal parameter.
+  !    Input, real(8) C, the spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) DF(*), the expansion coefficients DK.
+  !    Input, real(8) DF(*), the expansion coefficients DK.
   !
-  !    Output, real ( kind = 8 ) CK(*), the expansion coefficients CK.
+  !    Output, real(8) CK(*), the expansion coefficients CK.
+  !
+subroutine sckb ( m, n, c, df, ck )
+  !SCKB: expansion coefficients for prolate and oblate spheroidal functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter
+  !@param n: in: the mode parameter
+  !@param c: in: the spheroidal parameter
+  !@param df: in: the expansion coefficients DK
+  !@param ck: out: the expansion coefficients CK
   !
   implicit none
 
-  real ( kind = 8 ) c
-  real ( kind = 8 ) ck(200)
-  real ( kind = 8 ) d1
-  real ( kind = 8 ) d2
-  real ( kind = 8 ) d3
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) fac
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) i1
-  integer ( kind = 4 ) i2
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) reg
-  real ( kind = 8 ) sum
-  real ( kind = 8 ) sw
+  real(8)    :: c
+  real(8)    :: ck(200)
+  real(8)    :: d1
+  real(8)    :: d2
+  real(8)    :: d3
+  real(8)    :: df(200)
+  real(8)    :: fac
+  integer(4) :: i
+  integer(4) :: i1
+  integer(4) :: i2
+  integer(4) :: ip
+  integer(4) :: k
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: reg
+  real(8)    :: sum
+  real(8)    :: sw
 
   c = max ( c, 1.0D-10 )
 
@@ -23241,7 +25575,9 @@ subroutine sckb ( m, n, c, df, ck )
 
   return
 end subroutine sckb
-subroutine sdmn ( m, n, c, cv, kd, df )
+
+
+
 
   !*****************************************************************************80
   !
@@ -23271,58 +25607,75 @@ subroutine sdmn ( m, n, c, cv, kd, df )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter.
+  !    Input, integer(4) M, the mode parameter.
   !
-  !    Input, integer ( kind = 4 ) N, the mode parameter.
+  !    Input, integer(4) N, the mode parameter.
   !
-  !    Input, real ( kind = 8 ) C, the spheroidal parameter.
+  !    Input, real(8) C, the spheroidal parameter.
   !
-  !    Input, real ( kind = 8 ) CV, the characteristic value.
+  !    Input, real(8) CV, the characteristic value.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Output, real ( kind = 8 ) DF(*), expansion coefficients;
+  !    Output, real(8) DF(*), expansion coefficients;
   !    DF(1), DF(2), ... correspond to d0, d2, ... for even n-m and d1,
   !    d3, ... for odd n-m
   !
+subroutine sdmn ( m, n, c, cv, kd, df )
+  !SDMN: expansion coefficients for prolate and oblate spheroidal functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !Details of the arguments:
+  !
+  !* DF: expansion coefficients; DF(1), DF(2), ... correspond to d0, d2, ... for even n-m and d1, d3, ... for odd n-m
+  !
+  !@param m: in: the mode parameter
+  !@param n: in: the mode parameter
+  !@param c: in: the spheroidal parameter
+  !@param cv: in: the characteristic value
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param df: out: expansion coefficients: d0, d2, ... for even n-m, d1, d3, ... for odd n-m
+  !
   implicit none
 
-  real ( kind = 8 ) a(200)
-  real ( kind = 8 ) c
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) d(200)
-  real ( kind = 8 ) d2k
-  real ( kind = 8 ) df(200)
-  real ( kind = 8 ) dk0
-  real ( kind = 8 ) dk1
-  real ( kind = 8 ) dk2
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  real ( kind = 8 ) f2
-  real ( kind = 8 ) fl
-  real ( kind = 8 ) fs
-  real ( kind = 8 ) g(200)
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) ip
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k1
-  integer ( kind = 4 ) kb
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r3
-  real ( kind = 8 ) r4
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) su1
-  real ( kind = 8 ) su2
-  real ( kind = 8 ) sw
+  real(8)    :: a(200)
+  real(8)    :: c
+  real(8)    :: cs
+  real(8)    :: cv
+  real(8)    :: d(200)
+  real(8)    :: d2k
+  real(8)    :: df(200)
+  real(8)    :: dk0
+  real(8)    :: dk1
+  real(8)    :: dk2
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  real(8)    :: f2
+  real(8)    :: fl
+  real(8)    :: fs
+  real(8)    :: g(200)
+  integer(4) :: i
+  integer(4) :: ip
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: k1
+  integer(4) :: kb
+  integer(4) :: kd
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  real(8)    :: r1
+  real(8)    :: r3
+  real(8)    :: r4
+  real(8)    :: s0
+  real(8)    :: su1
+  real(8)    :: su2
+  real(8)    :: sw
 
   nm = 25 + int ( 0.5D+00 * ( n - m ) + c )
 
@@ -23475,7 +25828,9 @@ subroutine sdmn ( m, n, c, cv, kd, df )
 
   return
 end subroutine sdmn
-subroutine segv ( m, n, c, kd, cv, eg )
+
+
+
 
   !*****************************************************************************80
   !
@@ -23505,56 +25860,69 @@ subroutine segv ( m, n, c, kd, cv, eg )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) M, the mode parameter.
+  !    Input, integer(4) M, the mode parameter.
   !
-  !    Input, integer ( kind = 4 ) N, the mode parameter.
+  !    Input, integer(4) N, the mode parameter.
   !
-  !    Input, real ( kind = 8 ) C, the spheroidal parameter.
+  !    Input, real(8) C, the spheroidal parameter.
   !
-  !    Input, integer ( kind = 4 ) KD, the function code.
+  !    Input, integer(4) KD, the function code.
   !    1, the prolate function.
   !    -1, the oblate function.
   !
-  !    Output, real ( kind = 8 ) CV, the characteristic value.
+  !    Output, real(8) CV, the characteristic value.
   !
-  !    Output, real ( kind = 8 ) EG(*), the characteristic value for 
+  !    Output, real(8) EG(*), the characteristic value for 
   !    mode parameters m and n.  ( L = n - m + 1 )
+  !
+subroutine segv ( m, n, c, kd, cv, eg )
+  !SEGV computes the characteristic values of spheroidal wave functions.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param m: in: the mode parameter
+  !@param n: in: the mode parameter
+  !@param c: in: the spheroidal parameter
+  !@param kd: in: the function code. 1, the prolate function. -1, the oblate function
+  !@param cv: out: the characteristic value
+  !@param eg: out: the characteristic value for mode parameters m and n. ( L = n - m + 1 )
   !
   implicit none
 
-  real ( kind = 8 ) a(300)
-  real ( kind = 8 ) b(100)
-  real ( kind = 8 ) c
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) cv
-  real ( kind = 8 ) cv0(100)
-  real ( kind = 8 ) d(300)
-  real ( kind = 8 ) d2k
-  real ( kind = 8 ) dk0
-  real ( kind = 8 ) dk1
-  real ( kind = 8 ) dk2
-  real ( kind = 8 ) e(300)
-  real ( kind = 8 ) eg(200)
-  real ( kind = 8 ) f(300)
-  real ( kind = 8 ) g(300)
-  real ( kind = 8 ) h(100)
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) icm
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) k1
-  integer ( kind = 4 ) kd
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nm
-  integer ( kind = 4 ) nm1
-  real ( kind = 8 ) s
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) x1
-  real ( kind = 8 ) xa
-  real ( kind = 8 ) xb
+  real(8)    :: a(300)
+  real(8)    :: b(100)
+  real(8)    :: c
+  real(8)    :: cs
+  real(8)    :: cv
+  real(8)    :: cv0(100)
+  real(8)    :: d(300)
+  real(8)    :: d2k
+  real(8)    :: dk0
+  real(8)    :: dk1
+  real(8)    :: dk2
+  real(8)    :: e(300)
+  real(8)    :: eg(200)
+  real(8)    :: f(300)
+  real(8)    :: g(300)
+  real(8)    :: h(100)
+  integer(4) :: i
+  integer(4) :: icm
+  integer(4) :: j
+  integer(4) :: k
+  integer(4) :: k1
+  integer(4) :: kd
+  integer(4) :: l
+  integer(4) :: m
+  integer(4) :: n
+  integer(4) :: nm
+  integer(4) :: nm1
+  real(8)    :: s
+  real(8)    :: t
+  real(8)    :: t1
+  real(8)    :: x1
+  real(8)    :: xa
+  real(8)    :: xb
 
   if ( c < 1.0D-10 ) then
      do i = 1, n
@@ -23691,7 +26059,9 @@ subroutine segv ( m, n, c, kd, cv, eg )
 
   return
 end subroutine segv
-subroutine sphi ( n, x, nm, si, di )
+
+
+
 
   !*****************************************************************************80
   !
@@ -23721,32 +26091,44 @@ subroutine sphi ( n, x, nm, si, di )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order of In(X).
+  !    Input, integer(4) N, the order of In(X).
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) SI(0:N), DI(0:N), the values and derivatives
+  !    Output, real(8) SI(0:N), DI(0:N), the values and derivatives
   !    of the function of orders 0 through N.
+  !
+subroutine sphi ( n, x, nm, si, di )
+  !SPHI computes spherical Bessel functions in(x) and their derivatives in'(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order of In(X)
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param si: out: the values of the function of orders 0 through N
+  !@param di: out: the derivatives of the function of orders 0 through N
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) di(0:n)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-    ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) si(0:n)
-  real ( kind = 8 ) si0
-  real ( kind = 8 ) x
+  real(8)    :: cs
+  real(8)    :: di(0:n)
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: k
+  integer(4) :: m
+    ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: si(0:n)
+  real(8)    :: si0
+  real(8)    :: x
 
   nm = n
 
@@ -23796,7 +26178,9 @@ subroutine sphi ( n, x, nm, si, di )
 
   return
 end subroutine sphi
-subroutine sphj ( n, x, nm, sj, dj )
+
+
+
 
   !*****************************************************************************80
   !
@@ -23826,34 +26210,46 @@ subroutine sphj ( n, x, nm, sj, dj )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) SJ(0:N), the values of jn(x).
+  !    Output, real(8) SJ(0:N), the values of jn(x).
   !
-  !    Output, real ( kind = 8 ) DJ(0:N), the values of jn'(x).
+  !    Output, real(8) DJ(0:N), the values of jn'(x).
+  !
+subroutine sphj ( n, x, nm, sj, dj )
+  !SPHJ computes spherical Bessel functions jn(x) and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param sj: out: the values of jn(x)
+  !@param dj: out: the values of jn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) cs
-  real ( kind = 8 ) dj(0:n)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) m
-  ! integer ( kind = 4 ) msta1
-  ! integer ( kind = 4 ) msta2
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) sa
-  real ( kind = 8 ) sb
-  real ( kind = 8 ) sj(0:n)
-  real ( kind = 8 ) x
+  real(8)    :: cs
+  real(8)    :: dj(0:n)
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: k
+  integer(4) :: m
+  ! integer(4) msta1
+  ! integer(4) msta2
+  integer(4) :: nm
+  real(8)    :: sa
+  real(8)    :: sb
+  real(8)    :: sj(0:n)
+  real(8)    :: x
 
   nm = n
 
@@ -23911,7 +26307,9 @@ subroutine sphj ( n, x, nm, sj, dj )
 
   return
 end subroutine sphj
-subroutine sphk ( n, x, nm, sk, dk )
+
+
+
 
   !*****************************************************************************80
   !
@@ -23946,27 +26344,42 @@ subroutine sphk ( n, x, nm, sk, dk )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) SK(0:N), DK(0:N), the values of kn(x) and kn'(x).
+  !    Output, real(8) SK(0:N), DK(0:N), the values of kn(x) and kn'(x).
+  !
+subroutine sphk ( n, x, nm, sk, dk )
+  !SPHK computes modified spherical Bessel functions kn(x) and derivatives.
+  !
+  !This procedure computes modified spherical Bessel functions
+  !of the second kind, kn(x) and kn'(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param sk: out: kn(x)
+  !@param dk: out: kn'(x)
   !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) dk(0:n)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) sk(0:n)
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) x
+  real(8)    :: dk(0:n)
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: k
+  integer(4) :: nm
+  real(8)    :: sk(0:n)
+  real(8)    :: pi
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   nm = n
@@ -24001,7 +26414,9 @@ subroutine sphk ( n, x, nm, sk, dk )
 
   return
 end subroutine sphk
-subroutine sphy ( n, x, nm, sy, dy )
+
+
+
 
   !*****************************************************************************80
   !
@@ -24031,26 +26446,38 @@ subroutine sphy ( n, x, nm, sy, dy )
   !
   !  Parameters:
   !
-  !    Input, integer ( kind = 4 ) N, the order.
+  !    Input, integer(4) N, the order.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, integer ( kind = 4 ) NM, the highest order computed.
+  !    Output, integer(4) NM, the highest order computed.
   !
-  !    Output, real ( kind = 8 ) SY(0:N), DY(0:N), the values of yn(x) and yn'(x).
+  !    Output, real(8) SY(0:N), DY(0:N), the values of yn(x) and yn'(x).
   ! 
+subroutine sphy ( n, x, nm, sy, dy )
+  !SPHY computes spherical Bessel functions yn(x) and their derivatives.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param n: in: the order
+  !@param x: in: the argument
+  !@param nm: out: the highest order computed
+  !@param sy: out: yn(x)
+  !@param dy: out: yn'(x)
+  !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer(4) :: n
 
-  real ( kind = 8 ) dy(0:n)
-  real ( kind = 8 ) f
-  real ( kind = 8 ) f0
-  real ( kind = 8 ) f1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) nm
-  real ( kind = 8 ) sy(0:n)
-  real ( kind = 8 ) x
+  real(8)    :: dy(0:n)
+  real(8)    :: f
+  real(8)    :: f0
+  real(8)    :: f1
+  integer(4) :: k
+  integer(4) :: nm
+  real(8)    :: sy(0:n)
+  real(8)    :: x
 
   nm = n
 
@@ -24084,7 +26511,9 @@ subroutine sphy ( n, x, nm, sy, dy )
 
   return
 end subroutine sphy
-subroutine stvh0 ( x, sh0 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -24114,26 +26543,35 @@ subroutine stvh0 ( x, sh0 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) SH0, the value of H0(x).
+  !    Output, real(8) SH0, the value of H0(x).
+  !
+subroutine stvh0 ( x, sh0 )
+  !STVH0 computes the Struve function H0(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param sh0: out: the value of H0(x)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) by0
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  real ( kind = 8 ) p0
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) q0
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
-  real ( kind = 8 ) sh0
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) ta0
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: by0
+  integer(4) :: k
+  integer(4) :: km
+  real(8)    :: p0
+  real(8)    :: pi
+  real(8)    :: q0
+  real(8)    :: r
+  real(8)    :: s
+  real(8)    :: sh0
+  real(8)    :: t
+  real(8)    :: t2
+  real(8)    :: ta0
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   s = 1.0D+00
@@ -24196,7 +26634,9 @@ subroutine stvh0 ( x, sh0 )
 
   return
 end subroutine stvh0
-subroutine stvh1 ( x, sh1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -24226,26 +26666,35 @@ subroutine stvh1 ( x, sh1 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) SH1, the value of H1(x).
+  !    Output, real(8) SH1, the value of H1(x).
+  !
+subroutine stvh1 ( x, sh1 )
+  !STVH1 computes the Struve function H1(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param sh1: out: the value of H1(x)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) by1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  real ( kind = 8 ) p1
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) q1
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
-  real ( kind = 8 ) sh1
-  real ( kind = 8 ) t
-  real ( kind = 8 ) t2
-  real ( kind = 8 ) ta1
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: by1
+  integer(4) :: k
+  integer(4) :: km
+  real(8)    :: p1
+  real(8)    :: pi
+  real(8)    :: q1
+  real(8)    :: r
+  real(8)    :: s
+  real(8)    :: sh1
+  real(8)    :: t
+  real(8)    :: t2
+  real(8)    :: ta1
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   r = 1.0D+00
@@ -24309,7 +26758,9 @@ subroutine stvh1 ( x, sh1 )
 
   return
 end subroutine stvh1
-subroutine stvhv ( v, x, hv )
+
+
+
 
   !*****************************************************************************80
   !
@@ -24339,47 +26790,57 @@ subroutine stvhv ( v, x, hv )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of the function.
+  !    Input, real(8) V, the order of the function.
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) HV, the value of Hv(x).
+  !    Output, real(8) HV, the value of Hv(x).
+  !
+subroutine stvhv ( v, x, hv )
+  !STVHV computes the Struve function Hv(x) with arbitrary order v.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of the function
+  !@param x: in: the argument
+  !@param hv: out: the value of Hv(x)
   !
   implicit none
 
-  real ( kind = 8 ) bf
-  real ( kind = 8 ) bf0
-  real ( kind = 8 ) bf1
-  real ( kind = 8 ) by0
-  real ( kind = 8 ) by1
-  real ( kind = 8 ) byv
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gb
-  real ( kind = 8 ) hv
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pu0
-  real ( kind = 8 ) pu1
-  real ( kind = 8 ) qu0
-  real ( kind = 8 ) qu1
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) s
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) sa
-  real ( kind = 8 ) sr
-  real ( kind = 8 ) t0
-  real ( kind = 8 ) t1
-  real ( kind = 8 ) u
-  real ( kind = 8 ) u0
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) va
-  real ( kind = 8 ) vb
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) x
+  real(8)    :: bf
+  real(8)    :: bf0
+  real(8)    :: bf1
+  real(8)    :: by0
+  real(8)    :: by1
+  real(8)    :: byv
+  real(8)    :: ga
+  real(8)    :: gb
+  real(8)    :: hv
+  integer(4) :: k
+  integer(4) :: l
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: pu0
+  real(8)    :: pu1
+  real(8)    :: qu0
+  real(8)    :: qu1
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: s
+  real(8)    :: s0
+  real(8)    :: sa
+  real(8)    :: sr
+  real(8)    :: t0
+  real(8)    :: t1
+  real(8)    :: u
+  real(8)    :: u0
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: va
+  real(8)    :: vb
+  real(8)    :: vt
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
 
@@ -24494,7 +26955,9 @@ subroutine stvhv ( v, x, hv )
 
   return
 end subroutine stvhv
-subroutine stvl0 ( x, sl0 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -24524,22 +26987,31 @@ subroutine stvl0 ( x, sl0 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) SL0, the function value.
+  !    Output, real(8) SL0, the function value.
+  !
+subroutine stvl0 ( x, sl0 )
+  !STVL0 computes the modified Struve function L0(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param sl0: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) bi0
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
-  real ( kind = 8 ) sl0
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: a1
+  real(8)    :: bi0
+  integer(4) :: k
+  integer(4) :: km
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: s
+  real(8)    :: sl0
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   s = 1.0D+00
@@ -24593,7 +27065,9 @@ subroutine stvl0 ( x, sl0 )
 
   return
 end subroutine stvl0
-subroutine stvl1 ( x, sl1 )
+
+
+
 
   !*****************************************************************************80
   !
@@ -24623,21 +27097,30 @@ subroutine stvl1 ( x, sl1 )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Output, real ( kind = 8 ) SL1, the function value.
+  !    Output, real(8) SL1, the function value.
+  !
+subroutine stvl1 ( x, sl1 )
+  !STVL1 computes the modified Struve function L1(x).
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param x: in: the argument
+  !@param sl1: out: the function value
   !
   implicit none
 
-  real ( kind = 8 ) a1
-  real ( kind = 8 ) bi1
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) km
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) s
-  real ( kind = 8 ) sl1
-  real ( kind = 8 ) x
+  real(8)    :: a1
+  real(8)    :: bi1
+  integer(4) :: k
+  integer(4) :: km
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: s
+  real(8)    :: sl1
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
   r = 1.0D+00
@@ -24688,7 +27171,9 @@ subroutine stvl1 ( x, sl1 )
 
   return
 end subroutine stvl1
-subroutine stvlv ( v, x, slv )
+
+
+
 
   !*****************************************************************************80
   !
@@ -24718,40 +27203,50 @@ subroutine stvlv ( v, x, slv )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) V, the order of Lv(x).
+  !    Input, real(8) V, the order of Lv(x).
   !
-  !    Input, real ( kind = 8 ) X, the argument of Lv(x).
+  !    Input, real(8) X, the argument of Lv(x).
   !
-  !    Output, real ( kind = 8 ) SLV, the value of Lv(x).
+  !    Output, real(8) SLV, the value of Lv(x).
+  !
+subroutine stvlv ( v, x, slv )
+  !STVLV computes the modified Struve function Lv(x) with arbitary order.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param v: in: the order of Lv(x)
+  !@param x: in: the argument of Lv(x)
+  !@param slv: out: the value of Lv(x)
   !
   implicit none
 
-  real ( kind = 8 ) bf
-  real ( kind = 8 ) bf0
-  real ( kind = 8 ) bf1
-  real ( kind = 8 ) biv
-  real ( kind = 8 ) biv0
-  real ( kind = 8 ) ga
-  real ( kind = 8 ) gb
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) n
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) r2
-  real ( kind = 8 ) s
-  real ( kind = 8 ) s0
-  real ( kind = 8 ) sa
-  real ( kind = 8 ) slv
-  real ( kind = 8 ) u
-  real ( kind = 8 ) u0
-  real ( kind = 8 ) v
-  real ( kind = 8 ) v0
-  real ( kind = 8 ) va
-  real ( kind = 8 ) vb
-  real ( kind = 8 ) vt
-  real ( kind = 8 ) x
+  real(8)    :: bf
+  real(8)    :: bf0
+  real(8)    :: bf1
+  real(8)    :: biv
+  real(8)    :: biv0
+  real(8)    :: ga
+  real(8)    :: gb
+  integer(4) :: k
+  integer(4) :: l
+  integer(4) :: n
+  real(8)    :: pi
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: r2
+  real(8)    :: s
+  real(8)    :: s0
+  real(8)    :: sa
+  real(8)    :: slv
+  real(8)    :: u
+  real(8)    :: u0
+  real(8)    :: v
+  real(8)    :: v0
+  real(8)    :: va
+  real(8)    :: vb
+  real(8)    :: vt
+  real(8)    :: x
 
   pi = 3.141592653589793D+00
 
@@ -24846,7 +27341,7 @@ subroutine stvlv ( v, x, slv )
 end subroutine stvlv
 
 
-subroutine vvla ( va, x, pv )
+
 
   !*****************************************************************************80
   !
@@ -24876,27 +27371,37 @@ subroutine vvla ( va, x, pv )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) VA, the order nu.
+  !    Input, real(8) VA, the order nu.
   !
-  !    Output, real ( kind = 8 ) PV, the value of V(nu,x).
+  !    Output, real(8) PV, the value of V(nu,x).
+  !
+subroutine vvla ( va, x, pv )
+  !VVLA computes parabolic cylinder function Vv(x) for large arguments.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param va: in: the order nu
+  !@param x: in: the argument
+  !@param pv: out: the value of V(nu,x)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) dsl
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) gl
-  integer ( kind = 4 ) k
-  real ( kind = 8 ) pdl
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pv
-  real ( kind = 8 ) qe
-  real ( kind = 8 ) r
-  real ( kind = 8 ) va
-  real ( kind = 8 ) x
-  real ( kind = 8 ) x1
+  real(8)    :: a0
+  real(8)    :: dsl
+  real(8)    :: eps
+  real(8)    :: gl
+  integer(4) :: k
+  real(8)    :: pdl
+  real(8)    :: pi
+  real(8)    :: pv
+  real(8)    :: qe
+  real(8)    :: r
+  real(8)    :: va
+  real(8)    :: x
+  real(8)    :: x1
 
   pi = 3.141592653589793D+00
   eps = 1.0D-12
@@ -24926,7 +27431,9 @@ subroutine vvla ( va, x, pv )
 
   return
 end subroutine vvla
-subroutine vvsa ( va, x, pv )
+
+
+
 
   !*****************************************************************************80
   !
@@ -24956,36 +27463,46 @@ subroutine vvsa ( va, x, pv )
   !
   !  Parameters:
   !
-  !    Input, real ( kind = 8 ) X, the argument.
+  !    Input, real(8) X, the argument.
   !
-  !    Input, real ( kind = 8 ) VA, the order nu.
+  !    Input, real(8) VA, the order nu.
   !
-  !    Output, real ( kind = 8 ) PV, the value of V(nu,x).
+  !    Output, real(8) PV, the value of V(nu,x).
+  !
+subroutine vvsa ( va, x, pv )
+  !VVSA computes parabolic cylinder function V(nu,x) for small arguments.
+  !
+  !Original FORTRAN77 version by Shanjie Zhang and Jianming Jin.
+  !Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions, Wiley, 1996.
+  !
+  !@param va: in: the order nu
+  !@param x: in: the argument
+  !@param pv: out: the value of V(nu,x)
   !
   implicit none
 
-  real ( kind = 8 ) a0
-  real ( kind = 8 ) ep
-  real ( kind = 8 ) eps
-  real ( kind = 8 ) fac
-  real ( kind = 8 ) g1
-  real ( kind = 8 ) ga0
-  real ( kind = 8 ) gm
-  real ( kind = 8 ) gw
-  integer ( kind = 4 ) m
-  real ( kind = 8 ) pi
-  real ( kind = 8 ) pv
-  real ( kind = 8 ) r
-  real ( kind = 8 ) r1
-  real ( kind = 8 ) sq2
-  real ( kind = 8 ) sv
-  real ( kind = 8 ) sv0
-  real ( kind = 8 ) v1
-  real ( kind = 8 ) va
-  real ( kind = 8 ) va0
-  real ( kind = 8 ) vb0
-  real ( kind = 8 ) vm
-  real ( kind = 8 ) x
+  real(8)    :: a0
+  real(8)    :: ep
+  real(8)    :: eps
+  real(8)    :: fac
+  real(8)    :: g1
+  real(8)    :: ga0
+  real(8)    :: gm
+  real(8)    :: gw
+  integer(4) :: m
+  real(8)    :: pi
+  real(8)    :: pv
+  real(8)    :: r
+  real(8)    :: r1
+  real(8)    :: sq2
+  real(8)    :: sv
+  real(8)    :: sv0
+  real(8)    :: v1
+  real(8)    :: va
+  real(8)    :: va0
+  real(8)    :: vb0
+  real(8)    :: vm
+  real(8)    :: x
 
   eps = 1.0D-15
   pi = 3.141592653589793D+00
