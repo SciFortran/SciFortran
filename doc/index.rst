@@ -13,13 +13,13 @@ Welcome
 **SciFortran** is an open-source Fortran library for mathematics and science. The library aims to provide a simple and generic environment for any scientific or mathematic computations. The project is largely inspired by `SciPy` for `Python` and tries to closely follow its guidelines and naming convention. 
 
 Although the library reached through years a rather advanced
-development stage there are still many important areas which are still
+stage and is being actively developed, there are still many important areas which are
 not covered.
 
 
 Authors
 =================
-The SciFortran project has been initially put forward by AA however
+The **SciFortran** project has been initially put forward by AA, however
 others developers give and have given crucial contributions to the
 library:   
 
