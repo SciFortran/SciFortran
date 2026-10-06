@@ -105,7 +105,7 @@ module SF_PARSE_INPUT
 
   public  :: parse_cmd_variable
   public  :: parse_input_variable
-
+  public  :: check_input_variable
   public  :: save_input_file
   public  :: save_input
   public  :: print_input
@@ -115,6 +115,41 @@ module SF_PARSE_INPUT
 
 
 contains
+
+!This subroutine checks if the variable "name" is present in the input list.
+!
+!The output is a boolean: True if the variable is present, False if it is not present. 
+   function check_input_variable(name,file) result(check_input)
+      logical                  :: check_input
+      character(len=*)         :: name      ! name of the variable in file/command line (case insens.)
+      character(len=*)         :: file      ! input file name
+      character(len=len(name)) :: name_
+      type(input_variable)     :: var
+      integer                  :: i,unit,pos
+      integer                  :: status
+      logical                  :: bool
+      character(len=255)       :: buffer
+      name_=name;call upper_case(name_)
+      check_input=.false.
+      inquire(file=file,exist=bool)
+      if(bool)then
+         unit=free_unit()
+         open(unit,file=file)
+         status=0
+         var_search: do while(status>=0)
+            read(unit,"(A255)",iostat=status)buffer
+            pos=scan_comment(buffer);if(pos/=0)buffer=buffer(1:pos-1)
+            var = scan_input_variable(trim(buffer))
+            if(var%name==name_)then
+               check_input=.true.
+               exit var_search
+            endif
+         enddo var_search
+         close(unit)
+      endif
+      return
+   end function check_input_variable
+
 
 
 
