@@ -116,10 +116,9 @@ module SF_PARSE_INPUT
 
 contains
 
-!This subroutine checks if the variable "name" is present in the input list.
-!
-!The output is a boolean: True if the variable is present, False if it is not present. 
    function check_input_variable(name,file) result(check_input)
+      !This subroutine checks if the variable "name" is present in the input list.
+      !The output is a boolean: :code:`True` if the variable is present, :code:`False` if it is not present. 
       logical                  :: check_input
       character(len=*)         :: name      ! name of the variable in file/command line (case insens.)
       character(len=*)         :: file      ! input file name
