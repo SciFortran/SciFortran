@@ -200,80 +200,80 @@ MODULE SF_SPARSE
   USE SF_SPARSE_COMMON, only: sparse_matrix
   USE SF_SPARSE_CSR_D, only: &
     sparse_dmatrix_csr, &
-    as_csr, &
-    sp_eye_csr_d, &
-    assignment(=), &
-    operator(+), &
-    operator(-), &
-    operator(*), &
-    operator(/), &
-    operator(.m.), &
-    operator(.x.), &
-    kron, &
-    shape, &
-    transpose, &
-    hconjg, &
-    matmul, &
+    as_csr            , &
+    sp_eye_csr_d      , &
+    assignment(=)     , &
+    operator(+)       , &
+    operator(-)       , &
+    operator(*)       , &
+    operator(/)       , &
+    operator(.m.)     , &
+    operator(.x.)     , &
+    kron              , &
+    shape             , &
+    transpose         , &
+    hconjg            , &
+    matmul            , &
     as_matrix
 #ifdef _MPI
   USE SF_SPARSE_CSR_D, only: AllGather_MPI
 #endif
   USE SF_SPARSE_CSR_Z, only: &
     sparse_zmatrix_csr, &
-    as_csr, &
-    sp_eye_csr_z, &
-    assignment(=), &
-    operator(+), &
-    operator(-), &
-    operator(*), &
-    operator(/), &
-    operator(.m.), &
-    operator(.x.), &
-    kron, &
-    shape, &
-    transpose, &
-    hconjg, &
-    matmul, &
+    as_csr            , &
+    sp_eye_csr_z      , &
+    assignment(=)     , &
+    operator(+)       , &
+    operator(-)       , &
+    operator(*)       , &
+    operator(/)       , &
+    operator(.m.)     , &
+    operator(.x.)     , &
+    kron              , &
+    shape             , &
+    transpose         , &
+    hconjg            , &
+    matmul            , &
     as_matrix
 #ifdef _MPI
   USE SF_SPARSE_CSR_Z, only: AllGather_MPI
 #endif
   USE SF_SPARSE_CSC_D, only: &
     sparse_dmatrix_csc, &
-    as_csc, &
-    sp_eye_csc_d, &
-    assignment(=), &
-    operator(+), &
-    operator(-), &
-    operator(*), &
-    operator(/), &
-    operator(.m.), &
-    operator(.x.), &
-    kron, &
-    shape, &
-    transpose, &
-    hconjg, &
-    matmul, &
+    as_csc            , &
+    sp_eye_csc_d      , &
+    assignment(=)     , &
+    operator(+)       , &
+    operator(-)       , &
+    operator(*)       , &
+    operator(/)       , &
+    operator(.m.)     , &
+    operator(.x.)     , &
+    kron              , &
+    shape             , &
+    transpose         , &
+    hconjg            , &
+    matmul            , &
     as_matrix
 #ifdef _MPI
   USE SF_SPARSE_CSC_D, only: AllGather_MPI
 #endif
   USE SF_SPARSE_CSC_Z, only: &
     sparse_zmatrix_csc, &
-    as_csc, &
-    sp_eye_csc_z, &
-    assignment(=), &
-    operator(+), &
-    operator(-), &
-    operator(*), &
-    operator(/), &
-    operator(.m.), &
-    operator(.x.), &
-    kron, &
-    shape, &
-    transpose, &
-    hconjg, &
-    matmul, &
+    as_csc            , &
+    sp_eye_csc_z      , &
+    assignment(=)     , &
+    operator(+)       , &
+    operator(-)       , &
+    operator(*)       , &
+    operator(/)       , &
+    operator(.m.)     , &
+    operator(.x.)     , &
+    kron              , &
+    shape             , &
+    transpose         , &
+    hconjg            , &
+    matmul            , &
     as_matrix
 #ifdef _MPI
   USE SF_SPARSE_CSC_Z, only: AllGather_MPI
