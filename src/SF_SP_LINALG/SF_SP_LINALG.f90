@@ -161,6 +161,10 @@ module SF_SP_LINALG
 
   public :: primme_matvec_d
   public :: primme_matvec_z
+  public :: primme_matmat_d
+  public :: primme_matmat_z
+  public :: primme_preconditioner_d
+  public :: primme_preconditioner_z
   public :: primme_global_sum_real
   !
   !
